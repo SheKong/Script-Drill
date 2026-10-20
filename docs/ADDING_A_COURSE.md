@@ -77,7 +77,7 @@ export const newCourse: Course = {
 - `segments`：可选的、人工核对的词内结构，不靠字符替换推断。
 - `aliases`：输入可接受别名，只添加真的合理变体。
 - `conventionalNames`：地图等语境中的惯用拉丁名称，与主转写分别展示，也可输入匹配；不把它们误标成规范方案。
-- `pronunciation.recording`：可选的真人录音，包含本地 `src`、`title`、`sourceUrl`、`author`、`license`、`licenseUrl`；必须先核对音值与许可。
+- `pronunciation.recording`：可选的真人录音，包含本地 `src`、`title`、`sourceUrl`、`author`、`license`、`licenseUrl`；必须先核对音值与许可。语言词语、字母名称或例词另记 `spokenText`，与 `speech.text` 保持一致，保证本地录音、设备合成和在线收听是同一示范范围；共享例词可复用同一文件。
 - `pronunciation.speech`：可选的 `{ text, label, lang? }`。必须显式指定可读原文和示范范围，例如“字母名称，非孤立辅音”或“元音例词”；不自动朗读字母/占位符/IPA。`lang` 缺省取课程 `locale`，浏览器没有同语言声音就明确降级，不使用英语声音。
 
 抽象规则使用 `rulePrompt`、`ruleAnswer`、3 个 `ruleChoices` 表达一个已审定的判断；这属于知识编写，而不是在出题组件中插入语言分支。

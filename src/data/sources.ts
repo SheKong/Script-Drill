@@ -35,7 +35,19 @@ export const sources: Source[] = [
     id: 'speech-api', title: 'Web Speech API · SpeechSynthesis',
     organization: 'MDN · 浏览器语音合成接口',
     url: 'https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis',
-    description: '语音列表由浏览器和设备提供，不能保证装有泰语语音。只选择匹配语言的声音；缺少语音、超时或播放失败时明确提示，不切换到英语读音。部分声音可能使用系统厂商的联网服务。',
+    description: '未收录真人音频时的可选合成方案，不是泰语发音的唯一入口。只选择匹配语言的声音，不切换到英语；缺少声音时提供系统安装指引和不依赖语音包的在线收听。部分声音可能联网。',
+  },
+  {
+    id: 'seeing-speech', title: 'Seeing Speech · IPA Charts',
+    organization: 'University of Glasgow · Seeing Speech',
+    url: 'https://www.seeingspeech.ac.uk/ipa-charts/',
+    description: '另一套真人 IPA 示范，配合口部、超声及 MRI 影像观察发音动作。仅链接原站，不将影像或音频擅自转载为本站素材。',
+  },
+  {
+    id: 'thai-recordings', title: 'Thai pronunciation · Commons / Lingua Libre',
+    organization: 'Wikimedia Commons · Lingua Libre 及录音贡献者',
+    url: 'https://commons.wikimedia.org/wiki/Category:Thai_pronunciation',
+    description: '已收录的泰语真人示范随站点提供，无需设备语音包。含传统 Commons 录音及 Lingua Libre 贡献，每条素材保留作者、许可和原文件页；尚未覆盖全部课程。',
   },
   {
     id: 'duo-writing', title: 'Tools for learning to read other writing systems',

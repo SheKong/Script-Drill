@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { allItems, courses, itemMap } from '../data';
+import recordingManifest from '../data/recordings.json' with { type: 'json' };
 import type { AppState, Session } from '../types';
 import { existsSync, statSync } from 'node:fs';
 import { initialState, parseBackup } from './storage';
@@ -96,16 +97,41 @@ describe('course content invariants', () => {
     }
   });
   it('ships every advertised recording with source, author and license', () => {
-    const recordings = courses.ipa.items.flatMap(i => i.pronunciation?.recording ? [i.pronunciation.recording] : []);
+    const recordings = allItems.flatMap(i => i.pronunciation?.recording ? [i.pronunciation.recording] : []);
     expect(recordings.length).toBeGreaterThanOrEqual(30);
     for (const recording of recordings) {
       const file = new URL(`../../public${recording.src}`, import.meta.url);
       expect(existsSync(file), recording.src).toBe(true);
       expect(statSync(file).size).toBeGreaterThan(500);
       expect(recording.author).toBeTruthy();
-      expect(recording.license).toMatch(/^CC /);
+      expect(recording.license).toMatch(/^(CC(?: |0)|Public domain$)/);
       expect(recording.sourceUrl).toMatch(/^https:\/\/commons.wikimedia.org\/wiki\/File:/);
-      expect(recording.licenseUrl).toMatch(/^https:\/\/creativecommons.org\//);
+      expect(recording.licenseUrl).toMatch(/^https:\/\/(creativecommons.org\/|commons.wikimedia.org\/wiki\/Template:PD-user-en$)/);
+    }
+  });
+  it('covers IPA sounds without substituting an unaspirated recording for the remaining aspirated velar', () => {
+    const symbols = courses.ipa.items.filter(item => item.kind === 'symbol');
+    expect(symbols.filter(item => item.pronunciation?.recording).length).toBeGreaterThanOrEqual(63);
+    expect(symbols.filter(item => !item.pronunciation?.recording).every(item => item.id === 'ipa-kh')).toBe(true);
+    for (const [aspirated, plain] of [['ph', 'p'], ['th', 't'], ['chh', 'ch']]) {
+      expect(itemMap[`ipa-${aspirated}`].pronunciation?.recording?.src)
+        .not.toBe(itemMap[`ipa-${plain}`].pronunciation?.recording?.src);
+    }
+  });
+  it('keeps downloaded recordings traceable and attached to an actual knowledge item', () => {
+    for (const [id, recording] of Object.entries(recordingManifest)) {
+      expect(itemMap[id]?.pronunciation?.recording?.src, id).toBe(recording.src);
+      expect(recording.originalSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(recording.originalUrl).toMatch(/^https:\/\/upload.wikimedia.org\//);
+      expect(recording.revision).toBeGreaterThan(0);
+      expect(recording.change).toContain('MP3');
+    }
+  });
+  it('binds Thai recordings to the same explicit text as synthesis and online listening', () => {
+    const recorded = courses.thai.items.filter(item => item.pronunciation?.recording);
+    expect(recorded.length).toBeGreaterThanOrEqual(15);
+    for (const item of recorded) {
+      expect(item.pronunciation!.recording!.spokenText, item.id).toBe(item.pronunciation!.speech?.text);
     }
   });
   it('keeps IPA independent of the Thai course', () => {

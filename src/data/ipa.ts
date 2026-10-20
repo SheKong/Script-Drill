@@ -135,11 +135,11 @@ export const ipaCourse: Course = {
   referenceNotes: [
     '国际音标课程按通用语音学组织，独立于所有语言课，练习“IPA 符号 ↔ 发音特征”，不存在人为编造的通用英文转写。它是入门选集，不覆盖完整 IPA，也不以文字题取代听辨与发音训练。',
     '有公开授权录音的符号可直接听真人示范；录音随站点提供，不依赖手机安装语音包。单个示范不穷尽跨语言变体，尤其不能凭一个孤立录音判断另一语言的声调、送气时长或韵尾。',
-    '送气音及其他暂未收录的音值不使用英语 TTS 冒充；可进一步查看协会真人发音表。连音弧、附标与调值字母由本地完整 IPA 字体提供；虚线圆只表示附标的位置。',
+    '未收录的音值不使用英语 TTS 冒充；可进一步查看协会真人发音表或格拉斯哥大学 Seeing Speech 的另一套示范。连音弧、附标与调值字母由本地完整 IPA 字体提供；虚线圆只表示附标的位置。',
   ],
   id: 'ipa', title: '国际音标基础', nativeTitle: '/ a b c /', label: '跨语言的读音工具',
   description: '独立的通用语音学入门。从发音特征理解 IPA，为任何语言的读音学习建立共同坐标。',
-  items, sources: sources.filter(s => ['ipa-chart', 'ipa-audio', 'ipa-recordings', 'duo-writing', 'duo-spacing', 'fsrs'].includes(s.id)),
+  items, sources: sources.filter(s => ['ipa-chart', 'ipa-audio', 'ipa-recordings', 'seeing-speech', 'duo-writing', 'duo-spacing', 'fsrs'].includes(s.id)),
   units: [
     unit('1', '声音不是字母', '符号、发音部位与方法', ['notation', 'features', 'p', 'b', 'm'], '独立于任何语言课程，以发音特征理解符号。'),
     unit('2', '舌尖与舌根', 't · d · n · k · ɡ · ŋ', ['t', 'd', 'n', 'k', 'g', 'ng'], '在齿龈和软腭之间，比较塞音与鼻音。'),

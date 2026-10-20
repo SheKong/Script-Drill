@@ -49,8 +49,19 @@ button svg, a svg { vertical-align: middle; }
 .script-comparison strong { display: block; font-size: 32px; font-weight: 400; overflow-wrap: anywhere; }
 .pronunciation-control { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 7px; font-family: "Noto Sans", sans-serif; font-size: 10px; font-weight: 400; line-height: 1.8; color: var(--muted); }
 .pronunciation-control .icon-button { width: 44px; height: 44px; }
-.audio-message { flex-basis: 100%; text-align: center; font-size: 11px; color: #9c613e; }
+.audio-message { flex-basis: 100%; min-width: 0; text-align: center; font-size: 11px; color: #9c613e; overflow-wrap: anywhere; }
 .audio-message a { display: inline-flex; align-items: center; gap: 4px; margin-inline: 6px; }
+.online-pronunciation { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 6px 10px; font-size: 12px; border-radius: 4px; }
+.online-pronunciation.is-primary { background: var(--green-soft); color: var(--green-dark); }
+.voice-help { flex-basis: 100%; min-width: 0; max-width: 520px; text-align: left; font-size: 12px; border-block: 1px solid var(--line); padding-block: 8px; margin-block: 6px 12px; overflow-wrap: anywhere; }
+.voice-help summary { cursor: pointer; color: var(--green-dark); min-height: 32px; padding-block: 5px; }
+.voice-help p, .voice-help ol { margin-block: 10px; }
+.voice-help ol { padding-left: 22px; }
+.voice-help li { margin-block: 6px; }
+.voice-help a, .voice-recheck { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; }
+.voice-help small { display: block; margin-top: 8px; font-size: 10px; }
+.voice-platform { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.voice-platform select { max-width: 100%; padding: 6px; border: 1px solid var(--line); border-radius: 4px; background: white; color: var(--green-dark); }
 .audio-credit, .reading-note, .conventional-names { font-size: 11px; color: var(--muted); text-align: center; margin-block: 10px; overflow-wrap: anywhere; }
 .audio-credit a { overflow-wrap: anywhere; }
 .audio-loading { animation: audio-spin 1s linear infinite; }

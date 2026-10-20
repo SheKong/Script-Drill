@@ -214,7 +214,8 @@ export function StatsPage({ state, course }: { state: AppState; course: Course }
 }
 
 export function SourcesPage({ course }: { course: Course }) {
-  const recordings = course.items.flatMap(item => item.pronunciation?.recording ? [item.pronunciation.recording] : []);
+  const recordings = [...new Map(course.items.flatMap(item => item.pronunciation?.recording
+    ? [[item.pronunciation.recording.src, item.pronunciation.recording] as const] : [])).values()];
   return <div className="wide-page sources-page">
     <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.20</span></div>
     <div className="source-principles"><h2>课程边界与记号约定</h2>
@@ -229,7 +230,7 @@ export function SourcesPage({ course }: { course: Course }) {
         {' · '}{recording.author}{' · '}
         <a href={recording.licenseUrl} target="_blank" rel="noreferrer">{recording.license}</a>
       </li>)}</ul>
-      <p className="asset-credit">Ogg 转为 MP3；未裁切，未改变音高或速度。录音的原始来源、文件校验和与版本保存在 recordings.json 中，许可仅适用于相应素材。</p>
+      <p className="asset-credit">原始音频转为 MP3；未裁切，未改变音高或速度。录音的原始来源、文件校验和与版本保存在 recordings.json 中，许可仅适用于相应素材。</p>
     </details>}
     <div className="method-note"><BookOpen size={18} /><div><h3>设计借鉴，不是产品或算法复刻</h3><p>参考多邻国对字音映射、文字图鉴和语境组合的做法，并使用 FSRS 进行间隔调度。小批量引入、交错双向提取、错题延迟重现是本站的具体实现；没有宣称复制多邻国当前的内部系统。</p></div></div>
     <p className="asset-credit">街景照片来自 Unsplash（原始图片标识：photo-1508009603885-50cf7c579365）。本地字体：

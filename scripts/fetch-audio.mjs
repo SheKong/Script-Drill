@@ -46,8 +46,8 @@ const catalog = {
   'pharyngeal-h': 'Voiceless pharyngeal fricative',
   ayn: 'Voiced pharyngeal fricative',
   glottal: 'Glottal stop',
-  'retro-t': 'Voiceless retroflex plosive',
-  'retro-d': 'Voiced retroflex plosive',
+  'retro-t': 'Voiceless retroflex stop.oga',
+  'retro-d': 'Voiced retroflex stop.oga',
   'retro-s': 'Voiceless retroflex sibilant',
   'retro-z': 'Voiced retroflex sibilant',
   'palatal-c': 'Voiceless palatal plosive',
@@ -64,47 +64,91 @@ const catalog = {
   'open-back-a': 'Open back unrounded vowel',
   'near-i': 'Near-close near-front unrounded vowel',
   'near-u': 'Near-close near-back rounded vowel',
+  ph: 'Aspirated voiceless bilabial stop',
+  th: 'Aspirated voiceless alveolar stop',
+  chh: 'Voiceless alveolo-palatal affricate (aspirated)',
 };
 
-await mkdir('public/audio/ipa', { recursive: true });
+// Explicit, reviewed filenames: a title-only .ogg guess misses .oga and renamed assets.
+const thaiCatalog = {
+  'th-k': ['Th-gaw-gai.ogg', 'กอ ไก่'],
+  'th-word-chiangmai': ['Th-Chiang Mai.ogg', 'เชียงใหม่'],
+  'th-word-bangkok': ['Th-Krung Thep.ogg', 'กรุงเทพ'],
+  'th-word-chonburi': ['Th-chonburi.ogg', 'ชลบุรี'],
+  'th-word-phuket': ['Th-Phuket.ogg', 'ภูเก็ต'],
+  'th-word-mueang': ['Mueang (TH).opus', 'เมือง'],
+  'th-word-sukhothai': ['Sukhothai Pronunciation (TH).ogg', 'สุโขทัย'],
+  'th-word-nuea': ['Th-nuea5.ogg', 'เหนือ'],
+  'th-word-tha': ['Th-thaa3.ogg', 'ท่า'],
+  'th-ue': ['Th-fuek2.ogg', 'ฝึก'],
+  'th-word-ban': ['LL-Q9217 (tha)-Patsagorn Y.-บ้าน.wav', 'บ้าน'],
+  'th-word-pak': ['LL-Q9217 (tha)-Patsagorn Y.-ปาก.wav', 'ปาก'],
+  'th-word-ko': ['LL-Q9217 (tha)-Patsagorn Y.-เกาะ.wav', 'เกาะ'],
+  'th-word-khon': ['LL-Q9217 (tha)-Thas (Thas Tayapongsak)-คน.wav', 'คน'],
+  'th-word-khao': ['LL-Q9217 (tha)-咽頭べさ-เขา.wav', 'เขา'],
+};
+const entries = [
+  ...Object.entries(thaiCatalog).map(([id, [file, title]]) => ({ id, title, file, folder: 'thai' })),
+  ...Object.entries(catalog).map(([id, title]) => ({ id: `ipa-${id}`, title,
+    file: /\.(ogg|oga|opus|wav|mp3)$/i.test(title) ? title : `${title}.ogg`, folder: 'ipa' })),
+];
+
 await mkdir('.local/audio-originals', { recursive: true });
 const manifest = JSON.parse(await readFile('src/data/recordings.json', 'utf8').catch(() => '{}'));
 const missing = [];
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function request(url) {
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const result = await fetch(url, { signal: AbortSignal.timeout(20000),
-      headers: { 'User-Agent': 'ScriptDrill/1.0 (educational pronunciation assets)' } });
+  for (let attempt = 0; attempt < 4; attempt++) {
+    let result;
+    try {
+      result = await fetch(url, { signal: AbortSignal.timeout(30000),
+        headers: { 'User-Agent': 'ScriptDrill/1.0 (educational pronunciation assets)' } });
+    } catch (error) {
+      if (attempt === 3) throw error;
+      await delay(2000 * (attempt + 1));
+      continue;
+    }
     if (result.status !== 429 && result.status < 500) return result;
-    const retryAfter = Number(result.headers.get('retry-after') || 2 ** attempt);
-    if (retryAfter > 5) return result;
+    const retryAfter = Number(result.headers.get('retry-after') || 2 ** (attempt + 1));
+    console.warn(`HTTP ${result.status}; respecting Retry-After: ${retryAfter}s`);
     await delay(retryAfter * 1000);
   }
   throw new Error(`Request failed after retries: ${url}`);
 }
-for (const [id, title] of Object.entries(catalog)) {
-  if (manifest[`ipa-${id}`]) continue;
+for (const { id, title, file, folder } of entries) {
+  if (manifest[id]) continue;
+  await mkdir(`public/audio/${folder}`, { recursive: true });
   const api = new URL('https://commons.wikimedia.org/w/api.php');
   api.search = new URLSearchParams({
     action: 'query', format: 'json', redirects: '1', prop: 'imageinfo|revisions',
-    iiprop: 'url|extmetadata', rvprop: 'content|ids', rvslots: 'main', titles: `File:${title}.ogg`,
+    iiprop: 'url|extmetadata', rvprop: 'content|ids', rvslots: 'main', titles: `File:${file}`,
   }).toString();
-  const response = await request(api);
+  const response = await request(api).catch(error => {
+    console.warn(`${id}: ${error.message}`);
+    return null;
+  });
+  if (!response) { missing.push(id); continue; }
   if (!response.ok) { console.warn(`${id}: Commons API ${response.status}`); missing.push(id); continue; }
   const body = await response.json();
   const page = Object.values(body.query.pages)[0];
   const info = page.imageinfo?.[0];
   const metadata = info?.extmetadata;
-  if (!info || !metadata.LicenseUrl?.value) { missing.push(id); continue; }
+  if (!info) { missing.push(id); continue; }
   const wikitext = page.revisions?.[0]?.slots.main['*'] || '';
-  const credited = wikitext.match(/Recorded by \[\[(?:user|User):[^|\]]+\|([^\]]+)\]\]/);
-  const author = credited?.[1] || metadata.Artist?.value.replace(/<[^>]*>/g, '').trim();
+  const credited = wikitext.match(/(?:Recorded|Created) by:? \[\[User:([^|\]]+)(?:\|([^\]]+))?\]\]/i);
+  const templated = wikitext.match(/Recorded by \{\{u\|([^}]+)\}\}/i);
+  const author = credited?.[2] || credited?.[1] || templated?.[1] || metadata.Artist?.value.replace(/<[^>]*>/g, '').trim();
   if (!author) { missing.push(id); continue; }
-  const license = metadata.LicenseShortName.value;
-  if (!/^CC (BY|0)/.test(license)) throw new Error(`Review license manually: ${title}: ${license}`);
+  const license = metadata.LicenseShortName?.value;
+  const publicDomain = license === 'Public domain' && /\{\{PD-user-en\|Octane\}\}/i.test(wikitext);
+  if (!/^(?:CC BY(?:-SA)? \d\.\d|CC0(?: 1\.0)?)$/.test(license || '') && !publicDomain) {
+    throw new Error(`Review license manually: ${title}: ${license}`);
+  }
+  const licenseUrl = metadata.LicenseUrl?.value || (publicDomain ? 'https://commons.wikimedia.org/wiki/Template:PD-user-en' : undefined);
+  if (!licenseUrl) { missing.push(id); continue; }
   const originalUrl = new URL(info.url);
   originalUrl.search = '';
-  const input = `.local/audio-originals/${id}.ogg`;
+  const input = `.local/audio-originals/${id}.${file.split('.').at(-1)}`;
   let original;
   try { original = await readFile(input); }
   catch {
@@ -118,19 +162,23 @@ for (const [id, title] of Object.entries(catalog)) {
     await writeFile(input, original);
     await delay(1500);
   }
+  const basename = folder === 'ipa' ? id.slice(4) : id;
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', input, '-vn', '-codec:a', 'libmp3lame',
-    '-q:a', '4', `public/audio/ipa/${id}.mp3`]);
-  manifest[`ipa-${id}`] = {
-    src: `/audio/ipa/${id}.mp3`, title,
+    '-q:a', '4', `public/audio/${folder}/${basename}.mp3`]);
+  manifest[id] = {
+    src: `/audio/${folder}/${basename}.mp3`, title,
     sourceUrl: info.descriptionurl, author, license,
-    licenseUrl: metadata.LicenseUrl.value.replace(/^http:/, 'https:'),
+    licenseUrl: licenseUrl.replace(/^http:/, 'https:'),
     originalUrl: originalUrl.href,
     revision: page.revisions[0].revid,
     originalSha256: createHash('sha256').update(original).digest('hex'),
-    change: 'Converted Ogg to MP3; no trimming, pitch or speed changes.',
+    change: `Converted ${file.split('.').at(-1).toUpperCase()} to MP3; no trimming, pitch or speed changes.`,
+    ...(folder === 'thai' ? { spokenText: title } : {}),
   };
   await writeFile('src/data/recordings.json', `${JSON.stringify(manifest, null, 2)}\n`);
   console.log(`${id}: ${author} (${license})`);
+  await delay(7000);
 }
 await writeFile('src/data/recordings.json', `${JSON.stringify(manifest, null, 2)}\n`);
-console.log(`Saved ${Object.keys(manifest).length} recordings. Missing: ${missing.join(', ')}`);
+console.log(`Saved ${Object.keys(manifest).length} recordings. Unavailable catalog files: ${missing.join(', ') || 'none'}`);
+if (!manifest['ipa-kh']) console.log('Known course gap: ipa-kh; no reviewed reusable isolated recording in the catalog.');

@@ -12,6 +12,7 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
   const course = courses[item.courseId];
   const glyphClass = scriptClass || course.scriptClass;
   const audioReference = course.sources.find(source => source.id === course.pronunciationReference);
+  const alternativeAudio = course.sources.find(source => source.id === 'seeing-speech');
   return <div className={`knowledge-detail ${compact ? 'compact' : ''}`}>
     {!compact && <div className="detail-symbol">
       <span className={glyphClass} dir={course.direction} lang={course.locale}>{item.glyph}</span>
@@ -31,6 +32,7 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
     {!!item.conventionalNames?.length && <p className="conventional-names">地图常见拼法：<strong>{item.conventionalNames.join(' / ')}</strong></p>}
     {item.ipa && course.ipaNote && <p className="reading-note">{course.ipaNote}</p>}
     {course.type === 'phonetics' && item.kind === 'symbol' && audioReference && <a className="ipa-audio-link" href={audioReference.url} target="_blank" rel="noreferrer"><Headphones size={14} />真人发音资料<ExternalLink size={11} /></a>}
+    {course.type === 'phonetics' && item.kind === 'symbol' && !item.pronunciation?.recording && alternativeAudio && <a className="ipa-audio-link" href={alternativeAudio.url} target="_blank" rel="noreferrer"><Headphones size={14} />Seeing Speech 发音示范<ExternalLink size={11} /></a>}
     <p className="explanation"><NotationText text={item.explanation} /></p>
     {item.class && <div className="detail-facts">
       <span>{item.class}类辅音</span>

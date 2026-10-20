@@ -30,13 +30,23 @@ Google Maps 不是 RTGS 规范的保证。课程将已核对惯用名放在 `con
 
 ### 当前实现
 
-1. IPA：从 Wikimedia Commons 原文件页和 API 核对公开录音、作者及 CC 许可，下载并转为本地 MP3。文件版本、原文件 SHA-256、转换说明见 `src/data/recordings.json`；每条知识及资料页显示署名和许可链接。无音高、速度或剪辑改动。录音只代表该次示范，不是各语言中的所有语音实现。
-2. 没有本地录音的 IPA 音值：保留 [国际语音协会真人交互表](https://www.internationalphoneticassociation.org/IPAcharts/inter_chart_2018/IPA_2018.html) 外链，不把英语 TTS 当成 IPA。
-3. 泰语：通过 [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) 使用设备提供的泰语语音。词语、完整字母名称、明确元音例词由数据显式指定。字母名称不等于孤立辅音；有上下文的例词也不是纯元音录音。
-4. 匹配语言后优先本地声音；缺少匹配声音时显示原因和资料入口，不回退英语。处理异步声音列表、15 秒启动超时、播放失败、停止按钮、切换条目和页面隐藏时停止。全站只允许一个发音任务。
-5. 不预加载音频，无自动播放。真人录音走同源静态文件；合成声音是否联网取决于浏览器/操作系统厂商。不会把学习进度上传给语音服务。
+本次 IPA 真人录音从 40 条补至 63 条，覆盖课程 64 个音值中的 63 个。`/kʰ/` 尚无已核对的独立可分发素材，保留外部参考入口，不用 `/k/` 替代。泰语新增 15 个音频文件，通过共享相同例词覆盖 18 个课程条目；尚未实现全量本地泰语发音。
+
+1. IPA：从 Wikimedia Commons 原文件页和 API 核对公开录音、作者及许可，下载并转为本地 MP3。补充不同录制者的送气音、闪音、卷舌/硬腭辅音及元音。旧脚本只猜 `.ogg` 名称，且仅能识别一种作者写法；现明确指定重命名或 `.oga` 文件，识别旧式署名，接纳已核对的公有领域素材，不把公有领域误写成 CC0。文件页版本、原文件 SHA-256、转换说明见 `src/data/recordings.json`。无音高、速度或剪辑改动。
+2. 另一套 IPA 示范：[国际语音协会真人交互表](https://www.internationalphoneticassociation.org/IPAcharts/inter_chart_2018/IPA_2018.html) 和 [University of Glasgow · Seeing Speech](https://www.seeingspeech.ac.uk/ipa-charts/)。后者还提供口部、超声及 MRI 影像。这里只链接原站，没有把 IPA 图表本身的 CC 许可推定为所有外站音视频的转载许可，不下载许可不明的素材。未收录音值不拿相近音冒充，也不用英语 TTS 朗读 IPA。
+3. 泰语优先本地真人音频，来源包括 Commons 传统泰语录音及 Lingua Libre 贡献。`spokenText` 记录实际示范文本，必须与该知识的显式 `speech.text` 一致；同一例词可共享音频。每条文件保留独立作者与许可，资料页按音频文件去重。字母名称不等于孤立辅音，有上下文的例词也不是纯元音录音。
+4. 未覆盖泰语可通过 [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) 使用匹配语言的声音；真人录音失败时，若已有匹配声音，只自动尝试一次合成，并明确显示来源变化。设备无声音或合成失败时，提供带本条原文的 Google 翻译、Bing 翻译外链，在原站点击扬声器，不依赖本机语音包。这是打开在线服务，不是本站内嵌的云端 TTS，也不保证所有网络都可访问。
+5. 语音安装与排查：按 Windows / Android / Apple 系统展示路径、官方说明与重新检测按钮。Windows 支持泰语 Pattara，但仅装键盘不等于安装 TTS；系统声音装好仍可能不被浏览器提供。不推荐来历不明的浏览器插件，不承诺网页能直接安装声音。
+6. 异步声音列表、15 秒启动超时、45 秒播放上限、可重试失败、停止按钮、切换条目和页面隐藏时停止。全站只允许一个发音任务，处理媒体 `error` 与 `play()` 拒绝重复触发时的竞态。
+7. 不预加载音频，无自动播放。真人录音走同源静态文件；只有用户点击在线收听时，才向所选服务带入该条泰文，不附带学习进度。合成声音是否联网取决于浏览器/操作系统厂商。素材抓取只在维护时运行，遵守服务端 `Retry-After`，不参与构建或用户播放。
 
 Commons 原文件信息是许可和作者的一手来源，但不能替代专业语音审听。部分历史元音录音的作者字段标记为推定署名，清单保留这一不确定性；后续更换素材须重新核对。
+
+### 系统语音官方说明
+
+- [Microsoft 支持的语言、Pattara 与添加声音步骤](https://support.microsoft.com/en-us/windows/appendix-a-supported-languages-and-voices-4486e345-7730-53da-fcfe-55cc64300f01)：系统「时间和语言 → 语音 → 管理语音 → 添加语音」，选择 Thai 下载，再完全重启浏览器并检测。
+- [Google Android 文字转语音设置](https://support.google.com/accessibility/android/answer/6006983?hl=zh-Hans)：系统搜索文字转语音，选择引擎并安装语言数据；菜单和语言可用性随设备、引擎变化。
+- [Apple Mac 声音下载](https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac)、[iPhone / iPad 朗读声音](https://support.apple.com/en-us/111798)：辅助功能中的朗读设置，选择语言后下载。不同系统版本使用「朗读内容」或「朗读与语音」等名称。
 
 ### 云端 TTS 取舍
 
@@ -47,7 +57,7 @@ Commons 原文件信息是许可和作者的一手来源，但不能替代专业
 - 不采用 Google Translate 等未文档化免费音频接口，也不把需要登录/付费的发音平台当成可任意转载资源。
 - 没有接入云 API，没有验证其实际合成质量，也不承诺免费额度或具体价格。
 
-下一步若要保证所有手机都能听泰语，应优先补充审定的本地真人录音，或在有后端后统一生成、审校并合法缓存 TTS；浏览器合成不能保证每台设备都有泰语声音。
+当前本地泰语录音仍未覆盖全部条目。要实现全部条目在所有设备上直接站内播放，仍需补齐审定的本地真人录音，或在有后端后统一生成、审校并合法缓存 TTS；在线外链和浏览器合成不等于完成了这一目标。
 
 ## 通用模板边界
 

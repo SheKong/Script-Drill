@@ -16,6 +16,7 @@ export interface Recording {
   author: string;
   license: string;
   licenseUrl: string;
+  spokenText?: string;
 }
 
 export interface Knowledge {

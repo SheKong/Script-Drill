@@ -1,5 +1,8 @@
-import type { Course, Knowledge, Unit } from '../types';
+import type { Course, Knowledge, Recording, Unit } from '../types';
 import { sources } from './sources';
+import recordings from './recordings.json' with { type: 'json' };
+
+const recordingMap: Record<string, Recording> = recordings;
 
 type ConsonantRow = [string, string, string, string, '中' | '高' | '低', string, string?];
 const consonants: ConsonantRow[] = [
@@ -337,6 +340,11 @@ for (const item of vowelItems) {
   const example = vowelExamples[item.id.slice(3)];
   if (example) item.pronunciation = { speech: { text: example, label: `元音例词 ${example}` } };
 }
+for (const item of [...consItems, ...vowelItems, ...words]) {
+  const recording = recordingMap[item.id] || Object.values(recordingMap)
+    .find(recording => recording.spokenText && recording.spokenText === item.pronunciation?.speech?.text);
+  if (recording) item.pronunciation = { ...item.pronunciation, recording };
+}
 
 const numbers: Knowledge[] = Array.from('๐๑๒๓๔๕๖๗๘๙').map((glyph, n) => ({
   id: `th-num-${n}`, courseId: 'thai', kind: 'number', glyph, roman: String(n),
@@ -362,7 +370,7 @@ export const thaiCourse: Course = {
     '本课的目标是从泰文大致拼读，再对应地图上的拉丁字母地名。主线只学 RTGS；不再要求同时背本项目旧有的 aa、aw、j 等教学提示。长短音、音质、送气用 IPA 补足。',
     'RTGS 是基于实际读音的非可逆转写，不是逐字母替换。a 可对应 /a/ 与 /aː/，o 可对应 /o/、/oː/、/ɔ/、/ɔː/，ch 同时用于 จ /tɕ/ 与 ช /tɕʰ/。因此选择题保留 IPA 来区分同一转写下的不同声音。',
     '地图英文名并非统一标准输出：本课将核对过的惯用名另列，例如 เกาะ 的 RTGS 为 ko，常见 Koh；กรุงเทพ 的 RTGS 为 Krung Thep，惯用 Bangkok。不能保证 Google Maps 的每个名称都遵循 RTGS，找地点时还应结合行政区和其他线索。',
-    '词内拆解使用 RTGS 提示；不发音的部分和隐含元音明确标注。词汇宽式 IPA 省略声调，声调计算另教。字母名称的合成语音不是孤立辅音音值；只对核对过的原文词语或明确样例启用合成，不把占位结构、RTGS 或 IPA 交给英语语音朗读。',
+    '词内拆解使用 RTGS 提示；不发音的部分和隐含元音明确标注。词汇宽式 IPA 省略声调，声调计算另教。发音优先采用随站点提供的真人录音；字母名称和元音例词不是孤立音值。未收录的条目可用设备泰语声音，或打开带有原文的在线收听入口，不把占位结构、RTGS 或 IPA 交给英语语音朗读。',
     '默认展示传统有圈体，图鉴与练习可以切换现代无圈体，知识详情同时对照。两者是字体风格，并不是两套字母。',
   ],
   composition: {
@@ -372,7 +380,7 @@ export const thaiCourse: Course = {
   id: 'thai', title: '泰语文字', nativeTitle: 'อักษรไทย', label: '从字母到路牌',
   description: '从一眼认出字母，到大致拼读陌生地名。对照传统与现代字形，学习泰文结构、RTGS 和地图常见拼法。',
   items: [...consItems, ...vowelItems, ...rules, ...numbers, ...words],
-  sources: sources.filter(s => !['ipa-audio', 'ipa-recordings'].includes(s.id)),
+  sources: sources.filter(s => !['ipa-audio', 'ipa-recordings', 'seeing-speech'].includes(s.id)),
   units: [
     unit(1, '第一个能读出的词', 'ก · น · ม · า', ['k', 'n', 'm', 'aa', 'rtgs'], '01 · 建立字音联系', '每次只引入少量新知识。学会 น 和 า 后，解锁 นา → na /naː/。拉丁字母用 RTGS，长短和送气看 IPA，不再另背一套教学转写。'),
     unit(2, '认出鼻音与滑音', 'ร · ง · ย · ว · อ', ['r', 'ng', 'y', 'w', 'o', 'aw', 'finals'], '01 · 建立字音联系', '同一个字母在声母、尾音和元音结构中可能有不同作用。'),
