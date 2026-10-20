@@ -1,5 +1,12 @@
+@font-face {
+  font-family: "Script Drill IPA";
+  src: url("./assets/charis-sil.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
-  font-family: "Noto Sans", "Noto Sans Thai", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-family: "Noto Sans", "Script Drill IPA", "Noto Sans Thai Looped", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   color: #28352f;
   background: #fafbf9;
   font-synthesis: none;
@@ -30,8 +37,28 @@ h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { font-weight: 600; }
 svg { flex-shrink: 0; }
 button svg, a svg { vertical-align: middle; }
-.thai { font-family: "Noto Sans Thai", "Noto Sans", sans-serif; line-height: 1.8; }
-.phonetic { font-family: "Noto Sans", "Noto Sans SC", sans-serif; }
+.thai { font-family: "Noto Sans Thai Looped", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
+.thai-modern { font-family: "Noto Sans Thai", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
+.phonetic { font-family: "Script Drill IPA", "Noto Sans", "Noto Sans SC", sans-serif; line-height: 1.9; }
+.script-style-control { display: inline-flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); gap: 16px; margin-block: 10px; }
+.script-style-control button { min-height: 40px; border-bottom: 2px solid transparent; font-size: 11px; padding: 7px 0; color: var(--muted); }
+.script-style-control button[aria-pressed=true] { color: var(--green); border-color: var(--green); }
+.script-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border-block: 1px solid var(--line); padding-block: 12px; margin-block: 8px 16px; }
+.script-comparison > div { min-width: 0; text-align: center; }
+.script-comparison span { display: block; color: var(--muted); font-size: 10px; }
+.script-comparison strong { display: block; font-size: 32px; font-weight: 400; overflow-wrap: anywhere; }
+.pronunciation-control { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 7px; font-family: "Noto Sans", sans-serif; font-size: 10px; font-weight: 400; line-height: 1.8; color: var(--muted); }
+.pronunciation-control .icon-button { width: 44px; height: 44px; }
+.audio-message { flex-basis: 100%; text-align: center; font-size: 11px; color: #9c613e; }
+.audio-message a { display: inline-flex; align-items: center; gap: 4px; margin-inline: 6px; }
+.audio-credit, .reading-note, .conventional-names { font-size: 11px; color: var(--muted); text-align: center; margin-block: 10px; overflow-wrap: anywhere; }
+.audio-credit a { overflow-wrap: anywhere; }
+.audio-loading { animation: audio-spin 1s linear infinite; }
+@keyframes audio-spin { to { transform: rotate(360deg); } }
+.recording-credits { margin-top: 24px; border-top: 1px solid var(--line); }
+.recording-credits summary { padding-block: 12px; cursor: pointer; font-size: 12px; color: var(--green); }
+.recording-credits ul { padding-left: 18px; font-size: 11px; color: var(--muted); }
+.recording-credits li { margin-block: 8px; overflow-wrap: anywhere; }
 .app-shell { display: flex; min-height: 100vh; }
 .sidebar { width: 236px; position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column; padding: 35px 22px 20px; border-right: 1px solid var(--line); background: #fff; z-index: 30; }
 .brand { display: flex; gap: 10px; align-items: center; text-align: left; width: fit-content; padding: 0 11px; }
@@ -344,7 +371,9 @@ button svg, a svg { vertical-align: middle; }
 .quiz-content .detail-symbol { min-height: 130px; }
 .quiz-content .detail-symbol > span { font-size: 76px; }
 .quiz-content .explanation { font-size: 13px; }
-.question-display { min-height: 170px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 30px 12px; font-size: 25px; text-align: center; overflow-wrap: anywhere; }
+.question-display { min-height: 170px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 30px 12px; font-size: 25px; text-align: center; overflow-wrap: anywhere; }
+.question-display > span { max-width: 100%; min-width: 0; }
+.question-display .pronunciation-control { flex-basis: 100%; }
 .question-display.large-glyph { font-size: 66px; line-height: 1.9; color: #3b5c3e; }
 .combination-parts { display: flex; gap: 13px; align-items: center; justify-content: center; margin: -18px 0 27px; flex-wrap: wrap; }
 .combination-parts > span { font-size: 20px; color: #6f8d63; }
@@ -592,5 +621,5 @@ button svg, a svg { vertical-align: middle; }
   .complete-stats strong { font-size: 27px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }

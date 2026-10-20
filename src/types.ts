@@ -9,6 +9,15 @@ export interface Source {
   description: string;
 }
 
+export interface Recording {
+  src: string;
+  title: string;
+  sourceUrl: string;
+  author: string;
+  license: string;
+  licenseUrl: string;
+}
+
 export interface Knowledge {
   id: string;
   courseId: CourseId;
@@ -28,6 +37,12 @@ export interface Knowledge {
   context?: string;
   segments?: { text: string; reading: string; note?: string }[];
   aliases?: string[];
+  conventionalNames?: string[];
+  pronunciation?: {
+    recording?: Recording;
+    // Explicit text only: isolated letters and placeholders are not safe TTS input.
+    speech?: { text: string; label: string; lang?: string };
+  };
   // Rules are knowledge, not arbitrary quiz prompts. The engine reverses this mapping.
   rulePrompt?: string;
   ruleAnswer?: string;
@@ -56,6 +71,11 @@ export interface Course {
   iconGlyph: string;
   notationNote: string;
   officialRomanizationName?: string;
+  romanizationName?: string;
+  ipaNote?: string;
+  referenceNotes?: string[];
+  pronunciationReference?: string;
+  scriptVariants?: { id: string; label: string; className: string }[];
   composition?: { vowelIds: string[]; excludedConsonantIds: string[] };
   nativeTitle: string;
   label: string;

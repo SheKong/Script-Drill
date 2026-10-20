@@ -10,7 +10,7 @@
 | --- | --- |
 | 语言与书写系统 | 标准语/方言、文字方向、字形是否随位置变化 |
 | 字音单位 | 字母、字母组合、音节、附标，而非机械按 Unicode 切分 |
-| 转写方案 | 教学方案、规范方案及其不可逆性，例外和别名政策 |
+| 转写方案 | 面向目标的主方案、可选规范方案及其不可逆性，惯用名和别名政策；不强制双转写 |
 | IPA | 宽/严式、声调、重音、元音长短的取舍 |
 | 形态变化 | 连写、上下标、独立/附属元音、尾音规则 |
 | 来源 | 优先官方规范、大学课程、原始语言学研究与权威辞典 |
@@ -44,7 +44,16 @@ export const newCourse: Course = {
   label: '课程短标签',
   description: '课程范围',
   notationNote: '转写、IPA 和变体的明确边界',
+  romanizationName: '主转写方案名',
   officialRomanizationName: '实际采用的规范名称',
+  ipaNote: '本课程 IPA 的取舍，如是否省略声调',
+  referenceNotes: ['本课程自己的范围、转写约定与音频边界'],
+  pronunciationReference: '发音资料的来源 ID', // 可选；须在课程 sources 中
+  // 有字体变体时才配置；第一项为默认，不要求每种语言都有两种字体。
+  scriptVariants: [
+    { id: 'print', label: '印刷体', className: 'your-font-class' },
+    { id: 'other', label: '另一字形', className: 'your-other-font-class' },
+  ],
   items,
   units,
   sources: [],
@@ -59,7 +68,7 @@ export const newCourse: Course = {
 - `courseId`：课程 ID。
 - `kind`：`consonant`、`vowel`、`symbol`、`rule`、`word`、`number`。
 - `glyph`：完整的书写单位，可以是字母组合，不必是单个字符。
-- `roman`：教学转写；IPA 课程使用发音特征名称，不伪造转写。
+- `roman`：本课程主转写。泰语用 RTGS；IPA 课程使用发音特征名称，不伪造转写。载体声母的空转写显示为“不写”。
 - `ipa`：已核对的音值；无读音的数值练习可为空。
 - `officialRoman`：可选的规范转写。不要默认规范名就是 RTGS。
 - `explanation`：初见所需说明，特别写清上下文条件、反例和局限。
@@ -67,6 +76,9 @@ export const newCourse: Course = {
 - `requires`：真实先修知识，不仅是表面出现的字符。
 - `segments`：可选的、人工核对的词内结构，不靠字符替换推断。
 - `aliases`：输入可接受别名，只添加真的合理变体。
+- `conventionalNames`：地图等语境中的惯用拉丁名称，与主转写分别展示，也可输入匹配；不把它们误标成规范方案。
+- `pronunciation.recording`：可选的真人录音，包含本地 `src`、`title`、`sourceUrl`、`author`、`license`、`licenseUrl`；必须先核对音值与许可。
+- `pronunciation.speech`：可选的 `{ text, label, lang? }`。必须显式指定可读原文和示范范围，例如“字母名称，非孤立辅音”或“元音例词”；不自动朗读字母/占位符/IPA。`lang` 缺省取课程 `locale`，浏览器没有同语言声音就明确降级，不使用英语声音。
 
 抽象规则使用 `rulePrompt`、`ruleAnswer`、3 个 `ruleChoices` 表达一个已审定的判断；这属于知识编写，而不是在出题组件中插入语言分支。
 
@@ -92,6 +104,7 @@ composition: {
 1. 在 `src/data/index.ts` 中导入并加入 `courses`。
 2. 在 `src/main.tsx` 导入有许可且覆盖该文字的本地字体。
 3. 在 `styles.css` 添加与 `scriptClass` 对应的字体样式和合适行高。
+   泰语的两种字体只由其 `scriptVariants` 数据配置；其他课程不继承泰语字形、RTGS 或声调说明。连写文字应保留完整文本节点，不能为了对照或标记而逐字符拆成 span。
 4. 用实际 `rtl` 文本检查字形、标点和拉丁转写的混排；已有字形展示节点设置了独立方向与语言，不翻转整个学习 UI。
 5. 来源注册到 `src/data/sources.ts`，并放进课程 `sources` 列表。
 
@@ -113,7 +126,10 @@ npm run test:e2e
 - 宽窄屏字形不截断，附标不被行高裁掉，RTL 与数字混排不颠倒。
 - 原生或可信审校者对全量内容的独立审读。
 - 真实语言音频若尚未就绪，明确显示边界，不使用其他语言 TTS 充当该音。
+- 图鉴/练习中的字形切换、RTL 的完整 shaping、音频停止/失败/无匹配语音，以及录音署名。
 
 ## 7. 已发布数据的变更
 
 存档使用稳定知识 ID。修正读音或题型可以保留 ID；删除或改变知识含义属于迁移事项。当前 v1 对未知 ID 采用保护性拒绝读取，原始存档不被覆盖；新增已注册课程不影响旧 ID。正式删除知识前，应先增加显式版本迁移，而不是要求用户无提示丢失进度。
+
+已有未完成练习在读取时用知识 ID 更新转写标签、输入答案及组合读音，不改变题序、正确项 ID、作答统计或 FSRS。此逻辑不含泰语 ID 分支。保留旧转写兼容输入时应使用 `aliases`，不要把旧方案再放回主教学界面。

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { courses, itemMap } from '../data';
 import type { AppState } from '../types';
+import { refreshSessionNotation } from './engine';
 
 export const STORAGE_KEY = 'script-drill:v1';
 const count = z.number().int().min(0).max(10000000);
@@ -70,7 +71,8 @@ export function parseBackup(raw: string): AppState {
   if (raw.length > 5000000) throw new Error('备份文件超过 5 MB，请检查文件。');
   const result = stateSchema.safeParse(JSON.parse(raw));
   if (!result.success) throw new Error('备份格式不正确，或包含当前版本不支持的数据。原有进度未改变。');
-  return result.data as AppState;
+  const state = result.data as AppState;
+  return state.session ? { ...state, session: refreshSessionNotation(state.session) } : state;
 }
 export function loadState(): { state: AppState; warning?: string; writeBlocked?: boolean } {
   try {

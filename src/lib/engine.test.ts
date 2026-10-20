@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { allItems, courses, itemMap } from '../data';
 import type { AppState, Session } from '../types';
+import { existsSync, statSync } from 'node:fs';
 import { initialState, parseBackup } from './storage';
 import {
   advanceIntro, answerExercise, checkTyped, createSession, eligibleWords, finishSession,
-  makeCombination, makeExercise, makeMatch, nextUnit, normalizeAnswer, streak, trained, unitDone, unitOpen,
+  makeCombination, makeExercise, makeMatch, nextUnit, normalizeAnswer, reading, refreshSessionNotation,
+  streak, trained, unitDone, unitOpen,
 } from './engine';
 
 function learnedState(courseId: 'thai' | 'ipa' = 'thai'): AppState {
@@ -64,6 +66,48 @@ describe('course content invariants', () => {
     expect(courses.thai.items.filter(i => i.kind === 'consonant')).toHaveLength(44);
     expect(courses.thai.items.filter(i => i.kind === 'number')).toHaveLength(10);
   });
+  it('uses RTGS as the Thai primary notation and keeps phonetic contrasts in IPA', () => {
+    expect(courses.thai.romanizationName).toBe('RTGS');
+    expect(itemMap['th-j'].roman).toBe('ch');
+    expect(itemMap['th-ch'].roman).toBe('ch');
+    expect(reading(itemMap['th-j'])).not.toBe(reading(itemMap['th-ch']));
+    expect(itemMap['th-aa'].roman).toBe('a');
+    expect(itemMap['th-a'].roman).toBe('a');
+    expect(reading(itemMap['th-aa'])).not.toBe(reading(itemMap['th-a']));
+    expect(reading(itemMap['th-o'])).toBe('不写 /ʔ/');
+    expect(itemMap['th-word-na'].roman).toBe('na');
+    expect(itemMap['th-word-changwat'].roman).toBe('changwat');
+    expect(itemMap['th-word-bangkok'].conventionalNames).toContain('Bangkok');
+    expect(itemMap['th-word-khonkaen'].segments?.[0].reading).toBe('khon');
+    expect(courses.thai.items.every(item => !item.officialRoman)).toBe(true);
+  });
+  it('declares script variants and speech only where the course explicitly supplies them', () => {
+    expect(courses.thai.scriptVariants?.map(v => v.className)).toEqual(['thai', 'thai-modern']);
+    expect(courses.ipa.scriptVariants).toBeUndefined();
+    expect(courses.ipa.items.every(i => !i.pronunciation?.speech)).toBe(true);
+    for (const item of courses.thai.items) {
+      const speech = item.pronunciation?.speech;
+      if (!speech) continue;
+      expect(speech.text).toBeTruthy();
+      expect(speech.label).toBeTruthy();
+      expect(speech.text).not.toContain('◌');
+      expect(speech.text).toMatch(/[\u0e01-\u0e5b]/u);
+      if (item.kind === 'consonant') expect(speech.text.length).toBeGreaterThan(1);
+    }
+  });
+  it('ships every advertised recording with source, author and license', () => {
+    const recordings = courses.ipa.items.flatMap(i => i.pronunciation?.recording ? [i.pronunciation.recording] : []);
+    expect(recordings.length).toBeGreaterThanOrEqual(30);
+    for (const recording of recordings) {
+      const file = new URL(`../../public${recording.src}`, import.meta.url);
+      expect(existsSync(file), recording.src).toBe(true);
+      expect(statSync(file).size).toBeGreaterThan(500);
+      expect(recording.author).toBeTruthy();
+      expect(recording.license).toMatch(/^CC /);
+      expect(recording.sourceUrl).toMatch(/^https:\/\/commons.wikimedia.org\/wiki\/File:/);
+      expect(recording.licenseUrl).toMatch(/^https:\/\/creativecommons.org\//);
+    }
+  });
   it('keeps IPA independent of the Thai course', () => {
     for (const item of courses.ipa.items) expect(item.requires.every(id => id.startsWith('ipa-'))).toBe(true);
     expect(courses.ipa.units.map(u => u.note).join('')).not.toContain('泰');
@@ -105,18 +149,25 @@ describe('generative exercises', () => {
     }
     expect(makeMatch([itemMap['th-k'], itemMap['th-word-na']])).toBeUndefined();
   });
-  it('accepts case/space variants, teaching transcription and RTGS, not guesses', () => {
+  it('accepts RTGS, declared conventional names and legacy input aliases, not guesses', () => {
     expect(normalizeAnswer(' Chiang-Mai ')).toBe('chiangmai');
     expect(checkTyped(itemMap['th-word-chiangmai'], 'Chiang Mai')).toBe(true);
     expect(checkTyped(itemMap['th-j'], 'j')).toBe(true);
     expect(checkTyped(itemMap['th-j'], 'ch')).toBe(true);
     expect(checkTyped(itemMap['th-j'], 'dzh')).toBe(false);
+    expect(checkTyped(itemMap['th-word-na'], 'naa')).toBe(true);
+    expect(checkTyped(itemMap['th-word-na'], 'na')).toBe(true);
+    expect(checkTyped(itemMap['th-word-bangkok'], 'Bangkok')).toBe(true);
+    expect(checkTyped(itemMap['th-word-ko'], 'Koh')).toBe(true);
+    expect(checkTyped(itemMap['th-word-ko'], 'koa')).toBe(false);
+    expect(makeExercise(itemMap['th-word-na'], 'type', courses.thai, {}).prompt).toBe('写出RTGS');
+    expect(makeExercise(itemMap['th-word-na'], 'type', { ...courses.thai, romanizationName: '另一方案' }, {}).prompt).toBe('写出另一方案');
   });
   it('generates novel syllable exercises from taught consonants and supported vowel patterns', () => {
     const known = [itemMap['th-k'], itemMap['th-ee']];
     const q = makeCombination(known, courses.thai)!;
     expect(q.display).toBe('เก');
-    expect(q.combination).toEqual({ glyph: 'เก', roman: 'kee', ipa: 'keː', parts: ['th-k', 'th-ee'] });
+    expect(q.combination).toEqual({ glyph: 'เก', roman: 'ke', ipa: 'keː', parts: ['th-k', 'th-ee'] });
     expect(q.options).toHaveLength(4);
     expect(new Set(q.options.map(o => o.label)).size).toBe(4);
     expect(q.options.filter(o => o.id === q.answer)).toHaveLength(1);
@@ -224,6 +275,29 @@ describe('progression and repetition', () => {
   });
 });
 describe('untrusted backup boundary', () => {
+  it('refreshes old session notation without losing IDs, ordering or progress', () => {
+    const state = learnedState();
+    state.progress['th-word-na'] = { introduced: true, correct: 3, wrong: 1, modes: ['read', 'reverse'], lastSeen: new Date().toISOString() };
+    const session = createSession(state, 'custom', undefined, ['th-word-na'])!;
+    const question = session.queue.find(q => q.kind === 'read')!;
+    question.prompt = '选择正确的教学转写与 IPA';
+    question.options.find(o => o.id === question.answer)!.label = 'naa /naː/';
+    const typed = session.queue.find(q => q.kind === 'type')!;
+    typed.answer = 'naa';
+    const combination = makeCombination([itemMap['th-k'], itemMap['th-ee']], courses.thai)!;
+    combination.combination!.roman = 'kee';
+    combination.options.find(o => o.id === combination.answer)!.label = 'kee /keː/';
+    session.queue.push(combination);
+    state.session = session;
+    const parsed = parseBackup(JSON.stringify(state));
+    expect(parsed.progress).toEqual(state.progress);
+    expect(parsed.session!.queue.map(q => q.id)).toEqual(session.queue.map(q => q.id));
+    expect(parsed.session!.queue.find(q => q.id === question.id)!.options.find(o => o.id === question.answer)!.label).toBe('na /naː/');
+    expect(parsed.session!.queue.find(q => q.id === typed.id)!.answer).toBe('na');
+    expect(parsed.session!.queue.at(-1)!.combination!.roman).toBe('ke');
+    expect(parsed.session!.queue.at(-1)!.options.find(o => o.id === combination.answer)!.label).toBe('ke /keː/');
+    expect(refreshSessionNotation(parsed.session!)).toEqual(parsed.session);
+  });
   it('rejects invalid structures and impossible FSRS values', () => {
     expect(() => parseBackup('not json')).toThrow();
     expect(() => parseBackup('{"version":2}')).toThrow();

@@ -3,7 +3,10 @@ import { ArrowRight, Check, CircleHelp, Flag, Lightbulb, RotateCcw, Sparkles, X 
 import { courses, itemMap } from '../data';
 import { checkTyped, reading, shuffle } from '../lib/engine';
 import type { AppState, Exercise, Session } from '../types';
-import { KnowledgeDetail, SpeechButton } from './KnowledgeDetail';
+import { KnowledgeDetail } from './KnowledgeDetail';
+import { PronunciationButton } from './PronunciationButton';
+import { useScriptStyle } from './ScriptVariants';
+import { NotationText } from './NotationText';
 
 interface Feedback { correct: boolean; pairs?: Record<string, boolean> }
 export function Quiz({ state, onIntro, onAnswer, onPause }: {
@@ -14,14 +17,17 @@ export function Quiz({ state, onIntro, onAnswer, onPause }: {
 }) {
   const session = state.session!;
   const exercise = session.queue[session.index];
-  return <QuizStep key={exercise.id} state={state} exercise={exercise} onIntro={onIntro} onAnswer={onAnswer} onPause={onPause} />;
+  const scriptStyle = useScriptStyle(courses[session.courseId]);
+  return <QuizStep key={exercise.id} state={state} exercise={exercise} scriptStyle={scriptStyle} onIntro={onIntro} onAnswer={onAnswer} onPause={onPause} />;
 }
-function QuizStep({ state, exercise, onIntro, onAnswer, onPause }: {
+function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: {
   state: AppState; exercise: Exercise; onIntro: () => void;
+  scriptStyle: ReturnType<typeof useScriptStyle>;
   onAnswer: (correct: boolean, hinted: boolean, pairs?: Record<string, boolean>) => void; onPause: () => void;
 }) {
   const session = state.session!;
   const course = courses[session.courseId];
+  const { scriptClass, control } = scriptStyle;
   const item = itemMap[exercise.itemId];
   const [selected, setSelected] = useState('');
   const [typed, setTyped] = useState('');
@@ -92,24 +98,25 @@ function QuizStep({ state, exercise, onIntro, onAnswer, onPause }: {
         {isIntro ? '初次见面' : exercise.repair ? '再试一次' : isMatch ? '连接记忆' : exercise.kind === 'combine' ? '拼读组合' : '提取练习'}
         <span>{courses[session.courseId].title}</span>
       </div>
-      <h1 ref={heading} tabIndex={-1}>{exercise.prompt}</h1>
-      {isIntro ? <KnowledgeDetail item={item} state={state} /> : <>
-        {!isMatch && <div className={`question-display ${['read', 'combine'].includes(exercise.kind) ? `${course.scriptClass} large-glyph` : ''}`} dir={['read', 'combine'].includes(exercise.kind) ? course.direction : 'ltr'}>
-          {exercise.display}
-          {exercise.kind === 'read' && item.kind === 'word' && <SpeechButton item={item} />}
+      <h1 ref={heading} tabIndex={-1}><NotationText text={exercise.prompt} /></h1>
+      {control}
+      {isIntro ? <KnowledgeDetail item={item} state={state} scriptClass={scriptClass} /> : <>
+        {!isMatch && <div className={`question-display ${['read', 'combine', 'type'].includes(exercise.kind) ? `${scriptClass} large-glyph` : 'phonetic'}`} dir={['read', 'combine', 'type'].includes(exercise.kind) ? course.direction : 'ltr'} lang={['read', 'combine', 'type'].includes(exercise.kind) ? course.locale : undefined}>
+          <span>{exercise.display}</span>
+          {['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
         </div>}
-        {exercise.combination && <div className="combination-parts">{exercise.combination.parts.map(id => <span key={id} className="thai">{itemMap[id].glyph}</span>)}<small>拼读练习 · 不考词义 · IPA 未标声调</small></div>}
+        {exercise.combination && <div className="combination-parts">{exercise.combination.parts.map(id => <span key={id} className={scriptClass} dir={course.direction} lang={course.locale}>{itemMap[id].glyph}</span>)}<small>拼读练习 · 不考词义{course.ipaNote && ` · ${course.ipaNote}`}</small></div>}
         {isMatch ? <div className="matching-grid">
           <div>{exercise.pairs!.map(p => <button key={p.id} disabled={matched.includes(p.id)}
-            className={`match-button script-match ${course.scriptClass} ${left === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''}`}
+            className={`match-button script-match ${scriptClass} ${left === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''}`}
             dir={course.direction} lang={course.locale}
             aria-pressed={left === p.id} onClick={() => setLeft(p.id)}>{p.left}{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
           <div>{rightPairs.map(p => <button key={p.id} disabled={matched.includes(p.id) || !left}
-            className={`match-button ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair === p.id ? 'wrong' : ''}`}
+            className={`match-button phonetic ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair === p.id ? 'wrong' : ''}`}
             onClick={() => matchRight(p.id)}>{p.right}{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
-          <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus placeholder="例如 chiang mai" />
+          <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
         </div> : <div className="answer-options" role="group" aria-label="答案选项">
           {exercise.options.map((o, index) => {
             const correct = feedback && o.id === exercise.answer;
@@ -119,7 +126,7 @@ function QuizStep({ state, exercise, onIntro, onAnswer, onPause }: {
               className={`answer-option ${selected === o.id ? 'selected' : ''} ${correct ? 'correct' : ''} ${wrong ? 'wrong' : ''}`}
               onClick={() => setSelected(o.id)} disabled={!!feedback} aria-pressed={selected === o.id}>
               <span className="option-index">{correct ? <Check size={15} /> : wrong ? <X size={15} /> : index + 1}</span>
-              <span className={glyph ? `${course.scriptClass} option-glyph` : 'phonetic'} dir={glyph ? course.direction : 'ltr'} lang={glyph ? course.locale : undefined}>{o.label}</span>
+              <span className={glyph ? `${scriptClass} option-glyph` : 'phonetic'} dir={glyph ? course.direction : 'ltr'} lang={glyph ? course.locale : undefined}>{o.label}</span>
             </button>;
           })}
         </div>}
@@ -134,10 +141,11 @@ function QuizStep({ state, exercise, onIntro, onAnswer, onPause }: {
       <div className="quiz-footer-inner">
         {feedback ? <div className="feedback-copy" role="status">
           <div className="feedback-title">{feedback.correct ? <Check size={22} /> : <RotateCcw size={22} />}<h2>{feedback.correct ? item.kind === 'word' ? item.meaning : '记住了，继续' : isMatch ? '配对完成，易混项会再出现' : '差一点，再记一次'}</h2></div>
-          {!isMatch && <><p><strong className={course.scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span>{exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer : reading(item)}</p>
-            {item.kind === 'word' && <p>{item.context} {item.officialRoman && <span className="phonetic">{course.officialRomanizationName || '规范转写'}: {item.officialRoman}</span>}</p>}
-            {!feedback.correct && <p>{item.explanation}</p>}
-            {item.courseId === 'thai' && item.kind === 'word' && <small>IPA 未标声调</small>}
+          {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
+            {item.kind === 'word' && <p>{item.context} {!!item.conventionalNames?.length && <span>地图常见拼法：{item.conventionalNames.join(' / ')}</span>}</p>}
+            {!feedback.correct && <p><NotationText text={item.explanation} /></p>}
+            {item.kind === 'word' && course.ipaNote && <small>{course.ipaNote}</small>}
+            {!exercise.combination && !['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
           </>}
         </div> : <span className="quiz-footer-note"><CircleHelp size={16} />{isIntro ? '理解以后，再试着回忆' : isMatch ? `${matched.length} / ${exercise.pairs!.length} 已配对` : '不计时，按自己的节奏来'}</span>}
         <button className="button primary quiz-next" disabled={!isIntro && !feedback && (isMatch || !canCheck)} onClick={confirm}>

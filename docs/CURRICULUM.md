@@ -1,6 +1,6 @@
 # 课程设计与资料核对
 
-资料核对日期：2026-10-19。产品不是 Duolingo 或 GeoGuessr 的附属产品。
+资料核对日期：2026-10-20。产品不是 Duolingo 或 GeoGuessr 的附属产品。
 
 ## 1. 从多邻国借鉴什么
 
@@ -34,7 +34,7 @@
 
 ### 双向映射
 
-- 文字课：字形 → 教学转写 + IPA；读音 → 字形。
+- 文字课：字形 → 课程指定的主转写 + IPA；读音 → 字形。泰语使用 RTGS，不要求另一套教学转写。
 - IPA 课：符号 → 发音特征；发音特征 → 符号。
 - 数字：符号 ↔ 数值，不谎称数字数值是语言读音。
 - 规则：将有来源的规则判断作为课程内容，四个概念答案随机排序。规则判断的语义由作者审定，不由字符替换器猜测。
@@ -91,7 +91,7 @@
 13. 不释放、鼻化与次要发音。
 14. 非肺部气流分类意识。
 
-符号定义参照 [International Phonetic Association 官方表](https://www.internationalphoneticassociation.org/content/full-ipa-chart)，听音链接到[协会交互表](https://www.internationalphoneticassociation.org/IPAcharts/inter_chart_2018/IPA_2018.html)。
+符号定义参照 [International Phonetic Association 官方表](https://www.internationalphoneticassociation.org/content/full-ipa-chart)，本地真人录音逐条记录 Wikimedia Commons 原文件页、作者与许可；没有录音的音值仍可查看[协会交互表](https://www.internationalphoneticassociation.org/IPAcharts/inter_chart_2018/IPA_2018.html)。不把 IPA 或罗马转写交给英语 TTS。
 
 各语言只作为例子，不决定课程顺序，不强迫 IPA 依赖任何语言课，也不制造一套“IPA 英文转写”。基础课没有覆盖完整 IPA、所有附加符号和所有发音变体。书面匹配不等同于通过了听辨与实际发音训练。
 
@@ -103,9 +103,11 @@
 - [Thai Notes 阅读课程目录](https://thai-notes.com/reading/index.html)：重新核对常规拼读与例外。特别参考课 1–5（基础字母）、10–19（元音和变形）、24/26–30（引导、尾音和隐含元音）、32–39（短音、低频字形、特殊拼写和符号）。
 - [泰国旅游局目的地目录](https://www.tourismthailand.org/Destinations)：对照惯用目的地英文名，不能把旅游拼法一律标为 RTGS。
 
-教学转写和 RTGS 分开存储。教学用 `j /tɕ/`、`ch /tɕʰ/`，而 RTGS 对两者都可能写 `ch`；`y` 对应 IPA `/j/`。`ph th kh` 表示送气，不能套用英语相似拼写。
+目标是读泰文并对应地图地名，因此主线只使用 RTGS。旧版自定义 `j`、`aa`、`aw` 等不是官方标准，现仅保留为输入兼容别名，不再分栏教学。`จ /tɕ/` 与 `ช /tɕʰ/` 均写 `ch`，用 IPA 明确送气区别。`ph th kh` 表示送气，不能套用英语相似拼写。
 
-元音长短用 aa、ii、uu、uee 等辅助；aw 在课程中表示长 `/ɔː/`，不是英文 aw 的普遍定义。RTGS 合并多种长短及音质区别。词汇 IPA 为省略声调的宽式记音；不是完整发音处方。短开音节末的声门闭塞在需要时显式写出。
+元音长短只用 IPA 的 `ː` 表达；RTGS 合并多种长短及音质区别，所以四选一和配对仍保留 IPA 消歧。地图惯用名通过可选的 `conventionalNames` 另列，例如 `ko / Koh` 与 `Krung Thep / Bangkok`，不保证 Google Maps 严格遵循 RTGS。词汇 IPA 为省略声调的宽式记音，不是完整发音处方。短开音节末的声门闭塞在需要时显式写出。
+
+字形默认传统有圈体，图鉴和练习可切换现代无圈体，详情并排对照。两者共用文字、知识 ID、题目与进度，不建立两份字母知识。泰语合成示范只使用显式指定的原文词语、完整字母名称或元音例词；不读 `◌` 模板，不冒充孤立辅音。更多研究与资源比较见 [媒体与转写决策记录](MEDIA_AND_ROMANIZATION.md)。
 
 本课从高频字形起步，42 个现代常用辅音之后再介绍 2 个历史辅音。短复合元音和罕见特殊元音放在最后。`รร`、`ทร`、`ฤ` 和调号遮蔽短元音等只教有条件的规则，不声称没有例外。
 

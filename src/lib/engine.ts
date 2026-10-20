@@ -18,7 +18,7 @@ export const shuffle = <T,>(items: T[], rng: () => number = Math.random): T[] =>
 export const normalizeAnswer = (s: string) => s.normalize('NFC').toLowerCase().replace(/[\s\-'.]/g, '').trim();
 export const reading = (item: Knowledge) => courses[item.courseId].type === 'phonetics'
   ? item.title
-  : `${item.roman}${item.ipa ? ` /${item.ipa}/` : ''}`;
+  : `${item.roman || '不写'}${item.ipa ? ` /${item.ipa}/` : ''}`;
 export const introduced = (id: string, progress: AppState['progress']) => !!progress[id]?.introduced;
 export const trained = (id: string, progress: AppState['progress']) => {
   const p = progress[id];
@@ -66,7 +66,7 @@ export function makeExercise(
     };
   }
   if (kind === 'type') {
-    return { ...base, prompt: item.officialRoman ? `写出教学转写，也接受 ${course.officialRomanizationName || '规范转写'}` : '写出教学转写', answer: item.roman };
+    return { ...base, prompt: `写出${course.romanizationName || '转写'}`, answer: item.roman };
   }
   const peers = poolFor(item, course, progress);
   const key = (i: Knowledge) => kind === 'meaning' ? i.meaning || i.title
@@ -96,7 +96,7 @@ export function makeExercise(
     };
   }
   return {
-    ...base, prompt: course.type === 'phonetics' ? '这个音标描述什么声音？' : item.kind === 'number' ? '这个数字是多少？' : '选择正确的教学转写与 IPA',
+    ...base, prompt: course.type === 'phonetics' ? '这个音标描述什么声音？' : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${course.romanizationName || '转写'}与 IPA`,
     options: shuffle([item, ...distractors]).map(option),
   };
 }
@@ -205,8 +205,43 @@ export function createSession(
   };
 }
 export const checkTyped = (item: Knowledge, answer: string) =>
-  [item.roman, item.officialRoman, ...(item.aliases || [])].filter((v): v is string => !!v)
+  [item.roman, item.officialRoman, ...(item.aliases || []), ...(item.conventionalNames || [])].filter((v): v is string => !!v)
     .some(v => normalizeAnswer(v) === normalizeAnswer(answer));
+
+// Saved sessions keep their order and answers, but follow corrected course notation.
+export function refreshSessionNotation(session: Session): Session {
+  const course = courses[session.courseId];
+  return { ...session, queue: session.queue.map(exercise => {
+    const item = itemMap[exercise.itemId];
+    if (exercise.kind === 'read' && item.kind !== 'rule') {
+      const prompt = course.type === 'phonetics' ? '这个音标描述什么声音？'
+        : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${course.romanizationName || '转写'}与 IPA`;
+      return { ...exercise, prompt, options: exercise.options.map(option => ({
+        ...option, label: Object.hasOwn(itemMap, option.id) ? reading(itemMap[option.id]) : option.label,
+      })) };
+    }
+    if (exercise.kind === 'reverse') return { ...exercise, display: reading(item) };
+    if (exercise.kind === 'type') return {
+      ...exercise, prompt: `写出${course.romanizationName || '转写'}`, answer: item.roman,
+    };
+    if (exercise.kind === 'match') return {
+      ...exercise, pairs: exercise.pairs?.map(pair => ({ ...pair, right: reading(itemMap[pair.id]) })),
+    };
+    if (exercise.combination) {
+      const [consonant, vowel] = exercise.combination.parts.map(id => itemMap[id]);
+      const roman = consonant.roman + vowel.roman;
+      return {
+        ...exercise, combination: { ...exercise.combination, roman },
+        options: exercise.options.map(option => {
+          const candidate = course.items.find(i => i.kind === 'consonant'
+            && option.label.endsWith(` /${i.ipa + vowel.ipa}/`));
+          return candidate ? { ...option, label: `${candidate.roman + vowel.roman} /${candidate.ipa + vowel.ipa}/` } : option;
+        }),
+      };
+    }
+    return exercise;
+  }) };
+}
 
 export function advanceIntro(state: AppState): AppState {
   const session = state.session!;

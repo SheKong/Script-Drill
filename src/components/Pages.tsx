@@ -10,6 +10,8 @@ import { cardStatus, dueItems, eligibleWords, localDay, nextUnit, streak, traine
 import { exportBackup, parseBackup } from '../lib/storage';
 import type { AppState, Course, Knowledge, Session } from '../types';
 import { Modal } from './Modal';
+import { useScriptStyle } from './ScriptVariants';
+import { NotationText } from './NotationText';
 
 export type Start = (mode: Session['mode'], unitId?: string, ids?: string[]) => void;
 type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void };
@@ -128,6 +130,7 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
 }
 
 export function LibraryPage({ state, course, start, inspect }: PageProps) {
+  const { scriptClass, control } = useScriptStyle(course);
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState('all');
   const [status, setStatus] = useState('all');
@@ -135,7 +138,7 @@ export function LibraryPage({ state, course, start, inspect }: PageProps) {
   const items = useMemo(() => course.items.filter(i => {
     const q = query.toLowerCase().trim();
     return (kind === 'all' || i.kind === kind) && (
-      !q || [i.glyph, i.roman, i.ipa, i.officialRoman, i.title, i.explanation, i.meaning].some(s => s?.toLowerCase().includes(q))
+      !q || [i.glyph, i.roman, i.ipa, i.officialRoman, i.title, i.explanation, i.meaning, ...(i.conventionalNames || [])].some(s => s?.toLowerCase().includes(q))
     ) && (status === 'all' || status === 'known' && state.progress[i.id]?.introduced || status === 'new' && !state.progress[i.id]?.introduced);
   }), [course, query, kind, status, state.progress]);
   const known = items.filter(i => state.progress[i.id]?.introduced);
@@ -147,6 +150,7 @@ export function LibraryPage({ state, course, start, inspect }: PageProps) {
       <label className="status-select"><SlidersHorizontal size={15} /><select aria-label="学习状态" value={status} onChange={e => setStatus(e.target.value)}><option value="all">全部状态</option><option value="known">已经初见</option><option value="new">尚未学习</option></select></label>
     </div>
     <div className="filter-tabs" role="tablist" aria-label="知识类别">{['all', ...kinds].map(k => <button key={k} role="tab" aria-selected={kind === k} className={kind === k ? 'active' : ''} onClick={() => setKind(k)}>{k === 'all' ? '全部' : kindNames[k]}<span>{k === 'all' ? course.items.length : course.items.filter(i => i.kind === k).length}</span></button>)}</div>
+    {control}
     <div className="results-count">{items.length} 个条目<span>{course.type === 'phonetics' ? '符号与发音特征一一对应；没有“通用英文转写”' : '词汇解锁同时检查字母与拼读规则'}</span></div>
     {!items.length ? <Empty title="没有找到匹配的知识" copy="试试另一种文字、名称或转写。" icon={<Search size={27} />} /> :
       <div className={`knowledge-grid ${kind === 'word' || kind === 'rule' ? 'wide-items' : ''}`}>
@@ -155,8 +159,8 @@ export function LibraryPage({ state, course, start, inspect }: PageProps) {
           const ready = item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
           return <button className={`knowledge-tile ${p?.introduced ? 'known' : ''} ${item.kind === 'word' || item.kind === 'rule' ? 'text-tile' : ''}`} key={item.id} onClick={() => inspect(item)}>
             <span className={`tile-state ${s}`} title={s === 'new' ? '尚未学习' : s === 'learning' ? '学习中' : '间隔复习中'}>{p?.introduced ? <Check size={10} /> : null}</span>
-            <strong className={`${course.scriptClass} tile-glyph`} dir={course.direction} lang={course.locale}>{item.glyph}</strong>
-            <span className="tile-roman">{item.kind === 'word' || item.kind === 'rule' || course.type === 'phonetics' ? item.title : item.roman}</span>
+            <strong className={`${scriptClass} tile-glyph`} dir={course.direction} lang={course.locale}>{item.glyph}</strong>
+            <span className="tile-roman">{item.kind === 'word' || item.kind === 'rule' || course.type === 'phonetics' ? item.title : item.roman || '不写'}</span>
             {item.ipa && course.type === 'script' && <span className="tile-ipa phonetic">/{item.ipa}/</span>}
             {item.class && <small>{item.class}类{item.obsolete ? ' · 历史' : ''}</small>}
             {item.kind === 'word' && <small>{ready ? '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
@@ -210,18 +214,30 @@ export function StatsPage({ state, course }: { state: AppState; course: Course }
 }
 
 export function SourcesPage({ course }: { course: Course }) {
+  const recordings = course.items.flatMap(item => item.pronunciation?.recording ? [item.pronunciation.recording] : []);
   return <div className="wide-page sources-page">
-    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.19</span></div>
+    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.20</span></div>
     <div className="source-principles"><h2>课程边界与记号约定</h2>
-      <p>国际音标课程按通用语音学组织，独立于所有语言课，练习“IPA 符号 ↔ 发音特征”，不存在人为编造的通用英文转写。它是入门选集，不覆盖完整 IPA，也不以文字题取代听辨与发音训练。</p>
-      <p>泰语的教学转写为本课程的读音提示：aa /aː/、ii /iː/、uu /uː/、uee /ɯː/、ee /eː/、oo /oː/、aw /ɔː/、oe /ɤː/，短音在需要时注明。j /tɕ/ 与 ch /tɕʰ/ 区分送气；y 对应 IPA /j/。它不是 ISO 11940 的可逆逐字转写。</p>
-      <p>RTGS 按词的实际读音转写，不标声调和元音长短，不一定等于旅游英文惯用名。本站泰语词汇的宽式 IPA 均省略声调；声母声调类别与基础计算规则单独教学。具体词的声调、弱读与口语变体需进一步核对真人语料。</p>
+      {(course.referenceNotes || [course.notationNote]).map((note, index) => <p key={index}><NotationText text={note} /></p>)}
       <p>词汇同时检查字母、元音和拼读规则。被消音的字母、隐含元音和例外读法必须显式记录；不使用“按字符替换”的自动转写来生成正确答案。初见词先练转写，意义反向题只在复习中出现。</p>
     </div>
     <div className="section-heading"><h2>本课程参考资料</h2><span>{course.sources.length} 项</span></div>
     <div className="source-list">{course.sources.map((s, index) => <a key={s.id} href={s.url} target="_blank" rel="noreferrer"><span className="source-index">{String(index + 1).padStart(2, '0')}</span><div><small>{s.organization}</small><h3>{s.title}</h3><p>{s.description}</p></div><ExternalLink size={17} /></a>)}</div>
+    {!!recordings.length && <details className="recording-credits"><summary>真人录音署名与许可 · {recordings.length} 条</summary>
+      <ul>{recordings.map(recording => <li key={recording.src}>
+        <a href={recording.sourceUrl} target="_blank" rel="noreferrer">{recording.title}</a>
+        {' · '}{recording.author}{' · '}
+        <a href={recording.licenseUrl} target="_blank" rel="noreferrer">{recording.license}</a>
+      </li>)}</ul>
+      <p className="asset-credit">Ogg 转为 MP3；未裁切，未改变音高或速度。录音的原始来源、文件校验和与版本保存在 recordings.json 中，许可仅适用于相应素材。</p>
+    </details>}
     <div className="method-note"><BookOpen size={18} /><div><h3>设计借鉴，不是产品或算法复刻</h3><p>参考多邻国对字音映射、文字图鉴和语境组合的做法，并使用 FSRS 进行间隔调度。小批量引入、交错双向提取、错题延迟重现是本站的具体实现；没有宣称复制多邻国当前的内部系统。</p></div></div>
-    <p className="asset-credit">街景照片来自 Unsplash（原始图片标识：photo-1508009603885-50cf7c579365）。泰文字体：<a href="/licenses/NotoSansThai-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai</a>，拉丁与 IPA 字体：<a href="/licenses/NotoSans-OFL.txt" target="_blank" rel="noreferrer">Noto Sans</a>，均随站点提供并保留 OFL 许可。本站不隶属于 GeoGuessr 或 Duolingo。</p>
+    <p className="asset-credit">街景照片来自 Unsplash（原始图片标识：photo-1508009603885-50cf7c579365）。本地字体：
+      {' '}<a href="/licenses/NotoSansThai-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai</a>、
+      <a href="/licenses/NotoSansThaiLooped-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai Looped</a>、
+      <a href="/licenses/NotoSans-OFL.txt" target="_blank" rel="noreferrer">Noto Sans</a>、
+      <a href="/licenses/CharisSIL-OFL.txt" target="_blank" rel="noreferrer">Charis SIL（完整 IPA）</a>。
+      均保留 OFL 许可。本站不隶属于 GeoGuessr 或 Duolingo。</p>
   </div>;
 }
 

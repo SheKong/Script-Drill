@@ -1,4 +1,6 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
+
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:5173';
 
 export default defineConfig({
   testDir: './tests',
@@ -8,14 +10,18 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: 'http://127.0.0.1:5173',
+    baseURL,
     browserName: 'chromium',
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },
+  projects: [
+    { name: 'chromium', use: { browserName: 'chromium' } },
+    { name: 'mobile-webkit', testMatch: 'media.spec.ts', use: { ...devices['iPhone 13'], browserName: 'webkit' } },
+  ],
   webServer: {
-    command: 'npm run dev -- --port 5173 --strictPort',
-    url: 'http://127.0.0.1:5173',
+    command: `npm run dev -- --port ${new URL(baseURL).port || '5173'} --strictPort`,
+    url: baseURL,
     reuseExistingServer: true,
     timeout: 30000,
   },

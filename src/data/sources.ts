@@ -26,6 +26,18 @@ export const sources: Source[] = [
     description: '协会交互音标表，可在原站听真人示范。本站不以英语 TTS 假冒 IPA 发音。',
   },
   {
+    id: 'ipa-recordings', title: 'IPA sound recordings',
+    organization: 'Wikimedia Commons · 各录音作者',
+    url: 'https://commons.wikimedia.org/wiki/Category:Audio_files_of_phonetic_samples',
+    description: '随站点提供公开授权的真人 IPA 录音，转为 MP3 兼容移动浏览器，未裁切或改变音高、速度。每条录音列出原文件页、作者及许可；单个录音是示范，不代表所有语言中的具体实现。',
+  },
+  {
+    id: 'speech-api', title: 'Web Speech API · SpeechSynthesis',
+    organization: 'MDN · 浏览器语音合成接口',
+    url: 'https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis',
+    description: '语音列表由浏览器和设备提供，不能保证装有泰语语音。只选择匹配语言的声音；缺少语音、超时或播放失败时明确提示，不切换到英语读音。部分声音可能使用系统厂商的联网服务。',
+  },
+  {
     id: 'duo-writing', title: 'Tools for learning to read other writing systems',
     organization: 'Duolingo · Cindy Blanco / Chris Denter · 2021',
     url: 'https://blog.duolingo.com/learning-other-writing-systems/',

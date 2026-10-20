@@ -37,7 +37,7 @@ async function finishCurrent(page: Page, makeOneMistake = false) {
         await page.locator('.answer-options > button').nth(choice).click();
       }
       await page.getByRole('button', { name: '检查答案', exact: true }).click();
-      await expect(page.getByRole('status')).toBeVisible();
+      await expect(page.locator('.feedback-copy')).toBeVisible();
       await page.getByRole('button', { name: '继续', exact: true }).click();
     }
     await expect.poll(async () => (await stored(page)).session?.index ?? -1).not.toBe(state.session.index);
@@ -92,7 +92,7 @@ test('independent IPA course, library search, detail dialog and source page', as
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await page.getByRole('button', { name: '课程与资料来源', exact: true }).click();
   await expect(page.getByRole('heading', { name: '知识应当有出处' })).toBeVisible();
-  await expect(page.locator('.source-list a')).toHaveCount(5);
+  await expect(page.locator('.source-list a')).toHaveCount(courses.ipa.sources.length);
   await page.getByRole('button', { name: '学习路径', exact: true }).click();
   await page.getByRole('button', { name: '开始学习', exact: true }).click();
   await finishCurrent(page);

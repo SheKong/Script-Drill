@@ -1,5 +1,8 @@
-import type { Course, Knowledge, Unit } from '../types';
+import type { Course, Knowledge, Recording, Unit } from '../types';
 import { sources } from './sources';
+import recordings from './recordings.json' with { type: 'json' };
+
+const recordingMap: Record<string, Recording> = recordings;
 
 const sound = (
   id: string, glyph: string, roman: string, title: string,
@@ -7,6 +10,7 @@ const sound = (
 ): Knowledge => ({
   id: `ipa-${id}`, courseId: 'ipa', kind: 'symbol', glyph, roman: title, aliases: [roman],
   ipa: glyph, title, explanation, group, requires, sources: ['ipa-chart'],
+  pronunciation: recordingMap[`ipa-${id}`] ? { recording: recordingMap[`ipa-${id}`] } : undefined,
 });
 const rule = (
   id: string, glyph: string, title: string, explanation: string,
@@ -67,7 +71,7 @@ const items: Knowledge[] = [
     'ˈ 放在主重读音节前，ˌ 放在次重读音节前。重音可以涉及时长、音高和强度，但与词汇声调不是同一个概念。重音符号不等于高调标记。',
     'ˈ 通常标记什么？', '后面音节的主重音', ['前一个元音的长短', '后面音节的高声调', '音节末尾不释放']),
   rule('unreleased', '◌̚', '尾塞音不释放',
-    '附加符号 ̚ 表示没有可闻的爆破释放，例如 [k̚]。粤语、韩语、越南语等语言的尾塞音常有不释放的实现；不要在塞音后自动补一个元音。',
+    '附加符号 ◌̚ 表示没有可闻的爆破释放，例如 [k̚]。虚线圆是附标位置的占位，不是实际音标。粤语、韩语、越南语等语言的尾塞音常有不释放的实现；不要在塞音后自动补一个元音。',
     '[k̚] 上的附加符号表示什么？', '无可闻的爆破释放', ['再发一个 h', '增加一个元音', '清音变浊音'], ['ipa-k']),
   rule('tone', '˥ ˧ ˩', '音高不等于重音',
     '五度调值字母表示相对音高：˥ 高、˧ 中、˩ 低，组合可表示升降。不同语言的音高是相对的，不能把调值当作固定频率。',
@@ -127,9 +131,15 @@ export const ipaCourse: Course = {
   type: 'phonetics', scriptName: '国际音标', scriptClass: 'phonetic', direction: 'ltr',
   englishTitle: 'IPA FOUNDATIONS', iconGlyph: 'ə',
   notationNote: '按通用发音特征组织，不依赖任何语言课程。发音例子不代替符号定义。',
+  pronunciationReference: 'ipa-audio',
+  referenceNotes: [
+    '国际音标课程按通用语音学组织，独立于所有语言课，练习“IPA 符号 ↔ 发音特征”，不存在人为编造的通用英文转写。它是入门选集，不覆盖完整 IPA，也不以文字题取代听辨与发音训练。',
+    '有公开授权录音的符号可直接听真人示范；录音随站点提供，不依赖手机安装语音包。单个示范不穷尽跨语言变体，尤其不能凭一个孤立录音判断另一语言的声调、送气时长或韵尾。',
+    '送气音及其他暂未收录的音值不使用英语 TTS 冒充；可进一步查看协会真人发音表。连音弧、附标与调值字母由本地完整 IPA 字体提供；虚线圆只表示附标的位置。',
+  ],
   id: 'ipa', title: '国际音标基础', nativeTitle: '/ a b c /', label: '跨语言的读音工具',
   description: '独立的通用语音学入门。从发音特征理解 IPA，为任何语言的读音学习建立共同坐标。',
-  items, sources: sources.filter(s => ['ipa-chart', 'ipa-audio', 'duo-writing', 'duo-spacing', 'fsrs'].includes(s.id)),
+  items, sources: sources.filter(s => ['ipa-chart', 'ipa-audio', 'ipa-recordings', 'duo-writing', 'duo-spacing', 'fsrs'].includes(s.id)),
   units: [
     unit('1', '声音不是字母', '符号、发音部位与方法', ['notation', 'features', 'p', 'b', 'm'], '独立于任何语言课程，以发音特征理解符号。'),
     unit('2', '舌尖与舌根', 't · d · n · k · ɡ · ŋ', ['t', 'd', 'n', 'k', 'g', 'ng'], '在齿龈和软腭之间，比较塞音与鼻音。'),
