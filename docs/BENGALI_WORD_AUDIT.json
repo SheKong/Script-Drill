@@ -1,0 +1,2015 @@
+{
+  "checked": "2026-10-22",
+  "courseId": "bengali",
+  "scope": "Written standard Bengali for street-sign recognition; traditional broad IPA with regional limitations stated explicitly.",
+  "normalization": "For comparison only: remove delimiters, stress, syllable separators, tie bars and half-length; write source r as course ɾ. Parenthesized ho in Mymensingh selects the explicitly listed full variant. Consonant length and vowel quality are preserved.",
+  "independentNativeReview": false,
+  "counts": {
+    "units": 19,
+    "knowledge": 95,
+    "mainWords": 29,
+    "extraCities": 12,
+    "listedIPA": 36,
+    "lexicalTranscriptionOnly": 5
+  },
+  "sources": [
+    {
+      "id": "bn-script",
+      "title": "The Bangla Script",
+      "organization": "University of Texas at Austin · Bangla OER",
+      "url": "https://bangla.la.utexas.edu/resources/the-bangla-script/",
+      "description": "字母、元音附标、固有元音、合字与 phala 的大学教学资料。中文说明重新编写，不把教学转写冒充官方地名规范。"
+    },
+    {
+      "id": "bn-pronunciation",
+      "title": "Pronouncing the Bangla Alphabet",
+      "organization": "University of Texas at Austin · Bangla OER",
+      "url": "https://bangla.la.utexas.edu/resources/pronunciation/",
+      "description": "原站真人发音与发音部位教学。本课只链接原站，未将其录音包装成本地已收录音频；孤立字母名不等于词内辅音读法。"
+    },
+    {
+      "id": "bn-unicode",
+      "title": "Unicode 17.0 · 12.2 Bengali (Bangla)",
+      "organization": "The Unicode Consortium",
+      "url": "https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/#G11121",
+      "description": "核对完整字符、元音附标、hasanta、reph、ya-phalaa、khanda ta、数字，以及孟加拉语与阿萨姆语共用文字的边界。"
+    },
+    {
+      "id": "bn-orthography",
+      "title": "Bengali/Bangla Orthography Notes",
+      "organization": "Richard Ishida · 文字与排版研究",
+      "url": "https://r12a.github.io/scripts/beng/bn.html",
+      "description": "作者的文字系统与 Unicode 实例研究，核对附标位置、独立元音、合字、鼻音符号及完整文本 shaping；不是官方语言规范。"
+    },
+    {
+      "id": "bn-phonetics",
+      "title": "Bengali (Bangladeshi Standard) · 2010",
+      "organization": "Sameer ud Dowla Khan · Journal of the International Phonetic Association",
+      "url": "https://www.reed.edu/linguistics/khan/assets/Khan%202010%20Bengali%20Bangladeshi%20standard.pdf",
+      "description": "孟加拉国标准语的原始语音学研究，DOI 10.1017/S0025100310000071。核对元音无常规长短对立、重叠辅音、舌位、r、s/sh 与鼻化的地区边界，不将其与传统宽式记音混为一套严式音标。"
+    },
+    {
+      "id": "bn-loc",
+      "title": "ALA-LC Bengali Romanization Table · 2017",
+      "organization": "Library of Congress",
+      "url": "https://www.loc.gov/catdir/cpso/romanization/bengali.pdf",
+      "description": "核对书目转写与实际读音的差别。本站没有采用 ALA-LC 作为输入考核方案；不把 ā、ī、ai 等字母编码直接当现代语音。"
+    },
+    {
+      "id": "bn-lexicon",
+      "title": "Bengali lexical entries · per-word audit",
+      "organization": "Wiktionary · 原创词条贡献者",
+      "url": "https://en.wiktionary.org/wiki/Category:Bengali_lemmas",
+      "description": "逐词核对原文、词义、转写及词条列出的 IPA 变体。具体词条 URL、版本、采用音值与缺少独立 IPA 的状态记录在项目 docs/BENGALI_WORD_AUDIT.json，不声称是母语独立审校。"
+    },
+    {
+      "id": "bn-government",
+      "title": "Divisions of Bangladesh · National Portal",
+      "organization": "Bangladesh National Portal",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "description": "官方行政区目录，用于核对地名拼写、Division / District 层级与英语惯用名；不以此目录冒充地名 IPA 的来源。"
+    },
+    {
+      "id": "bn-boundaries",
+      "title": "Natural Earth · Bangladesh outline · v5.1.2",
+      "organization": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "description": "公有领域的 1:50m 国家轮廓。随站点提供派生 GeoJSON 和来源说明；城市为近似参考点，不能当作法定边界或精确导航。"
+    },
+    {
+      "id": "duo-writing",
+      "title": "Tools for learning to read other writing systems",
+      "organization": "Duolingo · Cindy Blanco / Chris Denter · 2021",
+      "url": "https://blog.duolingo.com/learning-other-writing-systems/",
+      "description": "借鉴文字图鉴、字音映射、从字母到音节和词语的渐进练习；不使用其课程素材或品牌资产。"
+    },
+    {
+      "id": "fsrs",
+      "title": "TS-FSRS",
+      "organization": "Open Spaced Repetition",
+      "url": "https://github.com/open-spaced-repetition/ts-fsrs",
+      "description": "实际使用的间隔复习实现，目标保持率 90%。同一知识每课只结算一次，避免课内重复虚增长期记忆强度。"
+    }
+  ],
+  "words": [
+    {
+      "id": "bn-word-naam",
+      "glyph": "নাম",
+      "meaning": "名称",
+      "roman": "nam",
+      "ipa": "nam",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%BE%E0%A6%AE?oldid=92712491",
+      "revision": 92712491,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "nam"
+      ],
+      "sourceIPA": [
+        "/nam/",
+        "[ˈnaːm]",
+        "[ˈnam]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "招牌、名称栏里的常见词。নাম 只有一个音节，末尾 ম 不带固有元音。",
+      "requires": [
+        "bn-n",
+        "bn-m",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "না",
+          "reading": "na"
+        },
+        {
+          "text": "ম",
+          "reading": "m",
+          "note": "词尾不加元音"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-nogor",
+      "glyph": "নগর",
+      "meaning": "城市；城镇",
+      "roman": "nôgor",
+      "ipa": "nɔɡoɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%97%E0%A6%B0?oldid=88458470",
+      "revision": 88458470,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "nogor"
+      ],
+      "sourceIPA": [
+        "/nɔɡoɾ/",
+        "[ˈnɔɡoɾ]",
+        "/nɔɡoɹ/",
+        "[ˈnɔɡoɹ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "地名常见成分，对应地图上的 Nagar / Nogor。两个未写附标的元音并不相同：这里是 /ɔ/、/o/。",
+      "requires": [
+        "bn-n",
+        "bn-g",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ন",
+          "reading": "nô"
+        },
+        {
+          "text": "গ",
+          "reading": "go"
+        },
+        {
+          "text": "র",
+          "reading": "r",
+          "note": "词尾无元音"
+        }
+      ],
+      "conventionalNames": [
+        "Nagar",
+        "Nogor"
+      ]
+    },
+    {
+      "id": "bn-word-gram",
+      "glyph": "গ্রাম",
+      "meaning": "村庄；村落",
+      "roman": "gram",
+      "ipa": "ɡɾam",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE?oldid=72608948",
+      "revision": 72608948,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "gram"
+      ],
+      "sourceIPA": [
+        "/ɡɾam/",
+        "[ɡɾam]",
+        "/ɡɹam/",
+        "[ɡɹam]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "村名、地址和地名成分中常见 Gram。গ্র 是 /ɡɾ/，不是带两个固有元音的 gô-rô；末尾 ম 不再加元音。",
+      "requires": [
+        "bn-gr",
+        "bn-aa-sign",
+        "bn-m",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "গ্রা",
+          "reading": "gra"
+        },
+        {
+          "text": "ম",
+          "reading": "m"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-para",
+      "glyph": "পাড়া",
+      "meaning": "街区；居民区",
+      "roman": "para",
+      "ipa": "paɽa",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%BE%E0%A6%A1%E0%A6%BC%E0%A6%BE?oldid=92196776",
+      "revision": 92196776,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "paṛa"
+      ],
+      "sourceIPA": [
+        "/paɽa/",
+        "[ˈpaɽaˑ]",
+        "/paɾa/",
+        "[ˈpaɾaˑ]",
+        "/paɹa/",
+        "[ˈpaɹaˑ]",
+        "-ara"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "地名后缀常见 Para；这里取“居民区”义，不把同形动词的含义混入题目。ড় 的下点要辨认。",
+      "requires": [
+        "bn-p",
+        "bn-flap",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "পা",
+          "reading": "pa"
+        },
+        {
+          "text": "ড়া",
+          "reading": "ra",
+          "note": "传统闪音；孟加拉国常与 r 合流"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-bajar",
+      "glyph": "বাজার",
+      "meaning": "市场",
+      "roman": "bajar",
+      "ipa": "badʒaɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%B0?oldid=88458579",
+      "revision": 88458579,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "bajar"
+      ],
+      "sourceIPA": [
+        "/bad͡ʒaɾ/",
+        "[ˈbad͡ʒaɾ]",
+        "/bazaɾ/",
+        "[ˈbazaɾ]",
+        "/badʑaɹ/",
+        "[ˈbadʑaɹ]",
+        "/bazaɹ/",
+        "[ˈbazaɹ]",
+        "/bad̪zaɾ/",
+        "[ˈbad̪zaɾ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "店招和地名中极常见，地图常写 Bazar / Bazaar。这里采用塞擦音读法，部分说话人也读接近 /z/。",
+      "requires": [
+        "bn-b",
+        "bn-j",
+        "bn-r",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "বা",
+          "reading": "ba"
+        },
+        {
+          "text": "জা",
+          "reading": "ja"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": [
+        "Bazar",
+        "Bazaar"
+      ]
+    },
+    {
+      "id": "bn-word-rasta",
+      "glyph": "রাস্তা",
+      "meaning": "道路；街道",
+      "roman": "rasta",
+      "ipa": "ɾast̪a",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%BE%E0%A6%B8%E0%A7%8D%E0%A6%A4%E0%A6%BE?oldid=88458434",
+      "revision": 88458434,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "rasta"
+      ],
+      "sourceIPA": [
+        "/rast̪a/",
+        "[ˈrast̪aˑ]",
+        "/ɹast̪a/",
+        "[ɹast̪aˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "স্ত 是完整辅音群 /st̪/，স 在这里读 /s/。不是 ra-shô-ta 三个音节。",
+      "requires": [
+        "bn-r",
+        "bn-aa-sign",
+        "bn-st-dental",
+        "bn-s-reading"
+      ],
+      "segments": [
+        {
+          "text": "রা",
+          "reading": "ra"
+        },
+        {
+          "text": "স্তা",
+          "reading": "sta"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-sorok",
+      "glyph": "সড়ক",
+      "meaning": "公路；道路",
+      "roman": "shôrok",
+      "ipa": "ʃɔɽok",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A6%A1%E0%A6%BC%E0%A6%95?oldid=89461355",
+      "revision": 89461355,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "śoṛok"
+      ],
+      "sourceIPA": [
+        "/ʃɔɽok/",
+        "[ˈʃɔɽok]",
+        "/ʃɔɾok/",
+        "[ˈʃɔɾok]",
+        "/ʃɔɹok/",
+        "[ˈʃɔɹok]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "道路名和公路标识常见。স 读 /ʃ/，ড় 后的固有元音在这里为 /o/，ক 是无元音词尾。",
+      "requires": [
+        "bn-s",
+        "bn-flap",
+        "bn-k",
+        "bn-final-vowel",
+        "bn-s-reading"
+      ],
+      "segments": [
+        {
+          "text": "স",
+          "reading": "shô"
+        },
+        {
+          "text": "ড়",
+          "reading": "ro"
+        },
+        {
+          "text": "ক",
+          "reading": "k"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-path",
+      "glyph": "পথ",
+      "meaning": "路；路径",
+      "roman": "pôth",
+      "ipa": "pɔt̪ʰ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%A5?oldid=88458764",
+      "revision": 88458764,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "poth"
+      ],
+      "sourceIPA": [
+        "/pɔt̪ʰ/",
+        "[ˈpɔt̪]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "常见道路成分。থ 为齿音；宽式保留送气类别，实际词尾送气可弱化，不再加元音。",
+      "requires": [
+        "bn-p",
+        "bn-th",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "প",
+          "reading": "pô"
+        },
+        {
+          "text": "থ",
+          "reading": "th"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-setu",
+      "glyph": "সেতু",
+      "meaning": "桥梁",
+      "roman": "shetu",
+      "ipa": "ʃet̪u",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A7%87%E0%A6%A4%E0%A7%81?oldid=72300235",
+      "revision": 72300235,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "śetu"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "independentNativeReview": false,
+      "readingNote": "桥名常见 Setu。词条转写 śetu 支持此读法；本课使用 sh 标 /ʃ/，不是官方统一地图拼法。",
+      "requires": [
+        "bn-s",
+        "bn-t",
+        "bn-e-sign",
+        "bn-u-sign",
+        "bn-s-reading"
+      ],
+      "segments": [
+        {
+          "text": "সে",
+          "reading": "she"
+        },
+        {
+          "text": "তু",
+          "reading": "tu"
+        }
+      ],
+      "conventionalNames": [
+        "Setu"
+      ]
+    },
+    {
+      "id": "bn-word-nodi",
+      "glyph": "নদী",
+      "meaning": "河流",
+      "roman": "nodi",
+      "ipa": "nod̪i",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%A6%E0%A7%80?oldid=92751447",
+      "revision": 92751447,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "nodi"
+      ],
+      "sourceIPA": [
+        "/nod̪i/",
+        "[ˈnod̪iˑ]",
+        "/nɔd̪i/",
+        "[ˈnɔd̪iˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "河名和说明牌常见 Nadi / Nodi。采用 /nod̪i/，另有 /nɔd̪i/ 变体；末尾 ঈ-kar 不要求现代语必须拉长。",
+      "requires": [
+        "bn-n",
+        "bn-d",
+        "bn-ii-sign",
+        "bn-inherent"
+      ],
+      "segments": [
+        {
+          "text": "ন",
+          "reading": "no"
+        },
+        {
+          "text": "দী",
+          "reading": "di"
+        }
+      ],
+      "conventionalNames": [
+        "Nadi",
+        "Nodi"
+      ]
+    },
+    {
+      "id": "bn-word-school",
+      "glyph": "স্কুল",
+      "meaning": "学校",
+      "roman": "skul",
+      "ipa": "skul",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%81%E0%A6%B2?oldid=92491456",
+      "revision": 92491456,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "skul"
+      ],
+      "sourceIPA": [
+        "/skul/",
+        "[ˈskuːl]",
+        "[ˈskul]",
+        "/iskul/",
+        "[ˈiskul]",
+        "/iʃkul/",
+        "[ˈiʃkul]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "স্ক 是 /sk/，最后 ল 不加元音。口语还可有前加 i 的变体，本课不把所有读法混成一道唯一解。",
+      "requires": [
+        "bn-sk",
+        "bn-u-sign",
+        "bn-l",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "স্কু",
+          "reading": "sku"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-college",
+      "glyph": "কলেজ",
+      "meaning": "学院；高等学校",
+      "roman": "kôlej",
+      "ipa": "kɔledʒ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A6%B2%E0%A7%87%E0%A6%9C?oldid=87695074",
+      "revision": 87695074,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "kolej"
+      ],
+      "sourceIPA": [
+        "/kɔled͡ʒ/",
+        "[ˈkɔled͡ʒ]",
+        "/kɔledʑ/",
+        "[ˈkɔledʑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "教育机构招牌常见；末尾 জ 保留辅音读音，不再读成 jô。",
+      "requires": [
+        "bn-k",
+        "bn-l",
+        "bn-j",
+        "bn-e-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ক",
+          "reading": "kô"
+        },
+        {
+          "text": "লে",
+          "reading": "le"
+        },
+        {
+          "text": "জ",
+          "reading": "j"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-hospital",
+      "glyph": "হাসপাতাল",
+      "meaning": "医院",
+      "roman": "hashpatal",
+      "ipa": "haʃpat̪al",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%AA%E0%A6%BE%E0%A6%A4%E0%A6%BE%E0%A6%B2?oldid=85011920",
+      "revision": 85011920,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "haśpatal"
+      ],
+      "sourceIPA": [
+        "/haʃpat̪al/",
+        "[haʃpat̪al]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "道路指示和机构招牌常见。স 后没有写 hasanta，但本词常见读音仍不额外插元音；不是按每个完整字母读成五个带元音音节。",
+      "requires": [
+        "bn-h",
+        "bn-s",
+        "bn-p",
+        "bn-t",
+        "bn-l",
+        "bn-aa-sign",
+        "bn-final-vowel",
+        "bn-s-reading"
+      ],
+      "segments": [
+        {
+          "text": "হা",
+          "reading": "ha"
+        },
+        {
+          "text": "স",
+          "reading": "sh",
+          "note": "此处无元音"
+        },
+        {
+          "text": "পা",
+          "reading": "pa"
+        },
+        {
+          "text": "তা",
+          "reading": "ta"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-thana",
+      "glyph": "থানা",
+      "meaning": "警署；警务区",
+      "roman": "thana",
+      "ipa": "t̪ʰana",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A5%E0%A6%BE%E0%A6%A8%E0%A6%BE?oldid=88458672",
+      "revision": 88458672,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "thana"
+      ],
+      "sourceIPA": [
+        "/t̪ʰa.na/",
+        "[ˈt̪ʰa.na]",
+        "-ana"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "警署招牌和地址成分。th 是送气齿塞音，不是英语的 th。",
+      "requires": [
+        "bn-th",
+        "bn-n",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "থা",
+          "reading": "tha"
+        },
+        {
+          "text": "না",
+          "reading": "na"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-jela",
+      "glyph": "জেলা",
+      "meaning": "县级行政区；District",
+      "roman": "jela",
+      "ipa": "dʒela",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%9C%E0%A7%87%E0%A6%B2%E0%A6%BE?oldid=88458389",
+      "revision": 88458389,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "jela"
+      ],
+      "sourceIPA": [
+        "/d͡ʒela/",
+        "[ˈd͡ʒelaˑ]",
+        "/dʑela/",
+        "[ˈdʑelaˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "孟加拉国行政区名称常带 জেলা；中文常译“县”，注意它与下一级 Upazila 不同。",
+      "requires": [
+        "bn-j",
+        "bn-l",
+        "bn-e-sign",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "জে",
+          "reading": "je"
+        },
+        {
+          "text": "লা",
+          "reading": "la"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-bibhag",
+      "glyph": "বিভাগ",
+      "meaning": "专区；部门；Division",
+      "roman": "bibhag",
+      "ipa": "bibʱaɡ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BF%E0%A6%AD%E0%A6%BE%E0%A6%97?oldid=88458388",
+      "revision": 88458388,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "bibhag"
+      ],
+      "sourceIPA": [
+        "/bibʱaɡ/",
+        "[ˈbibʱaɡ]",
+        "[ˈbivaɡ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "在行政地址中是 Division；在机构里也可指部门，不能见到它就断定是地名。ভ 采用传统气声读法，也有接近 /v/ 的实现。",
+      "requires": [
+        "bn-b",
+        "bn-bh",
+        "bn-g",
+        "bn-i-sign",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "বি",
+          "reading": "bi"
+        },
+        {
+          "text": "ভা",
+          "reading": "bha"
+        },
+        {
+          "text": "গ",
+          "reading": "g"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-uttor",
+      "glyph": "উত্তর",
+      "meaning": "北；北方",
+      "roman": "uttôr",
+      "ipa": "ut̪ːɔɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%89%E0%A6%A4%E0%A7%8D%E0%A6%A4%E0%A6%B0?oldid=89327556",
+      "revision": 89327556,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "uttor"
+      ],
+      "sourceIPA": [
+        "/ut̪ːɔɾ/",
+        "[ˈut̪ːɔɾ]",
+        "/ut̪ːɔɹ/",
+        "[ˈut̪ːɔɹ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "方位词；还可表示“回答”，这里只练地址、地名中的北方义。ত্ত 是齿塞音延长，元音不因此加长。",
+      "requires": [
+        "bn-u",
+        "bn-tt",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "উ",
+          "reading": "u"
+        },
+        {
+          "text": "ত্ত",
+          "reading": "ttô"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-dokkhin",
+      "glyph": "দক্ষিণ",
+      "meaning": "南；南方",
+      "roman": "dôkkhin",
+      "ipa": "d̪ɔkʰːin",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BF%E0%A6%A3?oldid=88279563",
+      "revision": 88279563,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "dokkhin"
+      ],
+      "sourceIPA": [
+        "/d̪ɔkʰːin/",
+        "[ˈd̪ɔkʰːin]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "地图可能写 Dakshin / Dakkhin。本词的 ক্ষ 采用 /kʰː/，ণ 为 /n/；不能按 k+sh+卷舌鼻音拼出答案。",
+      "requires": [
+        "bn-d",
+        "bn-ksh",
+        "bn-i-sign",
+        "bn-retro-n",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "দ",
+          "reading": "dô"
+        },
+        {
+          "text": "ক্ষি",
+          "reading": "kkhi"
+        },
+        {
+          "text": "ণ",
+          "reading": "n"
+        }
+      ],
+      "conventionalNames": [
+        "Dakshin",
+        "Dakkhin"
+      ]
+    },
+    {
+      "id": "bn-word-purbo",
+      "glyph": "পূর্ব",
+      "meaning": "东；东方",
+      "roman": "purbo",
+      "ipa": "puɾbo",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A7%82%E0%A6%B0%E0%A7%8D%E0%A6%AC?oldid=88458397",
+      "revision": 88458397,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "purbo"
+      ],
+      "sourceIPA": [
+        "/puɾbo/",
+        "[ˈpuɾboˑ]",
+        "/puɹbo/",
+        "[ˈpuɹboˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "地图常写 Purba / Purbo。本词 র 先于 ব；词尾仍保留 /o/，所以“所有词尾删元音”在这里会出错。",
+      "requires": [
+        "bn-p",
+        "bn-uu-sign",
+        "bn-rb",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "পূ",
+          "reading": "pu"
+        },
+        {
+          "text": "র্ব",
+          "reading": "rbo",
+          "note": "末尾保留 /o/"
+        }
+      ],
+      "conventionalNames": [
+        "Purba",
+        "Purbo"
+      ]
+    },
+    {
+      "id": "bn-word-poshchim",
+      "glyph": "পশ্চিম",
+      "meaning": "西；西方",
+      "roman": "pôshchim",
+      "ipa": "pɔʃtʃim",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%B6%E0%A7%8D%E0%A6%9A%E0%A6%BF%E0%A6%AE?oldid=90739661",
+      "revision": 90739661,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "pôścim"
+      ],
+      "sourceIPA": [
+        "/pɔʃt͡ʃim/",
+        "[ˈpɔʃt͡ʃim]",
+        "[ˈpɔst͡ʃim]",
+        "/pɔʃtɕim/",
+        "[ˈpɔʃtɕim]",
+        "[ˈpɔstɕim]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "Paschim / Pashchim 常见于地图名。শ্চ 作为整体读 /ʃtʃ/，不在合字中间插元音。",
+      "requires": [
+        "bn-p",
+        "bn-shch",
+        "bn-i-sign",
+        "bn-m",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "প",
+          "reading": "pô"
+        },
+        {
+          "text": "শ্চি",
+          "reading": "shchi"
+        },
+        {
+          "text": "ম",
+          "reading": "m"
+        }
+      ],
+      "conventionalNames": [
+        "Paschim",
+        "Pashchim"
+      ]
+    },
+    {
+      "id": "bn-word-cha",
+      "glyph": "চা",
+      "meaning": "茶",
+      "roman": "cha",
+      "ipa": "tʃa",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%9A%E0%A6%BE?oldid=93626211",
+      "revision": 93626211,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "ca"
+      ],
+      "sourceIPA": [
+        "/t͡ʃa/",
+        "[ˈt͡ʃaˑ]",
+        "/tɕa/",
+        "[ˈtɕaː]",
+        "[ˈtɕaˑ]",
+        "-a"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "茶摊、茶店招牌常见的一个音节词。চ 是不送气清塞擦音，不是英语 j。",
+      "requires": [
+        "bn-ch",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "চা",
+          "reading": "cha"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-dokan",
+      "glyph": "দোকান",
+      "meaning": "商店",
+      "roman": "dokan",
+      "ipa": "d̪okan",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A7%8B%E0%A6%95%E0%A6%BE%E0%A6%A8?oldid=88458509",
+      "revision": 88458509,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "dōkan"
+      ],
+      "sourceIPA": [
+        "/do.kan/",
+        "[ˈd̪o.kan]",
+        "-oka"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "店铺招牌常见；দো 的 o 附标围在 দ 两侧，是一个元音，不是两个。",
+      "requires": [
+        "bn-d",
+        "bn-k",
+        "bn-n",
+        "bn-o-sign",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "দো",
+          "reading": "do"
+        },
+        {
+          "text": "কা",
+          "reading": "ka"
+        },
+        {
+          "text": "ন",
+          "reading": "n"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-hotel",
+      "glyph": "হোটেল",
+      "meaning": "旅馆；餐馆",
+      "roman": "hotel",
+      "ipa": "hoʈel",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B9%E0%A7%8B%E0%A6%9F%E0%A7%87%E0%A6%B2?oldid=80978867",
+      "revision": 80978867,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "hōṭel"
+      ],
+      "sourceIPA": [
+        "/hoʈel/",
+        "[hoʈel]",
+        "/hotel/",
+        "[hotel]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "孟加拉语 হোটেল 既可指旅馆，也常指餐馆，不能只凭招牌判断有住宿。ট 的舌位与齿音 ত 不同。",
+      "requires": [
+        "bn-h",
+        "bn-retro-t",
+        "bn-l",
+        "bn-o-sign",
+        "bn-e-sign",
+        "bn-final-vowel",
+        "bn-loan"
+      ],
+      "segments": [
+        {
+          "text": "হো",
+          "reading": "ho"
+        },
+        {
+          "text": "টে",
+          "reading": "te"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-bus",
+      "glyph": "বাস",
+      "meaning": "公共汽车",
+      "roman": "bas",
+      "ipa": "bas",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%B8?oldid=85368994",
+      "revision": 85368994,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "baś"
+      ],
+      "sourceIPA": [
+        "/baʃ/",
+        "[ˈbaːʃ]",
+        "[ˈbaʃ]",
+        "/bas/",
+        "[ˈbaːs]",
+        "[ˈbas]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "交通语境中的英语借词“bus”，采用 /bas/。同形词“居住、气味”常读 /baʃ/，本条不混用该读音。",
+      "requires": [
+        "bn-b",
+        "bn-s",
+        "bn-aa-sign",
+        "bn-s-reading",
+        "bn-loan",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "বা",
+          "reading": "ba"
+        },
+        {
+          "text": "স",
+          "reading": "s",
+          "note": "借词的 /s/"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-rail",
+      "glyph": "রেল",
+      "meaning": "铁路",
+      "roman": "rel",
+      "ipa": "ɾel",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A7%87%E0%A6%B2?oldid=88459495",
+      "revision": 88459495,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "rel"
+      ],
+      "sourceIPA": [
+        "/rel/",
+        "[ˈreːl]",
+        "[ˈrel]",
+        "/ɹel/",
+        "[ɹel]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "铁路相关标识常见的借词；র 的地区实现可以是闪音或近音，不是英语拼写的强制发音。",
+      "requires": [
+        "bn-r",
+        "bn-l",
+        "bn-e-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "রে",
+          "reading": "re"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-bangla",
+      "glyph": "বাংলা",
+      "meaning": "孟加拉语；孟加拉的",
+      "roman": "bangla",
+      "ipa": "baŋla",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE?oldid=88261679",
+      "revision": 88261679,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "baṅla"
+      ],
+      "sourceIPA": [
+        "/baŋla/",
+        "[ˈbaŋlaˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "招牌和语言标签中的常见词。ং 在这里是 /ŋ/，并非只让 /a/ 鼻化。文字本身也用于印度，不能当成唯一国家线索。",
+      "requires": [
+        "bn-b",
+        "bn-aa-sign",
+        "bn-anusvara",
+        "bn-l"
+      ],
+      "segments": [
+        {
+          "text": "বাং",
+          "reading": "bang"
+        },
+        {
+          "text": "লা",
+          "reading": "la"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-bangladesh",
+      "glyph": "বাংলাদেশ",
+      "meaning": "孟加拉国",
+      "roman": "bangladesh",
+      "ipa": "baŋlad̪eʃ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6?oldid=91387522",
+      "revision": 91387522,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "baṅladeś"
+      ],
+      "sourceIPA": [
+        "/baŋlad̪eʃ/",
+        "[ˈbaŋlad̪eʃ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "国家名 Bangladesh；দেশ 是“国家、土地”成分。本词地图标整国，城市额外课另用红点，不把国家当作一个城市。",
+      "requires": [
+        "bn-word-bangla",
+        "bn-d",
+        "bn-e-sign",
+        "bn-sh",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "বাংলা",
+          "reading": "bangla"
+        },
+        {
+          "text": "দেশ",
+          "reading": "desh"
+        }
+      ],
+      "conventionalNames": [],
+      "place": {
+        "type": "region",
+        "regionId": "BD"
+      }
+    },
+    {
+      "id": "bn-word-mosque",
+      "glyph": "মসজিদ",
+      "meaning": "清真寺",
+      "roman": "moshjid",
+      "ipa": "moʃdʒid̪",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%B8%E0%A6%9C%E0%A6%BF%E0%A6%A6?oldid=89334943",
+      "revision": 89334943,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "mosjid"
+      ],
+      "sourceIPA": [
+        "/moʃ.d͡ʒid̪/",
+        "[ˈmoʃ.d͡ʒid̪]",
+        "/mos.d͡ʒid̪/",
+        "[ˈmos.d͡ʒid̪]",
+        "/moʃ.dʑid̪/",
+        "[ˈmoʃ.dʑid̪]",
+        "/mos.dʑid̪/",
+        "[ˈmos.dʑid̪]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "宗教建筑招牌常见。此处采用 /moʃdʒid̪/，另有 /mosdʒid̪/ 变体；স 与 জ 之间不插入元音。",
+      "requires": [
+        "bn-m",
+        "bn-s",
+        "bn-j",
+        "bn-d",
+        "bn-i-sign",
+        "bn-final-vowel",
+        "bn-s-reading"
+      ],
+      "segments": [
+        {
+          "text": "ম",
+          "reading": "mo"
+        },
+        {
+          "text": "স",
+          "reading": "sh"
+        },
+        {
+          "text": "জি",
+          "reading": "ji"
+        },
+        {
+          "text": "দ",
+          "reading": "d"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-temple",
+      "glyph": "মন্দির",
+      "meaning": "寺庙",
+      "roman": "môndir",
+      "ipa": "mɔnd̪iɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%B0?oldid=88459511",
+      "revision": 88459511,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "mondir"
+      ],
+      "sourceIPA": [
+        "/mɔnd̪iɾ/",
+        "[ˈmɔnd̪iɾ]",
+        "/mɔnd̪iɹ/",
+        "[ˈmɔnd̪iɹ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "印度教寺庙和相关地址中的常见词。ন্দ 的 ন 与 দ 组成辅音群；最后 র 不带固有元音。",
+      "requires": [
+        "bn-m",
+        "bn-nd",
+        "bn-i-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ম",
+          "reading": "mô"
+        },
+        {
+          "text": "ন্দি",
+          "reading": "ndi"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": []
+    },
+    {
+      "id": "bn-word-dhaka",
+      "glyph": "ঢাকা",
+      "meaning": "达卡",
+      "roman": "dhaka",
+      "ipa": "ɖʱaka",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A2%E0%A6%BE%E0%A6%95%E0%A6%BE?oldid=92194756",
+      "revision": 92194756,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "ḍhaka"
+      ],
+      "sourceIPA": [
+        "/ɖʱaka/",
+        "[ˈɖʱakaˑ]",
+        "/dʱaka/",
+        "[ˈdʱakaˑ]",
+        "-aka"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "首都；本卡红点表示城市。ঢ 的本地实现常比传统卷舌记音更靠前。",
+      "requires": [
+        "bn-retro-dh",
+        "bn-k",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "ঢা",
+          "reading": "dha"
+        },
+        {
+          "text": "কা",
+          "reading": "ka"
+        }
+      ],
+      "conventionalNames": [
+        "Dhaka",
+        "Dacca"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.4125,
+          23.8103
+        ]
+      }
+    },
+    {
+      "id": "bn-word-chattogram",
+      "glyph": "চট্টগ্রাম",
+      "meaning": "吉大港",
+      "roman": "chôttogram",
+      "ipa": "tʃɔʈːoɡɾam",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%9A%E0%A6%9F%E0%A7%8D%E0%A6%9F%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE?oldid=89799273",
+      "revision": 89799273,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "coṭṭogram"
+      ],
+      "sourceIPA": [
+        "/t͡ʃɔʈːoɡɾam/",
+        "[ˈt͡ʃɔʈːoɡɾam]",
+        "/tɕɔtːoɡɹam/",
+        "[ˈtɕɔtːoɡɹam]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "东南部港口城市；新旧英语名称可能同时出现。ট্ট 不是齿音 ত্ত。",
+      "requires": [
+        "bn-ch",
+        "bn-retro-tt",
+        "bn-gr",
+        "bn-aa-sign",
+        "bn-m",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "চ",
+          "reading": "chô"
+        },
+        {
+          "text": "ট্ট",
+          "reading": "tto"
+        },
+        {
+          "text": "গ্রা",
+          "reading": "gra"
+        },
+        {
+          "text": "ম",
+          "reading": "m"
+        }
+      ],
+      "conventionalNames": [
+        "Chattogram",
+        "Chittagong"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.7832,
+          22.3569
+        ]
+      }
+    },
+    {
+      "id": "bn-word-khulna",
+      "glyph": "খুলনা",
+      "meaning": "库尔纳",
+      "roman": "khulna",
+      "ipa": "kʰulna",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%96%E0%A7%81%E0%A6%B2%E0%A6%A8%E0%A6%BE?oldid=87900384",
+      "revision": 87900384,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "khulna"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "independentNativeReview": false,
+      "readingNote": "西南部城市，与同名专区、县区分；这里的 ল 不再带元音。音值依据已核对的 khulna 转写与标准音值，仍待母语独立审读。",
+      "requires": [
+        "bn-kh",
+        "bn-u-sign",
+        "bn-l",
+        "bn-n",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "খু",
+          "reading": "khu"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        },
+        {
+          "text": "না",
+          "reading": "na"
+        }
+      ],
+      "conventionalNames": [
+        "Khulna"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.5403,
+          22.8456
+        ]
+      }
+    },
+    {
+      "id": "bn-word-rajshahi",
+      "glyph": "রাজশাহী",
+      "meaning": "拉杰沙希",
+      "roman": "rajshahi",
+      "ipa": "ɾadʒʃahi",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%BE%E0%A6%9C%E0%A6%B6%E0%A6%BE%E0%A6%B9%E0%A7%80?oldid=91292327",
+      "revision": 91292327,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "rajśahi"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "independentNativeReview": false,
+      "readingNote": "西北部城市；জ 在 শ 前不另加元音。音值依据 rajśahi 转写和标准音值，未把字典无 IPA 的条目标成独立音标审校通过。",
+      "requires": [
+        "bn-r",
+        "bn-aa-sign",
+        "bn-j",
+        "bn-sh",
+        "bn-h",
+        "bn-ii-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "রা",
+          "reading": "ra"
+        },
+        {
+          "text": "জ",
+          "reading": "j"
+        },
+        {
+          "text": "শা",
+          "reading": "sha"
+        },
+        {
+          "text": "হী",
+          "reading": "hi"
+        }
+      ],
+      "conventionalNames": [
+        "Rajshahi"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.6042,
+          24.3745
+        ]
+      }
+    },
+    {
+      "id": "bn-word-barishal",
+      "glyph": "বরিশাল",
+      "meaning": "巴里萨尔",
+      "roman": "borishal",
+      "ipa": "boɾiʃal",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%B0%E0%A6%BF%E0%A6%B6%E0%A6%BE%E0%A6%B2?oldid=91052502",
+      "revision": 91052502,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "boriśal"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "independentNativeReview": false,
+      "readingNote": "南部河港城市；地图存在 Barisal / Barishal 拼法。音值依据 boriśal 词条转写与标准音值，待独立审读。",
+      "requires": [
+        "bn-b",
+        "bn-r",
+        "bn-i-sign",
+        "bn-sh",
+        "bn-aa-sign",
+        "bn-l",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ব",
+          "reading": "bo"
+        },
+        {
+          "text": "রি",
+          "reading": "ri"
+        },
+        {
+          "text": "শা",
+          "reading": "sha"
+        },
+        {
+          "text": "ল",
+          "reading": "l"
+        }
+      ],
+      "conventionalNames": [
+        "Barishal",
+        "Barisal"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.3535,
+          22.701
+        ]
+      }
+    },
+    {
+      "id": "bn-word-sylhet",
+      "glyph": "সিলেট",
+      "meaning": "锡尔赫特",
+      "roman": "silet",
+      "ipa": "sileʈ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A6%BF%E0%A6%B2%E0%A7%87%E0%A6%9F?oldid=89782845",
+      "revision": 89782845,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "sileṭ"
+      ],
+      "sourceIPA": [
+        "/sileʈ/",
+        "[ˈsileʈ]",
+        "/ʃileʈ/",
+        "[ˈʃileʈ]",
+        "/silet/",
+        "[ˈsilet]",
+        "/ʃilet/",
+        "[ˈʃilet]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "东北部城市；本课采用字典列出的 /s/ 变体，也有 /ʃ/。地图 Sylhet 的 y、h 不逐字对应原文。",
+      "requires": [
+        "bn-s",
+        "bn-i-sign",
+        "bn-l",
+        "bn-e-sign",
+        "bn-retro-t",
+        "bn-s-reading",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "সি",
+          "reading": "si"
+        },
+        {
+          "text": "লে",
+          "reading": "le"
+        },
+        {
+          "text": "ট",
+          "reading": "t"
+        }
+      ],
+      "conventionalNames": [
+        "Sylhet",
+        "Silhet"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.8687,
+          24.8949
+        ]
+      }
+    },
+    {
+      "id": "bn-word-rangpur",
+      "glyph": "রংপুর",
+      "meaning": "朗布尔",
+      "roman": "rôngpur",
+      "ipa": "ɾɔŋpuɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%82%E0%A6%AA%E0%A7%81%E0%A6%B0?oldid=93381633",
+      "revision": 93381633,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "roṅpur"
+      ],
+      "sourceIPA": [
+        "/rɔŋpuɾ/",
+        "[ˈrɔŋpuɾ]",
+        "/ɹɔŋpuɹ/",
+        "[ɹɔŋpuɹ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "北部城市；ং 是 /ŋ/，后面接 প，不应凭英语名的 ng 添一个 /ɡ/。",
+      "requires": [
+        "bn-r",
+        "bn-anusvara",
+        "bn-p",
+        "bn-u-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "রং",
+          "reading": "rông"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": [
+        "Rangpur",
+        "Rongpur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.2752,
+          25.7439
+        ]
+      }
+    },
+    {
+      "id": "bn-word-mymensingh",
+      "glyph": "ময়মনসিংহ",
+      "meaning": "迈门辛",
+      "roman": "môymonshingho",
+      "ipa": "mɔe̯monʃiŋho",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%AF%E0%A6%BC%E0%A6%AE%E0%A6%A8%E0%A6%B8%E0%A6%BF%E0%A6%82%E0%A6%B9?oldid=91216539",
+      "revision": 91216539,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "moẏmonśiṅho"
+      ],
+      "sourceIPA": [
+        "/mɔe̯monʃiŋ(ho)/",
+        "[ˈmɔe̯monʃiŋ(ho)]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "北中部城市；采用字典所列保留末尾 ho 的变体。য 与 য় 不要混淆，读音不能从 Mymensingh 逐字猜。",
+      "requires": [
+        "bn-m",
+        "bn-glide",
+        "bn-n",
+        "bn-s",
+        "bn-i-sign",
+        "bn-anusvara",
+        "bn-h",
+        "bn-s-reading",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ময়",
+          "reading": "môy",
+          "note": "/mɔe̯/"
+        },
+        {
+          "text": "ম",
+          "reading": "mo"
+        },
+        {
+          "text": "ন",
+          "reading": "n"
+        },
+        {
+          "text": "সিং",
+          "reading": "shing"
+        },
+        {
+          "text": "হ",
+          "reading": "ho",
+          "note": "有省去词末 ho 的变体"
+        }
+      ],
+      "conventionalNames": [
+        "Mymensingh",
+        "Mymensing"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.4074,
+          24.7471
+        ]
+      }
+    },
+    {
+      "id": "bn-word-cumilla",
+      "glyph": "কুমিল্লা",
+      "meaning": "库米拉",
+      "roman": "kumilla",
+      "ipa": "kumilːa",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE?oldid=87741105",
+      "revision": 87741105,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "kumilla"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "independentNativeReview": false,
+      "readingNote": "东部城市；ল্ল 是辅音延长。音值依据 kumilla 词条转写与标准音值，待独立审读。",
+      "requires": [
+        "bn-k",
+        "bn-u-sign",
+        "bn-m",
+        "bn-i-sign",
+        "bn-ll",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "কু",
+          "reading": "ku"
+        },
+        {
+          "text": "মি",
+          "reading": "mi"
+        },
+        {
+          "text": "ল্লা",
+          "reading": "lla"
+        }
+      ],
+      "conventionalNames": [
+        "Cumilla",
+        "Comilla"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.1809,
+          23.4607
+        ]
+      }
+    },
+    {
+      "id": "bn-word-coxs-bazar",
+      "glyph": "কক্সবাজার",
+      "meaning": "科克斯巴扎尔",
+      "roman": "kôksbajar",
+      "ipa": "kɔksbadʒaɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A6%95%E0%A7%8D%E0%A6%B8%E0%A6%AC%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%B0?oldid=87687129",
+      "revision": 87687129,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "koksbajar"
+      ],
+      "sourceIPA": [
+        "/kɔksbad͡ʒaɾ/",
+        "[ˈkɔks.bad͡ʒaɾ]",
+        "[ˈkɔɡzbad͡ʒaɾ]",
+        "[ˈkɔɡzbazaɾ]",
+        "/kɔksesbad͡ʒaɾ/",
+        "[ˈkɔkses.bad͡ʒaɾ]",
+        "[ˈkɔksezbad͡ʒaɾ]",
+        "[ˈkɔksezbazaɾ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "东南海岸城市。ক্স 为 /ks/，不冒充 ক্ষ 的 /kʰː/；本课采用字典列出的 /kɔksbadʒaɾ/。",
+      "requires": [
+        "bn-k",
+        "bn-s",
+        "bn-b",
+        "bn-j",
+        "bn-r",
+        "bn-aa-sign",
+        "bn-hasanta",
+        "bn-s-reading",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ক",
+          "reading": "kô"
+        },
+        {
+          "text": "ক্স",
+          "reading": "ks"
+        },
+        {
+          "text": "বা",
+          "reading": "ba"
+        },
+        {
+          "text": "জা",
+          "reading": "ja"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": [
+        "Cox's Bazar",
+        "Coxs Bazar"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.979,
+          21.4272
+        ]
+      }
+    },
+    {
+      "id": "bn-word-jashore",
+      "glyph": "যশোর",
+      "meaning": "杰索尔",
+      "roman": "jôshor",
+      "ipa": "dʒɔʃoɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0?oldid=88417523",
+      "revision": 88417523,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "jośōr"
+      ],
+      "sourceIPA": [
+        "/d͡ʒɔʃoɾ/",
+        "[ˈd͡ʒɔʃoɾ]",
+        "/dʑɔʃoɾ/",
+        "[ˈdʑɔʃoɾ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "西南部城市。词首 য 读 j，不按拉丁字母 y 发音；Jessore 是常见旧拼名。",
+      "requires": [
+        "bn-y",
+        "bn-sh",
+        "bn-o-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "য",
+          "reading": "jô"
+        },
+        {
+          "text": "শো",
+          "reading": "sho"
+        },
+        {
+          "text": "র",
+          "reading": "r"
+        }
+      ],
+      "conventionalNames": [
+        "Jashore",
+        "Jessore"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.2167,
+          23.1667
+        ]
+      }
+    },
+    {
+      "id": "bn-word-bogura",
+      "glyph": "বগুড়া",
+      "meaning": "博格拉",
+      "roman": "bogura",
+      "ipa": "boɡuɾa",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%97%E0%A7%81%E0%A6%A1%E0%A6%BC%E0%A6%BE?oldid=88222873",
+      "revision": 88222873,
+      "checked": "2026-10-22",
+      "sourceTranscription": [
+        "boguṛa"
+      ],
+      "sourceIPA": [
+        "/boɡuɾa/",
+        "[ˈboɡuɾaˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "independentNativeReview": false,
+      "readingNote": "西北内陆城市。采用词条中的 /ɾ/ 读法，体现孟加拉国常见的 rhotic 合流，不把 র 与 ড় 视为所有地区都严格对立。",
+      "requires": [
+        "bn-b",
+        "bn-g",
+        "bn-u-sign",
+        "bn-flap",
+        "bn-aa-sign",
+        "bn-inherent"
+      ],
+      "segments": [
+        {
+          "text": "ব",
+          "reading": "bo"
+        },
+        {
+          "text": "গু",
+          "reading": "gu"
+        },
+        {
+          "text": "ড়া",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Bogura",
+        "Bogra"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.37,
+          24.85
+        ]
+      }
+    }
+  ]
+}

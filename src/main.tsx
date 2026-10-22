@@ -11,6 +11,9 @@ import '@fontsource/noto-sans-thai/thai-600.css';
 import '@fontsource/noto-sans-thai-looped/thai-400.css';
 import '@fontsource/noto-sans-thai-looped/thai-500.css';
 import '@fontsource/noto-sans-thai-looped/thai-600.css';
+import '@fontsource/noto-sans-bengali/bengali-400.css';
+import '@fontsource/noto-sans-bengali/bengali-500.css';
+import '@fontsource/noto-sans-bengali/bengali-600.css';
 import App from './App';
 import './styles.css';
 

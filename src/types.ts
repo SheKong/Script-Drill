@@ -169,6 +169,7 @@ export interface AppState {
   history: History[];
   settings: { dailyGoal: number; newPerLesson: number; typing: boolean };
   completedUnitReviews?: Record<string, boolean>;
+  earlyExtraUnlocks?: Record<CourseId, boolean>;
   rushBest?: Record<string, number>;
   session?: Session;
 }

@@ -28,7 +28,9 @@ export function VoiceEnvironment({ course }: { course: Course }) {
   if (!course.items.some(item => item.pronunciation?.speech)) return null;
   return <section className="voice-environment">
     <h2><Headphones size={17} />发音环境</h2>
-    <p role="status">{voice ? `已检测到匹配语音：${voice.name || voice.lang}` : '设备语音暂不可用。已有录音仍可播放，也可在线收听。'}</p>
+    <p role="status">{voice ? `已检测到匹配语音：${voice.name || voice.lang}`
+      : course.items.some(item => item.pronunciation?.recording) ? '设备语音暂不可用。已有录音仍可播放，也可在线收听。'
+      : '设备语音暂不可用，可在词条中在线收听。'}</p>
     {course.voiceHelp === 'thai' ? <VoiceHelp available={!!voice} recheck={() => window.dispatchEvent(new Event(VOICE_RECHECK))} />
       : <button className="text-button" onClick={() => window.dispatchEvent(new Event(VOICE_RECHECK))}><RefreshCw size={14} />重新检测语音</button>}
   </section>;

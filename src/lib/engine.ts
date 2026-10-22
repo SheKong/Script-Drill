@@ -1,5 +1,6 @@
 import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
 import { courses, itemMap } from '../data';
+import { learningPolicy } from '../data/template';
 import type {
   AppState, Course, Exercise, ExerciseKind, ItemProgress, Knowledge,
   Option, Outcome, Session, StoredCard, Unit,
@@ -22,7 +23,7 @@ export const reading = (item: Knowledge) => courses[item.courseId].type === 'pho
 export const introduced = (id: string, progress: AppState['progress']) => !!progress[id]?.introduced;
 export const trained = (id: string, progress: AppState['progress']) => {
   const p = progress[id];
-  if (!p?.introduced || p.correct < 2) return false;
+  if (!p?.introduced || p.correct < (itemMap[id]?.kind === 'rule' ? 1 : 2)) return false;
   return itemMap[id]?.kind === 'rule' ? p.modes.includes('read') : (p.modes.includes('read') && p.modes.includes('reverse'));
 };
 export const eligibleWords = (course: Course, progress: AppState['progress']) =>
@@ -36,13 +37,24 @@ export const nextUnit = (course: Course, progress: AppState['progress'], reviews
   course.units.find(u => !unitDone(u, progress, reviews));
 export const mainComplete = (course: Course, state: AppState) =>
   !nextUnit(course, state.progress, state.completedUnitReviews);
+export const extrasOpen = (course: Course, state: AppState) =>
+  mainComplete(course, state) || !!state.earlyExtraUnlocks?.[course.id];
+const ruleReviewReady = (item: Knowledge, progress: AppState['progress'], now: Date) =>
+  item.kind !== 'rule' || !trained(item.id, progress)
+  || now.getTime() - Date.parse(progress[item.id].lastSeen) >= learningPolicy.ruleReviewGapDays * 86400000;
+export const reviewDueAt = (item: Knowledge, progress: AppState['progress']) => {
+  const saved = progress[item.id];
+  if (!saved?.card) return Infinity;
+  return Math.max(Date.parse(saved.card.due), item.kind === 'rule' && trained(item.id, progress)
+    ? Date.parse(saved.lastSeen) + learningPolicy.ruleReviewGapDays * 86400000 : 0);
+};
 export const dueItems = (course: Course, progress: AppState['progress'], now = new Date()) =>
-  course.items.filter(i => progress[i.id]?.card && new Date(progress[i.id].card!.due) <= now)
-    .sort((a, b) => Date.parse(progress[a.id].card!.due) - Date.parse(progress[b.id].card!.due));
-export const weakItems = (course: Course, progress: AppState['progress']) =>
+  course.items.filter(i => reviewDueAt(i, progress) <= now.getTime())
+    .sort((a, b) => reviewDueAt(a, progress) - reviewDueAt(b, progress));
+export const weakItems = (course: Course, progress: AppState['progress'], now = new Date()) =>
   course.items.filter(i => progress[i.id]?.wrong > 0 && (
     progress[i.id].card?.state === 3 || progress[i.id].wrong >= progress[i.id].correct / 3
-  )).sort((a, b) => progress[b.id].wrong - progress[a.id].wrong);
+  ) && ruleReviewReady(i, progress, now)).sort((a, b) => progress[b.id].wrong - progress[a.id].wrong);
 
 function equivalence(item: Knowledge): string {
   if (item.kind === 'rule') return item.ruleAnswer || item.title;
@@ -161,6 +173,56 @@ function appendTraining(queue: Exercise[], item: Knowledge, course: Course, stat
   if (isNew && item.kind !== 'word') queue.push(makeExercise(item, 'intro', course, state.progress));
   queue.push(makeExercise(item, 'read', course, state.progress));
 }
+function limitRules(items: Knowledge[]): Knowledge[] {
+  let rules = 0;
+  return items.filter(item => item.kind !== 'rule' || rules++ < learningPolicy.ruleReviewLimit);
+}
+
+export function makeUnitReview(unit: Unit, course: Course, state: AppState, now: Date): Exercise[] {
+  const allTargets = unit.items.map(id => itemMap[id]);
+  const familiar = course.items.filter(item => trained(item.id, state.progress) && item.kind !== 'rule');
+  const rules = limitRules(allTargets.filter(item => item.kind === 'rule' && ruleReviewReady(item, state.progress, now)));
+  const targets = allTargets.filter(item => item.kind !== 'rule');
+  const due = limitRules(dueItems(course, state.progress, now).filter(item => !allTargets.includes(item))).slice(0, 16);
+  const duePractical = due.filter(item => item.kind !== 'rule');
+  const queue: Exercise[] = [];
+  const budget = learningPolicy.unitReviewMax - learningPolicy.unitReviewRepairReserve;
+  // Cover the entire unit before spending the remaining budget on varied retrieval.
+  for (let offset = 0; offset < targets.length; offset += 5) {
+    const group = targets.slice(offset, offset + 5);
+    const match = makeMatch(group, familiar);
+    if (match) queue.push(match);
+    for (const item of group) {
+      if (!match?.pairs?.some(pair => pair.id === item.id)) queue.push(makeExercise(item, 'read', course, state.progress));
+    }
+  }
+  for (const item of [...rules, ...duePractical]) {
+    if (queue.length >= budget) break;
+    queue.push(makeExercise(item, 'read', course, state.progress));
+  }
+  const practice = [...targets, ...duePractical, ...shuffle(familiar.filter(item => !targets.includes(item) && !duePractical.includes(item)))];
+  const contextual = practice.filter(item => item.kind === 'word' && course.recognition?.marks.some(mark => item.glyph.includes(mark)));
+  for (const item of shuffle(contextual).slice(0, 2)) {
+    if (queue.length < budget) queue.push(makeExercise(item, 'mark', course, state.progress));
+  }
+  const combination = targets.some(item => ['consonant', 'vowel'].includes(item.kind))
+    ? makeCombination([...targets, ...familiar], course) : undefined;
+  if (combination && queue.length < budget) queue.push(combination);
+  if (!practice.length && !queue.length) {
+    // An introductory rules-only unit gets a short check, never thirty copies.
+    for (const item of limitRules(allTargets)) queue.push(makeExercise(item, 'read', course, state.progress));
+  }
+  for (let round = 0; practice.length && queue.length < learningPolicy.unitReviewTarget; round++) {
+    for (const [index, item] of practice.entries()) {
+      if (queue.length >= learningPolicy.unitReviewTarget || queue.length >= budget) break;
+      const kinds: ExerciseKind[] = ['read', 'reverse'];
+      if (state.settings.typing && course.type === 'script' && item.roman) kinds.push('type');
+      if (item.kind === 'word') kinds.push('meaning');
+      queue.push(makeExercise(item, kinds[(round + index) % kinds.length], course, state.progress));
+    }
+  }
+  return queue;
+}
 export function createSession(
   state: AppState, mode: Session['mode'], unitId?: string, customIds?: string[], now = new Date(),
 ): Session | undefined {
@@ -171,13 +233,13 @@ export function createSession(
     : nextUnit(course, state.progress, state.completedUnitReviews));
   const unitIndex = unit ? course.units.indexOf(unit) : -1;
   if (mode === 'learn' && (!unit || !unitOpen(course, unitIndex, state.progress, state.completedUnitReviews))) return undefined;
-  if (mode === 'extra' && (!unit || !mainComplete(course, state))) return undefined;
+  if (mode === 'extra' && (!unit || !extrasOpen(course, state))) return undefined;
   const learning = mode === 'learn' || mode === 'extra';
   const unitReview = learning && unit && unitLearned(unit, state.progress);
   let targets: Knowledge[];
   if (mode === 'custom') targets = (customIds || []).map(id => itemMap[id]).filter(i => i?.courseId === course.id && introduced(i.id, state.progress));
-  else if (mode === 'review') targets = dueItems(course, state.progress, now).slice(0, 8);
-  else if (mode === 'mistakes') targets = weakItems(course, state.progress).slice(0, 6);
+  else if (mode === 'review') targets = limitRules(dueItems(course, state.progress, now)).slice(0, 8);
+  else if (mode === 'mistakes') targets = limitRules(weakItems(course, state.progress, now)).slice(0, 6);
   else if (unitReview) {
     targets = unit.items.map(id => itemMap[id]);
   } else {
@@ -185,7 +247,7 @@ export function createSession(
     const selected: Knowledge[] = [];
     const availableKnowledge = new Set(Object.keys(state.progress).filter(id => trained(id, state.progress)));
     for (const item of available) {
-      if (!item.requires.every(id => availableKnowledge.has(id))) continue;
+      if (mode !== 'extra' && !item.requires.every(id => availableKnowledge.has(id))) continue;
       selected.push(item);
       // Earlier units may have prerequisites within the same unit. Those are deliberately
       // deferred until the next lesson, when their prerequisite has actually been practiced.
@@ -197,20 +259,23 @@ export function createSession(
     if (readyWord) targets = [...targets, readyWord];
   }
   if (!targets.length) return undefined;
+  if (unitReview) return {
+    id: uid(), courseId: course.id, mode, unitId: unit.id, stage: 'unit-review',
+    queue: makeUnitReview(unit, course, state, now), index: 0, outcomes: {}, introduced: [],
+    answers: 0, correct: 0, startedAt: now.toISOString(), activeSeconds: 0, repairCount: {}, newIds: [],
+  };
   const queue: Exercise[] = [];
   const newIds = targets.filter(i => !introduced(i.id, state.progress)).map(i => i.id);
-  const due = learning ? dueItems(course, state.progress, now).filter(i => !targets.includes(i)).slice(0, unitReview ? 16 : 4) : [];
-  if (unitReview) targets = [...targets, ...due];
+  const due = learning ? limitRules(dueItems(course, state.progress, now).filter(i => !targets.includes(i))).slice(0, 4) : [];
   for (let n = 0; n < targets.length; n++) {
     const item = targets[n];
     appendTraining(queue, item, course, state, newIds.includes(item.id));
-    if (n > 0) queue.push(makeExercise(targets[n - 1], 'reverse', course, state.progress));
+    if (n > 0 && targets[n - 1].kind !== 'rule') queue.push(makeExercise(targets[n - 1], 'reverse', course, state.progress));
     if (!unitReview && due[n]) queue.push(makeExercise(due[n], 'read', course, state.progress));
   }
-  queue.push(makeExercise(targets[targets.length - 1], 'reverse', course, state.progress));
+  if (targets[targets.length - 1].kind !== 'rule') queue.push(makeExercise(targets[targets.length - 1], 'reverse', course, state.progress));
   // A second, separated retrieval is required for progression, not passive introduction.
   for (const item of targets) {
-    if (item.kind === 'rule') queue.push(makeExercise(item, 'read', course, state.progress));
     if (item.kind === 'word' && !newIds.includes(item.id)) {
       queue.push(makeExercise(item, 'meaning', course, state.progress));
     }
@@ -225,20 +290,6 @@ export function createSession(
   for (let offset = 0; offset < Math.max(1, matching.length); offset += 5) {
     const match = makeMatch(matching.slice(offset, offset + 5), [...matching, ...due, ...familiar]);
     if (match) queue.push(match);
-  }
-  if (unitReview) {
-    // Tiny units still get a substantial, interleaved retrieval lesson.
-    for (const item of shuffle([...targets, ...familiar.filter(i => !targets.includes(i))])) {
-      if (queue.length >= 36) break;
-      queue.push(makeExercise(item, item.kind === 'rule' ? 'read' : 'reverse', course, state.progress));
-      if (state.settings.typing && course.type === 'script' && item.kind !== 'rule' && item.roman) {
-        queue.push(makeExercise(item, 'type', course, state.progress));
-      }
-    }
-    while (queue.length < 30) {
-      const item = targets[queue.length % targets.length];
-      queue.push(makeExercise(item, queue.length % 2 ? 'read' : 'reverse', course, state.progress));
-    }
   }
   const combination = learning && targets.some(i => ['consonant', 'vowel'].includes(i.kind))
     ? makeCombination([...targets, ...course.items.filter(i => trained(i.id, state.progress))], course) : undefined;
@@ -256,6 +307,12 @@ export const checkTyped = (item: Knowledge, answer: string) =>
 
 // Saved sessions keep their order and answers, but follow corrected course notation.
 export function refreshSessionNotation(session: Session): Session {
+  if (session.stage === 'unit-review' && session.queue.length > learningPolicy.unitReviewMax) {
+    // Retain confirmed outcomes; an already over-budget legacy review needs only its current question.
+    session = session.index < learningPolicy.unitReviewMax
+      ? { ...session, queue: session.queue.slice(0, learningPolicy.unitReviewMax) }
+      : { ...session, queue: [session.queue[session.index]], index: 0 };
+  }
   const course = courses[session.courseId];
   return { ...session, queue: session.queue.map(exercise => {
     const item = itemMap[exercise.itemId];
@@ -328,7 +385,8 @@ export function answerExercise(
       hinted: old.hinted || hinted,
       modes: ok && !hinted ? [...new Set([...old.modes, exercise.kind])] : old.modes,
     };
-    if (!ok && (repairCount[id] || 0) < 2) {
+    if (!ok && (repairCount[id] || 0) < (itemMap[id].kind === 'rule' ? 1 : 2)
+      && (session.stage !== 'unit-review' || queue.length < learningPolicy.unitReviewMax)) {
       const repair = makeExercise(itemMap[id], exercise.kind === 'reverse' ? 'read' : 'reverse', courses[session.courseId], state.progress);
       repair.repair = true;
       const insertAt = Math.min(queue.length, session.index + 4);

@@ -2,6 +2,51 @@ import type { Source } from '../types';
 
 export const sources: Source[] = [
   {
+    id: 'bn-script', title: 'The Bangla Script', organization: 'University of Texas at Austin · Bangla OER',
+    url: 'https://bangla.la.utexas.edu/resources/the-bangla-script/',
+    description: '字母、元音附标、固有元音、合字与 phala 的大学教学资料。中文说明重新编写，不把教学转写冒充官方地名规范。',
+  },
+  {
+    id: 'bn-pronunciation', title: 'Pronouncing the Bangla Alphabet', organization: 'University of Texas at Austin · Bangla OER',
+    url: 'https://bangla.la.utexas.edu/resources/pronunciation/',
+    description: '原站真人发音与发音部位教学。本课只链接原站，未将其录音包装成本地已收录音频；孤立字母名不等于词内辅音读法。',
+  },
+  {
+    id: 'bn-unicode', title: 'Unicode 17.0 · 12.2 Bengali (Bangla)', organization: 'The Unicode Consortium',
+    url: 'https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/#G11121',
+    description: '核对完整字符、元音附标、hasanta、reph、ya-phalaa、khanda ta、数字，以及孟加拉语与阿萨姆语共用文字的边界。',
+  },
+  {
+    id: 'bn-orthography', title: 'Bengali/Bangla Orthography Notes', organization: 'Richard Ishida · 文字与排版研究',
+    url: 'https://r12a.github.io/scripts/beng/bn.html',
+    description: '作者的文字系统与 Unicode 实例研究，核对附标位置、独立元音、合字、鼻音符号及完整文本 shaping；不是官方语言规范。',
+  },
+  {
+    id: 'bn-phonetics', title: 'Bengali (Bangladeshi Standard) · 2010', organization: 'Sameer ud Dowla Khan · Journal of the International Phonetic Association',
+    url: 'https://www.reed.edu/linguistics/khan/assets/Khan%202010%20Bengali%20Bangladeshi%20standard.pdf',
+    description: '孟加拉国标准语的原始语音学研究，DOI 10.1017/S0025100310000071。核对元音无常规长短对立、重叠辅音、舌位、r、s/sh 与鼻化的地区边界，不将其与传统宽式记音混为一套严式音标。',
+  },
+  {
+    id: 'bn-loc', title: 'ALA-LC Bengali Romanization Table · 2017', organization: 'Library of Congress',
+    url: 'https://www.loc.gov/catdir/cpso/romanization/bengali.pdf',
+    description: '核对书目转写与实际读音的差别。本站没有采用 ALA-LC 作为输入考核方案；不把 ā、ī、ai 等字母编码直接当现代语音。',
+  },
+  {
+    id: 'bn-lexicon', title: 'Bengali lexical entries · per-word audit', organization: 'Wiktionary · 原创词条贡献者',
+    url: 'https://en.wiktionary.org/wiki/Category:Bengali_lemmas',
+    description: '逐词核对原文、词义、转写及词条列出的 IPA 变体。具体词条 URL、版本、采用音值与缺少独立 IPA 的状态记录在项目 docs/BENGALI_WORD_AUDIT.json，不声称是母语独立审校。',
+  },
+  {
+    id: 'bn-government', title: 'Divisions of Bangladesh · National Portal', organization: 'Bangladesh National Portal',
+    url: 'https://bangladesh.gov.bd/site/view/division-list',
+    description: '官方行政区目录，用于核对地名拼写、Division / District 层级与英语惯用名；不以此目录冒充地名 IPA 的来源。',
+  },
+  {
+    id: 'bn-boundaries', title: 'Natural Earth · Bangladesh outline · v5.1.2', organization: 'Natural Earth',
+    url: 'https://www.naturalearthdata.com/about/terms-of-use/',
+    description: '公有领域的 1:50m 国家轮廓。随站点提供派生 GeoJSON 和来源说明；城市为近似参考点，不能当作法定边界或精确导航。',
+  },
+  {
     id: 'thai-boundaries', title: 'Thailand ADM1 · 77 regions', organization: 'geoBoundaries · OpenStreetMap contributors / Wambacher',
     url: 'https://www.geoboundaries.org/api/current/gbOpen/THA/ADM1/',
     description: '2017 年边界数据，76 府与曼谷；本地简化轮廓仅用于位置示意。数据按 ODbL 1.0 提供，改编数据库、来源和许可在 /maps/ 中随站点提供。',

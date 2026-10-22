@@ -119,7 +119,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
           <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
-        </div> : <div className="answer-options" role="group" aria-label="答案选项">
+        </div> : <div className={`answer-options ${item.kind === 'word' ? 'word-answers' : ''}`} role="group" aria-label="答案选项">
           {exercise.options.map((o, index) => {
             const correct = feedback && o.id === exercise.answer;
             const wrong = feedback && o.id === selected && !correct;

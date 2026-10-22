@@ -2,11 +2,11 @@ import { useMemo, useRef, useState } from 'react';
 import {
   ArrowDownToLine, ArrowRight, ArrowUpFromLine, BookOpen, CalendarDays, Check, ChevronDown,
   ChevronRight, CircleCheck, Clock3, ExternalLink, Flame, GraduationCap, Layers3, LockKeyhole,
-  MapPin, Play, RotateCcw, Search, ShieldCheck, SlidersHorizontal, Target, Trash2, X,
+  MapPin, Play, RotateCcw, Search, ShieldCheck, SlidersHorizontal, Target, Trash2, UnlockKeyhole, X,
 } from 'lucide-react';
 import { itemMap, kindNames } from '../data';
 import { sources } from '../data/sources';
-import { cardStatus, dueItems, localDay, mainComplete, nextUnit, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
+import { cardStatus, dueItems, extrasOpen, localDay, mainComplete, nextUnit, reviewDueAt, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
 import { exportBackup, parseBackup } from '../lib/storage';
 import type { AppState, Course, Knowledge, Session } from '../types';
 import { Modal } from './Modal';
@@ -19,10 +19,12 @@ import { PlaceMap } from './PlaceMap';
 export type Start = (mode: Session['mode'], unitId?: string, ids?: string[]) => void;
 type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void; startRush: StartRush };
 
-export function LearnPage({ state, course, start, inspect, resume, startRush }: PageProps & { resume: () => void }) {
+export function LearnPage({ state, course, start, inspect, resume, startRush, unlockExtras }: PageProps & { resume: () => void; unlockExtras: () => void }) {
   const [expanded, setExpanded] = useState(false);
+  const [confirmUnlock, setConfirmUnlock] = useState(false);
   const current = nextUnit(course, state.progress, state.completedUnitReviews);
   const complete = mainComplete(course, state);
+  const extraOpen = extrasOpen(course, state);
   const reviewReady = current && unitLearned(current, state.progress);
   const currentIndex = current ? course.units.indexOf(current) : course.units.length;
   const symbols = course.items.filter(i => i.kind !== 'word');
@@ -100,12 +102,21 @@ export function LearnPage({ state, course, start, inspect, resume, startRush }: 
       {!expanded && visibleUnits.length < course.units.length && <button className="expand-path" onClick={() => setExpanded(true)}>展开全部 {course.units.length} 个单元<ChevronDown size={16} /></button>}
       {expanded && <button className="expand-path" onClick={() => setExpanded(false)}>回到当前进度<ChevronDown size={16} className="rotate" /></button>}
       {!!course.extraUnits?.length && <section className="extra-lessons">
-        <div className="section-heading"><h2><MapPin size={17} />地名额外课</h2><span>{complete ? '已解锁' : '主线结课后解锁'}</span></div>
-        {course.extraUnits.map(unit => <button className="extra-lesson-row" key={unit.id} disabled={!complete} onClick={() => start('extra', unit.id)}>
-          <span>{unitDone(unit, state.progress, state.completedUnitReviews) ? <CircleCheck size={18} /> : complete ? <MapPin size={18} /> : <LockKeyhole size={18} />}</span>
+        <div className="section-heading"><h2><MapPin size={17} />地名额外课</h2>{extraOpen ? <span>{complete ? '已解锁' : '已提前解锁'}</span> :
+          <button className="text-button" onClick={() => setConfirmUnlock(true)}><UnlockKeyhole size={15} />提前解锁</button>}</div>
+        {course.extraUnits.map(unit => <button className="extra-lesson-row" key={unit.id} disabled={!extraOpen} onClick={() => start('extra', unit.id)}>
+          <span>{unitDone(unit, state.progress, state.completedUnitReviews) ? <CircleCheck size={18} /> : extraOpen ? <MapPin size={18} /> : <LockKeyhole size={18} />}</span>
           <span><strong>{unit.title}</strong><small>{unit.items.filter(id => trained(id, state.progress)).length} / {unit.items.length} 个地名 · 含综合复习</small></span><ChevronRight size={17} />
         </button>)}
       </section>}
+      {confirmUnlock && <Modal title="提前解锁地名额外课？" onClose={() => setConfirmUnlock(false)}>
+        <p className="dialog-copy">推荐先学完{course.title}主线，再练习地名。地名会用到尚未学习的字母和拼读规则，提前练习可能更难。</p>
+        <p className="dialog-copy">仍然解锁后，可以直接学习本课程的全部地名额外课；不会替你完成主线，也不会更改已有进度。</p>
+        <div className="dialog-actions">
+          <button className="button primary" onClick={() => setConfirmUnlock(false)}><BookOpen size={16} />先学主线</button>
+          <button className="button secondary" onClick={() => { unlockExtras(); setConfirmUnlock(false); }}><UnlockKeyhole size={16} />仍然解锁</button>
+        </div>
+      </Modal>}
       <div className="course-footnote"><ShieldCheck size={15} /><span>{course.notationNote}</span></div>
     </div>
     <aside className="study-rail">
@@ -137,7 +148,7 @@ export function LearnPage({ state, course, start, inspect, resume, startRush }: 
         <p>前后、开闭、圆唇。<br />从发音坐标，而不是拼写出发。</p>
         <a className="source-link" href={sources.find(s => s.id === 'ipa-chart')!.url} target="_blank" rel="noreferrer">完整 IPA 表<ExternalLink size={13} /></a>
       </section> : null}
-      <div className="rail-progress"><GraduationCap size={18} /><div><strong>{trainedCount} / {symbols.length}</strong><span>个知识已完成双向练习</span></div></div>
+      <div className="rail-progress"><GraduationCap size={18} /><div><strong>{trainedCount} / {symbols.length}</strong><span>个知识已完成基础练习</span></div></div>
     </aside>
   </div>;
 }
@@ -170,7 +181,7 @@ export function LibraryPage({ state, course, start, inspect, startRush }: PagePr
       <div className={`knowledge-grid ${kind === 'word' || kind === 'rule' ? 'wide-items' : ''}`}>
         {items.map(item => {
           const p = state.progress[item.id], s = cardStatus(p);
-          const ready = item.extra ? mainComplete(course, state) : item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
+          const ready = item.extra ? extrasOpen(course, state) : item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
           return <button className={`knowledge-tile ${p?.introduced ? 'known' : ''} ${item.kind === 'word' || item.kind === 'rule' ? 'text-tile' : ''}`} key={item.id} onClick={() => inspect(item)}>
             <span className={`tile-state ${s}`} title={s === 'new' ? '尚未学习' : s === 'learning' ? '学习中' : '间隔复习中'}>{p?.introduced ? <Check size={10} /> : null}</span>
             <strong className={`${scriptClass} tile-glyph`} dir={course.direction} lang={course.locale}>{item.glyph}</strong>
@@ -178,7 +189,7 @@ export function LibraryPage({ state, course, start, inspect, startRush }: PagePr
             <PlaceMap item={item} compact />
             {item.ipa && course.type === 'script' && <span className="tile-ipa phonetic">/{item.ipa}/</span>}
             {item.class && <small>{item.class}类{item.obsolete ? ' · 历史' : ''}</small>}
-            {item.kind === 'word' && <small>{ready ? '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
+            {item.kind === 'word' && <small>{ready ? item.extra ? '地名课已解锁' : '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
           </button>;
         })}
       </div>}
@@ -189,11 +200,11 @@ export function ReviewPage({ state, course, start, inspect }: PageProps) {
   const due = dueItems(course, state.progress);
   const weak = weakItems(course, state.progress);
   const known = course.items.filter(i => state.progress[i.id]?.introduced);
-  const next = known.filter(i => state.progress[i.id]?.card).sort((a, b) => Date.parse(state.progress[a.id].card!.due) - Date.parse(state.progress[b.id].card!.due))[0];
+  const next = known.filter(i => state.progress[i.id]?.card).sort((a, b) => reviewDueAt(a, state.progress) - reviewDueAt(b, state.progress))[0];
   return <div className="wide-page">
     <div className="page-heading"><div><div className="eyebrow">{course.title} / PRACTICE</div><h1>让记忆留下来</h1></div><span className="tag"><RotateCcw size={13} />FSRS · 90% 目标保持率</span></div>
     <div className="review-actions">
-      <section><div className="review-action-icon green"><Clock3 size={23} /></div><h2>到期复习</h2><strong>{due.length}<small> 个知识</small></strong><p>{due.length ? '按到期时间，先复习最需要回忆的内容。' : next ? `下一次：${new Date(state.progress[next.id].card!.due).toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : '完成第一小课后，复习计划会出现在这里。'}</p><button className="button primary" disabled={!due.length} onClick={() => start('review')}>开始复习<ArrowRight size={16} /></button></section>
+      <section><div className="review-action-icon green"><Clock3 size={23} /></div><h2>到期复习</h2><strong>{due.length}<small> 个知识</small></strong><p>{due.length ? '按到期时间，先复习最需要回忆的内容。' : next ? `下一次：${new Date(reviewDueAt(next, state.progress)).toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : '完成第一小课后，复习计划会出现在这里。'}</p><button className="button primary" disabled={!due.length} onClick={() => start('review')}>开始复习<ArrowRight size={16} /></button></section>
       <section><div className="review-action-icon amber"><RotateCcw size={23} /></div><h2>易错巩固</h2><strong>{weak.length}<small> 个知识</small></strong><p>从真实错题出发，重新分清相似的声音与字形。</p><button className="button secondary" disabled={!weak.length} onClick={() => start('mistakes')}>再练一次<ArrowRight size={16} /></button></section>
     </div>
     <div className="section-heading"><h2>当前复习清单</h2><span>{due.length} 个到期</span></div>
@@ -224,7 +235,7 @@ export function StatsPage({ state, course }: { state: AppState; course: Course }
     <div className="section-heading"><h2>最近的练习</h2><span>最多显示 10 次</span></div>
     {!history.length ? <Empty title="第一段记录，等你开始" copy="完成一小课，这里就会留下你的真实学习记录。" icon={<BookOpen size={28} />} /> :
       <div className="history-table"><div className="history-row table-head"><span>时间</span><span>新知识</span><span>练习题</span><span>正确率</span></div>{history.slice(-10).reverse().map(h => <div className="history-row" key={h.id}><span>{new Date(h.date).toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span><span>{h.newCount}</span><span>{h.answers}</span><span>{h.answers ? Math.round(h.correct / h.answers * 100) : 0}%</span></div>)}</div>}
-    <div className="method-note"><ShieldCheck size={18} /><p>“已完成基础练习”表示完成所需的双向提取，不代表永久掌握。记忆强度仍需跨天复习建立。正确率包含错题重练，不能等同于独立测验成绩。</p></div>
+    <div className="method-note"><ShieldCheck size={18} /><p>“已完成基础练习”表示完成所需提取：普通知识需双向练习，抽象规则只需一次独立判断，不代表永久掌握。记忆强度仍需跨天复习建立。正确率包含错题重练，不能等同于独立测验成绩。</p></div>
   </div>;
 }
 
@@ -251,6 +262,7 @@ export function SourcesPage({ course }: { course: Course }) {
     <p className="asset-credit">街景照片来自 Unsplash（原始图片标识：photo-1508009603885-50cf7c579365）。本地字体：
       {' '}<a href="/licenses/NotoSansThai-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai</a>、
       <a href="/licenses/NotoSansThaiLooped-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai Looped</a>、
+      <a href="/licenses/NotoSansBengali-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Bengali</a>、
       <a href="/licenses/NotoSans-OFL.txt" target="_blank" rel="noreferrer">Noto Sans</a>、
       <a href="/licenses/CharisSIL-OFL.txt" target="_blank" rel="noreferrer">Charis SIL（完整 IPA）</a>。
       均保留 OFL 许可。本站不隶属于 GeoGuessr 或 Duolingo。</p>
@@ -285,7 +297,7 @@ export function Settings({ state, update, close, reset, importState, rawBackup }
       {error && <p className="form-error" role="alert">{error}</p>}
       {pending && <div className="confirm-box"><p>备份含 {Object.keys(pending.progress).length} 个知识记录、{pending.history.length} 次练习。导入会替换当前进度。</p><div className="backup-actions"><button className="button secondary" onClick={() => setPending(undefined)}>取消</button><button className="button primary" onClick={() => { importState(pending); setPending(undefined); }}>确认替换</button></div></div>}
     </div>
-    <div className="settings-section danger-zone"><h3>重置全部进度</h3>{confirmReset ? <div className="confirm-box"><p>两门课程的进度、练习记录和未完成练习都会被清除。建议先导出备份。</p><div className="backup-actions"><button className="button secondary" onClick={() => setConfirmReset(false)}>保留进度</button><button className="button danger" onClick={reset}>确认重置</button></div></div> : <button className="text-button danger-text" onClick={() => setConfirmReset(true)}><Trash2 size={15} />重置全部进度</button>}</div>
+    <div className="settings-section danger-zone"><h3>重置全部进度</h3>{confirmReset ? <div className="confirm-box"><p>全部课程的进度、提前解锁、练习记录和未完成练习都会被清除。建议先导出备份。</p><div className="backup-actions"><button className="button secondary" onClick={() => setConfirmReset(false)}>保留进度</button><button className="button danger" onClick={reset}>确认重置</button></div></div> : <button className="text-button danger-text" onClick={() => setConfirmReset(true)}><Trash2 size={15} />重置全部进度</button>}</div>
   </Modal>;
 }
 function Empty({ title, copy, icon }: { title: string; copy: string; icon: React.ReactNode }) {

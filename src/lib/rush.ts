@@ -1,12 +1,12 @@
 import type { AppState, Course, Knowledge } from '../types';
-import { mainComplete, reading, shuffle } from './engine';
+import { extrasOpen, reading, shuffle } from './engine';
 
 export type RushMode = 'simple' | 'vocabulary';
 export interface RushEntry { id: string; glyph: string; reading: string; item?: Knowledge }
 export interface RushBoard { left: RushEntry[]; right: RushEntry[]; recent: string[]; revision: number }
 
 export function rushPool(course: Course, mode: RushMode, state: AppState): RushEntry[] {
-  const complete = mainComplete(course, state);
+  const complete = extrasOpen(course, state);
   const items = course.items.filter(item => mode === 'vocabulary'
     ? item.kind === 'word' && (!item.extra || complete)
     : ['consonant', 'vowel', 'symbol'].includes(item.kind) && !item.obsolete);

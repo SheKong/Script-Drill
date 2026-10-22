@@ -1,0 +1,6 @@
+Bangladesh outline: Natural Earth v5.1.2, 1:50m Admin 0 Countries.
+Source: https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_countries.geojson
+Public domain: https://www.naturalearthdata.com/about/terms-of-use/
+Adaptation: Bangladesh feature selection, polygon winding normalization, Mercator fit to 180 x 260, SVG path rounding.
+The adapted GeoJSON is included as bangladesh.geojson. City points are approximate reference locations, not administrative boundaries.
+Learning illustration only, not navigation or a statement of legal boundaries.

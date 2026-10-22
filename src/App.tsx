@@ -170,7 +170,9 @@ export default function App() {
         </header>
         {warning && <div className="storage-warning" role="alert"><ShieldCheck size={17} /><span>{warning}</span><button onClick={() => setSettings(true)}>数据设置<ArrowRight size={13} /></button></div>}
         <main className="page-content">
-          {page === 'learn' && <LearnPage {...props} resume={() => { setInQuiz(true); window.scrollTo(0, 0); }} />}
+          {page === 'learn' && <LearnPage key={course.id} {...props}
+            unlockExtras={() => setState(previous => ({ ...previous, earlyExtraUnlocks: { ...previous.earlyExtraUnlocks, [course.id]: true } }))}
+            resume={() => { setInQuiz(true); window.scrollTo(0, 0); }} />}
           {page === 'library' && <LibraryPage {...props} />}
           {page === 'review' && <ReviewPage {...props} />}
           {page === 'stats' && <StatsPage state={state} course={course} />}

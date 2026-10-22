@@ -50,6 +50,7 @@ export const stateSchema = z.object({
     newPerLesson: z.number().int().min(1).max(5), typing: z.boolean(),
   }),
   completedUnitReviews: z.record(z.string().max(100), z.boolean()).optional(),
+  earlyExtraUnlocks: z.record(courseId, z.boolean()).optional(),
   rushBest: z.record(z.string().max(100), count).optional(),
   session: z.object({
     id: text, courseId, mode: z.enum(['learn', 'review', 'mistakes', 'custom', 'extra']),

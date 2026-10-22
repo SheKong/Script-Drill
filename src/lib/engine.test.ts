@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { allItems, courses, itemMap } from '../data';
+import { prepareCourse } from '../data/template';
 import recordingManifest from '../data/recordings.json' with { type: 'json' };
 import type { AppState, Session } from '../types';
 import { existsSync, statSync } from 'node:fs';
 import { initialState, parseBackup } from './storage';
 import {
   advanceIntro, answerExercise, checkTyped, createSession, eligibleWords, finishSession,
-  makeCombination, makeExercise, makeMatch, nextUnit, normalizeAnswer, reading, refreshSessionNotation,
-  mainComplete, streak, trained, unitDone, unitOpen,
+  makeCombination, makeExercise, makeMatch, makeUnitReview, nextUnit, normalizeAnswer, reading, refreshSessionNotation,
+  dueItems, extrasOpen, mainComplete, streak, trained, unitDone, unitOpen,
 } from './engine';
 
 function learnedState(courseId: 'thai' | 'ipa' = 'thai'): AppState {
@@ -28,6 +29,13 @@ function completePerfect(state: AppState): AppState {
   return finishSession(next);
 }
 describe('course content invariants', () => {
+  it('rejects oversized authored units instead of silently dropping review coverage', () => {
+    const course = courses.bengali;
+    const practical = course.items.filter(item => !item.extra && item.kind !== 'rule').slice(0, 45);
+    expect(() => prepareCourse({
+      ...course, units: [{ ...course.units[0], items: practical.map(item => item.id) }],
+    })).toThrow('split this unit');
+  });
   it('has unique IDs and complete prerequisite/source graphs', () => {
     expect(new Set(allItems.map(i => i.id)).size).toBe(allItems.length);
     for (const course of Object.values(courses)) {
@@ -205,6 +213,84 @@ describe('generative exercises', () => {
   });
 });
 describe('progression and repetition', () => {
+  it('checks new rules once, accepts one independent retrieval, and never pads rules-only reviews', () => {
+    const state = initialState();
+    const session = createSession(state, 'learn')!;
+    for (const id of session.newIds.filter(id => itemMap[id].kind === 'rule')) {
+      expect(session.queue.filter(q => q.itemId === id && q.kind !== 'intro')).toHaveLength(1);
+    }
+    const learned = completePerfect({ ...state, session });
+    expect(session.newIds.every(id => trained(id, learned.progress))).toBe(true);
+    const unit = { ...courses.thai.units[0], items: session.newIds.filter(id => itemMap[id].kind === 'rule') };
+    const review = makeUnitReview(unit, courses.thai, { ...learned, progress: Object.fromEntries(
+      Object.entries(learned.progress).filter(([id]) => itemMap[id].kind === 'rule'),
+    ) }, new Date());
+    expect(review.length).toBeLessThanOrEqual(2);
+    expect(new Set(review.map(q => q.itemId)).size).toBe(review.length);
+  });
+  it('keeps rules out of ordinary due review for at least fourteen days without changing FSRS cards', () => {
+    const now = new Date('2026-10-22T08:00:00Z');
+    const state = completePerfect({ ...initialState(), session: createSession(initialState(), 'learn') });
+    for (const progress of Object.values(state.progress)) {
+      progress.lastSeen = now.toISOString();
+      progress.card!.due = '2026-10-21T08:00:00Z';
+    }
+    expect(dueItems(courses.thai, state.progress, new Date('2026-10-23T08:00:00Z')).filter(item => item.kind === 'rule')).toHaveLength(0);
+    expect(dueItems(courses.thai, state.progress, new Date('2026-11-05T08:00:00Z')).length).toBeGreaterThan(0);
+    const custom = createSession(state, 'custom', undefined, ['th-class-foundation'], now)!;
+    expect(custom.queue).toHaveLength(1);
+  });
+  it('caps every unit review at fifty even when every answer and every matching pair is wrong', () => {
+    for (const course of Object.values(courses)) {
+      const state = initialState(); state.courseId = course.id;
+      for (const item of course.items) state.progress[item.id] = {
+        introduced: true, correct: 4, wrong: 0, modes: ['read', 'reverse'], lastSeen: '2026-01-01T00:00:00Z',
+      };
+      state.completedUnitReviews = Object.fromEntries(course.units.map(unit => [unit.id, true]));
+      for (const unit of [...course.units, ...course.extraUnits || []]) {
+        let next = { ...state, session: createSession(state, unit.items.some(id => itemMap[id].extra) ? 'extra' : 'learn', unit.id)! };
+        expect(next.session.stage).toBe('unit-review');
+        expect(next.session.queue.length).toBeLessThanOrEqual(50);
+        const covered = new Set(next.session.queue.flatMap(q => q.pairs?.map(pair => pair.id) || [q.itemId]));
+        for (const id of unit.items.filter(id => itemMap[id].kind !== 'rule')) expect(covered.has(id), id).toBe(true);
+        expect(next.session.queue.filter(q => itemMap[q.itemId].kind === 'rule').length).toBeLessThanOrEqual(2);
+        while (next.session.index < next.session.queue.length) {
+          const q = next.session.queue[next.session.index];
+          const pairs = q.pairs && Object.fromEntries(q.pairs.map(pair => [pair.id, false]));
+          next = answerExercise(next, false, false, pairs) as typeof next;
+          expect(next.session.queue.length).toBeLessThanOrEqual(50);
+        }
+      }
+    }
+  });
+  it('retains actual-word mark recognition and approved composition within the review budget', () => {
+    const state = learnedState();
+    state.progress['th-word-ban'] = {
+      introduced: true, correct: 3, wrong: 0, modes: ['read', 'reverse'], lastSeen: new Date().toISOString(),
+    };
+    const unit = { ...courses.thai.units[0], items: ['th-k', 'th-aa', 'th-word-ban'] };
+    const queue = makeUnitReview(unit, courses.thai, state, new Date());
+    expect(queue.some(question => question.kind === 'mark' && question.itemId === 'th-word-ban')).toBe(true);
+    expect(queue.some(question => question.kind === 'combine')).toBe(true);
+    expect(queue.length).toBeLessThanOrEqual(50);
+  });
+  it('persists early extra access by course, bypasses word prerequisites only for extras, and preserves main progress', () => {
+    const state = initialState();
+    const unit = courses.thai.extraUnits![0];
+    expect(createSession(state, 'extra', unit.id)).toBeUndefined();
+    state.earlyExtraUnlocks = { thai: true };
+    const parsed = parseBackup(JSON.stringify(state));
+    expect(extrasOpen(courses.thai, parsed)).toBe(true);
+    expect(extrasOpen(courses.ipa, parsed)).toBe(false);
+    const session = createSession(parsed, 'extra', unit.id)!;
+    expect(session.newIds.length).toBeGreaterThan(0);
+    const next = completePerfect({ ...parsed, session });
+    expect(mainComplete(courses.thai, next)).toBe(false);
+    expect(unitOpen(courses.thai, 1, next.progress, next.completedUnitReviews)).toBe(false);
+    expect(Object.keys(next.progress).every(id => itemMap[id].extra)).toBe(true);
+    expect(parseBackup(JSON.stringify(next)).earlyExtraUnlocks).toEqual({ thai: true });
+    expect(() => parseBackup(JSON.stringify({ ...state, earlyExtraUnlocks: { imaginary: true } }))).toThrow();
+  });
   it('does not count passive introduction as trained or unlock future units', () => {
     let state = initialState();
     state.session = createSession(state, 'learn');
@@ -317,6 +403,26 @@ describe('progression and repetition', () => {
   });
 });
 describe('untrusted backup boundary', () => {
+  it('shortens legacy oversized unit reviews without dropping confirmed results', () => {
+    for (const index of [0, 40, 70]) {
+      const state = learnedState();
+      const question = makeExercise(itemMap['th-k'], 'read', courses.thai, state.progress);
+      state.session = {
+        ...createSession(state, 'custom', undefined, ['th-k'])!,
+        stage: 'unit-review', unitId: courses.thai.units[0].id,
+        queue: Array.from({ length: 90 }, (_, n) => ({ ...question, id: `old-${n}` })),
+        index, answers: index, correct: index,
+        outcomes: { 'th-k': { correct: index, wrong: 0, hinted: false, modes: ['read'] } },
+      };
+      const parsed = parseBackup(JSON.stringify(state));
+      expect(parsed.session!.queue.length).toBeLessThanOrEqual(50);
+      expect(parsed.session!.queue[parsed.session!.index].id).toBe(`old-${index}`);
+      expect(parsed.session!.answers).toBe(index);
+      expect(parsed.session!.outcomes).toEqual(state.session.outcomes);
+      expect(parsed.progress).toEqual(state.progress);
+      expect(refreshSessionNotation(parsed.session!)).toEqual(parsed.session);
+    }
+  });
   it('updates an old rule question to its current teaching goal without changing answer IDs', () => {
     const state = learnedState();
     state.session = createSession(state, 'custom', undefined, ['th-tone1'])!;

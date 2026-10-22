@@ -6,7 +6,7 @@
   font-display: swap;
 }
 :root {
-  font-family: "Noto Sans", "Script Drill IPA", "Noto Sans Thai Looped", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-family: "Noto Sans", "Script Drill IPA", "Noto Sans Thai Looped", "Noto Sans Bengali", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   color: #28352f;
   background: #fafbf9;
   font-synthesis: none;
@@ -39,6 +39,7 @@ svg { flex-shrink: 0; }
 button svg, a svg { vertical-align: middle; }
 .thai { font-family: "Noto Sans Thai Looped", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
 .thai-modern { font-family: "Noto Sans Thai", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
+.bengali { font-family: "Noto Sans Bengali", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 2; letter-spacing: 0; }
 .phonetic { font-family: "Script Drill IPA", "Noto Sans", "Noto Sans SC", sans-serif; line-height: 1.9; }
 .script-style-control { display: inline-flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); gap: 16px; margin-block: 10px; }
 .script-style-control button { min-height: 40px; border-bottom: 2px solid transparent; font-size: 11px; padding: 7px 0; color: var(--muted); }
@@ -612,6 +613,7 @@ button svg, a svg { vertical-align: middle; }
   .question-display { min-height: 155px; font-size: 22px; padding-inline: 0; }
   .question-display.large-glyph { font-size: 57px; }
   .answer-options { gap: 12px; }
+  .answer-options.word-answers:has(.bengali.option-glyph) { grid-template-columns: minmax(0, 1fr); }
   .answer-option { padding: 12px 10px; gap: 8px; min-height: 82px; }
   .answer-option > span:last-child { font-size: 13px; }
   .answer-option .option-glyph { font-size: 29px !important; }

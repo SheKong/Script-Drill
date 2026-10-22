@@ -1,6 +1,6 @@
 import { BookOpen, Check, ExternalLink, Headphones, LockKeyhole } from 'lucide-react';
 import { courses, itemMap } from '../data';
-import { mainComplete, trained } from '../lib/engine';
+import { extrasOpen, trained } from '../lib/engine';
 import type { AppState, Knowledge } from '../types';
 import { PronunciationButton } from './PronunciationButton';
 import { ScriptComparison } from './ScriptVariants';
@@ -47,7 +47,7 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
         <strong className={glyphClass} dir={course.direction} lang={course.locale}>{s.text}</strong><span><NotationText text={s.reading} /></span>{s.note && <small>{s.note}</small>}
       </div>)}</div>
     </div>}
-    {item.extra && <p className="reading-note">{mainComplete(course, state) ? '地名额外课已解锁' : '主线结课后解锁练习'}</p>}
+    {item.extra && <p className="reading-note">{extrasOpen(course, state) ? '地名额外课已解锁' : '主线结课后开放，也可在学习路径提前解锁'}</p>}
     {!compact && !item.extra && item.requires.length > 0 && <div className="prerequisites">
       <span className="eyebrow">前置知识</span>
       <div>{item.requires.map(id => <span key={id} title={itemMap[id]?.title} className={trained(id, state.progress) ? 'is-trained' : ''}>
