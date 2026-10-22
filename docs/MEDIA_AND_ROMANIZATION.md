@@ -35,7 +35,7 @@ Google Maps 不是 RTGS 规范的保证。课程将已核对惯用名放在 `con
 1. IPA：从 Wikimedia Commons 原文件页和 API 核对公开录音、作者及许可，下载并转为本地 MP3。补充不同录制者的送气音、闪音、卷舌/硬腭辅音及元音。旧脚本只猜 `.ogg` 名称，且仅能识别一种作者写法；现明确指定重命名或 `.oga` 文件，识别旧式署名，接纳已核对的公有领域素材，不把公有领域误写成 CC0。文件页版本、原文件 SHA-256、转换说明见 `src/data/recordings.json`。无音高、速度或剪辑改动。
 2. 另一套 IPA 示范：[国际语音协会真人交互表](https://www.internationalphoneticassociation.org/IPAcharts/inter_chart_2018/IPA_2018.html) 和 [University of Glasgow · Seeing Speech](https://www.seeingspeech.ac.uk/ipa-charts/)。后者还提供口部、超声及 MRI 影像。这里只链接原站，没有把 IPA 图表本身的 CC 许可推定为所有外站音视频的转载许可，不下载许可不明的素材。未收录音值不拿相近音冒充，也不用英语 TTS 朗读 IPA。
 3. 泰语优先本地真人音频，来源包括 Commons 传统泰语录音及 Lingua Libre 贡献。`spokenText` 记录实际示范文本，必须与该知识的显式 `speech.text` 一致；同一例词可共享音频。每条文件保留独立作者与许可，资料页按音频文件去重。字母名称不等于孤立辅音，有上下文的例词也不是纯元音录音。
-4. 未覆盖泰语可通过 [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) 使用匹配语言的声音；真人录音失败时，若已有匹配声音，只自动尝试一次合成，并明确显示来源变化。设备无声音或合成失败时，提供带本条原文的 Google 翻译、Bing 翻译外链，在原站点击扬声器，不依赖本机语音包。这是打开在线服务，不是本站内嵌的云端 TTS，也不保证所有网络都可访问。
+4. 未覆盖泰语可通过 [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis) 使用匹配语言的声音；真人录音失败时，若已有匹配声音，只自动尝试一次合成，并明确显示来源变化。设备无声音时不显示扬声器及重复警告，只保留带本条原文的 Google 翻译入口。语音安装与环境检测集中在学习首页。在线收听是打开原站，不是本站内嵌的云端 TTS，也不保证所有网络都可访问。
 5. 语音安装与排查：按 Windows / Android / Apple 系统展示路径、官方说明与重新检测按钮。Windows 支持泰语 Pattara，但仅装键盘不等于安装 TTS；系统声音装好仍可能不被浏览器提供。不推荐来历不明的浏览器插件，不承诺网页能直接安装声音。
 6. 异步声音列表、15 秒启动超时、45 秒播放上限、可重试失败、停止按钮、切换条目和页面隐藏时停止。全站只允许一个发音任务，处理媒体 `error` 与 `play()` 拒绝重复触发时的竞态。
 7. 不预加载音频，无自动播放。真人录音走同源静态文件；只有用户点击在线收听时，才向所选服务带入该条泰文，不附带学习进度。合成声音是否联网取决于浏览器/操作系统厂商。素材抓取只在维护时运行，遵守服务端 `Retry-After`，不参与构建或用户播放。

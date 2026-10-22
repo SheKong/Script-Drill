@@ -19,17 +19,17 @@ describe('speech language selection', () => {
     const underscored = voice('TH_th', true);
     expect(selectVoice([remote, underscored], 'th-TH')).toBe(underscored);
   });
-  it('uses explicit Thai text and correctly encodes both online alternatives', () => {
-    for (const provider of ['google', 'bing'] as const) {
+  it('uses explicit text and a configured language for online listening', () => {
+    for (const [language, code] of [['TH_th', 'th'], ['ar', 'ar'], ['bn-BD', 'bn']]) {
       const text = 'กอ ไก่ & #?';
-      const url = new URL(onlinePronunciation(text, 'TH_th', provider)!);
+      const url = new URL(onlinePronunciation(text, language)!);
       expect(url.protocol).toBe('https:');
       expect(url.searchParams.get('text')).toBe(text);
-      expect(url.searchParams.get(provider === 'google' ? 'sl' : 'from')).toBe('th');
-      expect(url.searchParams.size).toBe(provider === 'google' ? 4 : 3);
+      expect(url.searchParams.get('sl')).toBe(code);
+      expect(url.searchParams.size).toBe(4);
     }
     expect(onlinePronunciation('/pʰ/', 'ipa')).toBeUndefined();
-    expect(onlinePronunciation('hello', 'en-US')).toBeUndefined();
+    expect(onlinePronunciation('hello', 'not a language')).toBeUndefined();
   });
   it('chooses help by the actual OS, including Android UAs containing Linux', () => {
     expect(voicePlatform('Mozilla/5.0 (Linux; Android 14)')).toBe('android');

@@ -4,13 +4,15 @@ import {
   Flame, Globe2, GraduationCap, Library, MapPin, RotateCcw, Settings2, ShieldCheck, X,
 } from 'lucide-react';
 import { courses } from './data';
-import { advanceIntro, answerExercise, createSession, finishSession, streak } from './lib/engine';
+import { advanceIntro, answerExercise, createSession, finishSession, mainComplete, streak } from './lib/engine';
 import { initialState, loadState, saveState } from './lib/storage';
 import type { AppState, CourseId, Knowledge, Session } from './types';
 import { KnowledgeDetail } from './components/KnowledgeDetail';
 import { Modal } from './components/Modal';
 import { LearnPage, LibraryPage, ReviewPage, Settings, SourcesPage, StatsPage, type Start } from './components/Pages';
-import { Quiz, SessionComplete } from './components/Quiz';
+import { CourseComplete, Quiz, SessionComplete } from './components/Quiz';
+import { Rush } from './components/Rush';
+import type { RushMode } from './lib/rush';
 
 type Page = 'learn' | 'library' | 'review' | 'stats' | 'sources';
 const nav = [
@@ -31,6 +33,9 @@ export default function App() {
   const [detail, setDetail] = useState<Knowledge>();
   const [inQuiz, setInQuiz] = useState(false);
   const [summary, setSummary] = useState<Session>();
+  const [graduated, setGraduated] = useState(false);
+  const [rush, setRush] = useState<RushMode>();
+  const [rushRun, setRushRun] = useState(0);
   const [pendingStart, setPendingStart] = useState<{ mode: Session['mode']; unitId?: string; ids?: string[] }>();
   const [toast, setToast] = useState('');
   const [, refresh] = useState(0);
@@ -83,8 +88,11 @@ export default function App() {
   };
   function applyStep(next: AppState) {
     if (next.session && next.session.index >= next.session.queue.length) {
+      const sessionCourse = courses[next.session.courseId];
+      const finished = finishSession(next);
+      setGraduated(next.session.mode === 'learn' && !mainComplete(sessionCourse, state) && mainComplete(sessionCourse, finished));
       setSummary(next.session);
-      setState(finishSession(next));
+      setState(finished);
       setInQuiz(false);
       window.scrollTo(0, 0);
     } else {
@@ -97,18 +105,25 @@ export default function App() {
     courseButton.current?.querySelector<HTMLButtonElement>('.course-current')?.focus();
   };
   const completeContinue = () => {
+    const mode = summary?.mode === 'extra' ? 'extra' : mainComplete(course, state) ? 'review' : 'learn';
     setSummary(undefined);
-    const next = createSession(state, 'learn');
+    const next = createSession(state, mode);
     if (next) { setState({ ...state, session: next }); setInQuiz(true); }
-    else { setPage('learn'); setToast('本轮新知识已经学完，回到路径查看到期复习。'); }
+    else { setPage('learn'); setToast('本轮练习已完成，可在学习路径选择其他内容。'); }
     window.scrollTo(0, 0);
   };
-  const props = { state, course, start, inspect: setDetail };
+  const props = { state, course, start, inspect: setDetail, startRush: (mode: RushMode) => { setRush(mode); window.scrollTo(0, 0); } };
   return <>
-    {inQuiz && state.session ? <Quiz state={state}
+    {rush ? <Rush key={`${course.id}:${rush}:${rushRun}`} state={state} course={course} mode={rush} onRestart={() => setRushRun(value => value + 1)}
+      onExit={() => setRush(undefined)} onFinish={score => setState(previous => ({
+        ...previous, rushBest: { ...previous.rushBest, [`${course.id}:${rush}`]: Math.max(previous.rushBest?.[`${course.id}:${rush}`] || 0, score) },
+      }))} /> : inQuiz && state.session ? <Quiz state={state}
       onIntro={() => applyStep(advanceIntro(state))}
       onAnswer={(correct, hinted, pairs) => applyStep(answerExercise(state, correct, hinted, pairs))}
-      onPause={pause} /> : summary ? <SessionComplete session={summary}
+      onPause={pause} /> : summary && graduated ? <CourseComplete courseId={course.id}
+        onReview={() => { setSummary(undefined); setPage('review'); }}
+        onRush={() => { setSummary(undefined); setPage('library'); }}
+        onExplore={() => { setSummary(undefined); setPage('learn'); }} /> : summary ? <SessionComplete session={summary}
         onClose={() => { setSummary(undefined); setPage('learn'); }}
         onContinue={completeContinue} /> : <div className="app-shell">
       <aside className="sidebar">
@@ -162,7 +177,7 @@ export default function App() {
           {page === 'sources' && <SourcesPage course={course} />}
           <footer className="page-footer"><span>字里 · SCRIPT DRILL</span><span>慢慢学，认得更远。</span></footer>
         </main>
-        <nav className="mobile-nav" aria-label="移动端导航">{nav.map(({ id, icon: Icon }) => <button key={id} className={page === id ? 'active' : ''} onClick={() => { setPage(id); window.scrollTo(0, 0); }} aria-current={page === id ? 'page' : undefined}><Icon size={19} /><span>{{ learn: '学习', library: '图鉴', review: '复习', stats: '记录' }[id]}</span></button>)}<button className={page === 'sources' ? 'active' : ''} onClick={() => { setPage('sources'); window.scrollTo(0, 0); }}><BookOpen size={19} /><span>资料</span></button></nav>
+        <nav className="mobile-nav" aria-label="移动端导航">{nav.map(({ id, icon: Icon, name }) => <button key={id} className={page === id ? 'active' : ''} onClick={() => { setPage(id); window.scrollTo(0, 0); }} aria-label={name} aria-current={page === id ? 'page' : undefined}><Icon size={19} /><span>{{ learn: '学习', library: '图鉴', review: '复习', stats: '记录' }[id]}</span></button>)}<button className={page === 'sources' ? 'active' : ''} onClick={() => { setPage('sources'); window.scrollTo(0, 0); }} aria-label="课程与资料来源"><BookOpen size={19} /><span>资料</span></button></nav>
       </div>
     </div>}
     {detail && <Modal title={detail.title} onClose={closeDetail}>

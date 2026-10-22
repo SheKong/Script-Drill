@@ -6,25 +6,28 @@ import {
 } from 'lucide-react';
 import { itemMap, kindNames } from '../data';
 import { sources } from '../data/sources';
-import { cardStatus, dueItems, eligibleWords, localDay, nextUnit, streak, trained, unitDone, unitOpen, weakItems } from '../lib/engine';
+import { cardStatus, dueItems, localDay, mainComplete, nextUnit, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
 import { exportBackup, parseBackup } from '../lib/storage';
 import type { AppState, Course, Knowledge, Session } from '../types';
 import { Modal } from './Modal';
 import { useScriptStyle } from './ScriptVariants';
 import { NotationText } from './NotationText';
+import { VoiceEnvironment } from './VoiceEnvironment';
+import { RushEntryPoints, type StartRush } from './Rush';
+import { PlaceMap } from './PlaceMap';
 
 export type Start = (mode: Session['mode'], unitId?: string, ids?: string[]) => void;
-type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void };
+type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void; startRush: StartRush };
 
-export function LearnPage({ state, course, start, inspect, resume }: PageProps & { resume: () => void }) {
+export function LearnPage({ state, course, start, inspect, resume, startRush }: PageProps & { resume: () => void }) {
   const [expanded, setExpanded] = useState(false);
-  const current = nextUnit(course, state.progress);
+  const current = nextUnit(course, state.progress, state.completedUnitReviews);
+  const complete = mainComplete(course, state);
+  const reviewReady = current && unitLearned(current, state.progress);
   const currentIndex = current ? course.units.indexOf(current) : course.units.length;
   const symbols = course.items.filter(i => i.kind !== 'word');
   const trainedCount = symbols.filter(i => trained(i.id, state.progress)).length;
   const due = dueItems(course, state.progress);
-  const unlockedWords = eligibleWords(course, state.progress);
-  const newWords = unlockedWords.filter(i => !state.progress[i.id]?.introduced);
   const today = state.history.filter(h => localDay(h.date) === localDay()).reduce((n, h) => n + h.answers, 0);
   const visibleUnits = expanded ? course.units : course.units.slice(Math.max(0, currentIndex - 1), Math.min(course.units.length, currentIndex + 4));
   const hasSession = state.session?.courseId === course.id;
@@ -43,8 +46,8 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
       </div>
       <section className="next-lesson">
         <div className="next-top"><span className="tag"><span className="status-dot" />{hasSession ? '上次停在这里' : '下一小步'}</span><span className="subtle"><Clock3 size={13} />约 3–6 分钟</span></div>
-        <h2>{hasSession ? '继续未完成的练习' : current?.title || (newWords.length ? '读懂新解锁的词汇' : '核心路径已完成')}</h2>
-        <p>{hasSession ? `已完成 ${state.session!.index} / ${state.session!.queue.length} 个环节` : current?.subtitle || (newWords.length ? `${newWords.length} 个词汇已经具备全部前置知识` : '回访到期知识，让认得出变成记得住。')}</p>
+        <h2>{hasSession ? '继续未完成的练习' : reviewReady ? `${current.title} · 综合复习` : current?.title || '恭喜，主线课程已完成！'}</h2>
+        <p>{hasSession ? `已完成 ${state.session!.index} / ${state.session!.queue.length} 个环节` : reviewReady ? '本单元全量知识与到期内容的综合回顾' : current?.subtitle || '继续到期复习、挑战 Rush，或探索更多地名。'}</p>
         <div className="next-bottom">
           <div className="letter-stack">{(hasSession ? state.session!.newIds : current?.items || []).slice(0, 4).map(id => {
             const item = itemMap[id];
@@ -53,20 +56,22 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
               {item.kind === 'rule' ? <BookOpen size={16} /> : <b style={{ fontSize: length > 4 ? 11 : length > 2 ? 14 : undefined }}>{item.glyph}</b>}
             </span>;
           })}</div>
-          <button className="button primary" onClick={() => hasSession ? resume() : start(current || newWords.length ? 'learn' : 'review', current?.id)}
-            disabled={!hasSession && !current && !newWords.length && !due.length}>
-            {hasSession ? '继续练习' : current || newWords.length ? '开始学习' : '开始复习'}<ArrowRight size={17} />
+          <button className="button primary" onClick={() => hasSession ? resume() : start(current ? 'learn' : 'review', current?.id)}
+            disabled={!hasSession && !current && !due.length}>
+            {hasSession ? '继续练习' : reviewReady ? '单元综合复习' : current ? '开始学习' : '开始复习'}<ArrowRight size={17} />
           </button>
         </div>
       </section>
-      <div className="section-heading"><h2>学习路径</h2><span>{course.units.filter(u => unitDone(u, state.progress)).length} / {course.units.length} 单元</span></div>
+      <VoiceEnvironment course={course} />
+      {complete && <RushEntryPoints state={state} course={course} startRush={startRush} />}
+      <div className="section-heading"><h2>学习路径</h2><span>{course.units.filter(u => unitDone(u, state.progress, state.completedUnitReviews)).length} / {course.units.length} 单元</span></div>
       <div className="learning-path">
         {phases.map(phase => <section className="path-phase" key={phase}>
           <div className="phase-label">{phase}</div>
           {visibleUnits.filter(u => u.phase === phase).map(unit => {
             const index = course.units.indexOf(unit);
-            const open = unitOpen(course, index, state.progress);
-            const done = unitDone(unit, state.progress);
+            const open = unitOpen(course, index, state.progress, state.completedUnitReviews);
+            const done = unitDone(unit, state.progress, state.completedUnitReviews);
             const active = unit.id === current?.id;
             const count = unit.items.filter(id => trained(id, state.progress)).length;
             return <div key={unit.id} className={`unit-row ${active ? 'active' : ''} ${!open ? 'locked' : ''} ${done ? 'done' : ''}`}>
@@ -74,6 +79,7 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
               <div className="unit-copy"><span className="unit-number">单元 {String(index + 1).padStart(2, '0')}{active && <span className="current-label">正在学习</span>}</span>
                 <h3>{unit.title}</h3><p>{unit.subtitle}</p>
                 <div className="unit-progress"><span><i style={{ width: `${count / unit.items.length * 100}%` }} /></span><small>{count} / {unit.items.length}</small></div>
+                <small className="unit-review-state">{state.completedUnitReviews?.[unit.id] ? '综合复习已完成' : count === unit.items.length ? '待完成单元综合复习' : '含单元综合复习'}</small>
               </div>
               <div className="unit-actions">
                 <button className="icon-button" title={`${unit.title} · 单元说明`} aria-label={`${unit.title} · 单元说明`}
@@ -83,7 +89,7 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
                     requires: [], group: `单元 ${index + 1}`,
                   })}><BookOpen size={16} /></button>
                 <button className={`unit-start ${active ? 'is-current' : ''}`} disabled={!open}
-                  onClick={() => start(done ? 'custom' : 'learn', unit.id, done ? unit.items : undefined)}
+                  onClick={() => start('learn', unit.id)}
                   aria-label={done ? `复习${unit.title}` : open ? `学习${unit.title}` : `${unit.title}尚未解锁`}
                   title={open ? done ? '复习本单元' : '开始本单元' : '完成前一单元后解锁'}><ChevronRight size={19} /></button>
               </div>
@@ -93,6 +99,13 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
       </div>
       {!expanded && visibleUnits.length < course.units.length && <button className="expand-path" onClick={() => setExpanded(true)}>展开全部 {course.units.length} 个单元<ChevronDown size={16} /></button>}
       {expanded && <button className="expand-path" onClick={() => setExpanded(false)}>回到当前进度<ChevronDown size={16} className="rotate" /></button>}
+      {!!course.extraUnits?.length && <section className="extra-lessons">
+        <div className="section-heading"><h2><MapPin size={17} />地名额外课</h2><span>{complete ? '已解锁' : '主线结课后解锁'}</span></div>
+        {course.extraUnits.map(unit => <button className="extra-lesson-row" key={unit.id} disabled={!complete} onClick={() => start('extra', unit.id)}>
+          <span>{unitDone(unit, state.progress, state.completedUnitReviews) ? <CircleCheck size={18} /> : complete ? <MapPin size={18} /> : <LockKeyhole size={18} />}</span>
+          <span><strong>{unit.title}</strong><small>{unit.items.filter(id => trained(id, state.progress)).length} / {unit.items.length} 个地名 · 含综合复习</small></span><ChevronRight size={17} />
+        </button>)}
+      </section>}
       <div className="course-footnote"><ShieldCheck size={15} /><span>{course.notationNote}</span></div>
     </div>
     <aside className="study-rail">
@@ -129,7 +142,7 @@ export function LearnPage({ state, course, start, inspect, resume }: PageProps &
   </div>;
 }
 
-export function LibraryPage({ state, course, start, inspect }: PageProps) {
+export function LibraryPage({ state, course, start, inspect, startRush }: PageProps) {
   const { scriptClass, control } = useScriptStyle(course);
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState('all');
@@ -145,6 +158,7 @@ export function LibraryPage({ state, course, start, inspect }: PageProps) {
   return <div className="wide-page">
     <div className="page-heading"><div><div className="eyebrow">{course.title} / REFERENCE</div><h1>{course.type === 'script' ? '文字图鉴' : '音标图鉴'}</h1></div>
       <button className="button secondary" disabled={!known.length} onClick={() => start('custom', undefined, known.slice(0, 8).map(i => i.id))}><Play size={15} />练习已学内容</button></div>
+    <RushEntryPoints state={state} course={course} startRush={startRush} />
     <div className="library-tools">
       <div className="search-box"><Search size={17} /><input aria-label="搜索知识" placeholder="搜索文字、转写、IPA 或名称" value={query} onChange={e => setQuery(e.target.value)} />{query && <button className="icon-button" onClick={() => setQuery('')} title="清空搜索" aria-label="清空搜索"><X size={15} /></button>}</div>
       <label className="status-select"><SlidersHorizontal size={15} /><select aria-label="学习状态" value={status} onChange={e => setStatus(e.target.value)}><option value="all">全部状态</option><option value="known">已经初见</option><option value="new">尚未学习</option></select></label>
@@ -156,11 +170,12 @@ export function LibraryPage({ state, course, start, inspect }: PageProps) {
       <div className={`knowledge-grid ${kind === 'word' || kind === 'rule' ? 'wide-items' : ''}`}>
         {items.map(item => {
           const p = state.progress[item.id], s = cardStatus(p);
-          const ready = item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
+          const ready = item.extra ? mainComplete(course, state) : item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
           return <button className={`knowledge-tile ${p?.introduced ? 'known' : ''} ${item.kind === 'word' || item.kind === 'rule' ? 'text-tile' : ''}`} key={item.id} onClick={() => inspect(item)}>
             <span className={`tile-state ${s}`} title={s === 'new' ? '尚未学习' : s === 'learning' ? '学习中' : '间隔复习中'}>{p?.introduced ? <Check size={10} /> : null}</span>
             <strong className={`${scriptClass} tile-glyph`} dir={course.direction} lang={course.locale}>{item.glyph}</strong>
             <span className="tile-roman">{item.kind === 'word' || item.kind === 'rule' || course.type === 'phonetics' ? item.title : item.roman || '不写'}</span>
+            <PlaceMap item={item} compact />
             {item.ipa && course.type === 'script' && <span className="tile-ipa phonetic">/{item.ipa}/</span>}
             {item.class && <small>{item.class}类{item.obsolete ? ' · 历史' : ''}</small>}
             {item.kind === 'word' && <small>{ready ? '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
@@ -217,7 +232,7 @@ export function SourcesPage({ course }: { course: Course }) {
   const recordings = [...new Map(course.items.flatMap(item => item.pronunciation?.recording
     ? [[item.pronunciation.recording.src, item.pronunciation.recording] as const] : [])).values()];
   return <div className="wide-page sources-page">
-    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.20</span></div>
+    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.22</span></div>
     <div className="source-principles"><h2>课程边界与记号约定</h2>
       {(course.referenceNotes || [course.notationNote]).map((note, index) => <p key={index}><NotationText text={note} /></p>)}
       <p>词汇同时检查字母、元音和拼读规则。被消音的字母、隐含元音和例外读法必须显式记录；不使用“按字符替换”的自动转写来生成正确答案。初见词先练转写，意义反向题只在复习中出现。</p>
@@ -253,8 +268,8 @@ export function Settings({ state, update, close, reset, importState, rawBackup }
   return <Modal title="学习设置" onClose={close}>
     <div className="settings-section"><h3>学习节奏</h3>
       <label className="setting-row"><span>每日目标<small>以完成的练习题数计算</small></span><select value={state.settings.dailyGoal} onChange={e => update({ ...state, settings: { ...state.settings, dailyGoal: Number(e.target.value) } })}>{[10, 20, 30, 50].map(v => <option key={v} value={v}>{v} 题</option>)}</select></label>
-      <label className="setting-row"><span>每课新知识<small>已开始的课程不受影响；可额外加入 1 个新词</small></span><select value={state.settings.newPerLesson} onChange={e => update({ ...state, settings: { ...state.settings, newPerLesson: Number(e.target.value) } })}>{[1, 2, 3, 4, 5].map(v => <option key={v} value={v}>{v} 个</option>)}</select></label>
-      <label className="setting-row"><span>转写输入题<small>仅用于已经初见过的语言词汇</small></span><input type="checkbox" role="switch" checked={state.settings.typing} onChange={e => update({ ...state, settings: { ...state.settings, typing: e.target.checked } })} /></label>
+      <label className="setting-row"><span>每课新知识<small>补充词汇与地名课每批至少 6 个；单元末尾集中复习</small></span><select value={state.settings.newPerLesson} onChange={e => update({ ...state, settings: { ...state.settings, newPerLesson: Number(e.target.value) } })}>{[1, 2, 3, 4, 5].map(v => <option key={v} value={v}>{v} 个</option>)}</select></label>
+      <label className="setting-row"><span>转写输入题<small>字母、元音结构、已学词汇均可练习</small></span><input type="checkbox" role="switch" checked={state.settings.typing} onChange={e => update({ ...state, settings: { ...state.settings, typing: e.target.checked } })} /></label>
     </div>
     <div className="settings-section"><h3>你的数据</h3><p>数据只在当前浏览器。换设备、清理浏览器或使用隐私模式前，请导出备份。</p>
       <div className="backup-actions"><button className="button secondary" onClick={() => exportBackup(state)}><ArrowDownToLine size={16} />导出备份</button><button className="button secondary" onClick={() => file.current?.click()}><ArrowUpFromLine size={16} />导入备份</button></div>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, Check, CircleHelp, Flag, Lightbulb, RotateCcw, Sparkles, X } from 'lucide-react';
+import { ArrowRight, Check, CircleHelp, Flag, Lightbulb, MapPin, RotateCcw, Sparkles, Trophy, X, Zap } from 'lucide-react';
 import { courses, itemMap } from '../data';
 import { checkTyped, reading, shuffle } from '../lib/engine';
 import type { AppState, Exercise, Session } from '../types';
@@ -7,6 +7,7 @@ import { KnowledgeDetail } from './KnowledgeDetail';
 import { PronunciationButton } from './PronunciationButton';
 import { useScriptStyle } from './ScriptVariants';
 import { NotationText } from './NotationText';
+import { PlaceMap } from './PlaceMap';
 
 interface Feedback { correct: boolean; pairs?: Record<string, boolean> }
 export function Quiz({ state, onIntro, onAnswer, onPause }: {
@@ -101,19 +102,20 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
       <h1 ref={heading} tabIndex={-1}><NotationText text={exercise.prompt} /></h1>
       {control}
       {isIntro ? <KnowledgeDetail item={item} state={state} scriptClass={scriptClass} /> : <>
-        {!isMatch && <div className={`question-display ${['read', 'combine', 'type'].includes(exercise.kind) ? `${scriptClass} large-glyph` : 'phonetic'}`} dir={['read', 'combine', 'type'].includes(exercise.kind) ? course.direction : 'ltr'} lang={['read', 'combine', 'type'].includes(exercise.kind) ? course.locale : undefined}>
-          <span>{exercise.display}</span>
+        {!isMatch && <div className={`question-display ${['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? `${scriptClass} large-glyph` : 'phonetic'}`} dir={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? course.direction : 'ltr'} lang={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? course.locale : undefined}>
+          <span className={Array.from(exercise.display).length > 12 ? 'long-script' : ''}>{exercise.display}</span>
           {['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
         </div>}
+        {!isMatch && <PlaceMap item={item} compact anonymous={!feedback} />}
         {exercise.combination && <div className="combination-parts">{exercise.combination.parts.map(id => <span key={id} className={scriptClass} dir={course.direction} lang={course.locale}>{itemMap[id].glyph}</span>)}<small>拼读练习 · 不考词义{course.ipaNote && ` · ${course.ipaNote}`}</small></div>}
         {isMatch ? <div className="matching-grid">
           <div>{exercise.pairs!.map(p => <button key={p.id} disabled={matched.includes(p.id)}
-            className={`match-button script-match ${scriptClass} ${left === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''}`}
+            className={`match-button script-match ${scriptClass} ${p.left.length > 8 ? 'dense-glyph' : ''} ${left === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''}`}
             dir={course.direction} lang={course.locale}
-            aria-pressed={left === p.id} onClick={() => setLeft(p.id)}>{p.left}{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+            aria-pressed={left === p.id} onClick={() => setLeft(p.id)}><span>{p.left}</span><PlaceMap item={itemMap[p.id]} compact anonymous />{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
           <div>{rightPairs.map(p => <button key={p.id} disabled={matched.includes(p.id) || !left}
-            className={`match-button phonetic ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair === p.id ? 'wrong' : ''}`}
-            onClick={() => matchRight(p.id)}>{p.right}{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+            className={`match-button phonetic ${p.right.length > 35 ? 'dense-reading' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair === p.id ? 'wrong' : ''}`}
+            onClick={() => matchRight(p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
           <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
@@ -121,7 +123,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
           {exercise.options.map((o, index) => {
             const correct = feedback && o.id === exercise.answer;
             const wrong = feedback && o.id === selected && !correct;
-            const glyph = ['reverse', 'meaning'].includes(exercise.kind);
+            const glyph = ['reverse', 'meaning', 'mark'].includes(exercise.kind);
             return <button key={o.id}
               className={`answer-option ${selected === o.id ? 'selected' : ''} ${correct ? 'correct' : ''} ${wrong ? 'wrong' : ''}`}
               onClick={() => setSelected(o.id)} disabled={!!feedback} aria-pressed={selected === o.id}>
@@ -141,10 +143,9 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
       <div className="quiz-footer-inner">
         {feedback ? <div className="feedback-copy" role="status">
           <div className="feedback-title">{feedback.correct ? <Check size={22} /> : <RotateCcw size={22} />}<h2>{feedback.correct ? item.kind === 'word' ? item.meaning : '记住了，继续' : isMatch ? '配对完成，易混项会再出现' : '差一点，再记一次'}</h2></div>
-          {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
+          {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.kind === 'mark' ? `◌${exercise.answer} · 声调符号` : exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
             {item.kind === 'word' && <p>{item.context} {!!item.conventionalNames?.length && <span>地图常见拼法：{item.conventionalNames.join(' / ')}</span>}</p>}
             {!feedback.correct && <p><NotationText text={item.explanation} /></p>}
-            {item.kind === 'word' && course.ipaNote && <small>{course.ipaNote}</small>}
             {!exercise.combination && !['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
           </>}
         </div> : <span className="quiz-footer-note"><CircleHelp size={16} />{isIntro ? '理解以后，再试着回忆' : isMatch ? `${matched.length} / ${exercise.pairs!.length} 已配对` : '不计时，按自己的节奏来'}</span>}
@@ -164,7 +165,7 @@ export function SessionComplete({ session, onClose, onContinue }: {
     <div className="complete-icon"><Check size={40} /></div>
     <span className="eyebrow">LESSON COMPLETE</span>
     <h1>又多认出了世界的一小部分</h1>
-    <p>{courses[session.courseId].title} · {session.mode === 'learn' ? '学习完成' : '复习完成'}</p>
+    <p>{courses[session.courseId].title} · {session.stage === 'unit-review' ? '单元综合复习完成' : ['learn', 'extra'].includes(session.mode) ? '学习完成' : '复习完成'}</p>
     <div className="complete-stats">
       <div><strong>{session.newIds.filter(id => session.outcomes[id]).length}</strong><span>新知识</span></div>
       <div><strong>{session.answers}</strong><span>次提取练习</span></div>
@@ -173,5 +174,22 @@ export function SessionComplete({ session, onClose, onContinue }: {
     <div className="complete-review-note"><RotateCcw size={18} /><span>本课已保存。记忆调度已根据答题情况更新；答错过的知识会更早复习。</span></div>
     <button className="button primary" onClick={onContinue}>继续下一小课<ArrowRight size={18} /></button>
     <button className="text-button" onClick={onClose}>回到学习路径</button>
+  </div>;
+}
+
+export function CourseComplete({ courseId, onReview, onRush, onExplore }: {
+  courseId: string; onReview: () => void; onRush: () => void; onExplore: () => void;
+}) {
+  const course = courses[courseId];
+  return <div className="complete-screen course-complete">
+    <div className="complete-icon"><Trophy size={40} /></div><span className="eyebrow">COURSE COMPLETE</span>
+    <h1>恭喜，{course.title}主线已完成！</h1>
+    <p>所有主线新知识、补充词汇与单元综合复习都已完成。</p>
+    <div className="completion-actions">
+      <button className="button primary" onClick={onReview}><RotateCcw size={18} />记忆复习<ArrowRight size={16} /></button>
+      <button className="button secondary" onClick={onRush}><Zap size={18} />挑战 Rush<ArrowRight size={16} /></button>
+      {!!course.extraUnits?.length && <button className="button secondary" onClick={onExplore}><MapPin size={18} />地名额外课<ArrowRight size={16} /></button>}
+    </div>
+    <button className="text-button" onClick={onExplore}>回到学习路径</button>
   </div>;
 }

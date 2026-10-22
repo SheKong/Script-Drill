@@ -1,10 +1,11 @@
 import { BookOpen, Check, ExternalLink, Headphones, LockKeyhole } from 'lucide-react';
 import { courses, itemMap } from '../data';
-import { trained } from '../lib/engine';
+import { mainComplete, trained } from '../lib/engine';
 import type { AppState, Knowledge } from '../types';
 import { PronunciationButton } from './PronunciationButton';
 import { ScriptComparison } from './ScriptVariants';
 import { NotationText } from './NotationText';
+import { PlaceMap } from './PlaceMap';
 
 export function KnowledgeDetail({ item, state, compact = false, hideMeaning = false, scriptClass }: {
   item: Knowledge; state: AppState; compact?: boolean; hideMeaning?: boolean; scriptClass?: string;
@@ -19,6 +20,7 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
     </div>}
     {!compact && item.kind !== 'rule' && <ScriptComparison course={course} text={item.glyph} />}
     {!compact && <PronunciationButton item={item} />}
+    <PlaceMap item={item} />
     <div className="detail-title">
       <span className="eyebrow">{item.group}</span>
       {!(hideMeaning && item.kind === 'word') && <h3>{item.title}</h3>}
@@ -45,7 +47,8 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
         <strong className={glyphClass} dir={course.direction} lang={course.locale}>{s.text}</strong><span><NotationText text={s.reading} /></span>{s.note && <small>{s.note}</small>}
       </div>)}</div>
     </div>}
-    {!compact && item.requires.length > 0 && <div className="prerequisites">
+    {item.extra && <p className="reading-note">{mainComplete(course, state) ? '地名额外课已解锁' : '主线结课后解锁练习'}</p>}
+    {!compact && !item.extra && item.requires.length > 0 && <div className="prerequisites">
       <span className="eyebrow">前置知识</span>
       <div>{item.requires.map(id => <span key={id} title={itemMap[id]?.title} className={trained(id, state.progress) ? 'is-trained' : ''}>
         {trained(id, state.progress) ? <Check size={12} /> : <LockKeyhole size={12} />}

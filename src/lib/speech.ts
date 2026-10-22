@@ -11,15 +11,10 @@ export function selectVoice(voices: SpeechSynthesisVoice[], language: string): S
     || candidates.find(voice => voice.localService) || candidates[0];
 }
 
-export function onlinePronunciation(text: string, language: string, provider: 'google' | 'bing' = 'google'): string | undefined {
-  if (!languageMatches(language, 'th')) return undefined;
-  if (provider === 'bing') {
-    const url = new URL('https://www.bing.com/translator');
-    url.search = new URLSearchParams({ from: 'th', to: 'zh-Hans', text }).toString();
-    return url.href;
-  }
+export function onlinePronunciation(text: string, language: string): string | undefined {
+  if (!/^[a-z]{2,3}(?:[-_][a-z0-9]{2,8})*$/i.test(language) || language === 'ipa') return undefined;
   const url = new URL('https://translate.google.com/');
-  url.search = new URLSearchParams({ sl: 'th', tl: 'zh-CN', text, op: 'translate' }).toString();
+  url.search = new URLSearchParams({ sl: language.toLowerCase().replaceAll('_', '-').split('-')[0], tl: 'zh-CN', text, op: 'translate' }).toString();
   return url.href;
 }
 

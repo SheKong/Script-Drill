@@ -2,6 +2,26 @@ import type { Source } from '../types';
 
 export const sources: Source[] = [
   {
+    id: 'thai-boundaries', title: 'Thailand ADM1 · 77 regions', organization: 'geoBoundaries · OpenStreetMap contributors / Wambacher',
+    url: 'https://www.geoboundaries.org/api/current/gbOpen/THA/ADM1/',
+    description: '2017 年边界数据，76 府与曼谷；本地简化轮廓仅用于位置示意。数据按 ODbL 1.0 提供，改编数据库、来源和许可在 /maps/ 中随站点提供。',
+  },
+  {
+    id: 'thai-places', title: 'Thai geographical names · pronunciation reference', organization: 'Wiktionary · 泰语地名词条',
+    url: 'https://en.wiktionary.org/wiki/Category:th:Provinces_of_Thailand',
+    description: '地名的完整拼写和逐词读音参考。本站采用省略声调与不释放附标的宽式 IPA，不用逐字符替换来猜测地名发音。中文译名在不同地图中可能不同。',
+  },
+  {
+    id: 'rush-duolingo', title: 'Ways to practice · Match Madness', organization: 'Duolingo',
+    url: 'https://blog.duolingo.com/ways-to-practice-in-duolingo/',
+    description: '借鉴限时词汇配对的公开玩法；本站的三格轮换、防固定位置重复和候选冷却算法为独立设计，不宣称复现产品内部算法。',
+  },
+  {
+    id: 'rush-quizlet', title: 'Playing Match', organization: 'Quizlet',
+    url: 'https://help.quizlet.com/hc/en-us/articles/360031183611-Playing-Match',
+    description: '参考计时匹配术语与定义的玩法；本站固定两分钟，比较有效配对得分，不采用清空棋盘最短耗时。',
+  },
+  {
     id: 'rtgs', title: 'Romanization of Thai geographical names',
     organization: 'UNGEGN · 泰国皇家学会转写方案',
     url: 'https://arhiiv.eki.ee/wgrs/rom1_th.pdf',

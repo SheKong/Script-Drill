@@ -1,0 +1,922 @@
+{
+  "checked": "2026-10-22",
+  "convention": "Broad IPA omits tones, tie bars, non-syllabic and unreleased marks. Separators may differ.",
+  "entries": [
+    {
+      "id": "amnatcharoen",
+      "glyph": "อำนาจเจริญ",
+      "ipa": "ʔam.naːt.tɕa.rɤːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D",
+      "references": [
+        "/ʔam˧.naːt̚˥˩.t͡ɕa˨˩.rɤːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "angthong",
+      "glyph": "อ่างทอง",
+      "ipa": "ʔaːŋ tʰɔːŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87",
+      "references": [
+        "/ʔaːŋ˨˩.tʰɔːŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "buriram",
+      "glyph": "บุรีรัมย์",
+      "ipa": "bu.riː ram",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5%E0%B8%A3%E0%B8%B1%E0%B8%A1%E0%B8%A2%E0%B9%8C",
+      "references": [
+        "/bu˨˩.riː˧.ram˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "buengkan",
+      "glyph": "บึงกาฬ",
+      "ipa": "bɯŋ kaːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9A%E0%B8%B6%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%AC",
+      "references": [
+        "/bɯŋ˧.kaːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chainat",
+      "glyph": "ชัยนาท",
+      "ipa": "tɕʰaj naːt",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%8A%E0%B8%B1%E0%B8%A2%E0%B8%99%E0%B8%B2%E0%B8%97",
+      "references": [
+        "/t͡ɕʰaj˧.naːt̚˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chachoengsao",
+      "glyph": "ฉะเชิงเทรา",
+      "ipa": "tɕʰa.tɕʰɤːŋ.saw",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%89%E0%B8%B0%E0%B9%80%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%B2",
+      "references": [
+        "/t͡ɕʰa˨˩.t͡ɕʰɤːŋ˧.saw˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chaiyaphum",
+      "glyph": "ชัยภูมิ",
+      "ipa": "tɕʰaj.ja.pʰuːm",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%8A%E0%B8%B1%E0%B8%A2%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4",
+      "references": [
+        "/t͡ɕʰaj˧.ja˦˥.pʰuːm˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chanthaburi",
+      "glyph": "จันทบุรี",
+      "ipa": "tɕan.tʰa.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/t͡ɕan˧.tʰa˦˥.bu˨˩.riː˧/",
+        "/t͡ɕan˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chiangmai",
+      "glyph": "เชียงใหม่",
+      "ipa": "tɕʰiaŋ maj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88",
+      "references": [
+        "/t͡ɕʰia̯ŋ˧.maj˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chiangrai",
+      "glyph": "เชียงราย",
+      "ipa": "tɕʰiaŋ raːj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%B2%E0%B8%A2",
+      "references": [
+        "/t͡ɕʰia̯ŋ˧.raːj˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chonburi",
+      "glyph": "ชลบุรี",
+      "ipa": "tɕʰon bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/t͡ɕʰon˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chumphon",
+      "glyph": "ชุมพร",
+      "ipa": "tɕʰum pʰɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%A3",
+      "references": [
+        "/t͡ɕʰum˧.pʰɔːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "kalasin",
+      "glyph": "กาฬสินธุ์",
+      "ipa": "kaː.la.sin",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%81%E0%B8%B2%E0%B8%AC%E0%B8%AA%E0%B8%B4%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C",
+      "references": [
+        "/kaː˧.la˦˥.sin˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "kamphaengphet",
+      "glyph": "กำแพงเพชร",
+      "ipa": "kam.pʰɛːŋ pʰet",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%81%E0%B8%B3%E0%B9%81%E0%B8%9E%E0%B8%87%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3",
+      "references": [
+        "/kam˧.pʰɛːŋ˧.pʰet̚˦˥/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "kanchanaburi",
+      "glyph": "กาญจนบุรี",
+      "ipa": "kaːn.tɕa.na.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%81%E0%B8%B2%E0%B8%8D%E0%B8%88%E0%B8%99%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/kaːn˧.t͡ɕa˨˩.na˦˥.bu˨˩.riː˧/",
+        "/kaːn˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "khonkaen",
+      "glyph": "ขอนแก่น",
+      "ipa": "kʰɔːn kɛn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%82%E0%B8%AD%E0%B8%99%E0%B9%81%E0%B8%81%E0%B9%88%E0%B8%99",
+      "references": [
+        "/kʰɔːn˩˩˦.kɛn˨˩/",
+        "/kʰɔn˩˩˦.kɛn˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "krabi",
+      "glyph": "กระบี่",
+      "ipa": "kra.biː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B5%E0%B9%88",
+      "references": [
+        "/kra˨˩.biː˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "lamphun",
+      "glyph": "ลำพูน",
+      "ipa": "lam.pʰuːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A5%E0%B8%B3%E0%B8%9E%E0%B8%B9%E0%B8%99",
+      "references": [
+        "/lam˧.pʰuːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "lampang",
+      "glyph": "ลำปาง",
+      "ipa": "lam.paːŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A5%E0%B8%B3%E0%B8%9B%E0%B8%B2%E0%B8%87",
+      "references": [
+        "/lam˧.paːŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "loei",
+      "glyph": "เลย",
+      "ipa": "lɤːj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%A5%E0%B8%A2",
+      "references": [
+        "/lɤːj˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "lopburi",
+      "glyph": "ลพบุรี",
+      "ipa": "lop bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A5%E0%B8%9E%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/lop̚˦˥.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "maehongson",
+      "glyph": "แม่ฮ่องสอน",
+      "ipa": "mɛː hɔŋ sɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%AE%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%AD%E0%B8%99",
+      "references": [
+        "/mɛː˥˩.hɔŋ˥˩.sɔːn˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "mahasarakham",
+      "glyph": "มหาสารคาม",
+      "ipa": "ma.haː saː.ra.kʰaːm",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%B2%E0%B8%A1",
+      "references": [
+        "/ma˦˥.haː˩˩˦.saː˩˩˦.ra˦˥.kʰaːm˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "mukdahan",
+      "glyph": "มุกดาหาร",
+      "ipa": "muk.daː.haːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A1%E0%B8%B8%E0%B8%81%E0%B8%94%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3",
+      "references": [
+        "/muk̚˦˥.daː˧.haːn˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonnayok",
+      "glyph": "นครนายก",
+      "ipa": "na.kʰɔːn naː.jok",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%81",
+      "references": [
+        "/na˦˥.kʰɔːn˧.naː˧.jok̚˦˥/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonpathom",
+      "glyph": "นครปฐม",
+      "ipa": "na.kʰɔːn pa.tʰom",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%9B%E0%B8%90%E0%B8%A1",
+      "references": [
+        "/na˦˥.kʰɔːn˧.pa˨˩.tʰom˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonphanom",
+      "glyph": "นครพนม",
+      "ipa": "na.kʰɔːn pʰa.nom",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%9E%E0%B8%99%E0%B8%A1",
+      "references": [
+        "/na˦˥.kʰɔːn˧.pʰa˦˥.nom˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonratchasima",
+      "glyph": "นครราชสีมา",
+      "ipa": "na.kʰɔːn raːt.tɕʰa.siː.maː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%AA%E0%B8%B5%E0%B8%A1%E0%B8%B2",
+      "references": [
+        "/na˦˥.kʰɔːn˧.raːt̚˥˩.t͡ɕʰa˦˥.siː˩˩˦.maː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonsawan",
+      "glyph": "นครสวรรค์",
+      "ipa": "na.kʰɔːn sa.wan",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%AA%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%84%E0%B9%8C",
+      "references": [
+        "/na˦˥.kʰɔːn˧.sa˨˩.wan˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nakhonsithammarat",
+      "glyph": "นครศรีธรรมราช",
+      "ipa": "na.kʰɔːn siː tʰam.ma.raːt",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A",
+      "references": [
+        "/na˦˥.kʰɔːn˧.siː˩˩˦.tʰam˧.ma˦˥.raːt̚˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nan",
+      "glyph": "น่าน",
+      "ipa": "naːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B9%88%E0%B8%B2%E0%B8%99",
+      "references": [
+        "/naːn˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "narathiwat",
+      "glyph": "นราธิวาส",
+      "ipa": "na.raː.tʰi.waːt",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%98%E0%B8%B4%E0%B8%A7%E0%B8%B2%E0%B8%AA",
+      "references": [
+        "/na˦˥.raː˧.tʰi˦˥.waːt̚˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nongbualamphu",
+      "glyph": "หนองบัวลำภู",
+      "ipa": "nɔːŋ bua lam pʰuː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%9A%E0%B8%B1%E0%B8%A7%E0%B8%A5%E0%B8%B3%E0%B8%A0%E0%B8%B9",
+      "references": [
+        "/nɔːŋ˩˩˦.bua̯˧.lam˧.pʰuː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nongkhai",
+      "glyph": "หนองคาย",
+      "ipa": "nɔːŋ kʰaːj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B8%A2",
+      "references": [
+        "/nɔːŋ˩˩˦.kʰaːj˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "nonthaburi",
+      "glyph": "นนทบุรี",
+      "ipa": "non.tʰa.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/non˧.tʰa˦˥.bu˨˩.riː˧/",
+        "/non˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "pathumthani",
+      "glyph": "ปทุมธานี",
+      "ipa": "pa.tʰum tʰaː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/pa˨˩.tʰum˧.tʰaː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "pattani",
+      "glyph": "ปัตตานี",
+      "ipa": "pat.taː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9B%E0%B8%B1%E0%B8%95%E0%B8%95%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/pat̚˨˩.taː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phangnga",
+      "glyph": "พังงา",
+      "ipa": "pʰaŋ.ŋaː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B1%E0%B8%87%E0%B8%87%E0%B8%B2",
+      "references": [
+        "/pʰaŋ˧.ŋaː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phatthalung",
+      "glyph": "พัทลุง",
+      "ipa": "pʰat.tʰa.luŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A5%E0%B8%B8%E0%B8%87",
+      "references": [
+        "/pʰat̚˦˥.tʰa˦˥.luŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phayao",
+      "glyph": "พะเยา",
+      "ipa": "pʰa.jaw",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B0%E0%B9%80%E0%B8%A2%E0%B8%B2",
+      "references": [
+        "/pʰa˦˥.jaw˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phetchabun",
+      "glyph": "เพชรบูรณ์",
+      "ipa": "pʰet.tɕʰa.buːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%9A%E0%B8%B9%E0%B8%A3%E0%B8%93%E0%B9%8C",
+      "references": [
+        "/pʰet̚˦˥.t͡ɕʰa˦˥.buːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phetchaburi",
+      "glyph": "เพชรบุรี",
+      "ipa": "pʰet.tɕʰa.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/pʰet̚˦˥.bu˨˩.riː˧/",
+        "/pʰet̚˦˥.t͡ɕʰa˦˥.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phichit",
+      "glyph": "พิจิตร",
+      "ipa": "pʰi.tɕit",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B4%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B8%A3",
+      "references": [
+        "/pʰi˦˥.t͡ɕit̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phitsanulok",
+      "glyph": "พิษณุโลก",
+      "ipa": "pʰit.sa.nu.loːk",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B4%E0%B8%A9%E0%B8%93%E0%B8%B8%E0%B9%82%E0%B8%A5%E0%B8%81",
+      "references": [
+        "/pʰit̚˦˥.sa˨˩.nu˦˥.loːk̚˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phranakhonsiayutthaya",
+      "glyph": "พระนครศรีอยุธยา",
+      "ipa": "pʰra.na.kʰɔːn siː ʔa.jut.tʰa.jaː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%AD%E0%B8%A2%E0%B8%B8%E0%B8%98%E0%B8%A2%E0%B8%B2",
+      "references": [
+        "/pʰra˦˥.na˦˥.kʰɔːn˧.siː˩˩˦.ʔa˨˩.jut̚˦˥.tʰa˦˥.jaː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phrae",
+      "glyph": "แพร่",
+      "ipa": "pʰrɛː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%81%E0%B8%9E%E0%B8%A3%E0%B9%88",
+      "references": [
+        "/pʰrɛː˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "phuket",
+      "glyph": "ภูเก็ต",
+      "ipa": "pʰuː.ket",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%95",
+      "references": [
+        "/pʰuː˧.ket̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "prachinburi",
+      "glyph": "ปราจีนบุรี",
+      "ipa": "praː.tɕiːn bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/praː˧.t͡ɕiːn˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "prachuapkhirikhan",
+      "glyph": "ประจวบคีรีขันธ์",
+      "ipa": "pra.tɕuap kʰiː.riː kʰan",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%88%E0%B8%A7%E0%B8%9A%E0%B8%84%E0%B8%B5%E0%B8%A3%E0%B8%B5%E0%B8%82%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B9%8C",
+      "references": [
+        "/pra˨˩.t͡ɕua̯p̚˨˩.kʰiː˧.riː˧.kʰan˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "ranong",
+      "glyph": "ระนอง",
+      "ipa": "ra.nɔːŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A3%E0%B8%B0%E0%B8%99%E0%B8%AD%E0%B8%87",
+      "references": [
+        "/ra˦˥.nɔːŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "ratchaburi",
+      "glyph": "ราชบุรี",
+      "ipa": "raːt.tɕʰa.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/raːt̚˥˩.t͡ɕʰa˦˥.bu˨˩.riː˧/",
+        "/raːt̚˥˩.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "roiet",
+      "glyph": "ร้อยเอ็ด",
+      "ipa": "rɔːj ʔet",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A2%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%94",
+      "references": [
+        "/rɔːj˦˥.ʔet̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sakaeo",
+      "glyph": "สระแก้ว",
+      "ipa": "sa kɛːw",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7",
+      "references": [
+        "/sa˨˩.kɛːw˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "rayong",
+      "glyph": "ระยอง",
+      "ipa": "ra.jɔːŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%AD%E0%B8%87",
+      "references": [
+        "/ra˦˥.jɔːŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sakonnakhon",
+      "glyph": "สกลนคร",
+      "ipa": "sa.kon na.kʰɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%81%E0%B8%A5%E0%B8%99%E0%B8%84%E0%B8%A3",
+      "references": [
+        "/sa˨˩.kon˧.na˦˥.kʰɔːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "samutprakan",
+      "glyph": "สมุทรปราการ",
+      "ipa": "sa.mut praː.kaːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%97%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3",
+      "references": [
+        "/sa˨˩.mut̚˨˩.praː˧.kaːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "samutsakhon",
+      "glyph": "สมุทรสาคร",
+      "ipa": "sa.mut saː.kʰɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%97%E0%B8%A3%E0%B8%AA%E0%B8%B2%E0%B8%84%E0%B8%A3",
+      "references": [
+        "/sa˨˩.mut̚˨˩.saː˩˩˦.kʰɔːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "samutsongkhram",
+      "glyph": "สมุทรสงคราม",
+      "ipa": "sa.mut soŋ.kʰraːm",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%97%E0%B8%A3%E0%B8%AA%E0%B8%87%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%A1",
+      "references": [
+        "/sa˨˩.mut̚˨˩.soŋ˩˩˦.kʰraːm˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "saraburi",
+      "glyph": "สระบุรี",
+      "ipa": "sa.ra.bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/sa˨˩.ra˨˩.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "satun",
+      "glyph": "สตูล",
+      "ipa": "sa.tuːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%95%E0%B8%B9%E0%B8%A5",
+      "references": [
+        "/sa˨˩.tuːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "singburi",
+      "glyph": "สิงห์บุรี",
+      "ipa": "siŋ bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%AB%E0%B9%8C%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/siŋ˩˩˦.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sisaket",
+      "glyph": "ศรีสะเกษ",
+      "ipa": "siː sa.keːt",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%B0%E0%B9%80%E0%B8%81%E0%B8%A9",
+      "references": [
+        "/siː˩˩˦.sa˨˩.keːt̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "songkhla",
+      "glyph": "สงขลา",
+      "ipa": "soŋ.kʰlaː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%87%E0%B8%82%E0%B8%A5%E0%B8%B2",
+      "references": [
+        "/soŋ˩˩˦.kʰlaː˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sukhothai",
+      "glyph": "สุโขทัย",
+      "ipa": "su.kʰoː.tʰaj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B8%E0%B9%82%E0%B8%82%E0%B8%97%E0%B8%B1%E0%B8%A2",
+      "references": [
+        "/su˨˩.kʰoː˩˩˦.tʰaj˧/",
+        "/suk̚˨˩.kʰoː˩˩˦.tʰaj˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "suphanburi",
+      "glyph": "สุพรรณบุรี",
+      "ipa": "su.pʰan bu.riː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B8%E0%B8%9E%E0%B8%A3%E0%B8%A3%E0%B8%93%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5",
+      "references": [
+        "/su˨˩.pʰan˧.bu˨˩.riː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "suratthani",
+      "glyph": "สุราษฎร์ธานี",
+      "ipa": "su.raːt tʰaː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B8%E0%B8%A3%E0%B8%B2%E0%B8%A9%E0%B8%8E%E0%B8%A3%E0%B9%8C%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/su˨˩.raːt̚˥˩.tʰaː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "surin",
+      "glyph": "สุรินทร์",
+      "ipa": "su.rin",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B8%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C",
+      "references": [
+        "/su˨˩.rin˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "tak",
+      "glyph": "ตาก",
+      "ipa": "taːk",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%95%E0%B8%B2%E0%B8%81",
+      "references": [
+        "/taːk̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "trang",
+      "glyph": "ตรัง",
+      "ipa": "traŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%95%E0%B8%A3%E0%B8%B1%E0%B8%87",
+      "references": [
+        "/traŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "trat",
+      "glyph": "ตราด",
+      "ipa": "traːt",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%95%E0%B8%A3%E0%B8%B2%E0%B8%94",
+      "references": [
+        "/traːt̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "ubonratchathani",
+      "glyph": "อุบลราชธานี",
+      "ipa": "ʔu.bon raːt.tɕʰa.tʰaː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B8%B8%E0%B8%9A%E0%B8%A5%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/ʔu˨˩.bon˧.raːt̚˥˩.t͡ɕʰa˦˥.tʰaː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "udonthani",
+      "glyph": "อุดรธานี",
+      "ipa": "ʔu.dɔːn tʰaː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B8%B8%E0%B8%94%E0%B8%A3%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/ʔu˨˩.dɔːn˧.tʰaː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "uthaithani",
+      "glyph": "อุทัยธานี",
+      "ipa": "ʔu.tʰaj tʰaː.niː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B8%B8%E0%B8%97%E0%B8%B1%E0%B8%A2%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5",
+      "references": [
+        "/ʔu˨˩.tʰaj˧.tʰaː˧.niː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "uttaradit",
+      "glyph": "อุตรดิตถ์",
+      "ipa": "ʔut.ta.ra.dit",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AD%E0%B8%B8%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B4%E0%B8%95%E0%B8%96%E0%B9%8C",
+      "references": [
+        "/ʔut̚˨˩.ta˨˩.ra˦˥.dit̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "yala",
+      "glyph": "ยะลา",
+      "ipa": "ja.laː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A2%E0%B8%B0%E0%B8%A5%E0%B8%B2",
+      "references": [
+        "/ja˦˥.laː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "yasothon",
+      "glyph": "ยโสธร",
+      "ipa": "ja.soː.tʰɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A2%E0%B9%82%E0%B8%AA%E0%B8%98%E0%B8%A3",
+      "references": [
+        "/ja˦˥.soː˩˩˦.tʰɔːn˧/",
+        "/ja˦˥.soː˩˩˦.tʰɔːn˧./",
+        "/ja˦˥.soː˩˩˦.tʰa˦˥.ra˦˥./"
+      ],
+      "matches": true
+    },
+    {
+      "id": "bangkok-full",
+      "glyph": "กรุงเทพมหานคร",
+      "ipa": "kruŋ tʰeːp ma.haː na.kʰɔːn",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3",
+      "references": [
+        "/kruŋ˧.tʰeːp̚˥˩.ma˦˥.haː˩˩˦.na˦˥.kʰɔːn˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "pattaya",
+      "glyph": "พัทยา",
+      "ipa": "pʰat.tʰa.jaː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2",
+      "references": [
+        "/pʰat̚˦˥.tʰa˦˥.jaː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "hatyai",
+      "glyph": "หาดใหญ่",
+      "ipa": "haːt jaj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88",
+      "references": [
+        "/haːt̚˨˩.jaj˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "huahin",
+      "glyph": "หัวหิน",
+      "ipa": "hua hin",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%AB%E0%B8%B4%E0%B8%99",
+      "references": [
+        "/hua̯˩˩˦.hin˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "maesai",
+      "glyph": "แม่สาย",
+      "ipa": "mɛː saːj",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%AA%E0%B8%B2%E0%B8%A2",
+      "references": [
+        "/mɛː˥˩.saːj˩˩˦/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sriracha",
+      "glyph": "ศรีราชา",
+      "ipa": "siː raː.tɕʰaː",
+      "url": "https://en.wiktionary.org/wiki/%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%B2",
+      "references": [
+        "/siː˩˩˦.raː˧.t͡ɕʰaː˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "maesot",
+      "glyph": "แม่สอด",
+      "ipa": "mɛː sɔːt",
+      "url": "https://th.wiktionary.org/wiki/%E0%B9%81%E0%B8%A1%E0%B9%88%E0%B8%AA%E0%B8%AD%E0%B8%94",
+      "secondaryReference": true,
+      "references": [
+        "/mɛː˥˩.sɔːt̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "betong",
+      "glyph": "เบตง",
+      "ipa": "beː.toŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%B9%80%E0%B8%9A%E0%B8%95%E0%B8%87",
+      "references": [
+        "/beː˧.toŋ˧/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "rangsit",
+      "glyph": "รังสิต",
+      "ipa": "raŋ sit",
+      "url": "https://th.wiktionary.org/wiki/%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95",
+      "secondaryReference": true,
+      "references": [
+        "/raŋ˧.sit̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "pakkret",
+      "glyph": "ปากเกร็ด",
+      "ipa": "paːk kret",
+      "url": "https://th.wiktionary.org/wiki/%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B9%87%E0%B8%94",
+      "secondaryReference": true,
+      "references": [
+        "/paːk̚˨˩.kret̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "laemchabang",
+      "glyph": "แหลมฉบัง",
+      "ipa": "lɛːm tɕʰa.baŋ",
+      "url": "https://en.wikipedia.org/wiki/Laem_Chabang",
+      "secondaryReference": true,
+      "references": [
+        "[lɛ̌ːm tɕʰābāŋ]"
+      ],
+      "matches": true
+    },
+    {
+      "id": "sattahip",
+      "glyph": "สัตหีบ",
+      "ipa": "sat.ta.hiːp",
+      "url": "https://th.wiktionary.org/wiki/%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%AB%E0%B8%B5%E0%B8%9A",
+      "secondaryReference": true,
+      "references": [
+        "/sat̚˨˩.ta˨˩.hiːp̚˨˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "aranyaprathet",
+      "glyph": "อรัญประเทศ",
+      "ipa": "ʔa.ran.ja.pra.tʰeːt",
+      "url": "https://th.wiktionary.org/wiki/%E0%B8%AD%E0%B8%A3%E0%B8%B1%E0%B8%8D%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8",
+      "secondaryReference": true,
+      "references": [
+        "/ʔa˨˩.ran˧.ja˦˥.pra˨˩.tʰeːt̚˥˩/"
+      ],
+      "matches": true
+    },
+    {
+      "id": "chaam",
+      "glyph": "ชะอำ",
+      "ipa": "tɕʰa.ʔam",
+      "url": "https://th.wiktionary.org/wiki/%E0%B8%8A%E0%B8%B0%E0%B8%AD%E0%B8%B3",
+      "secondaryReference": true,
+      "references": [
+        "/t͡ɕʰa˦˥.ʔam˧/"
+      ],
+      "matches": true
+    }
+  ]
+}

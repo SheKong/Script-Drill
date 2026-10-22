@@ -22,15 +22,15 @@ const progress = z.object({
   modes: z.array(z.string().max(30)).max(10), lastSeen: date, card: card.optional(),
 });
 const exercise = z.object({
-  id: z.string().max(100), kind: z.enum(['intro', 'read', 'reverse', 'match', 'type', 'meaning', 'combine']),
+  id: z.string().max(100), kind: z.enum(['intro', 'read', 'reverse', 'match', 'type', 'meaning', 'combine', 'mark']),
   itemId, prompt: text, display: text, answer: text,
   options: z.array(z.object({ id: text, label: text, sublabel: text.optional() })).max(6),
-  pairs: z.array(z.object({ id: itemId, left: text, right: text })).max(4).optional(),
+  pairs: z.array(z.object({ id: itemId, left: text, right: text })).max(5).optional(),
   combination: z.object({ glyph: text, roman: text, ipa: text, parts: z.array(itemId).length(2) }).optional(),
   repair: z.boolean().optional(),
 }).refine(q => {
   if (q.kind === 'combine' && !q.combination) return false;
-  if (['read', 'reverse', 'meaning', 'combine'].includes(q.kind)) {
+  if (['read', 'reverse', 'meaning', 'combine', 'mark'].includes(q.kind)) {
     return q.options.length === 4 && new Set(q.options.map(o => o.id)).size === 4
       && q.options.filter(o => o.id === q.answer).length === 1;
   }
@@ -49,11 +49,14 @@ export const stateSchema = z.object({
     dailyGoal: z.number().int().refine(n => [10, 20, 30, 50].includes(n)),
     newPerLesson: z.number().int().min(1).max(5), typing: z.boolean(),
   }),
+  completedUnitReviews: z.record(z.string().max(100), z.boolean()).optional(),
+  rushBest: z.record(z.string().max(100), count).optional(),
   session: z.object({
-    id: text, courseId, mode: z.enum(['learn', 'review', 'mistakes', 'custom']),
+    id: text, courseId, mode: z.enum(['learn', 'review', 'mistakes', 'custom', 'extra']),
+    stage: z.literal('unit-review').optional(),
     unitId: text.optional(), queue: z.array(exercise).min(1).max(500),
     index: count, answers: count, correct: count, startedAt: date, activeSeconds: count.default(0),
-    introduced: z.array(itemId).max(300), newIds: z.array(itemId).max(10),
+    introduced: z.array(itemId).max(500), newIds: z.array(itemId).max(20),
     repairCount: z.record(itemId, z.number().int().min(0).max(2)),
     outcomes: z.record(itemId, z.object({
       correct: count, wrong: count, hinted: z.boolean(), modes: z.array(text).max(10),

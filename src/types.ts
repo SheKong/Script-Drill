@@ -49,6 +49,8 @@ export interface Knowledge {
   ruleAnswer?: string;
   ruleChoices?: string[];
   obsolete?: boolean;
+  extra?: boolean;
+  place?: { type: 'region'; regionId: string } | { type: 'city'; coordinates: [number, number] };
 }
 
 export interface Unit {
@@ -58,6 +60,7 @@ export interface Unit {
   phase: string;
   items: string[];
   note: string;
+  supplementary?: boolean;
 }
 
 export interface Course {
@@ -76,8 +79,19 @@ export interface Course {
   ipaNote?: string;
   referenceNotes?: string[];
   pronunciationReference?: string;
+  onlineListening?: { label: string; language: string };
+  voiceHelp?: 'thai';
   scriptVariants?: { id: string; label: string; className: string }[];
   composition?: { vowelIds: string[]; excludedConsonantIds: string[] };
+  recognition?: { marks: string[]; distractors: string[]; prompt: string };
+  geography?: {
+    country: string;
+    outline: string;
+    regions: Record<string, string>;
+    projection: { scale: number; translate: [number, number] };
+    source: string;
+  };
+  extraUnits?: Unit[];
   nativeTitle: string;
   label: string;
   description: string;
@@ -86,7 +100,7 @@ export interface Course {
   sources: Source[];
 }
 
-export type ExerciseKind = 'intro' | 'read' | 'reverse' | 'match' | 'type' | 'meaning' | 'combine';
+export type ExerciseKind = 'intro' | 'read' | 'reverse' | 'match' | 'type' | 'meaning' | 'combine' | 'mark';
 export interface Option { id: string; label: string; sublabel?: string }
 export interface Exercise {
   id: string;
@@ -125,7 +139,8 @@ export interface Outcome { correct: number; wrong: number; hinted: boolean; mode
 export interface Session {
   id: string;
   courseId: CourseId;
-  mode: 'learn' | 'review' | 'mistakes' | 'custom';
+  mode: 'learn' | 'review' | 'mistakes' | 'custom' | 'extra';
+  stage?: 'unit-review';
   unitId?: string;
   queue: Exercise[];
   index: number;
@@ -153,5 +168,7 @@ export interface AppState {
   progress: Record<string, ItemProgress>;
   history: History[];
   settings: { dailyGoal: number; newPerLesson: number; typing: boolean };
+  completedUnitReviews?: Record<string, boolean>;
+  rushBest?: Record<string, number>;
   session?: Session;
 }

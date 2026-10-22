@@ -7,7 +7,7 @@ export function VoiceHelp({ recheck, available }: { recheck: () => void; availab
   const [checked, setChecked] = useState(false);
   return <details className="voice-help">
     <summary>语音安装与排查</summary>
-    <p>浏览器没有通用的泰语语音包下载按钮。本站录音不需要语音包；未收录的条目可用「在线听泰语」，在打开的页面点泰文下方的扬声器。Google 无法访问时可试「Bing 备用」。</p>
+    <p>本站录音不需要语音包；未收录的条目可用「在线听泰语」，在打开的页面点泰文下方的扬声器。扬声器按钮只在有录音或可用设备语音时出现。播放字母名或元音例词时，按钮悬停提示会标明示范内容。</p>
     <label className="voice-platform">设备系统<select aria-label="语音帮助的设备系统" value={platform}
       onChange={event => setPlatform(event.target.value as VoicePlatform)}>
       <option value="windows">Windows 10 / 11</option><option value="android">Android</option>
@@ -36,6 +36,6 @@ export function VoiceHelp({ recheck, available }: { recheck: () => void; availab
       <RefreshCw size={14} />重新检测语音
     </button>
     {checked && <p role="status">{available ? '已检测到泰语声音，可以尝试播放。' : '当前浏览器仍未提供泰语声音，请使用在线收听。'}</p>}
-    <small>只有点击在线收听后，才会将本条泰文带到所选翻译服务（Google 或 Bing）；不会附带学习进度。在线服务需要联网，能否访问取决于所在网络。</small>
+    <small>只有点击在线收听后，才会将本条泰文带到 Google 翻译；不会附带学习进度。在线服务需要联网，能否访问取决于所在网络。</small>
   </details>;
 }

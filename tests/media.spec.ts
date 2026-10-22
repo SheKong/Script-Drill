@@ -165,7 +165,7 @@ test('recording failures are visible and retryable', async ({ page }) => {
   await expect(page.getByRole('button', { name: '真人发音', exact: true })).toBeEnabled();
 });
 
-test('missing Thai voices offer online listening and actionable OS help, never English', async ({ page }, testInfo) => {
+test('missing Thai voices leave only online listening; environment help lives on the home page', async ({ page }, testInfo) => {
   await page.addInitScript(() => {
     const speech = Object.assign(new EventTarget(), {
       getVoices: () => [{ lang: 'en-US', localService: true }],
@@ -176,15 +176,17 @@ test('missing Thai voices offer online listening and actionable OS help, never E
   });
   await library(page);
   await inspect(page, 'ถนน');
-  await expect(page.getByRole('button', { name: '合成语音 · 词语示范', exact: true })).toBeDisabled();
-  await expect(page.getByRole('status')).toContainText('当前浏览器也未提供泰语声音');
+  await expect(page.getByRole('button', { name: '合成语音', exact: true })).toHaveCount(0);
+  await expect(page.locator('.pronunciation-label, .audio-message, .voice-help')).toHaveCount(0);
   const online = page.getByRole('link', { name: '在线听泰语', exact: true });
   await expect(online).toBeVisible();
   const url = new URL((await online.getAttribute('href'))!);
   expect(url.searchParams.get('text')).toBe('ถนน');
   expect(url.searchParams.get('sl')).toBe('th');
-  await expect(page.getByRole('link', { name: 'Bing 备用', exact: true })).toHaveAttribute('href', /from=th/);
-  await expect(page.getByRole('link', { name: '发音资料', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Bing 备用', exact: true })).toHaveCount(0);
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: /^(学习路径|学习)$/ }).click();
+  await expect(page.locator('.voice-environment')).toContainText('设备语音暂不可用');
   await page.getByText('语音安装与排查', { exact: true }).click();
   await page.getByRole('combobox', { name: '语音帮助的设备系统' }).selectOption('windows');
   await expect(page.locator('.voice-help')).toContainText('Pattara');
@@ -227,8 +229,8 @@ test('late voice lists enable explicit Thai speech and synthesis errors are surf
   });
   await library(page);
   await inspect(page, 'ถนน');
-  const button = page.getByRole('button', { name: '合成语音 · 词语示范', exact: true });
-  await expect(button).toBeDisabled();
+  const button = page.getByRole('button', { name: '合成语音', exact: true });
+  await expect(button).toHaveCount(0);
   await page.evaluate(() => (window as unknown as { addThaiVoice: () => void }).addThaiVoice());
   await expect(button).toBeEnabled();
   await button.click();
@@ -251,7 +253,7 @@ test('Thai local recordings work without Web Speech or external network access',
   await page.route(/^https:\/\//, route => route.abort());
   await library(page);
   await inspect(page, 'บ้าน');
-  const button = page.getByRole('button', { name: '真人发音 · 词语示范', exact: true });
+  const button = page.getByRole('button', { name: '真人发音', exact: true });
   await expect(button).toBeEnabled();
   await button.click();
   await expect.poll(() => page.evaluate(() => (window as unknown as { testAudio: HTMLAudioElement }).testAudio.currentTime)).toBeGreaterThan(0);
@@ -285,13 +287,13 @@ test('failed Thai recording tries Thai synthesis once, even with both error and 
   });
   await library(page);
   await inspect(page, 'บ้าน');
-  await page.getByRole('button', { name: '真人发音 · 词语示范', exact: true }).click();
+  await page.getByRole('button', { name: '真人发音', exact: true }).click();
   await expect(page.getByRole('button', { name: '停止发音', exact: true })).toBeVisible();
-  await expect(page.getByRole('status')).toContainText('切换为设备泰语语音');
+  await expect(page.getByRole('status')).toContainText('切换为匹配的设备语音');
   expect(await page.evaluate(() => (window as unknown as { spoken: number }).spoken)).toBe(1);
   expect(await page.evaluate(() => (window as unknown as { spokenText: string }).spokenText)).toBe('บ้าน');
   await page.getByRole('button', { name: '停止发音', exact: true }).click();
-  await expect(page.getByRole('button', { name: '真人发音 · 词语示范', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: '真人发音', exact: true })).toBeEnabled();
 });
 
 test('Thai recording failure without a voice leaves working alternatives and retry', async ({ page }) => {
@@ -304,12 +306,12 @@ test('Thai recording failure without a voice leaves working alternatives and ret
   });
   await library(page);
   await inspect(page, 'บ้าน');
-  await page.getByRole('button', { name: '真人发音 · 词语示范', exact: true }).click();
+  await page.getByRole('button', { name: '真人发音', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('录音播放失败', { timeout: 20000 });
-  await expect(page.getByRole('button', { name: '真人发音 · 词语示范', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: '真人发音', exact: true })).toBeEnabled();
   await expect(page.getByRole('link', { name: '在线听泰语', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: '原始录音', exact: true })).toBeVisible();
-  await expect(page.locator('.voice-help')).toBeVisible();
+  await expect(page.locator('.voice-help')).toHaveCount(0);
 });
 
 test('speech startup timeout is recoverable and does not leave an endless spinner', async ({ page }) => {
@@ -325,10 +327,10 @@ test('speech startup timeout is recoverable and does not leave an endless spinne
   await library(page);
   await inspect(page, 'ถนน');
   await page.clock.install();
-  await page.getByRole('button', { name: '合成语音 · 词语示范', exact: true }).click();
+  await page.getByRole('button', { name: '合成语音', exact: true }).click();
   await page.clock.fastForward(16000);
   await expect(page.getByRole('status')).toContainText('设备语音播放失败');
-  await expect(page.getByRole('button', { name: '合成语音 · 词语示范', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: '合成语音', exact: true })).toBeEnabled();
   await expect(page.getByRole('link', { name: '在线听泰语', exact: true })).toBeVisible();
 });
 
@@ -344,15 +346,14 @@ test('manual recheck discovers a newly installed voice without a voiceschanged e
     Object.assign(window, { installThaiVoice: () => { voices = [{ lang: 'th-TH', localService: true }]; } });
     Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: speech });
   });
-  await library(page);
-  await inspect(page, 'ถนน');
-  const button = page.getByRole('button', { name: '合成语音 · 词语示范', exact: true });
-  await expect(button).toBeDisabled();
+  await page.goto('/');
   await page.getByText('语音安装与排查', { exact: true }).click();
   await page.evaluate(() => (window as unknown as { installThaiVoice: () => void }).installThaiVoice());
   await page.getByRole('button', { name: '重新检测语音' }).click();
-  await expect(button).toBeEnabled();
   await expect(page.locator('.voice-help [role=status]')).toContainText('已检测到泰语声音');
+  await page.getByRole('button', { name: /^(文字图鉴|图鉴)$/ }).click();
+  await inspect(page, 'ถนน');
+  await expect(page.getByRole('button', { name: '合成语音', exact: true })).toBeEnabled();
 });
 
 test('unrecorded IPA keeps both independent reference sources accessible', async ({ page }, testInfo) => {

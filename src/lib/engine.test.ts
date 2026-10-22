@@ -7,12 +7,13 @@ import { initialState, parseBackup } from './storage';
 import {
   advanceIntro, answerExercise, checkTyped, createSession, eligibleWords, finishSession,
   makeCombination, makeExercise, makeMatch, nextUnit, normalizeAnswer, reading, refreshSessionNotation,
-  streak, trained, unitDone, unitOpen,
+  mainComplete, streak, trained, unitDone, unitOpen,
 } from './engine';
 
 function learnedState(courseId: 'thai' | 'ipa' = 'thai'): AppState {
   const state = initialState();
   state.courseId = courseId;
+  state.completedUnitReviews = Object.fromEntries(courses[courseId].units.filter(unit => !unit.supplementary).map(unit => [unit.id, true]));
   for (const item of courses[courseId].items.filter(i => i.kind !== 'word')) {
     state.progress[item.id] = { introduced: true, correct: 4, wrong: 0, modes: ['read', 'reverse'], lastSeen: new Date().toISOString() };
   }
@@ -48,7 +49,7 @@ describe('course content invariants', () => {
       }
       const order = course.units.flatMap(u => u.items);
       expect(new Set(order).size).toBe(order.length);
-      expect(order.length).toBe(course.items.filter(i => i.kind !== 'word').length);
+      expect(order.length).toBe(course.items.filter(i => !i.extra).length);
       for (const id of order) {
         for (const pre of itemMap[id].requires) {
           expect(order.indexOf(pre), `${id} depends on future ${pre}`).toBeLessThan(order.indexOf(id));
@@ -166,14 +167,16 @@ describe('generative exercises', () => {
       }
     }
   });
-  it('does not pair homophones, duplicates, or word translations', () => {
+  it('fills five pairs without homophones or duplicates, including word readings', () => {
     const cons = courses.thai.items.filter(i => i.kind === 'consonant');
     for (let run = 0; run < 100; run++) {
       const match = makeMatch([...cons, ...cons])!;
+      expect(match.pairs).toHaveLength(5);
       expect(new Set(match.pairs!.map(p => p.id)).size).toBe(match.pairs!.length);
       expect(new Set(match.pairs!.map(p => itemMap[p.id].ipa)).size).toBe(match.pairs!.length);
     }
-    expect(makeMatch([itemMap['th-k'], itemMap['th-word-na']])).toBeUndefined();
+    expect(makeMatch([itemMap['th-k'], itemMap['th-word-na']])?.pairs?.[1].right).not.toContain('田地');
+    expect(makeMatch([itemMap['th-word-na']], cons)?.pairs).toHaveLength(5);
   });
   it('accepts RTGS, declared conventional names and legacy input aliases, not guesses', () => {
     expect(normalizeAnswer(' Chiang-Mai ')).toBe('chiangmai');
@@ -208,8 +211,8 @@ describe('progression and repetition', () => {
     expect(state.session).toBeDefined();
     expect(unitOpen(courses.thai, 1, state.progress)).toBe(false);
     state = advanceIntro(state);
-    expect(state.progress['th-k'].introduced).toBe(true);
-    expect(trained('th-k', state.progress)).toBe(false);
+    expect(state.progress['th-tone-overview'].introduced).toBe(true);
+    expect(trained('th-tone-overview', state.progress)).toBe(false);
     expect(createSession(state, 'learn', courses.thai.units[1].id)).toBeUndefined();
   });
   it('requires both directions and does not credit failed or hinted retrieval modes', () => {
@@ -217,27 +220,39 @@ describe('progression and repetition', () => {
     state.session = createSession(state, 'learn')!;
     state = advanceIntro(state);
     state = answerExercise(state, false, false);
-    expect(state.session?.outcomes['th-k'].modes).not.toContain('read');
+    expect(state.session?.outcomes['th-tone-overview'].modes).not.toContain('read');
     expect(trained('th-k', { 'th-k': { introduced: true, correct: 5, wrong: 0, modes: ['read'], lastSeen: new Date().toISOString() } })).toBe(false);
   });
   it('unlocks every unit without dead ends via real perfect sessions', () => {
     for (const course of Object.values(courses)) {
       let state = initialState(); state.courseId = course.id;
-      for (let step = 0; step < 200 && nextUnit(course, state.progress); step++) {
+      for (let step = 0; step < 200 && nextUnit(course, state.progress, state.completedUnitReviews); step++) {
         const session = createSession(state, 'learn');
         expect(session, `blocked at ${course.id} ${nextUnit(course, state.progress)?.id}`).toBeDefined();
         state = completePerfect({ ...state, session });
       }
-      expect(course.units.every(u => unitDone(u, state.progress))).toBe(true);
+      expect(course.units.every(u => unitDone(u, state.progress, state.completedUnitReviews))).toBe(true);
+      expect(mainComplete(course, state)).toBe(true);
+      expect(createSession(state, 'learn')).toBeUndefined();
+      for (const unit of course.extraUnits || []) {
+        for (let step = 0; step < 20 && !unitDone(unit, state.progress, state.completedUnitReviews); step++) {
+          const session = createSession(state, 'extra', unit.id);
+          expect(session, unit.id).toBeDefined();
+          expect(() => parseBackup(JSON.stringify({ ...state, session }))).not.toThrow();
+          state = completePerfect({ ...state, session });
+        }
+        expect(unitDone(unit, state.progress, state.completedUnitReviews)).toBe(true);
+      }
     }
   });
-  it('unlocks words only with all practiced prerequisites and introduces at most one new word', () => {
+  it('batches remaining main words into an explicit supplement and keeps extra words locked', () => {
     const state = learnedState();
-    expect(eligibleWords(courses.thai, state.progress)).toHaveLength(courses.thai.items.filter(i => i.kind === 'word').length);
+    expect(eligibleWords(courses.thai, state.progress)).toHaveLength(courses.thai.items.filter(i => i.kind === 'word' && !i.extra).length);
     delete state.progress['th-leading-h'];
     expect(eligibleWords(courses.thai, state.progress).some(i => i.id === 'th-word-chiangmai')).toBe(false);
-    const session = createSession(state, 'learn')!;
-    expect(session.newIds.filter(id => itemMap[id].kind === 'word')).toHaveLength(1);
+    const session = createSession(learnedState(), 'learn')!;
+    expect(session.unitId).toBe('thai-supplement');
+    expect(session.newIds.filter(id => itemMap[id].kind === 'word').length).toBeGreaterThanOrEqual(6);
     expect(session.queue.some(q => q.kind === 'meaning' || q.kind === 'type')).toBe(false);
     expect(session.queue.some(q => q.kind === 'intro' && itemMap[q.itemId].kind === 'word')).toBe(false);
   });
@@ -278,12 +293,13 @@ describe('progression and repetition', () => {
     state.session = createSession(state, 'learn');
     const result = finishSession(advanceIntro(state));
     expect(result.history).toHaveLength(0);
-    expect(result.progress['th-k'].introduced).toBe(true);
-    expect(result.progress['th-k'].card).toBeUndefined();
+    expect(result.progress['th-tone-overview'].introduced).toBe(true);
+    expect(result.progress['th-tone-overview'].card).toBeUndefined();
   });
   it('keeps pair errors and uses Again even if a later repair is correct', () => {
     const state = initialState();
     const session = createSession(state, 'learn')!;
+    session.queue.push(makeMatch([itemMap['th-k'], itemMap['th-n']])!);
     const matchIndex = session.queue.findIndex(q => q.kind === 'match');
     session.index = matchIndex;
     const id = session.queue[matchIndex].pairs![0].id;
@@ -301,6 +317,17 @@ describe('progression and repetition', () => {
   });
 });
 describe('untrusted backup boundary', () => {
+  it('updates an old rule question to its current teaching goal without changing answer IDs', () => {
+    const state = learnedState();
+    state.session = createSession(state, 'custom', undefined, ['th-tone1'])!;
+    const question = state.session.queue[0];
+    question.prompt = '低类声母配第一调号通常得到什么声调？';
+    question.options = question.options.map(option => ({ ...option, label: option.id === question.answer ? '降调' : '旧声调选项' }));
+    const restored = parseBackup(JSON.stringify(state)).session!.queue[0];
+    expect(restored.prompt).toBe('ท่า 中哪个是声调符号？');
+    expect(restored.options.map(option => option.id)).toEqual(question.options.map(option => option.id));
+    expect(restored.options.find(option => option.id === restored.answer)?.label).toBe('◌่');
+  });
   it('refreshes old session notation without losing IDs, ordering or progress', () => {
     const state = learnedState();
     state.progress['th-word-na'] = { introduced: true, correct: 3, wrong: 1, modes: ['read', 'reverse'], lastSeen: new Date().toISOString() };

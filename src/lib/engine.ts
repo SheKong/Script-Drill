@@ -26,12 +26,16 @@ export const trained = (id: string, progress: AppState['progress']) => {
   return itemMap[id]?.kind === 'rule' ? p.modes.includes('read') : (p.modes.includes('read') && p.modes.includes('reverse'));
 };
 export const eligibleWords = (course: Course, progress: AppState['progress']) =>
-  course.items.filter(i => i.kind === 'word' && i.requires.every(id => trained(id, progress)));
-export const unitDone = (unit: Unit, progress: AppState['progress']) => unit.items.every(id => trained(id, progress));
-export const unitOpen = (course: Course, index: number, progress: AppState['progress']) =>
-  index === 0 || course.units.slice(0, index).every(u => unitDone(u, progress));
-export const nextUnit = (course: Course, progress: AppState['progress']) =>
-  course.units.find(u => !unitDone(u, progress));
+  course.items.filter(i => i.kind === 'word' && !i.extra && i.requires.every(id => trained(id, progress)));
+export const unitLearned = (unit: Unit, progress: AppState['progress']) => unit.items.every(id => trained(id, progress));
+export const unitDone = (unit: Unit, progress: AppState['progress'], reviews: AppState['completedUnitReviews'] = {}) =>
+  unitLearned(unit, progress) && !!reviews[unit.id];
+export const unitOpen = (course: Course, index: number, progress: AppState['progress'], reviews?: AppState['completedUnitReviews']) =>
+  index === 0 || course.units.slice(0, index).every(u => unitDone(u, progress, reviews));
+export const nextUnit = (course: Course, progress: AppState['progress'], reviews?: AppState['completedUnitReviews']) =>
+  course.units.find(u => !unitDone(u, progress, reviews));
+export const mainComplete = (course: Course, state: AppState) =>
+  !nextUnit(course, state.progress, state.completedUnitReviews);
 export const dueItems = (course: Course, progress: AppState['progress'], now = new Date()) =>
   course.items.filter(i => progress[i.id]?.card && new Date(progress[i.id].card!.due) <= now)
     .sort((a, b) => Date.parse(progress[a.id].card!.due) - Date.parse(progress[b.id].card!.due));
@@ -46,7 +50,8 @@ function equivalence(item: Knowledge): string {
   return item.ipa || item.roman;
 }
 function poolFor(item: Knowledge, course: Course, progress: AppState['progress']): Knowledge[] {
-  const peers = course.items.filter(i => i.kind === item.kind && i.id !== item.id && !i.obsolete);
+  const peers = course.items.filter(i => i.kind === item.kind && i.id !== item.id && !i.obsolete
+    && (!i.extra || item.extra || introduced(i.id, progress)));
   return [...shuffle(peers.filter(i => introduced(i.id, progress))), ...shuffle(peers.filter(i => !introduced(i.id, progress)))];
 }
 export function makeExercise(
@@ -57,6 +62,12 @@ export function makeExercise(
     prompt: '', display: item.glyph,
   };
   if (kind === 'intro') return { ...base, prompt: item.kind === 'word' ? '你现在可以读懂这个词了' : '认识一个新知识' };
+  if (kind === 'mark' && course.recognition) {
+    const mark = course.recognition.marks.find(character => item.glyph.includes(character))!;
+    const choices = [mark, ...shuffle(course.recognition.distractors).slice(0, 3)];
+    return { ...base, prompt: course.recognition.prompt, answer: mark,
+      options: shuffle(choices).map(character => ({ id: character, label: `◌${character}` })) };
+  }
   if (item.kind === 'rule') {
     return {
       ...base, kind: 'read', prompt: item.rulePrompt!, display: item.glyph,
@@ -100,18 +111,20 @@ export function makeExercise(
     options: shuffle([item, ...distractors]).map(option),
   };
 }
-export function makeMatch(items: Knowledge[]): Exercise | undefined {
+export function makeMatch(items: Knowledge[], fillers: Knowledge[] = []): Exercise | undefined {
   const used = new Set<string>();
-  const candidates = shuffle(items.filter(i => i.kind !== 'rule' && i.kind !== 'word'))
+  const glyphs = new Set<string>();
+  const ids = new Set<string>();
+  const candidates = [...shuffle(items), ...shuffle(fillers)].filter(i => i.kind !== 'rule')
     .filter(i => {
       const key = equivalence(i);
-      if (used.has(key)) return false;
-      used.add(key); return true;
-    }).slice(0, 4);
+      if (used.has(key) || glyphs.has(i.glyph) || ids.has(i.id)) return false;
+      used.add(key); glyphs.add(i.glyph); ids.add(i.id); return true;
+    }).slice(0, 5);
   if (candidates.length < 2) return undefined;
   return {
     id: uid(), kind: 'match', itemId: candidates[0].id,
-    prompt: '把左边的符号与右边的读音配对', display: '', options: [], answer: '',
+    prompt: '文字与读音配对', display: '', options: [], answer: '',
     pairs: candidates.map(i => ({ id: i.id, left: i.glyph, right: reading(i) })),
   };
 }
@@ -152,14 +165,22 @@ export function createSession(
   state: AppState, mode: Session['mode'], unitId?: string, customIds?: string[], now = new Date(),
 ): Session | undefined {
   const course = courses[state.courseId];
-  const unit = course.units.find(u => u.id === unitId) || nextUnit(course, state.progress);
+  const units = mode === 'extra' ? course.extraUnits || [] : course.units;
+  const unit = units.find(u => u.id === unitId) || (mode === 'extra'
+    ? units.find(u => !unitDone(u, state.progress, state.completedUnitReviews))
+    : nextUnit(course, state.progress, state.completedUnitReviews));
   const unitIndex = unit ? course.units.indexOf(unit) : -1;
-  if (mode === 'learn' && unit && !unitOpen(course, unitIndex, state.progress)) return undefined;
+  if (mode === 'learn' && (!unit || !unitOpen(course, unitIndex, state.progress, state.completedUnitReviews))) return undefined;
+  if (mode === 'extra' && (!unit || !mainComplete(course, state))) return undefined;
+  const learning = mode === 'learn' || mode === 'extra';
+  const unitReview = learning && unit && unitLearned(unit, state.progress);
   let targets: Knowledge[];
   if (mode === 'custom') targets = (customIds || []).map(id => itemMap[id]).filter(i => i?.courseId === course.id && introduced(i.id, state.progress));
   else if (mode === 'review') targets = dueItems(course, state.progress, now).slice(0, 8);
   else if (mode === 'mistakes') targets = weakItems(course, state.progress).slice(0, 6);
-  else {
+  else if (unitReview) {
+    targets = unit.items.map(id => itemMap[id]);
+  } else {
     const available = unit?.items.map(id => itemMap[id]).filter(i => !trained(i.id, state.progress)) || [];
     const selected: Knowledge[] = [];
     const availableKnowledge = new Set(Object.keys(state.progress).filter(id => trained(id, state.progress)));
@@ -168,21 +189,23 @@ export function createSession(
       selected.push(item);
       // Earlier units may have prerequisites within the same unit. Those are deliberately
       // deferred until the next lesson, when their prerequisite has actually been practiced.
-      if (selected.length >= state.settings.newPerLesson) break;
+      if (selected.length >= (unit?.supplementary || mode === 'extra' ? Math.max(6, state.settings.newPerLesson) : state.settings.newPerLesson)) break;
     }
     targets = selected;
-    const readyWord = eligibleWords(course, state.progress).find(i => !introduced(i.id, state.progress));
+    const readyWord = !unit?.supplementary && mode !== 'extra'
+      ? eligibleWords(course, state.progress).find(i => !introduced(i.id, state.progress) && !targets.includes(i)) : undefined;
     if (readyWord) targets = [...targets, readyWord];
   }
   if (!targets.length) return undefined;
   const queue: Exercise[] = [];
   const newIds = targets.filter(i => !introduced(i.id, state.progress)).map(i => i.id);
-  const due = mode === 'learn' ? dueItems(course, state.progress, now).filter(i => !targets.includes(i)).slice(0, 2) : [];
+  const due = learning ? dueItems(course, state.progress, now).filter(i => !targets.includes(i)).slice(0, unitReview ? 16 : 4) : [];
+  if (unitReview) targets = [...targets, ...due];
   for (let n = 0; n < targets.length; n++) {
     const item = targets[n];
     appendTraining(queue, item, course, state, newIds.includes(item.id));
     if (n > 0) queue.push(makeExercise(targets[n - 1], 'reverse', course, state.progress));
-    if (due[n]) queue.push(makeExercise(due[n], 'read', course, state.progress));
+    if (!unitReview && due[n]) queue.push(makeExercise(due[n], 'read', course, state.progress));
   }
   queue.push(makeExercise(targets[targets.length - 1], 'reverse', course, state.progress));
   // A second, separated retrieval is required for progression, not passive introduction.
@@ -190,16 +213,39 @@ export function createSession(
     if (item.kind === 'rule') queue.push(makeExercise(item, 'read', course, state.progress));
     if (item.kind === 'word' && !newIds.includes(item.id)) {
       queue.push(makeExercise(item, 'meaning', course, state.progress));
-      if (state.settings.typing) queue.push(makeExercise(item, 'type', course, state.progress));
+    }
+    if (state.settings.typing && course.type === 'script' && item.kind !== 'rule' && item.roman
+      && (!newIds.includes(item.id) || item.kind !== 'word')) queue.push(makeExercise(item, 'type', course, state.progress));
+    if (item.kind === 'word' && course.recognition?.marks.some(mark => item.glyph.includes(mark))) {
+      queue.push(makeExercise(item, 'mark', course, state.progress));
     }
   }
-  const match = makeMatch([...targets, ...due]);
-  if (match) queue.push(match);
-  const combination = mode === 'learn' && targets.some(i => ['consonant', 'vowel'].includes(i.kind))
+  const familiar = course.items.filter(i => trained(i.id, state.progress));
+  const matching = targets.filter(i => i.kind !== 'rule');
+  for (let offset = 0; offset < Math.max(1, matching.length); offset += 5) {
+    const match = makeMatch(matching.slice(offset, offset + 5), [...matching, ...due, ...familiar]);
+    if (match) queue.push(match);
+  }
+  if (unitReview) {
+    // Tiny units still get a substantial, interleaved retrieval lesson.
+    for (const item of shuffle([...targets, ...familiar.filter(i => !targets.includes(i))])) {
+      if (queue.length >= 36) break;
+      queue.push(makeExercise(item, item.kind === 'rule' ? 'read' : 'reverse', course, state.progress));
+      if (state.settings.typing && course.type === 'script' && item.kind !== 'rule' && item.roman) {
+        queue.push(makeExercise(item, 'type', course, state.progress));
+      }
+    }
+    while (queue.length < 30) {
+      const item = targets[queue.length % targets.length];
+      queue.push(makeExercise(item, queue.length % 2 ? 'read' : 'reverse', course, state.progress));
+    }
+  }
+  const combination = learning && targets.some(i => ['consonant', 'vowel'].includes(i.kind))
     ? makeCombination([...targets, ...course.items.filter(i => trained(i.id, state.progress))], course) : undefined;
   if (combination) queue.push(combination);
   return {
-    id: uid(), courseId: course.id, mode, unitId: mode === 'learn' ? unit?.id : undefined,
+    id: uid(), courseId: course.id, mode, unitId: learning ? unit?.id : undefined,
+    stage: unitReview ? 'unit-review' : undefined,
     queue, index: 0, outcomes: {}, introduced: [], answers: 0, correct: 0,
     startedAt: now.toISOString(), activeSeconds: 0, repairCount: {}, newIds,
   };
@@ -213,6 +259,13 @@ export function refreshSessionNotation(session: Session): Session {
   const course = courses[session.courseId];
   return { ...session, queue: session.queue.map(exercise => {
     const item = itemMap[exercise.itemId];
+    if (exercise.kind === 'read' && item.kind === 'rule') {
+      let distractor = 0;
+      return { ...exercise, prompt: item.rulePrompt!, display: item.glyph,
+        options: exercise.options.map(option => ({
+          ...option, label: option.id === exercise.answer ? item.ruleAnswer! : item.ruleChoices![distractor++],
+        })) };
+    }
     if (exercise.kind === 'read' && item.kind !== 'rule') {
       const prompt = course.type === 'phonetics' ? '这个音标描述什么声音？'
         : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${course.romanizationName || '转写'}与 IPA`;
@@ -321,6 +374,9 @@ export function finishSession(state: AppState, now = new Date()): AppState {
   }
   return {
     ...state, progress, session: undefined,
+    completedUnitReviews: session.stage === 'unit-review' && session.unitId
+      && session.index >= session.queue.length
+      ? { ...state.completedUnitReviews, [session.unitId]: true } : state.completedUnitReviews,
     history: [...state.history, {
       id: session.id, courseId: session.courseId, date: now.toISOString(),
       answers: session.answers, correct: session.correct, newCount: session.newIds.filter(id => !!session.outcomes[id]).length,

@@ -142,6 +142,7 @@ test('word introduction reveals meaning after answer, and review includes meanin
       introduced: true, correct: 4, wrong: 0, modes: ['read', 'reverse'], lastSeen: new Date().toISOString(),
     };
   }
+  state.completedUnitReviews = Object.fromEntries(courses.thai.units.filter(unit => !unit.supplementary).map(unit => [unit.id, true]));
   state.session = createSession(state, 'learn');
   expect(state.session?.queue[0].kind).toBe('read');
   await page.addInitScript(s => localStorage.setItem('script-drill:v1', JSON.stringify(s)), state);
@@ -179,11 +180,11 @@ test('desktop and mobile visual verification without overflow', async ({ page })
     await page.screenshot({ path: `.local/screenshots/learn-${size.width}.png`, fullPage: true });
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole('button', { name: '图鉴', exact: true }).click();
+  await page.getByRole('button', { name: /^(文字图鉴|图鉴)$/ }).click();
   await expect(page.getByRole('heading', { name: '文字图鉴' })).toBeVisible();
   await page.screenshot({ path: '.local/screenshots/library-mobile.png', fullPage: true });
   await page.screenshot({ path: '.local/screenshots/library-mobile-viewport.png', fullPage: false });
-  await page.getByRole('button', { name: '学习', exact: true }).click();
+  await page.getByRole('button', { name: /^(学习路径|学习)$/ }).click();
   await page.getByRole('button', { name: '开始学习', exact: true }).click();
   await page.screenshot({ path: '.local/screenshots/intro-mobile.png', fullPage: true });
   await page.getByRole('button', { name: '开始练习', exact: true }).click();
@@ -198,8 +199,14 @@ test('desktop and mobile visual verification without overflow', async ({ page })
 test('all mobile views at 320px, modal focus and keyboard course switch', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto('/');
-  for (const name of ['图鉴', '复习', '记录', '资料', '学习']) {
-    await page.getByRole('button', { name, exact: true }).click();
+  for (const name of [
+    /^(文字图鉴|图鉴)$/,
+    /^(记忆复习|复习)$/,
+    /^(学习记录|记录)$/,
+    /^(课程与资料来源|资料)$/,
+    /^(学习路径|学习)$/,
+  ]) {
+    await page.getByRole('button', { name }).click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
   await page.getByRole('button', { name: '设置与数据', exact: true }).click();

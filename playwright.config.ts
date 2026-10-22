@@ -17,7 +17,7 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
-    { name: 'mobile-webkit', testMatch: 'media.spec.ts', use: { ...devices['iPhone 13'], browserName: 'webkit' } },
+    { name: 'mobile-webkit', testMatch: ['media.spec.ts', 'extensions.spec.ts'], use: { ...devices['iPhone 13'], browserName: 'webkit' } },
   ],
   webServer: {
     command: `npm run dev -- --port ${new URL(baseURL).port || '5173'} --strictPort`,
