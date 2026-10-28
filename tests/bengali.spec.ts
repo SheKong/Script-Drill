@@ -50,6 +50,68 @@ async function noOverflow(page: Page) {
   if (await dialog.count()) expect(await dialog.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
 }
 
+test('Bengali details teach the same standard as quizzes and keep map names separate', async ({ page }, testInfo) => {
+  await seed(page, { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  for (const [glyph, roman, ipa] of [['ঈ', 'ī', '/i/'], ['য', 'j̱', '/dʒ/'], ['ঢাকা', 'ḍhākā', '/ɖʱaka/']]) {
+    await page.getByRole('textbox', { name: '搜索知识' }).fill(glyph);
+    await page.locator('.knowledge-tile').filter({ has: page.getByText(glyph, { exact: true }) }).click();
+    const readings = page.locator('.reading-grid');
+    await expect(readings).toContainText('UNGEGN');
+    await expect(readings.locator('strong').first()).toHaveText(roman);
+    await expect(readings).toContainText(ipa);
+    await expect(readings).not.toContainText('教学转写');
+    await expect(readings).not.toContainText('读音转写');
+    if (glyph === 'ঢাকা') {
+      await expect(page.locator('.conventional-names')).toContainText('Dhaka / Dacca');
+      await expect(page.locator('.segments')).toContainText('ḍhā');
+    }
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await noOverflow(page);
+      if (glyph === 'ঢাকা') await page.screenshot({ path: `.local/screenshots/bengali-ungegn-${testInfo.project.name}-${width}.png` });
+    }
+    await page.keyboard.press('Escape');
+  }
+});
+
+test('Bengali word recordings show the matching text, speaker and per-file license', async ({ page }) => {
+  const examples = [
+    ['নাম', 'আফতাবুজ্জামান', 'CC BY-SA 4.0'],
+    ['দোকান', 'Yahya', 'CC BY-SA 4.0'],
+    ['বাংলা', 'Titodutta', 'CC0'],
+    ['বাংলাদেশ', 'Titodutta', 'CC0'],
+    ['ঢাকা', 'Yahya', 'CC BY-SA 4.0'],
+    ['নগর', 'Yahya', 'CC BY-SA 4.0'],
+    ['গ্রাম', 'Yahya', 'CC BY-SA 4.0'],
+    ['রাস্তা', 'Yahya', 'CC BY-SA 4.0'],
+  ];
+  await page.addInitScript(() => {
+    HTMLMediaElement.prototype.play = function () {
+      Object.assign(window, { bengaliRecordingSrc: this.src });
+      setTimeout(() => this.dispatchEvent(new Event('playing')), 0);
+      return Promise.resolve();
+    };
+  });
+  await seed(page, { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  for (const [glyph, speaker, license] of examples) {
+    await page.getByRole('textbox', { name: '搜索知识' }).fill(glyph);
+    await page.locator('.knowledge-tile').filter({ has: page.getByText(glyph, { exact: true }) }).click();
+    await expect(page.getByRole('button', { name: '真人发音', exact: true })).toBeVisible();
+    await expect(page.locator('.audio-credit')).toContainText(speaker);
+    await expect(page.locator('.audio-credit')).toContainText(license);
+    await expect(page.locator('.detail-sources')).toContainText('Wikimedia Commons');
+    if (glyph === 'নাম') {
+      await page.getByRole('button', { name: '真人发音', exact: true }).click();
+      await expect(page.getByRole('button', { name: '停止发音', exact: true })).toBeVisible();
+      expect(await page.evaluate(() => (window as unknown as { bengaliRecordingSrc: string }).bengaliRecordingSrc))
+        .toContain('/audio/bengali/bn-word-naam.mp3');
+    }
+    await page.keyboard.press('Escape');
+  }
+});
+
 test('Bengali is an independent usable course and teaches its first lessons through real answers', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -149,6 +211,25 @@ test('local Bengali fonts shape whole words and offline maps show the country an
     expect(pixels.bounds.y).toBeGreaterThan(0);
     expect(pixels.bounds.right).toBeLessThan(180);
     expect(pixels.bounds.bottom).toBeLessThan(260);
+    if (selector.includes('city')) {
+      const redPixels = await page.locator('.knowledge-tile .place-map svg').evaluate(async svg => {
+        const image = new Image();
+        const clone = svg.cloneNode(true) as SVGElement;
+        clone.setAttribute('width', '30'); clone.setAttribute('height', '46');
+        image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(clone))}`;
+        await image.decode();
+        const canvas = document.createElement('canvas'); canvas.width = 30; canvas.height = 46;
+        const context = canvas.getContext('2d')!;
+        context.drawImage(image, 0, 0, 30, 46);
+        const data = context.getImageData(0, 0, 30, 46).data;
+        let red = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          if (data[i] > 150 && data[i + 1] < 120 && data[i + 2] < 120 && data[i + 3] > 100) red++;
+        }
+        return red;
+      });
+      expect(redPixels).toBeGreaterThan(8);
+    }
     for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await noOverflow(page);
@@ -267,19 +348,19 @@ test('Bengali audio uses explicit whole words and matching bn voices, never an E
   });
   await seed(page, { ...initialState(), courseId: course.id });
   await expect(page.locator('.voice-help')).toHaveCount(0);
-  await expect(page.locator('.voice-environment')).toContainText('可在词条中在线收听');
+  await expect(page.locator('.voice-environment')).toContainText('已有录音仍可播放，也可在线收听');
   await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
-  await page.getByRole('textbox', { name: '搜索知识' }).fill('ঢাকা');
-  await page.locator('.knowledge-tile').filter({ has: page.getByText('ঢাকা', { exact: true }) }).click();
+  await page.getByRole('textbox', { name: '搜索知识' }).fill('চা');
+  await page.locator('.knowledge-tile').filter({ has: page.getByText('চা', { exact: true }) }).click();
   await expect(page.getByRole('button', { name: '合成语音', exact: true })).toHaveCount(0);
   const online = page.getByRole('link', { name: '在线听孟加拉语', exact: true });
   const url = new URL((await online.getAttribute('href'))!);
-  expect(url.searchParams.get('text')).toBe('ঢাকা');
+  expect(url.searchParams.get('text')).toBe('চা');
   expect(url.searchParams.get('sl')).toBe('bn');
   await page.evaluate(() => (window as unknown as { addBengaliVoice: () => void }).addBengaliVoice());
   await page.getByRole('button', { name: '合成语音', exact: true }).click();
   expect(await page.evaluate(() => (window as unknown as { spoken: object }).spoken)).toEqual({
-    text: 'ঢাকা', lang: 'bn', voice: 'bn-BD',
+    text: 'চা', lang: 'bn', voice: 'bn-BD',
   });
   await page.keyboard.press('Escape');
   await page.getByRole('textbox', { name: '搜索知识' }).fill('◌ি');

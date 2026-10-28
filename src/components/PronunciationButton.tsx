@@ -56,6 +56,10 @@ export function PronunciationButton({ item }: { item: Knowledge }) {
   const unavailable = !recording && !canSpeak;
   const onlineUrl = speech && course.onlineListening ? onlinePronunciation(speech.text, course.onlineListening.language) : undefined;
   const label = recording && !usingSpeech ? '真人发音' : '合成语音';
+  const spokenText = recording && !usingSpeech ? recording.spokenText : speech?.text;
+  const sampleLabel = course.type === 'script' && item.kind !== 'word' && spokenText
+    ? speech?.text === spokenText ? speech.label : `示范：${spokenText}`
+    : undefined;
   const message = error;
   const source = course.sources.find(s => s.id === course.pronunciationReference);
 
@@ -128,11 +132,12 @@ export function PronunciationButton({ item }: { item: Knowledge }) {
 
   return <div className="pronunciation-control">
     {!unavailable && <button className="icon-button" type="button"
-      aria-label={status === 'idle' ? label : '停止发音'} title={message || `${label}${speech ? ` · ${speech.label}` : ''}`}
+      aria-label={status === 'idle' ? label : '停止发音'} title={message || `${label}${sampleLabel || speech?.label ? ` · ${sampleLabel || speech?.label}` : ''}`}
       aria-pressed={status !== 'idle'} onClick={play}>
       {status === 'loading' ? <LoaderCircle size={20} className="audio-loading" />
         : status === 'playing' ? <Square size={18} /> : <Volume2 size={20} />}
     </button>}
+    {sampleLabel && <span className="pronunciation-label">{sampleLabel}<span>（非单音）</span></span>}
     {onlineUrl && <a className="online-pronunciation" href={onlineUrl}
       target="_blank" rel="noreferrer" onClick={halt} title="在 Google 翻译中收听原文；需联网，会打开新页面">
       {course.onlineListening!.label}<ExternalLink size={13} />

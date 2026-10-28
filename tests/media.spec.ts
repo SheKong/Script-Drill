@@ -23,6 +23,33 @@ async function noOverflow(page: Page) {
   }
 }
 
+test('letter names and vowel examples are visibly marked beside audio and online listening', async ({ page }, testInfo) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: Object.assign(new EventTarget(), {
+      getVoices: () => [], cancel: () => {},
+    }) });
+  });
+  await library(page);
+  for (const [glyph, label] of [['ก', '字母名：กอ ไก่'], ['◌า', '元音例词 นา']]) {
+    await inspect(page, glyph);
+    await expect(page.locator('.pronunciation-label')).toHaveText(`${label}（非单音）`);
+    await expect(page.getByRole('link', { name: '在线听泰语', exact: true })).toBeVisible();
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await noOverflow(page);
+      const labelBox = await page.locator('.pronunciation-label').boundingBox();
+      expect(labelBox!.width).toBeLessThanOrEqual(width);
+      await page.screenshot({ path: `.local/screenshots/audio-scope-${glyph === 'ก' ? 'letter' : 'vowel'}-${testInfo.project.name}-${width}.png` });
+    }
+    await page.keyboard.press('Escape');
+  }
+  await page.locator('.course-current').click();
+  await page.getByRole('menuitem', { name: /国际音标基础/ }).click();
+  await page.getByRole('button', { name: /^(文字图鉴|音标图鉴|图鉴)$/ }).click();
+  await inspect(page, '清双唇塞音');
+  await expect(page.locator('.pronunciation-label')).toHaveCount(0);
+});
+
 test('local IPA font renders ties, marks and tone letters on small and large screens', async ({ page }, testInfo) => {
   await library(page, true);
   await inspect(page, '塞擦音与连音弧');

@@ -29,7 +29,6 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
       {course.type === 'script' && <div><span>{item.kind === 'number' ? '数值' : course.romanizationName || '转写'}</span><strong>{item.roman || '不写'}</strong></div>}
       {item.ipa && <div><span>{course.type === 'phonetics' ? 'IPA' : item.kind === 'word' ? '宽式 IPA' : 'IPA'}</span><strong className="phonetic">/{item.ipa}/</strong></div>}
       {course.type === 'phonetics' && <div><span>发音特征</span><strong>{item.title}</strong></div>}
-      {item.officialRoman && item.officialRoman !== item.roman && item.kind !== 'number' && <div><span>{course.officialRomanizationName || '规范转写'}</span><strong>{item.officialRoman}</strong></div>}
     </div>}
     {!!item.conventionalNames?.length && <p className="conventional-names">地图常见拼法：<strong>{item.conventionalNames.join(' / ')}</strong></p>}
     {item.ipa && course.ipaNote && <p className="reading-note">{course.ipaNote}</p>}

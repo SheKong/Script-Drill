@@ -10,7 +10,7 @@
 | --- | --- |
 | 语言与书写系统 | 标准语/方言、文字方向、字形是否随位置变化 |
 | 字音单位 | 字母、字母组合、音节、附标，而非机械按 Unicode 切分 |
-| 转写方案 | 面向目标的主方案、可选规范方案及其不可逆性，惯用名和别名政策；不强制双转写 |
+| 转写方案 | 一套有来源的官方或权威规范拉丁转写，与 IPA 同时教；不另设自定义读音转写。明确国家官方、国际推荐和地图惯用名的区别 |
 | IPA | 宽/严式、声调、重音、元音长短的取舍 |
 | 形态变化 | 连写、上下标、独立/附属元音、尾音规则 |
 | 来源 | 优先官方规范、大学课程、原始语言学研究与权威辞典 |
@@ -44,8 +44,8 @@ export const newCourse: Course = {
   label: '课程短标签',
   description: '课程范围',
   notationNote: '转写、IPA 和变体的明确边界',
-  romanizationName: '主转写方案名',
-  officialRomanizationName: '实际采用的规范名称',
+  romanizationName: '实际采用的规范名称',
+  romanizationSource: '规范来源 ID', // 必填，须在 sources 中存在
   ipaNote: '本课程 IPA 的取舍，如是否省略声调',
   referenceNotes: ['本课程自己的范围、转写约定与音频边界'],
   pronunciationReference: '发音资料的来源 ID', // 可选；须在课程 sources 中
@@ -70,17 +70,17 @@ export const newCourse: Course = {
 - `courseId`：课程 ID。
 - `kind`：`consonant`、`vowel`、`symbol`、`rule`、`word`、`number`。
 - `glyph`：完整的书写单位，可以是字母组合，不必是单个字符。
-- `roman`：本课程主转写。泰语用 RTGS；IPA 课程使用发音特征名称，不伪造转写。载体声母的空转写显示为“不写”。
-- `ipa`：已核对的音值；无读音的数值练习可为空。
-- `officialRoman`：可选的规范转写。不要默认规范名就是 RTGS。
+- `roman`：唯一教学转写，必须直接采用已核对的官方或权威规范。泰语用 RTGS，孟加拉语用联合国推荐 UNGEGN；无统一国家官方方案时如实注明，不能自创方案再称官方。IPA 课程使用发音特征名称，不伪造转写。载体声母的空转写显示为“不写”。
+- `ipa`：所有辅音、元音、合字和附标必须同时给出已核对的音值，不能只教拉丁转写；无读音的规则或数值练习可为空。字母转写保留的历史区别不等于现代实际音值的区别。
+- `officialRoman`：旧扩展兼容字段，不再用于第二栏；如保留必须与 `roman` 相同，不能一栏教学转写、一栏规范转写。
 - `explanation`：初见所需说明，特别写清上下文条件、反例和局限。
 - `sources`：在本课程来源表中确实存在的 ID。
 - `requires`：真实先修知识，不仅是表面出现的字符。
-- `segments`：可选的、人工核对的词内结构，不靠字符替换推断。
+- `segments`：可选的、人工核对的词内结构；`reading` 使用与 `roman` 同一规范，不引入另一套读音提示。转写和实际发音的差异用 IPA 或 `note` 明确，不靠字符替换推断。
 - `aliases`：输入可接受别名，只添加真的合理变体。
 - `conventionalNames`：地图等语境中的惯用拉丁名称，与主转写分别展示，也可输入匹配；不把它们误标成规范方案。
 - `pronunciation.recording`：可选的真人录音，包含本地 `src`、`title`、`sourceUrl`、`author`、`license`、`licenseUrl`；必须先核对音值与许可。语言词语、字母名称或例词另记 `spokenText`，与 `speech.text` 保持一致，保证本地录音、设备合成和在线收听是同一示范范围；共享例词可复用同一文件。
-- `pronunciation.speech`：可选的 `{ text, label, lang? }`。必须显式指定可读原文和示范范围，例如“字母名：กอ ไก่”或“元音例词 กา”；示范范围只在按钮悬停提示中出现。不自动朗读字母/占位符/IPA。`lang` 缺省取课程 `locale`，没有同语言声音时隐藏扬声器，只保留配置过的在线入口；不使用英语声音代替。检测与排查放在学习首页。
+- `pronunciation.speech`：可选的 `{ text, label, lang? }`。必须显式指定可读原文和示范范围，例如“字母名：กอ ไก่”或“元音例词 กา”；单音条目的字母名、例词或字母组合必须在按钮/在线入口旁直接标明“非单音”，不能只藏在悬停提示里。不自动朗读字母/占位符/IPA。`lang` 缺省取课程 `locale`，没有同语言声音时隐藏扬声器，只保留配置过的在线入口；不使用英语声音代替。检测与排查放在学习首页。
 - `extra`：主线以外的地名词设为 `true`，并归入 `extraUnits`。默认主线结课后开放；学习者也可在学习路径确认一次警告后提前解锁本课程。
 - `place`：行政区 `{ type: 'region', regionId: '稳定的边界 ID' }`；城市 `{ type: 'city', coordinates: [经度, 纬度] }`。地名词必须提供位置，普通“山、村、道路”等成分词不伪造一个固定地点。
 
@@ -107,7 +107,7 @@ composition: {
 
 ## 5. 注册和字体
 
-1. 在 `src/data/index.ts` 中导入并以 `prepareCourse(newCourse)` 加入 `courses`。该通用工厂把未分配的主线词汇汇总为末尾补充单元，避免隐式尾课；`allItems` 从注册表自动展开。
+1. 在 `src/data/index.ts` 中导入并以 `prepareCourse(newCourse)` 加入 `courses`，国际音标基础固定为列表首项。通用工厂校验规范名称、来源和字母 IPA，并拒绝第二套教学转写；未分配的主线词汇汇总为末尾补充单元。`allItems` 从注册表自动展开。
 2. 在 `src/main.tsx` 导入有许可且覆盖该文字的本地字体。
 3. 在 `styles.css` 添加与 `scriptClass` 对应的字体样式和合适行高。
    泰语的两种字体只由其 `scriptVariants` 数据配置；其他课程不继承泰语字形、RTGS 或声调说明。连写文字应保留完整文本节点，不能为了对照或标记而逐字符拆成 span。

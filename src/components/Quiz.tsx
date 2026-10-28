@@ -142,7 +142,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
     <footer className={`quiz-footer ${feedback ? feedback.correct ? 'feedback-correct' : 'feedback-wrong' : ''}`}>
       <div className="quiz-footer-inner">
         {feedback ? <div className="feedback-copy" role="status">
-          <div className="feedback-title">{feedback.correct ? <Check size={22} /> : <RotateCcw size={22} />}<h2>{feedback.correct ? item.kind === 'word' ? item.meaning : '记住了，继续' : isMatch ? '配对完成，易混项会再出现' : '差一点，再记一次'}</h2></div>
+          <div className="feedback-title">{feedback.correct ? <Check size={22} /> : <RotateCcw size={22} />}<h2>{isMatch ? feedback.correct ? '配对完成，继续' : '配对完成，易混项会再出现' : feedback.correct ? item.kind === 'word' ? item.meaning : '记住了，继续' : '差一点，再记一次'}</h2></div>
           {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.kind === 'mark' ? `◌${exercise.answer} · 声调符号` : exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
             {item.kind === 'word' && <p>{item.context} {!!item.conventionalNames?.length && <span>地图常见拼法：{item.conventionalNames.join(' / ')}</span>}</p>}
             {!feedback.correct && <p><NotationText text={item.explanation} /></p>}

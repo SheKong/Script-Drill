@@ -362,6 +362,7 @@ export const thaiCourse: Course = {
   englishTitle: 'THAI SCRIPT', iconGlyph: 'ก',
   notationNote: '转写主线为 RTGS，长短与送气看 IPA；地图惯用英文名另列。词汇 IPA 未标声调。',
   romanizationName: 'RTGS',
+  romanizationSource: 'rtgs',
   pronunciationReference: 'thai-reading',
   onlineListening: { label: '在线听泰语', language: 'th' },
   voiceHelp: 'thai',
@@ -375,7 +376,7 @@ export const thaiCourse: Course = {
     '本课的目标是从泰文大致拼读，再对应地图上的拉丁字母地名。主线只学 RTGS；不再要求同时背本项目旧有的 aa、aw、j 等教学提示。长短音、音质、送气用 IPA 补足。',
     'RTGS 是基于实际读音的非可逆转写，不是逐字母替换。a 可对应 /a/ 与 /aː/，o 可对应 /o/、/oː/、/ɔ/、/ɔː/，ch 同时用于 จ /tɕ/ 与 ช /tɕʰ/。因此选择题保留 IPA 来区分同一转写下的不同声音。',
     '地图英文名并非统一标准输出：本课将核对过的惯用名另列，例如 เกาะ 的 RTGS 为 ko，常见 Koh；กรุงเทพ 的 RTGS 为 Krung Thep，惯用 Bangkok。不能保证 Google Maps 的每个名称都遵循 RTGS，找地点时还应结合行政区和其他线索。',
-    '词内拆解使用 RTGS 提示；不发音的部分和隐含元音明确标注。词汇宽式 IPA 省略声调，本课程仅说明声调框架、训练调号辨认，不要求掌握完整声调计算；系统声调与口语请前往 Thai Notes 等专门课程。发音按钮的提示会注明播放字母名还是例词；它们不等于孤立辅音。无可用录音或泰语 TTS 时只保留在线收听入口。',
+    '词内拆解使用 RTGS 提示；不发音的部分和隐含元音明确标注。词汇宽式 IPA 省略声调，本课程仅说明声调框架、训练调号辨认，不要求掌握完整声调计算；系统声调与口语请前往 Thai Notes 等专门课程。发音入口旁注明字母名或例词，它们不等于孤立辅音。无可用录音或泰语 TTS 时只保留在线收听入口。',
     '默认展示传统有圈体，图鉴与练习可以切换现代无圈体，知识详情同时对照。两者是字体风格，并不是两套字母。',
   ],
   composition: {

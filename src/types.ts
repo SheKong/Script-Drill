@@ -76,6 +76,7 @@ export interface Course {
   notationNote: string;
   officialRomanizationName?: string;
   romanizationName?: string;
+  romanizationSource?: string;
   ipaNote?: string;
   referenceNotes?: string[];
   pronunciationReference?: string;

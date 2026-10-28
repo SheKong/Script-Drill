@@ -4,12 +4,22 @@ export const sources: Source[] = [
   {
     id: 'bn-script', title: 'The Bangla Script', organization: 'University of Texas at Austin · Bangla OER',
     url: 'https://bangla.la.utexas.edu/resources/the-bangla-script/',
-    description: '字母、元音附标、固有元音、合字与 phala 的大学教学资料。中文说明重新编写，不把教学转写冒充官方地名规范。',
+    description: '字母、元音附标、固有元音、合字与 phala 的大学资料。与 UNGEGN 字母转写、IPA 音值分别核对，不用英语近似音代替 IPA。',
+  },
+  {
+    id: 'bn-ungegn', title: 'UNGEGN Bengali Romanization · 2016 status report', organization: 'UNGEGN · Working Group on Romanization Systems',
+    url: 'https://arhiiv.eki.ee/wgrs/rom1_bn.htm',
+    description: '本课采用的联合国推荐字母转写表，依据 1972 年 II/11 决议。区分 ā/ī/ū、ṭ/ḍ、ṙ/ṛ、j̱/y、sh/ṣh 与 ṁ。报告未发现该系统在当地或国际地图使用的证据，不将推荐标准冒称孟加拉国统一官方地图拼法；实际发音另用 IPA。',
   },
   {
     id: 'bn-pronunciation', title: 'Pronouncing the Bangla Alphabet', organization: 'University of Texas at Austin · Bangla OER',
     url: 'https://bangla.la.utexas.edu/resources/pronunciation/',
-    description: '原站真人发音与发音部位教学。本课只链接原站，未将其录音包装成本地已收录音频；孤立字母名不等于词内辅音读法。',
+    description: '原站真人发音与发音部位教学；只链接原站，不转载其录音。孤立字母名不等于词内辅音读法。',
+  },
+  {
+    id: 'bn-recordings', title: 'Bengali pronunciation recordings', organization: 'Wikimedia Commons · Lingua Libre',
+    url: 'https://commons.wikimedia.org/wiki/Category:Lingua_Libre_pronunciation-ben',
+    description: '词条本地示范音频。每个录音都链接到对应原文件页，署名、说话人及许可按素材分别标注。',
   },
   {
     id: 'bn-unicode', title: 'Unicode 17.0 · 12.2 Bengali (Bangla)', organization: 'The Unicode Consortium',

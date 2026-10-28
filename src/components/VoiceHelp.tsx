@@ -7,7 +7,7 @@ export function VoiceHelp({ recheck, available }: { recheck: () => void; availab
   const [checked, setChecked] = useState(false);
   return <details className="voice-help">
     <summary>语音安装与排查</summary>
-    <p>本站录音不需要语音包；未收录的条目可用「在线听泰语」，在打开的页面点泰文下方的扬声器。扬声器按钮只在有录音或可用设备语音时出现。播放字母名或元音例词时，按钮悬停提示会标明示范内容。</p>
+    <p>本站录音不需要语音包；未收录的条目可用「在线听泰语」，在打开的页面点泰文下方的扬声器。扬声器按钮只在有录音或可用设备语音时出现。字母名、元音例词在发音入口旁标明，不是孤立单音。</p>
     <label className="voice-platform">设备系统<select aria-label="语音帮助的设备系统" value={platform}
       onChange={event => setPlatform(event.target.value as VoicePlatform)}>
       <option value="windows">Windows 10 / 11</option><option value="android">Android</option>

@@ -49,7 +49,7 @@ describe('Bengali curriculum', () => {
     for (const word of course.items.filter(item => item.kind === 'word')) {
       expect(word.segments?.map(segment => segment.text).join(''), word.id).toBe(word.glyph);
       expect(word.segments?.map(segment => segment.reading).join(''), word.id).toBe(word.roman);
-      expect(word.roman.includes('ô'), word.id).toBe(word.ipa.includes('ɔ'));
+      expect(word.roman, word.id).not.toContain('ô');
       const all = closure(word.id);
       const written = [...all].map(id => itemMap[id].glyph.normalize('NFD')).join('');
       for (const glyph of Array.from(word.glyph.normalize('NFD')).filter(glyph => /\p{Script=Bengali}/u.test(glyph))) {
@@ -63,7 +63,30 @@ describe('Bengali curriculum', () => {
     expect(closure('bn-word-purbo').has('bn-rb')).toBe(true);
     expect(closure('bn-word-bus').has('bn-loan')).toBe(true);
   });
-  it('keeps accessible input aliases separate from official romanization and accepts actual map names', () => {
+  it('teaches UNGEGN with IPA for every letter and conjunct, not a second pronunciation spelling', () => {
+    expect(course.romanizationName).toBe('UNGEGN');
+    expect(course.romanizationSource).toBe('bn-ungegn');
+    for (const [id, roman, ipa] of [
+      ['a', 'a', 'ɔ'], ['aa', 'ā', 'a'], ['ii', 'ī', 'i'], ['uu', 'ū', 'u'],
+      ['retro-t', 'ṭ', 'ʈ'], ['flap', 'ṙ', 'ɽ'], ['ri', 'ṛ', 'ɾi'], ['y', 'j̱', 'dʒ'],
+      ['s', 's', 'ʃ'], ['sh', 'sh', 'ʃ'], ['ss', 'ṣh', 'ʃ'], ['anusvara', 'ṁ', 'ŋ'],
+      ['ai', 'ai', 'oi̯'], ['au', 'au', 'ou̯'], ['ksh', 'kṣh', 'kʰː'], ['jny', 'jñ', 'ɡː'],
+    ]) {
+      expect(itemMap[`bn-${id}`].roman, id).toBe(roman);
+      expect(itemMap[`bn-${id}`].ipa, id).toBe(ipa);
+    }
+    for (const item of course.items.filter(item => ['consonant', 'vowel', 'word'].includes(item.kind))) {
+      expect(item.roman, item.id).toBeTruthy();
+      expect(item.ipa, item.id).toBeTruthy();
+      expect(item.sources, item.id).toContain('bn-ungegn');
+      expect(item.officialRoman, item.id).toBeUndefined();
+    }
+    expect(itemMap['bn-word-dhaka'].roman).toBe('ḍhākā');
+    expect(itemMap['bn-word-nogor'].roman).toBe('nagara');
+    expect(itemMap['bn-word-purbo'].roman).toBe('pūrba');
+  });
+  it('keeps legacy inputs compatible and accepts actual map names alongside the standard', () => {
+    expect(checkTyped(itemMap['bn-a'], 'a')).toBe(true);
     expect(checkTyped(itemMap['bn-a'], 'aw')).toBe(true);
     expect(checkTyped(itemMap['bn-a'], 'o')).toBe(false);
     expect(checkTyped(itemMap['bn-word-nogor'], 'nawgor')).toBe(true);
@@ -72,10 +95,31 @@ describe('Bengali curriculum', () => {
     expect(checkTyped(itemMap['bn-word-chattogram'], 'Chittagong')).toBe(true);
     expect(checkTyped(itemMap['bn-word-coxs-bazar'], "Cox's Bazar")).toBe(true);
     expect(checkTyped(itemMap['bn-word-cumilla'], 'Comilla')).toBe(true);
-    expect(course.officialRomanizationName).toBeUndefined();
+    expect(checkTyped(itemMap['bn-word-dhaka'], 'ḍhākā')).toBe(true);
+    expect(checkTyped(itemMap['bn-word-nogor'], 'nagara')).toBe(true);
   });
-  it('has a traceable audit for every word and does not invent native review or recordings', () => {
+  it('refreshes old saved Bengali notation without changing the session or learned progress', () => {
+    const state = { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } };
+    const session = createSession(state, 'extra', course.extraUnits![0].id)!;
+    const reading = session.queue.find(question => question.kind === 'read')!;
+    reading.prompt = '选择正确的读音转写与 IPA';
+    for (const option of reading.options) if (option.id === 'bn-word-dhaka') option.label = 'dhaka /ɖʱaka/';
+    const typed = makeExercise(itemMap['bn-word-dhaka'], 'type', course, {});
+    typed.answer = 'dhaka';
+    session.queue.push(typed);
+    const restored = parseBackup(JSON.stringify({ ...state, session }));
+    expect(restored.session!.queue.find(question => question.id === typed.id)?.answer).toBe('ḍhākā');
+    expect(restored.session!.queue.find(question => question.id === reading.id)?.prompt).toContain('UNGEGN');
+    expect(restored.session!.queue.map(question => question.id)).toEqual(session.queue.map(question => question.id));
+    expect(restored.session!.index).toBe(session.index);
+    expect(restored.progress).toEqual(state.progress);
+  });
+  it('keeps a traceable word audit and binds real recordings only to matching text', () => {
     expect(audit.words).toHaveLength(course.items.filter(item => item.kind === 'word').length);
+    const recordedIds = new Set([
+      'bn-word-naam', 'bn-word-dokan', 'bn-word-bangla', 'bn-word-bangladesh', 'bn-word-dhaka',
+      'bn-word-nogor', 'bn-word-gram', 'bn-word-rasta',
+    ]);
     for (const item of course.items.filter(item => item.kind === 'word')) {
       const record = audit.words.find(word => word.id === item.id)!;
       expect(record?.glyph).toBe(item.glyph);
@@ -84,9 +128,19 @@ describe('Bengali curriculum', () => {
       expect(record.url).toContain('oldid=');
       expect(record.sourceTranscription.length).toBeGreaterThan(0);
       expect(record.independentNativeReview).toBe(false);
-      expect(item.pronunciation?.recording).toBeUndefined();
       expect(item.pronunciation?.speech?.text).toBe(item.glyph);
+      if (recordedIds.has(item.id)) {
+        const recording = item.pronunciation?.recording;
+        expect(recording?.spokenText, item.id).toBe(item.glyph);
+        expect(recording?.sourceUrl, item.id).toContain('commons.wikimedia.org/wiki/File:');
+        expect(recording?.license, item.id).toMatch(/^(?:CC0|CC BY-SA 4\.0)$/);
+        expect(item.sources).toContain('bn-recordings');
+      } else {
+        expect(item.pronunciation?.recording, item.id).toBeUndefined();
+      }
     }
+    expect(course.items.filter(item => item.pronunciation?.recording).map(item => item.id).sort())
+      .toEqual([...recordedIds].sort());
     expect(audit.counts.lexicalTranscriptionOnly).toBe(5);
     expect(course.items.filter(item => item.kind !== 'word').every(item => !item.pronunciation?.speech)).toBe(true);
   });

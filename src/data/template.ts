@@ -10,6 +10,20 @@ export const learningPolicy = {
 
 // Every mainline word has an explicit final destination, even if unlocked earlier.
 export function prepareCourse(course: Course): Course {
+  if (course.type === 'script') {
+    if (!course.romanizationName || !course.romanizationSource
+      || !course.sources.some(source => source.id === course.romanizationSource)) {
+      throw new Error(`${course.id}: script courses need one named standard romanization and its source.`);
+    }
+    for (const item of course.items) {
+      if (['consonant', 'vowel'].includes(item.kind) && !item.ipa) {
+        throw new Error(`${item.id}: teach the standard romanization together with IPA.`);
+      }
+      if (item.officialRoman !== undefined && item.officialRoman !== item.roman) {
+        throw new Error(`${item.id}: roman must be the standard romanization, not a separate teaching notation.`);
+      }
+    }
+  }
   const assigned = new Set(course.units.flatMap(unit => unit.items));
   const remaining = course.items.filter(item => item.kind === 'word' && !item.extra && !assigned.has(item.id));
   const units = remaining.length ? [...course.units, {

@@ -1,6 +1,6 @@
 # 孟加拉语文字课程研究与审校记录
 
-核对日期：2026-10-22。课程文件：`src/data/bengali.ts`；逐词证据：`BENGALI_WORD_AUDIT.json`。
+字音核对日期：2026-10-22；UNGEGN 转写改版：2026-10-28。课程文件：`src/data/bengali.ts`；逐词证据：`BENGALI_WORD_AUDIT.json`。
 
 ## 目标与边界
 
@@ -28,7 +28,8 @@
 | [UT Austin · Pronunciation](https://bangla.la.utexas.edu/resources/pronunciation/) | 原站真人发音、发音部位与清浊送气说明 | 没有转载其音频，也不把外链称作已收录本地录音 |
 | [Unicode 17.0 · §12.2 Bengali](https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/#G11121) | 字符身份、附标逻辑顺序、reph、ya-phalaa、খণ্ড-ত、数字与 shaping | Unicode 编码标准不决定每个词的实际读音 |
 | [Khan 2010 · Bengali (Bangladeshi Standard)](https://www.reed.edu/linguistics/khan/assets/Khan%202010%20Bengali%20Bangladeshi%20standard.pdf) | 孟加拉国标准语的原始语音学描述，DOI `10.1017/S0025100310000071` | 不能将研究对象的一套严式实现强加于所有印度或孟加拉国说话人 |
-| [Library of Congress · Bengali 2017](https://www.loc.gov/catdir/cpso/romanization/bengali.pdf) | 核对书目转写与现代发音不同，尤其 ī/ū、ai/au、历史字母 | ALA-LC 不是此课采用的读音转写，也不是官方统一地图拼名 |
+| [Library of Congress · Bengali 2017](https://www.loc.gov/catdir/cpso/romanization/bengali.pdf) | 核对书目转写与现代发音不同，尤其 ī/ū、ai/au、历史字母 | ALA-LC 不是此课采用的字母转写，也不是官方统一地图拼名 |
+| [UNGEGN · Bengali 2016 status report](https://arhiiv.eki.ee/wgrs/rom1_bn.htm) | 采用联合国 1972 年 II/11 决议推荐的转写表；核对 ṙ/ṛ、j̱/y、sh/ṣh 等区别 | 推荐标准不等于当地采用；报告明确未发现当地或国际地图实际使用的证据 |
 | [Bangladesh National Portal · Divisions](https://bangladesh.gov.bd/site/view/division-list) | 行政层级、原文地名与惯用英语名的交叉参照 | 官方行政目录不是 IPA 发音词典 |
 | [Natural Earth · Terms of Use](https://www.naturalearthdata.com/about/terms-of-use/) | v5.1.2 的 1:50m 国家轮廓、公有领域许可 | 国家轮廓不能冒充城市边界、行政区边界或精确导航 |
 
@@ -47,20 +48,24 @@
 
 没有 hasanta 不保证读出元音，词尾也不总删元音。`নগর /nɔɡoɾ/` 的两个隐含元音不同，末尾 র 无元音；`পূর্ব /puɾbo/` 反而保留末尾 /o/。不允许用统一“最后删一个元音”算法猜答案。
 
-### 教学转写
+### UNGEGN 与 IPA 并列
 
-使用明示的读音转写，而不是可逆字母编码：
+2026-10-28 起不再教授自定义读音转写，每个字母、附标和合字同时学习 UNGEGN 与 IPA。规范来源是联合国推荐的 Bengali 表，不是 ALA-LC，也不声称是孟加拉国统一官方地图拼名。
 
-| 转写 | 用途 |
+| UNGEGN | 与实际读音的关系 |
 | --- | --- |
-| `ô`，可输入 `aw` | /ɔ/；严格区别于 `o` /o/ |
-| `ch` / `chh` | /tʃ/ / /tʃʰ/ |
-| `j` / `jh` | /dʒ/ / /dʒʱ/ |
-| `sh` | /ʃ/ |
-| `kh th ph` 等 | 送气音，不是辅音加独立 h，也不是英语 digraph |
-| `t d n r` 等 | 为易输入而合并部分舌位差别，IPA 和说明保留区别 |
+| `a` / `ā` | অ /ɔ/ 与 আ /a/；不是同一音质的现代短长对立 |
+| `i` / `ī`、`u` / `ū` | 保留历史拼写，现代常分别同读 /i/、/u/ |
+| `t` / `ṭ`、`d` / `ḍ` | 齿音与后部塞音的书写系列，IPA 明示舌位 |
+| `ṙ` / `ṛ` | 上点 ṙ 是 ড়；下点 ṛ 是 ঋ，不能与 ALA-LC 混用 |
+| `j` / `j̱` / `y` | জ、য、য়；য 在合字中的 y 为表中明列例外 |
+| `s` / `sh` / `ṣh` | স、শ、ষ，现代常合流为 /ʃ/，স 还可读 /s/ |
+| `ai` / `au` | ঐ /oi̯/、ঔ /ou̯/ |
+| `ṁ` | ং，在 বাংলা 中为 /ŋ/ |
 
-不标 `officialRomanizationName`，不把 ALA-LC 字母表或英语地图惯用名冒充此读音系统。`Chattogram / Chittagong`、`Cumilla / Comilla`、`Jashore / Jessore` 等另列 `conventionalNames`，可输入但不改变主教学读音。常见地图成分 Nagar、Bazar、Setu、Dakshin 等也与读音分栏。
+辅音卡仍只教辅音部分，如 `ক → k /k/`，并在起步规则说明完整字母转写为 ka。整词按字母表保留固有 a，由 hasanta 取消前一个 a；这不是发音拼写。例如 `নাম → nāma /nam/`、`হাসপাতাল → hāsapātāla /haʃpat̪al/`，字母转写不能推出固有元音何时脱落。词内拆解使用同一规范，实际不发音之处另加 note。所有整词转写人工录入，没有新建字符替换器。
+
+`Chattogram / Chittagong`、`Cumilla / Comilla`、`Jashore / Jessore` 等另列 `conventionalNames`，可输入但不改变规范栏。Nagar、Bazar、Setu、Dakshin 等地图成分同样另列。旧版输入仅放在 `aliases` 中用于兼容，旧 `ô`/`aw` 不出现在教学栏；未完成会话读取时按稳定 ID 更新答案与标签，不重置进度。
 
 ### IPA 的宽式与地区边界
 
@@ -74,7 +79,7 @@
 
 ## 逐词审校
 
-`BENGALI_WORD_AUDIT.json` 共 41 词，逐项记录原文、中文义、主转写、采用 IPA、原词条 IPA 与转写、固定词条版本、前置知识、完整片段、地图名和位置。
+`BENGALI_WORD_AUDIT.json` 共 41 词，逐项记录原文、中文义、UNGEGN 转写、采用 IPA、原词条 IPA 与转写、固定词条版本、前置知识、完整片段、地图名和位置。规范改版日期与来源单列，不把 2026-10-28 的字母转写更新冒称重新抓取了词典或完成母语审读。
 
 36 词有词条列出的 IPA；比较时只做以下公开的记号归一：
 
@@ -117,7 +122,7 @@
 
 - `@fontsource/noto-sans-bengali` 的 400/500/600 字重随构建提供，OFL 原文在 `public/licenses/NotoSansBengali-OFL.txt`。完整文字节点保留附标和合字 shaping，不逐字符包裹 span。
 - 不继承泰语字体切换、声调题、语音安装说明或占位组合器。
-- 首版没有本地孟加拉语真人录音。只对显式整词配置 `bn` 设备语音或在线收听；无匹配语音时不使用英语声音朗读。字母、合字和占位附标不自动合成。
+- 名称、城市、商店、村庄、道路、孟加拉语和孟加拉国八个整词收录了 Commons/Lingua Libre 真人录音；原文件页、说话人、许可、版本与哈希记录在 `src/data/recordings.json`，图鉴显示逐条署名。没有匹配录音的整词仍可用可选 `bn` 设备语音或在线收听；无匹配语音时不使用英语声音朗读。字母、合字和占位附标不自动合成。
 - 孟加拉国轮廓来自固定 Natural Earth v5.1.2 数据。浏览器只用预投影路径，不下载 GIS 库或在线底图。原数据、许可说明和改编 GeoJSON 在 `public/maps/`。
 - 国名 বাংলাদেশ 以整国红面显示；城市用红点，不将同名 Division / District 混成同一个城市边界。
 

@@ -26,6 +26,7 @@ try {
   });
   const audit = {
     checked: '2026-10-22', courseId: course.id,
+    romanization: { name: course.romanizationName, source: course.romanizationSource, checked: '2026-10-28' },
     scope: 'Written standard Bengali for street-sign recognition; traditional broad IPA with regional limitations stated explicitly.',
     normalization: 'For comparison only: remove delimiters, stress, syllable separators, tie bars and half-length; write source r as course ɾ. Parenthesized ho in Mymensingh selects the explicitly listed full variant. Consonant length and vowel quality are preserved.',
     independentNativeReview: false,

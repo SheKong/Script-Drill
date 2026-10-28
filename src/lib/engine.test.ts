@@ -29,6 +29,21 @@ function completePerfect(state: AppState): AppState {
   return finishSession(next);
 }
 describe('course content invariants', () => {
+  it('lists IPA first without changing a returning user or the initial selected course', () => {
+    expect(Object.keys(courses)[0]).toBe('ipa');
+    expect(initialState().courseId).toBe('thai');
+  });
+  it('requires a sourced standard notation and IPA instead of parallel teaching spellings', () => {
+    const course = courses.bengali;
+    expect(() => prepareCourse({ ...course, romanizationName: undefined })).toThrow('one named standard');
+    expect(() => prepareCourse({ ...course, romanizationSource: 'missing' })).toThrow('one named standard');
+    expect(() => prepareCourse({
+      ...course, items: course.items.map(item => item.id === 'bn-a' ? { ...item, ipa: '' } : item),
+    })).toThrow('together with IPA');
+    expect(() => prepareCourse({
+      ...course, items: course.items.map(item => item.id === 'bn-a' ? { ...item, officialRoman: 'another' } : item),
+    })).toThrow('not a separate teaching notation');
+  });
   it('rejects oversized authored units instead of silently dropping review coverage', () => {
     const course = courses.bengali;
     const practical = course.items.filter(item => !item.extra && item.kind !== 'rule').slice(0, 45);

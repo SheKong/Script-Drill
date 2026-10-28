@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import type { AppState, Exercise } from '../src/types';
 import { courses } from '../src/data';
-import { createSession } from '../src/lib/engine';
+import { createSession, makeMatch } from '../src/lib/engine';
 import { initialState } from '../src/lib/storage';
 
 async function stored(page: Page): Promise<AppState> {
@@ -218,10 +218,42 @@ test('all mobile views at 320px, modal focus and keyboard course switch', async 
   await expect(dialog).toHaveCount(0);
   await page.locator('.course-current').focus();
   await page.keyboard.press('ArrowDown');
-  await expect(page.getByRole('menuitem', { name: /泰语文字/ })).toBeFocused();
-  await page.keyboard.press('ArrowDown');
   await expect(page.getByRole('menuitem', { name: /国际音标基础/ })).toBeFocused();
+  await expect(page.getByRole('menuitem').first()).toContainText('国际音标基础');
+  await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('menuitem', { name: /泰语文字/ })).toBeFocused();
+  await page.keyboard.press('ArrowUp');
   await page.keyboard.press('Enter');
   await expect(page.getByRole('heading', { name: /国际音标基础/ })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+for (const mistake of [false, true]) {
+  test(`word matching ends with board feedback, not one word's meaning (${mistake ? 'with error' : 'perfect'})`, async ({ page }) => {
+    const state = initialState();
+    const words = courses.thai.items.filter(item => item.kind === 'word').slice(0, 5);
+    for (const item of words) state.progress[item.id] = {
+      introduced: true, correct: 4, wrong: 0, modes: ['read', 'reverse'], lastSeen: new Date().toISOString(),
+    };
+    state.session = createSession(state, 'custom', undefined, words.map(item => item.id))!;
+    const match = makeMatch(words)!;
+    state.session.queue = [match];
+    await page.addInitScript(state => localStorage.setItem('script-drill:v1', JSON.stringify(state)), state);
+    await page.goto('/');
+    await page.getByRole('button', { name: '继续练习', exact: true }).click();
+    const left = page.locator('.matching-grid > div').first();
+    const right = page.locator('.matching-grid > div').last();
+    if (mistake) {
+      await left.getByRole('button', { name: match.pairs![0].left, exact: true }).click();
+      await right.getByRole('button', { name: match.pairs![1].right, exact: true }).click();
+    }
+    for (const pair of match.pairs!) {
+      await left.getByRole('button', { name: pair.left, exact: true }).click();
+      await right.getByRole('button', { name: pair.right, exact: true }).click();
+    }
+    const feedback = page.locator('.feedback-copy');
+    await expect(feedback).toHaveText(mistake ? '配对完成，易混项会再出现' : '配对完成，继续');
+    for (const item of words) await expect(feedback).not.toContainText(item.meaning!);
+    await expect(feedback.locator('.pronunciation-control')).toHaveCount(0);
+  });
+}

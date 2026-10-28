@@ -1,5 +1,5 @@
 // Maintenance only. Runtime playback uses the checked-in MP3s and attribution manifest.
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
@@ -87,23 +87,58 @@ const thaiCatalog = {
   'th-word-khon': ['LL-Q9217 (tha)-Thas (Thas Tayapongsak)-คน.wav', 'คน'],
   'th-word-khao': ['LL-Q9217 (tha)-咽頭べさ-เขา.wav', 'เขา'],
 };
+const bengaliCatalog = {
+  'bn-word-naam': ['LL-Q9610 (ben)-Aftabuzzaman-নাম.wav', 'নাম'],
+  'bn-word-dokan': ['LL-Q9610 (ben)-Yahya-দোকান.wav', 'দোকান'],
+  'bn-word-bangla': ['LL-Q9610 (ben)-Titodutta-বাংলা.wav', 'বাংলা'],
+  'bn-word-bangladesh': ['LL-Q9610 (ben)-Titodutta-বাংলাদেশ.wav', 'বাংলাদেশ'],
+  'bn-word-dhaka': ['LL-Q9610 (ben)-Yahya-ঢাকা.wav', 'ঢাকা'],
+  'bn-word-nogor': ['LL-Q9610 (ben)-Yahya-নগর.wav', 'নগর'],
+  'bn-word-gram': ['LL-Q9610 (ben)-Yahya-গ্রাম.wav', 'গ্রাম'],
+  'bn-word-rasta': ['LL-Q9610 (ben)-Yahya-রাস্তা.wav', 'রাস্তা'],
+};
 const entries = [
   ...Object.entries(thaiCatalog).map(([id, [file, title]]) => ({ id, title, file, folder: 'thai' })),
+  ...Object.entries(bengaliCatalog).map(([id, [file, title]]) => ({ id, title, file, folder: 'bengali' })),
   ...Object.entries(catalog).map(([id, title]) => ({ id: `ipa-${id}`, title,
     file: /\.(ogg|oga|opus|wav|mp3)$/i.test(title) ? title : `${title}.ogg`, folder: 'ipa' })),
 ];
+const onlyFolder = process.argv.find(arg => arg.startsWith('--only='))?.slice('--only='.length);
+const refresh = process.argv.includes('--refresh');
+if (onlyFolder && !['bengali', 'ipa', 'thai'].includes(onlyFolder)) {
+  throw new Error(`Unknown audio catalog: ${onlyFolder}`);
+}
+const selectedEntries = entries.filter(({ folder }) => !onlyFolder || folder === onlyFolder);
 
 await mkdir('.local/audio-originals', { recursive: true });
 const manifest = JSON.parse(await readFile('src/data/recordings.json', 'utf8').catch(() => '{}'));
 const missing = [];
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+let requestSequence = 0;
 async function request(url) {
   for (let attempt = 0; attempt < 4; attempt++) {
     let result;
     try {
-      result = await fetch(url, { signal: AbortSignal.timeout(30000),
-        headers: { 'User-Agent': 'ScriptDrill/1.0 (educational pronunciation assets)' } });
+      if (process.platform === 'win32') {
+        const output = `.local/audio-fetch-${process.pid}-${++requestSequence}.tmp`;
+        execFileSync('pwsh', ['-NoProfile', '-File', 'scripts/fetch-reference.ps1',
+          '-Uri', String(url), '-OutputFile', output], { stdio: 'ignore' });
+        const body = await readFile(output);
+        await unlink(output);
+        result = {
+          ok: true, status: 200, headers: { get: () => null },
+          json: async () => JSON.parse(body.toString('utf8')),
+          text: async () => body.toString('utf8'),
+          arrayBuffer: async () => body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength),
+        };
+      } else {
+        result = await fetch(url, { signal: AbortSignal.timeout(30000),
+          headers: { 'User-Agent': 'ScriptDrill/1.0 (educational pronunciation assets)' } });
+      }
     } catch (error) {
+      if (process.platform === 'win32') {
+        await unlink(`.local/audio-fetch-${process.pid}-${requestSequence}.tmp`).catch(() => {});
+      }
       if (attempt === 3) throw error;
       await delay(2000 * (attempt + 1));
       continue;
@@ -115,44 +150,94 @@ async function request(url) {
   }
   throw new Error(`Request failed after retries: ${url}`);
 }
-for (const { id, title, file, folder } of entries) {
-  if (manifest[id]) continue;
-  await mkdir(`public/audio/${folder}`, { recursive: true });
+
+async function loadBengaliFilePage(file) {
   const api = new URL('https://commons.wikimedia.org/w/api.php');
   api.search = new URLSearchParams({
     action: 'query', format: 'json', redirects: '1', prop: 'imageinfo|revisions',
-    iiprop: 'url|extmetadata', rvprop: 'content|ids', rvslots: 'main', titles: `File:${file}`,
+    iiprop: 'url|extmetadata', rvprop: 'ids', titles: `File:${file}`,
   }).toString();
-  const response = await request(api).catch(error => {
-    console.warn(`${id}: ${error.message}`);
-    return null;
-  });
-  if (!response) { missing.push(id); continue; }
-  if (!response.ok) { console.warn(`${id}: Commons API ${response.status}`); missing.push(id); continue; }
+  const response = await request(api);
+  if (!response.ok) return null;
   const body = await response.json();
   const page = Object.values(body.query.pages)[0];
   const info = page.imageinfo?.[0];
   const metadata = info?.extmetadata;
-  if (!info) { missing.push(id); continue; }
-  const wikitext = page.revisions?.[0]?.slots.main['*'] || '';
-  const credited = wikitext.match(/(?:Recorded|Created) by:? \[\[User:([^|\]]+)(?:\|([^\]]+))?\]\]/i);
-  const templated = wikitext.match(/Recorded by \{\{u\|([^}]+)\}\}/i);
-  const author = credited?.[2] || credited?.[1] || templated?.[1] || metadata.Artist?.value.replace(/<[^>]*>/g, '').trim();
-  if (!author) { missing.push(id); continue; }
-  const license = metadata.LicenseShortName?.value;
-  const publicDomain = license === 'Public domain' && /\{\{PD-user-en\|Octane\}\}/i.test(wikitext);
-  if (!/^(?:CC BY(?:-SA)? \d\.\d|CC0(?: 1\.0)?)$/.test(license || '') && !publicDomain) {
-    throw new Error(`Review license manually: ${title}: ${license}`);
+  const author = metadata?.Artist?.value.replace(/<[^>]*>/g, '').trim();
+  const license = metadata?.LicenseShortName?.value;
+  const licenseUrl = metadata?.LicenseUrl?.value;
+  if (!info || !author || !licenseUrl
+    || !/^(?:CC BY(?:-SA)? \d\.\d|CC0(?: 1\.0)?)$/.test(license || '')) {
+    throw new Error(`Incomplete Commons file page metadata; review manually: ${file}`);
   }
-  const licenseUrl = metadata.LicenseUrl?.value || (publicDomain ? 'https://commons.wikimedia.org/wiki/Template:PD-user-en' : undefined);
-  if (!licenseUrl) { missing.push(id); continue; }
   const originalUrl = new URL(info.url);
   originalUrl.search = '';
+  return {
+    sourceUrl: info.descriptionurl,
+    originalUrl: originalUrl.href,
+    author,
+    license,
+    licenseUrl: licenseUrl.replace(/^http:/, 'https:'),
+    revision: page.revisions[0].revid,
+  };
+}
+
+for (const { id, title, file, folder } of selectedEntries) {
+  if (manifest[id] && !refresh) continue;
+  await mkdir(`public/audio/${folder}`, { recursive: true });
+  let media;
+  if (folder === 'bengali') {
+    media = await loadBengaliFilePage(file).catch(error => {
+      console.warn(`${id}: ${error.message}`);
+      return null;
+    });
+  } else {
+    const api = new URL('https://commons.wikimedia.org/w/api.php');
+    api.search = new URLSearchParams({
+      action: 'query', format: 'json', redirects: '1', prop: 'imageinfo|revisions',
+      iiprop: 'url|extmetadata', rvprop: 'content|ids', rvslots: 'main', titles: `File:${file}`,
+    }).toString();
+    const response = await request(api).catch(error => {
+      console.warn(`${id}: ${error.message}`);
+      return null;
+    });
+    if (response?.ok) {
+      const body = await response.json();
+      const page = Object.values(body.query.pages)[0];
+      const info = page.imageinfo?.[0];
+      if (info) {
+        const metadata = info.extmetadata;
+        const wikitext = page.revisions?.[0]?.slots.main['*'] || '';
+        const credited = wikitext.match(/(?:Recorded|Created) by:? \[\[User:([^|\]]+)(?:\|([^\]]+))?\]\]/i);
+        const templated = wikitext.match(/Recorded by \{\{u\|([^}]+)\}\}/i);
+        const author = credited?.[2] || credited?.[1] || templated?.[1]
+          || metadata.Artist?.value.replace(/<[^>]*>/g, '').trim();
+        const license = metadata.LicenseShortName?.value;
+        const publicDomain = license === 'Public domain' && /\{\{PD-user-en\|Octane\}\}/i.test(wikitext);
+        if (!/^(?:CC BY(?:-SA)? \d\.\d|CC0(?: 1\.0)?)$/.test(license || '') && !publicDomain) {
+          throw new Error(`Review license manually: ${title}: ${license}`);
+        }
+        const licenseUrl = metadata.LicenseUrl?.value
+          || (publicDomain ? 'https://commons.wikimedia.org/wiki/Template:PD-user-en' : undefined);
+        const originalUrl = new URL(info.url);
+        originalUrl.search = '';
+        if (author && licenseUrl) {
+          media = {
+            sourceUrl: info.descriptionurl, originalUrl: originalUrl.href,
+            author, license, licenseUrl, revision: page.revisions[0].revid,
+          };
+        }
+      }
+    } else if (response) {
+      console.warn(`${id}: Commons API ${response.status}`);
+    }
+  }
+  if (!media) { missing.push(id); continue; }
   const input = `.local/audio-originals/${id}.${file.split('.').at(-1)}`;
   let original;
   try { original = await readFile(input); }
   catch {
-    const download = await request(originalUrl).catch(error => {
+    const download = await request(media.originalUrl).catch(error => {
       console.warn(`${id}: ${error.message}`);
       return null;
     });
@@ -167,18 +252,18 @@ for (const { id, title, file, folder } of entries) {
     '-q:a', '4', `public/audio/${folder}/${basename}.mp3`]);
   manifest[id] = {
     src: `/audio/${folder}/${basename}.mp3`, title,
-    sourceUrl: info.descriptionurl, author, license,
-    licenseUrl: licenseUrl.replace(/^http:/, 'https:'),
-    originalUrl: originalUrl.href,
-    revision: page.revisions[0].revid,
+    sourceUrl: media.sourceUrl, author: media.author, license: media.license,
+    licenseUrl: media.licenseUrl.replace(/^http:/, 'https:'),
+    originalUrl: media.originalUrl,
+    revision: media.revision,
     originalSha256: createHash('sha256').update(original).digest('hex'),
     change: `Converted ${file.split('.').at(-1).toUpperCase()} to MP3; no trimming, pitch or speed changes.`,
-    ...(folder === 'thai' ? { spokenText: title } : {}),
+    ...(folder !== 'ipa' ? { spokenText: title } : {}),
   };
   await writeFile('src/data/recordings.json', `${JSON.stringify(manifest, null, 2)}\n`);
-  console.log(`${id}: ${author} (${license})`);
-  await delay(7000);
+  console.log(`${id}: ${media.author} (${media.license})`);
+  await delay(onlyFolder === 'bengali' ? 1500 : 7000);
 }
 await writeFile('src/data/recordings.json', `${JSON.stringify(manifest, null, 2)}\n`);
 console.log(`Saved ${Object.keys(manifest).length} recordings. Unavailable catalog files: ${missing.join(', ') || 'none'}`);
-if (!manifest['ipa-kh']) console.log('Known course gap: ipa-kh; no reviewed reusable isolated recording in the catalog.');
+if (!onlyFolder && !manifest['ipa-kh']) console.log('Known course gap: ipa-kh; no reviewed reusable isolated recording in the catalog.');

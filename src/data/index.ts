@@ -6,7 +6,7 @@ import { addThaiPlaces } from './thai-places';
 import { bengaliCourse } from './bengali';
 
 export const courses: Record<CourseId, Course> = {
-  thai: prepareCourse(addThaiPlaces(thaiCourse)), ipa: prepareCourse(ipaCourse), bengali: prepareCourse(bengaliCourse),
+  ipa: prepareCourse(ipaCourse), thai: prepareCourse(addThaiPlaces(thaiCourse)), bengali: prepareCourse(bengaliCourse),
 };
 export const allItems = Object.values(courses).flatMap(course => course.items);
 export const itemMap = Object.fromEntries(allItems.map(item => [item.id, item]));

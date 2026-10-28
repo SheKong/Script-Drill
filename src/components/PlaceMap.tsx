@@ -18,7 +18,8 @@ export function PlaceMap({ item, compact = false, anonymous = false }: { item?: 
     <svg viewBox="0 0 180 260" role="img" aria-label={`${map.country}位置示意${anonymous ? '' : `：${item.meaning || item.title}`}`}>
       <path d={map.outline} fill="none" stroke="#89978f" strokeWidth="1" />
       {place.type === 'region' && <path data-map-region={place.regionId} d={map.regions[place.regionId]} fill="#d54747" fillOpacity=".86" />}
-      {point && <circle data-map-city cx={point[0]} cy={point[1]} r="3.4" fill="#d54747" stroke="white" strokeWidth="1" />}
+      {point && <circle data-map-city cx={point[0]} cy={point[1]} r={compact ? 18 : 8}
+        fill="#d54747" stroke="white" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />}
     </svg>
     {!compact && <figcaption>{map.country} · 位置示意</figcaption>}
   </figure>;
