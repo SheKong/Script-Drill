@@ -6,6 +6,7 @@ import { PronunciationButton } from './PronunciationButton';
 import { ScriptComparison } from './ScriptVariants';
 import { NotationText } from './NotationText';
 import { PlaceMap } from './PlaceMap';
+import { AcceptedAnswers } from './AcceptedAnswers';
 
 export function KnowledgeDetail({ item, state, compact = false, hideMeaning = false, scriptClass }: {
   item: Knowledge; state: AppState; compact?: boolean; hideMeaning?: boolean; scriptClass?: string;
@@ -31,6 +32,7 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
       {course.type === 'phonetics' && <div><span>发音特征</span><strong>{item.title}</strong></div>}
     </div>}
     {!!item.conventionalNames?.length && <p className="conventional-names">地图常见拼法：<strong>{item.conventionalNames.join(' / ')}</strong></p>}
+    {course.type === 'script' && item.kind !== 'rule' && item.roman && <AcceptedAnswers item={item} />}
     {item.ipa && course.ipaNote && <p className="reading-note">{course.ipaNote}</p>}
     {course.type === 'phonetics' && item.kind === 'symbol' && audioReference && <a className="ipa-audio-link" href={audioReference.url} target="_blank" rel="noreferrer"><Headphones size={14} />真人发音资料<ExternalLink size={11} /></a>}
     {course.type === 'phonetics' && item.kind === 'symbol' && !item.pronunciation?.recording && alternativeAudio && <a className="ipa-audio-link" href={alternativeAudio.url} target="_blank" rel="noreferrer"><Headphones size={14} />Seeing Speech 发音示范<ExternalLink size={11} /></a>}

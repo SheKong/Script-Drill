@@ -8,6 +8,7 @@ import { PronunciationButton } from './PronunciationButton';
 import { useScriptStyle } from './ScriptVariants';
 import { NotationText } from './NotationText';
 import { PlaceMap } from './PlaceMap';
+import { AcceptedAnswers } from './AcceptedAnswers';
 
 interface Feedback { correct: boolean; pairs?: Record<string, boolean> }
 export function Quiz({ state, onIntro, onAnswer, onPause }: {
@@ -118,7 +119,8 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
             onClick={() => matchRight(p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
-          <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
+          <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} aria-describedby="transcription-format" autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
+          <p id="transcription-format" className="typing-format">{item.kind === 'number' ? '数值输入数字' : '普通英文字母即可，附加符号可省略'}；不区分大小写，空格、连字符、撇号和句点可省略。</p>
         </div> : <div className={`answer-options ${item.kind === 'word' ? 'word-answers' : ''}`} role="group" aria-label="答案选项">
           {exercise.options.map((o, index) => {
             const correct = feedback && o.id === exercise.answer;
@@ -136,7 +138,9 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
         {hinted && !feedback && <div className="hint-content">{item.kind === 'word'
           ? item.segments?.map(s => `${s.text} → ${s.reading}`).join(' · ')
           : exercise.combination ? exercise.combination.parts.map(id => `${itemMap[id].glyph} → ${reading(itemMap[id])}`).join(' + ')
-          : item.explanation}</div>}
+          : item.explanation}
+          {exercise.kind === 'type' && <AcceptedAnswers item={item} />}
+        </div>}
       </>}
     </main>
     <footer className={`quiz-footer ${feedback ? feedback.correct ? 'feedback-correct' : 'feedback-wrong' : ''}`}>
@@ -146,6 +150,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
           {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.kind === 'mark' ? `◌${exercise.answer} · 声调符号` : exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
             {item.kind === 'word' && <p>{item.context} {!!item.conventionalNames?.length && <span>地图常见拼法：{item.conventionalNames.join(' / ')}</span>}</p>}
             {!feedback.correct && <p><NotationText text={item.explanation} /></p>}
+            {exercise.kind === 'type' && <AcceptedAnswers item={item} />}
             {!exercise.combination && !['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
           </>}
         </div> : <span className="quiz-footer-note"><CircleHelp size={16} />{isIntro ? '理解以后，再试着回忆' : isMatch ? `${matched.length} / ${exercise.pairs!.length} 已配对` : '不计时，按自己的节奏来'}</span>}

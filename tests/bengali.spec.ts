@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { courses, itemMap } from '../src/data';
-import { createSession, makeExercise, makeMatch, trained } from '../src/lib/engine';
+import { acceptedTypedAnswers, createSession, makeExercise, makeMatch, normalizeAnswer, trained } from '../src/lib/engine';
 import { initialState } from '../src/lib/storage';
 import type { AppState } from '../src/types';
 
@@ -49,6 +49,72 @@ async function noOverflow(page: Page) {
   const dialog = page.getByRole('dialog');
   if (await dialog.count()) expect(await dialog.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
 }
+
+test('all Bengali diacritic transcriptions accept plain letters in real typing exercises', async ({ page }, testInfo) => {
+  test.setTimeout(180000);
+  const targets = course.items.filter(item => item.kind !== 'rule' && /[^ -~]/.test(item.roman));
+  expect(targets).toHaveLength(58);
+  const state = { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } };
+  state.session = createSession(state, 'extra', course.extraUnits![0].id);
+  state.session!.queue = targets.map(item => makeExercise(item, 'type', course, {}));
+  state.session!.newIds = [];
+  await seed(page, state);
+  await page.getByRole('button', { name: '继续练习', exact: true }).click();
+  for (const [index, item] of targets.entries()) {
+    const plain = normalizeAnswer(item.roman);
+    await expect(page.locator('.question-display')).toContainText(item.glyph);
+    await expect(page.locator('.accepted-answers')).toHaveCount(0);
+    await expect(page.locator('#transcription-format')).toContainText('普通英文字母即可');
+    await page.getByRole('textbox', { name: '转写', exact: true }).fill(plain.toUpperCase());
+    await page.getByRole('button', { name: '检查答案', exact: true }).click();
+    await expect(page.locator('.quiz-footer')).toHaveClass(/feedback-correct/);
+    const shown = await page.locator('.accepted-answers bdi').allTextContents();
+    expect(shown).toEqual(acceptedTypedAnswers(item));
+    expect(shown).toContain(plain);
+    await noOverflow(page);
+    if (item.id === 'bn-anusvara' || item.id === 'bn-word-coxs-bazar') {
+      await page.screenshot({ path: `.local/screenshots/typing-${item.id}-${testInfo.project.name}.png`, fullPage: true });
+    }
+    await page.getByRole('button', { name: '继续', exact: true }).click();
+    if (index < targets.length - 1) {
+      await expect.poll(async () => (await stored(page)).session?.index).toBe(index + 1);
+    }
+  }
+  const saved = await stored(page);
+  expect(saved.session).toBeUndefined();
+  expect(saved.history.at(-1)?.correct).toBe(targets.length);
+  expect(saved.progress['bn-anusvara'].modes).toContain('type');
+  expect(saved.progress['bn-anusvara'].wrong).toBe(0);
+});
+
+test('accepted inputs appear in details and hints, and hints still count as assisted answers', async ({ page }, testInfo) => {
+  const state = { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } };
+  state.session = createSession(state, 'extra', course.extraUnits![0].id);
+  state.session!.queue = [makeExercise(itemMap['bn-anusvara'], 'type', course, {})];
+  state.session!.newIds = [];
+  await seed(page, state);
+  await page.getByRole('button', { name: '继续练习', exact: true }).click();
+  await expect(page.locator('.accepted-answers')).toHaveCount(0);
+  await page.getByRole('button', { name: '想一想', exact: true }).click();
+  await expect(page.locator('.hint-content .accepted-answers')).toBeVisible();
+  expect(await page.locator('.hint-content .accepted-answers bdi').allTextContents()).toEqual(['ṁ', 'm', 'ng']);
+  await page.getByRole('textbox', { name: '转写', exact: true }).fill('m');
+  await page.getByRole('button', { name: '检查答案', exact: true }).click();
+  await expect(page.locator('.quiz-footer')).toHaveClass(/feedback-correct/);
+  await page.getByRole('button', { name: '继续', exact: true }).click();
+  const saved = await stored(page);
+  expect(saved.progress['bn-anusvara'].modes).not.toContain('type');
+  await page.getByRole('button', { name: '回到学习路径', exact: true }).click();
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  await page.getByRole('textbox', { name: '搜索知识' }).fill('ং');
+  await page.locator('.knowledge-tile').filter({ has: page.getByText('ং', { exact: true }) }).click();
+  expect(await page.locator('.accepted-answers bdi').allTextContents()).toEqual(['ṁ', 'm', 'ng']);
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await noOverflow(page);
+    await page.screenshot({ path: `.local/screenshots/typing-details-${testInfo.project.name}-${width}.png` });
+  }
+});
 
 test('Bengali details teach the same standard as quizzes and keep map names separate', async ({ page }, testInfo) => {
   await seed(page, { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });

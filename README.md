@@ -19,6 +19,7 @@ npm run dev
 - **泰语文字课**：19 个基础单元和 1 个词汇补充单元，119 个字母、结构与规则知识，38 个主线词汇。声调和辅音类别在开头说明，后续重点练习调号辨认，不要求计算完整声调。
 - **孟加拉语文字课**：18 个基础单元和 1 个词汇补充单元，95 个字母、附标、合字、规则与数字知识、29 个主线街景词，另有 4 组共 12 个孟加拉国城市。每个字母同时教 UNGEGN + IPA，地图惯用名另列。
 - 数据驱动的双向四选一、唯一对应配对、受限语法生成的声母元音拼读、词义反选、转写输入。
+- 转写输入接受去附加符号的普通字母、历史别名及地图惯用名；知识详情、提示和答后反馈列出可接受输入，不要求键入 ā、ṁ 等特殊字符。
 - 首次词汇先练转写，答后提供含义；词义反向与输入仅在已初见词的练习中出现。
 - FSRS 间隔调度、小批量引入、前置知识解锁、课内错题间隔重现。
 - 每单元末尾有综合复习，通常约 36 题，**含错题补练最多 50 题**；优先覆盖本单元实际知识，混入到期与已学内容，可行时填满 5 对。
@@ -80,6 +81,8 @@ npm audit
 本轮审查、Rush 的产品调研与算法证明见 [REVIEW_AND_RUSH.md](docs/REVIEW_AND_RUSH.md)。地名逐词核对结果见 [THAI_PLACE_AUDIT.json](docs/THAI_PLACE_AUDIT.json)。地图可用 `node scripts/fetch-thai-map.mjs` 重新生成，来源、ODbL 署名及可下载改编数据库在 `public/maps/`。
 
 孟加拉文研究与来源取舍见 [BENGALI_RESEARCH.md](docs/BENGALI_RESEARCH.md)，41 个词的逐词版本、证据与 IPA 核对见 [BENGALI_WORD_AUDIT.json](docs/BENGALI_WORD_AUDIT.json)。地图重建：`node scripts/fetch-bengali-map.mjs`；审校表重建：`node scripts/build-bengali-audit.mjs`，资料获取与离线缓存命令见研究文档。
+
+转写输入的全量检查与兼容边界见 [TYPING_INPUT_AUDIT.md](docs/TYPING_INPUT_AUDIT.md)。后续语言文字课程的调研、优先级与待办见 [LANGUAGE_COURSE_TODO.md](docs/LANGUAGE_COURSE_TODO.md)，该规划不改变网页课程内容。
 
 ## 结构
 

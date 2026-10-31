@@ -88,7 +88,8 @@ describe('Bengali curriculum', () => {
   it('keeps legacy inputs compatible and accepts actual map names alongside the standard', () => {
     expect(checkTyped(itemMap['bn-a'], 'a')).toBe(true);
     expect(checkTyped(itemMap['bn-a'], 'aw')).toBe(true);
-    expect(checkTyped(itemMap['bn-a'], 'o')).toBe(false);
+    expect(checkTyped(itemMap['bn-a'], 'o')).toBe(true); // Plain-letter form of the declared legacy alias ô.
+    expect(checkTyped(itemMap['bn-a'], 'e')).toBe(false);
     expect(checkTyped(itemMap['bn-word-nogor'], 'nawgor')).toBe(true);
     expect(checkTyped(itemMap['bn-word-purbo'], 'purbo')).toBe(true);
     expect(checkTyped(itemMap['bn-word-purbo'], 'purbaw')).toBe(false);

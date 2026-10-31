@@ -16,7 +16,8 @@ export const shuffle = <T,>(items: T[], rng: () => number = Math.random): T[] =>
   }
   return result;
 };
-export const normalizeAnswer = (s: string) => s.normalize('NFC').toLowerCase().replace(/[\s\-'.]/g, '').trim();
+export const normalizeAnswer = (s: string) => s.normalize('NFD').toLowerCase()
+  .replace(/\p{M}/gu, '').replace(/[\s\-'.\u2018\u2019\u2010\u2011]/gu, '');
 export const reading = (item: Knowledge) => courses[item.courseId].type === 'phonetics'
   ? item.title
   : `${item.roman || '不写'}${item.ipa ? ` /${item.ipa}/` : ''}`;
@@ -301,9 +302,23 @@ export function createSession(
     startedAt: now.toISOString(), activeSeconds: 0, repairCount: {}, newIds,
   };
 }
-export const checkTyped = (item: Knowledge, answer: string) =>
-  [item.roman, item.officialRoman, ...(item.aliases || []), ...(item.conventionalNames || [])].filter((v): v is string => !!v)
-    .some(v => normalizeAnswer(v) === normalizeAnswer(answer));
+export function acceptedTypedAnswers(item: Knowledge): string[] {
+  const declared = [item.roman, item.officialRoman, ...(item.aliases || []), ...(item.conventionalNames || [])]
+    .filter((value): value is string => !!value);
+  // Keep the authored notation visible alongside each keyboard-friendly form.
+  const seen = new Set<string>();
+  return declared.flatMap(value => [value.normalize('NFC').trim(), normalizeAnswer(value)])
+    .filter(value => {
+      const key = value.toLowerCase();
+      if (!normalizeAnswer(value) || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+export function checkTyped(item: Knowledge, answer: string): boolean {
+  const normalized = normalizeAnswer(answer);
+  return !!normalized && acceptedTypedAnswers(item).some(value => normalizeAnswer(value) === normalized);
+}
 
 // Saved sessions keep their order and answers, but follow corrected course notation.
 export function refreshSessionNotation(session: Session): Session {
