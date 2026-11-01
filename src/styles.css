@@ -40,6 +40,8 @@ button svg, a svg { vertical-align: middle; }
 .thai { font-family: "Noto Sans Thai Looped", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
 .thai-modern { font-family: "Noto Sans Thai", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; }
 .bengali { font-family: "Noto Sans Bengali", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 2; letter-spacing: 0; }
+.hebrew { font-family: "Noto Sans Hebrew", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; unicode-bidi: isolate; }
+.hebrew[dir=rtl] { text-align: center; }
 .phonetic { font-family: "Script Drill IPA", "Noto Sans", "Noto Sans SC", sans-serif; line-height: 1.9; }
 .script-style-control { display: inline-flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); gap: 16px; margin-block: 10px; }
 .script-style-control button { min-height: 40px; border-bottom: 2px solid transparent; font-size: 11px; padding: 7px 0; color: var(--muted); }

@@ -100,6 +100,7 @@ export function makeExercise(
     };
   }
   if (kind === 'type') {
+    if (!normalizeAnswer(item.roman)) return makeExercise(item, 'read', course, progress);
     return { ...base, prompt: `写出${romanizationName(course, item) || '转写'}`, answer: item.roman };
   }
   const peers = poolFor(item, course, progress);
@@ -229,7 +230,7 @@ export function makeUnitReview(unit: Unit, course: Course, state: AppState, now:
     for (const [index, item] of practice.entries()) {
       if (queue.length >= learningPolicy.unitReviewTarget || queue.length >= budget) break;
       const kinds: ExerciseKind[] = ['read', 'reverse'];
-      if (state.settings.typing && course.type === 'script' && item.roman) kinds.push('type');
+      if (state.settings.typing && course.type === 'script' && normalizeAnswer(item.roman)) kinds.push('type');
       if (item.kind === 'word') kinds.push('meaning');
       queue.push(makeExercise(item, kinds[(round + index) % kinds.length], course, state.progress));
     }
@@ -297,7 +298,7 @@ export function createSession(
     if (item.kind === 'word' && !newIds.includes(item.id)) {
       queue.push(makeExercise(item, 'meaning', course, state.progress));
     }
-    if (state.settings.typing && course.type === 'script' && item.kind !== 'rule' && item.roman
+    if (state.settings.typing && course.type === 'script' && item.kind !== 'rule' && normalizeAnswer(item.roman)
       && (!newIds.includes(item.id) || item.kind !== 'word')) queue.push(makeExercise(item, 'type', course, state.progress));
     if (item.kind === 'word' && course.recognition?.marks.some(mark => item.glyph.includes(mark))) {
       queue.push(makeExercise(item, 'mark', course, state.progress));

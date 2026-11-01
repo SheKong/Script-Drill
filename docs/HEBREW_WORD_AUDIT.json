@@ -1,0 +1,1337 @@
+{
+  "checked": "2026-11-01",
+  "courseId": "hebrew",
+  "independentNativeReview": false,
+  "normalization": "Remove IPA delimiters, syllable separators, tie bars and spaces; r -> ʁ and ɡ -> g. Omit redundant primary stress only for monosyllables. Never change polysyllabic stress, vowel quality or consonant length. Optional sounds require per-word explicit manual selections.",
+  "words": [
+    {
+      "id": "he-word-street",
+      "glyph": "רחוב",
+      "roman": "reẖov",
+      "ipa": "ʁeˈχov",
+      "meaning": "街；街道",
+      "pointed": "רְחוֹב",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-r",
+        "he-het",
+        "he-v",
+        "he-vet",
+        "he-sheva",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A8%D7%97%D7%95%D7%91?oldid=86625331",
+      "checked": "2026-11-01",
+      "revision": 86625331,
+      "sourceIPA": [
+        "/rəˈħoːv/",
+        "/ʁeˈχov/"
+      ],
+      "sourceTranscription": [
+        "rekhóv"
+      ],
+      "headwords": [
+        "רְחוֹב"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-road",
+      "glyph": "דרך",
+      "roman": "derekh",
+      "ipa": "ˈdeʁeχ",
+      "meaning": "路；道路",
+      "pointed": "דֶּרֶךְ",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-d",
+        "he-r",
+        "he-final-kh",
+        "he-segol",
+        "he-sheva"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%93%D7%A8%D7%9A?oldid=91433713",
+      "checked": "2026-11-01",
+      "revision": 91433713,
+      "sourceIPA": [
+        "/daˈʁaχ/",
+        "[ˈdɛː.ʀ̟ɛχ]",
+        "/ˈdeʁeχ/"
+      ],
+      "sourceTranscription": [
+        "dérekh",
+        "darákh"
+      ],
+      "headwords": [
+        "דֶּרֶךְ",
+        "דָּרַךְ"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-highway",
+      "glyph": "כביש",
+      "roman": "kvish",
+      "ipa": "ˈkviʃ",
+      "meaning": "公路",
+      "pointed": "כְּבִישׁ",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-k",
+        "he-vet",
+        "he-y",
+        "he-sh",
+        "he-sheva",
+        "he-hiriq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9B%D7%91%D7%99%D7%A9?oldid=93740454",
+      "checked": "2026-11-01",
+      "revision": 93740454,
+      "sourceIPA": [
+        "/kviʃ/"
+      ],
+      "sourceTranscription": [
+        "kvísh"
+      ],
+      "headwords": [
+        "כְּבִישׁ"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-bridge",
+      "glyph": "גשר",
+      "roman": "gesher",
+      "ipa": "ˈɡeʃeʁ",
+      "meaning": "桥",
+      "pointed": "גֶּשֶׁר",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-g",
+        "he-sh",
+        "he-r",
+        "he-segol"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%92%D7%A9%D7%A8?oldid=92418714",
+      "checked": "2026-11-01",
+      "revision": 92418714,
+      "sourceIPA": [
+        "/ˈɡeʃeʁ/",
+        "/ɡaˈʃaʁ/"
+      ],
+      "sourceTranscription": [
+        "gésher",
+        "gashár"
+      ],
+      "headwords": [
+        "גֶּשֶׁר",
+        "גָּשַׁר"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-junction",
+      "glyph": "צומת",
+      "roman": "tsomet",
+      "ipa": "ˈtsomet",
+      "meaning": "交叉口；路口",
+      "pointed": "צֹמֶת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-ts",
+        "he-v",
+        "he-m",
+        "he-tav",
+        "he-holam",
+        "he-segol"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A6%D7%95%D7%9E%D7%AA?oldid=84045547",
+      "checked": "2026-11-01",
+      "revision": 84045547,
+      "sourceIPA": [
+        "/ˈt͡somet/"
+      ],
+      "sourceTranscription": [
+        "tsómet"
+      ],
+      "headwords": [
+        "צומת / צֹמֶת"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-avenues",
+      "glyph": "שדרות",
+      "roman": "sderot",
+      "ipa": "sdeˈʁot",
+      "meaning": "林荫道（复数）",
+      "pointed": "שְׂדֵרוֹת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-sin",
+        "he-d",
+        "he-r",
+        "he-v",
+        "he-tav",
+        "he-sheva",
+        "he-tsere",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A9%D7%93%D7%A8%D7%95%D7%AA?oldid=87934463",
+      "checked": "2026-11-01",
+      "revision": 87934463,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "sderót"
+      ],
+      "headwords": [
+        "שְׂדֵרוֹת"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-station",
+      "glyph": "תחנה",
+      "roman": "taẖana",
+      "ipa": "taχaˈna",
+      "meaning": "车站；站",
+      "pointed": "תַּחֲנָה",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-tav",
+        "he-het",
+        "he-n",
+        "he-h",
+        "he-patah",
+        "he-hataf-patah",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%AA%D7%97%D7%A0%D7%94?oldid=92485822",
+      "checked": "2026-11-01",
+      "revision": 92485822,
+      "sourceIPA": [
+        "/taχaˈna/"
+      ],
+      "sourceTranscription": [
+        "takhaná",
+        "tkhiná"
+      ],
+      "headwords": [
+        "תַּחֲנָה",
+        "תְּחִנָּה"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-railway",
+      "glyph": "רכבת",
+      "roman": "rakkevet",
+      "ipa": "ʁaˈkevet",
+      "meaning": "火车；铁路",
+      "pointed": "רַכֶּבֶת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-r",
+        "he-k",
+        "he-vet",
+        "he-tav",
+        "he-patah",
+        "he-segol"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A8%D7%9B%D7%91%D7%AA?oldid=83636884",
+      "checked": "2026-11-01",
+      "revision": 83636884,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "rakévet",
+        "transliteration needed"
+      ],
+      "headwords": [
+        "רַכֶּבֶת",
+        "רכבת"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-entrance",
+      "glyph": "כניסה",
+      "roman": "knisa",
+      "ipa": "kniˈsa",
+      "meaning": "入口",
+      "pointed": "כְּנִיסָה",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-k",
+        "he-n",
+        "he-y",
+        "he-s",
+        "he-h",
+        "he-sheva",
+        "he-hiriq",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9B%D7%A0%D7%99%D7%A1%D7%94?oldid=83504893",
+      "checked": "2026-11-01",
+      "revision": 83504893,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "k'nisá"
+      ],
+      "headwords": [
+        "כְּנִיסָה"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-exit",
+      "glyph": "יציאה",
+      "roman": "yetsi'a",
+      "ipa": "jetsiˈʔa",
+      "meaning": "出口",
+      "pointed": "יְצִיאָה",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-y",
+        "he-ts",
+        "he-alef",
+        "he-h",
+        "he-sheva",
+        "he-hiriq",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%99%D7%A6%D7%99%D7%90%D7%94?oldid=83504422",
+      "checked": "2026-11-01",
+      "revision": 83504422,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "y'tsi'á"
+      ],
+      "headwords": [
+        "יְצִיאָה"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-center",
+      "glyph": "מרכז",
+      "roman": "merkaz",
+      "ipa": "meʁˈkaz",
+      "meaning": "中心",
+      "pointed": "מֶרְכָּז",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-m",
+        "he-r",
+        "he-k",
+        "he-z",
+        "he-segol",
+        "he-sheva",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9E%D7%A8%D7%9B%D7%96?oldid=92485728",
+      "checked": "2026-11-01",
+      "revision": 92485728,
+      "sourceIPA": [
+        "/meʁˈkaz/",
+        "/meʁaˈkez/",
+        "/mʁaˈkez/",
+        "/miʁˈkez/"
+      ],
+      "sourceTranscription": [
+        "merkáz",
+        "m'rakéz",
+        "m'rukáz",
+        "mirkez",
+        "murkáz"
+      ],
+      "headwords": [
+        "מֶרְכָּז",
+        "מְרַכֵּז",
+        "מְרֻכָּז",
+        "מִרְכֵּז",
+        "מֻרְכַּז"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-market",
+      "glyph": "שוק",
+      "roman": "shuk",
+      "ipa": "ˈʃuk",
+      "meaning": "市场",
+      "pointed": "שׁוּק",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-sh",
+        "he-v",
+        "he-qof",
+        "he-shuruq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A9%D7%95%D7%A7?oldid=91292928",
+      "checked": "2026-11-01",
+      "revision": 91292928,
+      "sourceIPA": [
+        "/ʃuk/"
+      ],
+      "sourceTranscription": [
+        "shuk",
+        "shivék",
+        "shok"
+      ],
+      "headwords": [
+        "שׁוּק",
+        "שִׁוֵּק",
+        "שׁוֹק"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-beach",
+      "glyph": "חוף",
+      "roman": "ẖof",
+      "ipa": "ˈχof",
+      "meaning": "海滩；海岸",
+      "pointed": "חוֹף",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-het",
+        "he-v",
+        "he-final-f",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%97%D7%95%D7%A3?oldid=84354931",
+      "checked": "2026-11-01",
+      "revision": 84354931,
+      "sourceIPA": [
+        "[ħoːf]",
+        "/χof/"
+      ],
+      "sourceTranscription": [
+        "khof"
+      ],
+      "headwords": [
+        "חוֹף"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-port",
+      "glyph": "נמל",
+      "roman": "namel",
+      "ipa": "naˈmel",
+      "meaning": "港口",
+      "pointed": "נָמֵל",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-n",
+        "he-m",
+        "he-l",
+        "he-qamats",
+        "he-tsere"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A0%D7%9E%D7%9C?oldid=91977014",
+      "checked": "2026-11-01",
+      "revision": 91977014,
+      "sourceIPA": [
+        "/nɔːˈmeːl/ [nɔːˈmeːl]",
+        "/nɔˈmel/ [nɔːˈmeːl]",
+        "/naˈmal/",
+        "/naˈmel/",
+        "-al"
+      ],
+      "sourceTranscription": [
+        "namél",
+        "namál"
+      ],
+      "headwords": [
+        "נָמֵל",
+        "נָמָל"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-north",
+      "glyph": "צפון",
+      "roman": "tsafon",
+      "ipa": "tsaˈfon",
+      "meaning": "北",
+      "pointed": "צָפוֹן",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-ts",
+        "he-f",
+        "he-v",
+        "he-final-n",
+        "he-qamats",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A6%D7%A4%D7%95%D7%9F?oldid=91982071",
+      "checked": "2026-11-01",
+      "revision": 91982071,
+      "sourceIPA": [
+        "/sˤaːˈpoːn/",
+        "/sˤɔːˈfoːn/",
+        "/t͡saˈfon/"
+      ],
+      "sourceTranscription": [
+        "tsafón",
+        "tsafún",
+        "hatsafón"
+      ],
+      "headwords": [
+        "צָפוֹן",
+        "צָפוּן",
+        "הַצָּפוֹן"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-south",
+      "glyph": "דרום",
+      "roman": "darom",
+      "ipa": "daˈʁom",
+      "meaning": "南",
+      "pointed": "דָּרוֹם",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-d",
+        "he-r",
+        "he-v",
+        "he-final-m",
+        "he-qamats",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%93%D7%A8%D7%95%D7%9D?oldid=93474815",
+      "checked": "2026-11-01",
+      "revision": 93474815,
+      "sourceIPA": [
+        "/daˈʁom/",
+        "/dɔː.ˈʀoːm/",
+        "[dɔːˈʀ̟oːom]"
+      ],
+      "sourceTranscription": [
+        "daróm"
+      ],
+      "headwords": [
+        "דָּרוֹם"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-east",
+      "glyph": "מזרח",
+      "roman": "mizraẖ",
+      "ipa": "mizˈʁaχ",
+      "meaning": "东",
+      "pointed": "מִזְרָח",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-m",
+        "he-z",
+        "he-r",
+        "he-het",
+        "he-hiriq",
+        "he-sheva",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9E%D7%96%D7%A8%D7%97?oldid=91754033",
+      "checked": "2026-11-01",
+      "revision": 91754033,
+      "sourceIPA": [
+        "/mizˈrɔːħ/",
+        "/mizˈʁaχ/"
+      ],
+      "sourceTranscription": [
+        "mizrákh"
+      ],
+      "headwords": [
+        "מִזְרָח"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-west",
+      "glyph": "מערב",
+      "roman": "ma'arav",
+      "ipa": "maʔaˈʁav",
+      "meaning": "西",
+      "pointed": "מַעֲרָב",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-m",
+        "he-ayin",
+        "he-r",
+        "he-vet",
+        "he-patah",
+        "he-hataf-patah",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9E%D7%A2%D7%A8%D7%91?oldid=94589395",
+      "checked": "2026-11-01",
+      "revision": 94589395,
+      "sourceIPA": [
+        "/maʁˈraːb/",
+        "/maʕˈraːb/",
+        "/ma.ʕăˈrɔːv/",
+        "/ma(ʔ)aˈʁav/"
+      ],
+      "sourceTranscription": [
+        "ma'aráv",
+        "hama'aráv",
+        "m'oráv"
+      ],
+      "headwords": [
+        "מַעֲרָב",
+        "המערב",
+        "מְעֹרָב"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/ma(ʔ)aˈʁav/",
+        "selectedIPA": "maʔaˈʁav",
+        "note": "Select the explicitly optional glottal stop."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-city",
+      "glyph": "עיר",
+      "roman": "ir",
+      "ipa": "ˈiʁ",
+      "meaning": "城市",
+      "pointed": "עִיר",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-ayin",
+        "he-y",
+        "he-r",
+        "he-hiriq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A2%D7%99%D7%A8?oldid=93363648",
+      "checked": "2026-11-01",
+      "revision": 93363648,
+      "sourceIPA": [
+        "[ʕiːʀ̟]",
+        "/(ʔ)iʁ/"
+      ],
+      "sourceTranscription": [
+        "ir",
+        "áyir"
+      ],
+      "headwords": [
+        "עִיר",
+        "עַיִר"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/(ʔ)iʁ/",
+        "selectedIPA": "ˈiʁ",
+        "note": "Select zero initial glottal stop and mark the sole syllable."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-house",
+      "glyph": "בית",
+      "roman": "bayit",
+      "ipa": "ˈbajit",
+      "meaning": "房屋；家",
+      "pointed": "בַּיִת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-b",
+        "he-y",
+        "he-tav",
+        "he-patah",
+        "he-hiriq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%91%D7%99%D7%AA?oldid=92530969",
+      "checked": "2026-11-01",
+      "revision": 92530969,
+      "sourceIPA": [
+        "/ˈbajt/",
+        "/ˈba.jit/ [ˈbɐ.jiθ]",
+        "/ˈba.jiθ/ [ˈbaː.jiθ]",
+        "/ˈba.jiθ/ [ˈbæ.jiθ]",
+        "/ˈba.jiθ/ [ˈba.jiθ]",
+        "[ˈba.jit]",
+        "/ˈba.jiθ/ [ˈba.jit]",
+        "/ˈba.jis/ [ˈbɑ.jɪs]",
+        "/ˈba.jit/ [ˈbɐ.(j)it]",
+        "/beːt/",
+        "[beːθ]",
+        "/beːt/ [beːθ]",
+        "/beθ/ [beθ]",
+        "[bet]",
+        "/bet/ [be̞t]",
+        "/beɪs/",
+        "[bɛjs]",
+        "[bajs]"
+      ],
+      "sourceTranscription": [
+        "báyit",
+        "béyt, beṯ",
+        "habáyit",
+        "biyét",
+        "buyát"
+      ],
+      "headwords": [
+        "בַּיִת",
+        "בֵּית",
+        "הַבַּיִת",
+        "בִּיֵּת",
+        "בֻּיַּת"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-moshav",
+      "glyph": "מושב",
+      "roman": "moshav",
+      "ipa": "moˈʃav",
+      "meaning": "莫沙夫；一种乡村聚落",
+      "pointed": "מוֹשָׁב",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-m",
+        "he-v",
+        "he-sh",
+        "he-vet",
+        "he-holam-vav",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%9E%D7%95%D7%A9%D7%91?oldid=88333270",
+      "checked": "2026-11-01",
+      "revision": 88333270,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "mosháv"
+      ],
+      "headwords": [
+        "מוֹשָׁב"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-kibbutz",
+      "glyph": "קיבוץ",
+      "roman": "kibbuts",
+      "ipa": "kiˈbuts",
+      "meaning": "基布兹；一种集体聚落",
+      "pointed": "קִבּוּץ",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-qof",
+        "he-y",
+        "he-b",
+        "he-v",
+        "he-final-ts",
+        "he-hiriq",
+        "he-shuruq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A7%D7%99%D7%91%D7%95%D7%A5?oldid=92283822",
+      "checked": "2026-11-01",
+      "revision": 92283822,
+      "sourceIPA": [
+        "/qibˈbusˤ/",
+        "/kiˈbut͡s/"
+      ],
+      "sourceTranscription": [
+        "kibúts"
+      ],
+      "headwords": [
+        "קיבוץ / קִבּוּץ"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-garden",
+      "glyph": "גן",
+      "roman": "gan",
+      "ipa": "ˈɡan",
+      "meaning": "花园；园",
+      "pointed": "גַּן",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-g",
+        "he-final-n",
+        "he-patah"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%92%D7%9F?oldid=91992038",
+      "checked": "2026-11-01",
+      "revision": 91992038,
+      "sourceIPA": [
+        "/ɡan/",
+        "/ɡen/"
+      ],
+      "sourceTranscription": [
+        "gan",
+        "gen"
+      ],
+      "headwords": [
+        "גַּן",
+        "גֶּן"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-israel",
+      "glyph": "ישראל",
+      "roman": "yisra'el",
+      "ipa": "jisʁaˈʔel",
+      "meaning": "以色列",
+      "pointed": "יִשְׂרָאֵל",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-y",
+        "he-sin",
+        "he-r",
+        "he-alef",
+        "he-l",
+        "he-hiriq",
+        "he-sheva",
+        "he-qamats",
+        "he-tsere"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%99%D7%A9%D7%A8%D7%90%D7%9C?oldid=92516475",
+      "checked": "2026-11-01",
+      "revision": 92516475,
+      "sourceIPA": [
+        "/jiɬ.raːˈʔil/",
+        "/jiʃ.rɒ.el/ [jiʃˈrɒː.ʔəl]",
+        "/jis.rɔːˈʔeːl/ [jis.rˤɔːˈʔeːel]",
+        "/jis.rɔˈʔel/ [jis.rɔːˈʔeːl]",
+        "/jis.raˈ(ʔ)el/",
+        "/jis.rɔˈ(ʔ)ejl/",
+        "/jis.ruˈ(ʔ)ajl/",
+        "/(j)is.ʁaˈ(ʔ)el/"
+      ],
+      "sourceTranscription": [
+        "yisra'él"
+      ],
+      "headwords": [
+        "יִשְׂרָאֵל"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/(j)is.ʁaˈ(ʔ)el/",
+        "selectedIPA": "jisʁaˈʔel",
+        "note": "Select both explicitly optional consonants."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": []
+    },
+    {
+      "id": "he-word-jerusalem",
+      "glyph": "ירושלים",
+      "roman": "Yerushalayim",
+      "ipa": "jeʁuʃaˈlajim",
+      "meaning": "耶路撒冷",
+      "pointed": "יְרוּשָׁלַיִם",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-y",
+        "he-r",
+        "he-v",
+        "he-sh",
+        "he-l",
+        "he-final-m",
+        "he-sheva",
+        "he-shuruq",
+        "he-qamats",
+        "he-patah",
+        "he-hiriq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D?oldid=90979199",
+      "checked": "2026-11-01",
+      "revision": 90979199,
+      "sourceIPA": [
+        "/ja.ruː.ʃaːˈlim/",
+        "/ja.ruː.ʃaːˈlajm/",
+        "/jruː.ʃɔːˈla.jim/ [ja.ʀuː.ʃɔːˈlaː.jim]",
+        "/jə.ru.ʃɔˈla.jim/ [jæ.ruː.ʃɔːˈlæː.jim]",
+        "/je.ru.ʃaˈla.jim/"
+      ],
+      "sourceTranscription": [
+        "y'rushaláyim"
+      ],
+      "headwords": [
+        "יְרוּשָׁלַיִם"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Jerusalem",
+        "Yerushalayim"
+      ]
+    },
+    {
+      "id": "he-word-tel-aviv",
+      "glyph": "תל אביב",
+      "roman": "Tel Aviv",
+      "ipa": "tel aˈviv",
+      "meaning": "特拉维夫",
+      "pointed": "תֵּל אָבִיב",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-tav",
+        "he-l",
+        "he-alef",
+        "he-vet",
+        "he-y",
+        "he-tsere",
+        "he-qamats",
+        "he-hiriq"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%AA%D7%9C_%D7%90%D7%91%D7%99%D7%91?oldid=87827666",
+      "checked": "2026-11-01",
+      "revision": 87827666,
+      "sourceIPA": [
+        "/tel (ʔ)a.ˈviv/",
+        "/teːl ʔɔːˈviːv/"
+      ],
+      "sourceTranscription": [
+        "tel 'avív"
+      ],
+      "headwords": [
+        "תֵּל־אָבִיב"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/tel (ʔ)a.ˈviv/",
+        "selectedIPA": "tel aˈviv",
+        "note": "Select zero initial glottal stop in Aviv."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Tel Aviv",
+        "Tel-Aviv"
+      ]
+    },
+    {
+      "id": "he-word-haifa",
+      "glyph": "חיפה",
+      "roman": "ẖefa",
+      "ipa": "ˈχajfa",
+      "meaning": "海法",
+      "pointed": "חֵיפָה",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-het",
+        "he-y",
+        "he-f",
+        "he-h",
+        "he-tsere",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%97%D7%99%D7%A4%D7%94?oldid=88429464",
+      "checked": "2026-11-01",
+      "revision": 88429464,
+      "sourceIPA": [
+        "/χiˈpa/",
+        "/χejˈfa/",
+        "/ˈχajfa/"
+      ],
+      "sourceTranscription": [
+        "khipá",
+        "kheifá"
+      ],
+      "headwords": [
+        "חיפה / חִפָּה",
+        "חֵיפָה"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Haifa",
+        "Hefa"
+      ]
+    },
+    {
+      "id": "he-word-beer-sheva",
+      "glyph": "באר שבע",
+      "roman": "Be'er Sheva",
+      "ipa": "ˌbeʔeʁ ˈʃeva",
+      "meaning": "贝尔谢巴",
+      "pointed": "בְּאֵר שֶׁבַע",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-b",
+        "he-alef",
+        "he-r",
+        "he-sh",
+        "he-vet",
+        "he-ayin",
+        "he-sheva",
+        "he-tsere",
+        "he-segol",
+        "he-patah"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%91%D7%90%D7%A8_%D7%A9%D7%91%D7%A2?oldid=89828422",
+      "checked": "2026-11-01",
+      "revision": 89828422,
+      "sourceIPA": [
+        "/ˌbe(ʔ)eʁ ˈʃeva(ʕ)/"
+      ],
+      "sourceTranscription": [
+        "b'ér shéva'"
+      ],
+      "headwords": [
+        "בְּאֵר שֶׁבַע"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/ˌbe(ʔ)eʁ ˈʃeva(ʕ)/",
+        "selectedIPA": "ˌbeʔeʁ ˈʃeva",
+        "note": "Select the optional alef and omit the optional final pharyngeal; retain secondary stress."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Be'er Sheva",
+        "Beer Sheva",
+        "Beersheba"
+      ]
+    },
+    {
+      "id": "he-word-eilat",
+      "glyph": "אילת",
+      "roman": "Elat",
+      "ipa": "eˈlat",
+      "meaning": "埃拉特",
+      "pointed": "אֵילַת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-alef",
+        "he-y",
+        "he-l",
+        "he-tav",
+        "he-tsere",
+        "he-patah"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%90%D7%99%D7%9C%D7%AA?oldid=87866584",
+      "checked": "2026-11-01",
+      "revision": 87866584,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "ēlát",
+        "ayélet"
+      ],
+      "headwords": [
+        "אֵילַת",
+        "אַיֶּלֶת"
+      ],
+      "evidence": "lexical-transcription-plus-manual-broad-IPA",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Eilat",
+        "Elat"
+      ]
+    },
+    {
+      "id": "he-word-ashdod",
+      "glyph": "אשדוד",
+      "roman": "Ashdod",
+      "ipa": "aʃˈdod",
+      "meaning": "阿什杜德",
+      "pointed": "אַשְׁדּוֹד",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-alef",
+        "he-sh",
+        "he-d",
+        "he-v",
+        "he-patah",
+        "he-sheva",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%90%D7%A9%D7%93%D7%95%D7%93?oldid=87866572",
+      "checked": "2026-11-01",
+      "revision": 87866572,
+      "sourceIPA": [
+        "/(ʔ)aʃˈdod/"
+      ],
+      "sourceTranscription": [
+        "ashdód"
+      ],
+      "headwords": [
+        "אַשְׁדּוֹד"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/(ʔ)aʃˈdod/",
+        "selectedIPA": "aʃˈdod",
+        "note": "Select zero initial glottal stop."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Ashdod"
+      ]
+    },
+    {
+      "id": "he-word-ashkelon",
+      "glyph": "אשקלון",
+      "roman": "Ashkelon",
+      "ipa": "aʃkeˈlon",
+      "meaning": "阿什凯隆",
+      "pointed": "אַשְׁקְלוֹן",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-alef",
+        "he-sh",
+        "he-qof",
+        "he-l",
+        "he-v",
+        "he-final-n",
+        "he-patah",
+        "he-sheva",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%90%D7%A9%D7%A7%D7%9C%D7%95%D7%9F?oldid=90888190",
+      "checked": "2026-11-01",
+      "revision": 90888190,
+      "sourceIPA": [
+        "/(ʔ)aʃkeˈlon/"
+      ],
+      "sourceTranscription": [
+        "ashk'lón"
+      ],
+      "headwords": [
+        "אַשְׁקְלוֹן"
+      ],
+      "manualSelection": {
+        "sourceIPA": "/(ʔ)aʃkeˈlon/",
+        "selectedIPA": "aʃkeˈlon",
+        "note": "Select zero initial glottal stop."
+      },
+      "evidence": "listed-IPA-with-explicit-variant-selection",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Ashkelon",
+        "Ashqelon"
+      ]
+    },
+    {
+      "id": "he-word-netanya",
+      "glyph": "נתניה",
+      "roman": "Netanya",
+      "ipa": "netanˈja",
+      "meaning": "内坦亚",
+      "pointed": "נְתַנְיָה",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-n",
+        "he-tav",
+        "he-y",
+        "he-h",
+        "he-sheva",
+        "he-patah",
+        "he-qamats"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A0%D7%AA%D7%A0%D7%99%D7%94?oldid=88042378",
+      "checked": "2026-11-01",
+      "revision": 88042378,
+      "sourceIPA": [
+        "/netanˈja/",
+        "/naˈtanja/"
+      ],
+      "sourceTranscription": [
+        "netanya"
+      ],
+      "headwords": [
+        "נְתַנְיָה"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Netanya",
+        "Natanya"
+      ]
+    },
+    {
+      "id": "he-word-akko",
+      "glyph": "עכו",
+      "roman": "Akko",
+      "ipa": "ˈako",
+      "meaning": "阿卡",
+      "pointed": "עַכּוֹ",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-ayin",
+        "he-k",
+        "he-v",
+        "he-patah",
+        "he-holam-vav"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A2%D7%9B%D7%95?oldid=92272864",
+      "checked": "2026-11-01",
+      "revision": 92272864,
+      "sourceIPA": [
+        "/ˈako/",
+        "/ʕɑˈkkoː/"
+      ],
+      "sourceTranscription": [
+        "áko"
+      ],
+      "headwords": [
+        "עַכּוֹ"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Akko",
+        "Acre",
+        "Acco"
+      ]
+    },
+    {
+      "id": "he-word-nazareth",
+      "glyph": "נצרת",
+      "roman": "Natsrat",
+      "ipa": "natsˈʁat",
+      "meaning": "拿撒勒",
+      "pointed": "נָצְרַת",
+      "requires": [
+        "he-unpointed",
+        "he-rafe",
+        "he-maps",
+        "he-n",
+        "he-ts",
+        "he-r",
+        "he-tav",
+        "he-qamats",
+        "he-sheva",
+        "he-patah"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%D7%A0%D7%A6%D7%A8%D7%AA?oldid=91772710",
+      "checked": "2026-11-01",
+      "revision": 91772710,
+      "sourceIPA": [
+        "/nat͡sˈʁat/",
+        "/naˈt͡seʁet/"
+      ],
+      "sourceTranscription": [
+        "natsrát or natséret"
+      ],
+      "headwords": [
+        "נָצְרַת"
+      ],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false,
+      "conventionalNames": [
+        "Nazareth",
+        "Natsrat",
+        "Natzeret"
+      ]
+    }
+  ]
+}

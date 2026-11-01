@@ -4,7 +4,7 @@ import { acceptedTypedAnswers, checkTyped, createSession, makeExercise, normaliz
 import { initialState } from './storage';
 
 const scriptCourses = Object.values(courses).filter(course => course.type === 'script');
-const typable = scriptCourses.flatMap(course => course.items.filter(item => item.kind !== 'rule' && !!item.roman));
+const typable = scriptCourses.flatMap(course => course.items.filter(item => item.kind !== 'rule' && !!normalizeAnswer(item.roman)));
 
 describe('keyboard-friendly transcription', () => {
   it.each([
@@ -66,7 +66,7 @@ describe('keyboard-friendly transcription', () => {
       for (const unit of [...course.units, ...(course.extraUnits || [])]) {
         for (const id of unit.items) {
           const item = itemMap[id];
-          if (item.kind !== 'rule' && item.roman) expect(typable).toContain(item);
+          if (item.kind !== 'rule' && normalizeAnswer(item.roman)) expect(typable).toContain(item);
         }
       }
     }
@@ -83,8 +83,8 @@ describe('keyboard-friendly transcription', () => {
     expect(checkTyped(itemMap['th-word-chiangmai'], 'Chiang Mai')).toBe(true);
     expect(checkTyped(itemMap['th-word-ko'], 'Koh')).toBe(true);
     for (const course of scriptCourses) {
-      for (let number = 0; number < 10; number++) {
-        const item = course.items.find(item => item.kind === 'number' && item.roman === String(number))!;
+      for (const item of course.items.filter(item => item.kind === 'number')) {
+        const number = Number(item.roman);
         expect(checkTyped(item, String(number))).toBe(true);
         expect(checkTyped(item, String((number + 1) % 10))).toBe(false);
       }

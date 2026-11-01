@@ -7,7 +7,7 @@ import {
 import { itemMap, kindNames } from '../data';
 import { sources } from '../data/sources';
 import { branchUnitOpen, cardStatus, dueItems, extrasOpen, localDay, mainComplete, nextUnit, reviewDueAt, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
-import { itemLanguageLabel, itemLocale, matchesLanguages, selectedLanguages } from '../lib/languages';
+import { contrastLanguageLabel, itemLocale, matchesLanguages, selectedLanguages } from '../lib/languages';
 import { exportBackup, parseBackup } from '../lib/storage';
 import type { AppState, Course, Knowledge, Session } from '../types';
 import { Modal } from './Modal';
@@ -207,7 +207,7 @@ export function LibraryPage({ state, course, start, inspect, startRush, selectLa
             <span className="tile-roman">{item.kind === 'word' || item.kind === 'rule' || course.type === 'phonetics' ? item.title : item.roman || '不写'}</span>
             <PlaceMap item={item} compact />
             {item.ipa && course.type === 'script' && <span className="tile-ipa phonetic">/{item.ipa}/</span>}
-            {course.languages?.length && <small className="tile-language">{itemLanguageLabel(course, item)}</small>}
+            {contrastLanguageLabel(course, item) && <small className="tile-language">{contrastLanguageLabel(course, item)}</small>}
             {item.class && <small>{item.class}类{item.obsolete ? ' · 历史' : ''}</small>}
             {item.kind === 'word' && <small>{ready ? item.branchId ? '课程分支' : item.extra ? '地名课已解锁' : '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
           </button>;
@@ -283,6 +283,7 @@ export function SourcesPage({ course }: { course: Course }) {
       {' '}<a href="/licenses/NotoSansThai-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai</a>、
       <a href="/licenses/NotoSansThaiLooped-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai Looped</a>、
       <a href="/licenses/NotoSansBengali-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Bengali</a>、
+      <a href="/licenses/NotoSansHebrew-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Hebrew</a>、
       <a href="/licenses/NotoSans-OFL.txt" target="_blank" rel="noreferrer">Noto Sans</a>、
       <a href="/licenses/CharisSIL-OFL.txt" target="_blank" rel="noreferrer">Charis SIL（完整 IPA）</a>。
       均保留 OFL 许可。本站不隶属于 GeoGuessr 或 Duolingo。</p>

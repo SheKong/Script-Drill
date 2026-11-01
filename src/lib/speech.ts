@@ -1,11 +1,15 @@
+function canonicalLocale(language: string): string {
+  const normalized = language.replaceAll('_', '-');
+  try { return Intl.getCanonicalLocales(normalized)[0]?.toLowerCase() || ''; }
+  catch { return normalized.toLowerCase(); }
+}
 export function languageMatches(voiceLanguage: string, language: string): boolean {
-  return voiceLanguage.toLowerCase().replaceAll('_', '-').split('-')[0]
-    === language.toLowerCase().replaceAll('_', '-').split('-')[0];
+  return canonicalLocale(voiceLanguage).split('-')[0] === canonicalLocale(language).split('-')[0];
 }
 
 export function selectVoice(voices: SpeechSynthesisVoice[], language: string): SpeechSynthesisVoice | undefined {
   const candidates = voices.filter(voice => languageMatches(voice.lang, language));
-  const exact = (voice: SpeechSynthesisVoice) => voice.lang.toLowerCase().replaceAll('_', '-') === language.toLowerCase().replaceAll('_', '-');
+  const exact = (voice: SpeechSynthesisVoice) => canonicalLocale(voice.lang) === canonicalLocale(language);
   return candidates.find(voice => exact(voice) && voice.localService)
     || candidates.find(exact)
     || candidates.find(voice => voice.localService) || candidates[0];

@@ -2,6 +2,54 @@ import type { Source } from '../types';
 
 export const sources: Source[] = [
   {
+    id: 'he-ungegn', title: 'Romanization of Hebrew · UN 2007 system · 2013 report',
+    organization: 'UNGEGN · Working Group on Romanization Systems',
+    url: 'https://arhiiv.eki.ee/wgrs/rom1_he.htm',
+    description: '核对 2007 年 IX/9 推荐方案：现代希伯来语地名的辅音、元音、外来音、喉音撇号、dagesh 与静音字母。与 1977 年旧表、ALA-LC、SBL 及地图惯用名分别处理。',
+  },
+  {
+    id: 'he-unicode', title: 'Unicode 17.0 · Hebrew',
+    organization: 'The Unicode Consortium',
+    url: 'https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-9/#G6528',
+    description: '核对 RTL、22 字母、五个词尾形、niqqud、rafe、dagesh、shin/sin 点及 geresh/gershayim。字符编码并不决定词内实际读音。',
+  },
+  {
+    id: 'he-phonology', title: 'Syllable structure and complex onsets in Modern Hebrew · 2019',
+    organization: 'Daniel Asherov & Outi Bat-El · 原始语言学研究',
+    url: 'https://www.outibatel.com/wp-content/uploads/2010/12/Asherov-and-Bat-El-2019-Syllable-structure.pdf',
+    description: '核对现代辅音群、非对立元音长度和可选喉音等现代口语边界；不是全部词条都有独立审定 IPA 的声明。',
+  },
+  {
+    id: 'he-lexicon', title: 'Hebrew lexical entries · pointed forms and readings',
+    organization: 'Wiktionary · 原创词条贡献者',
+    url: 'https://en.wiktionary.org/wiki/Category:Hebrew_lemmas',
+    description: '核对逐词有点形式、词义与读音变体。课程采用人工整理的现代宽式 IPA，具体词条、取舍及待独立审读状态列在 docs/HEBREW_RESEARCH.md，不冒充母语审定。',
+  },
+  {
+    id: 'he-places', title: 'Destination Names for Direction Signs · May 2025',
+    organization: 'Israel Ministry of Transport',
+    url: 'https://www.gov.il/BlobFolder/generalpage/destination_names_for_directions_signage/he/MOTWebsiteUpdate%40mot.gov_.il_4561_Attachment1%20%282%29.pdf',
+    description: '方向标志的希伯来文、阿拉伯文及拉丁地名表，用于核对无点地名与路牌实际拉丁名。不提供有点形式或 IPA，也不把路牌惯用名等同于 UNGEGN 规范转写。',
+  },
+  {
+    id: 'he-pronunciation', title: 'Hebrew Language Learning Resources',
+    organization: 'University of Texas at Austin · Hebrew',
+    url: 'https://hebrew.laits.utexas.edu/tutorials.html',
+    description: '大学原站字母、元音和发音教学入口，仅链接，不转载音频。本站尚无希伯来语真人录音，设备语音和在线整词示范不等于人工录音。',
+  },
+  {
+    id: 'he-boundaries', title: 'Natural Earth · Israel outline · v5.1.2',
+    organization: 'Natural Earth',
+    url: 'https://www.naturalearthdata.com/about/terms-of-use/',
+    description: '公有领域 1:50m 国家数据的 ISR 要素，仅作城市位置示意。派生数据、版本与来源随 /maps/ 提供；边线不表达对争议边界或主权的立场。',
+  },
+  {
+    id: 'as-lsp', title: 'Assamese as Spoken in Assam · Language Specific Peculiarities',
+    organization: 'Appen Butler Hill · Linguistic Data Consortium',
+    url: 'https://catalog.ldc.upenn.edu/docs/LDC2016S06/LSP_102_final.pdf',
+    description: '语料采集者的一手语音说明，页 6–9 核对字母、条件音值、এ /ɛ~e/、ও /ʊ/ 与共用元音。其内部可逆罗马化不是本站 UNGEGN 方案；两者不得混用。',
+  },
+  {
     id: 'bn-script', title: 'The Bangla Script', organization: 'University of Texas at Austin · Bangla OER',
     url: 'https://bangla.la.utexas.edu/resources/the-bangla-script/',
     description: '字母、元音附标、固有元音、合字与 phala 的大学资料。与 UNGEGN 字母转写、IPA 音值分别核对，不用英语近似音代替 IPA。',

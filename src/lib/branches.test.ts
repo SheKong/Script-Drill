@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { courses, itemMap } from '../data';
 import { prepareCourse } from '../data/template';
 import { advanceIntro, answerExercise, branchUnitOpen, createSession, eligibleWords, finishSession, mainComplete, trained, unitDone } from './engine';
-import { itemLanguage, itemLanguageIds, matchesLanguages, rushScoreKey, selectedLanguages } from './languages';
+import { contrastLanguageLabel, itemLanguage, itemLanguageIds, matchesLanguages, rushScoreKey, selectedLanguages } from './languages';
 import { initialState, parseBackup } from './storage';
 import { rushPool } from './rush';
 import type { AppState } from '../types';
@@ -79,6 +79,35 @@ describe('parallel language branches', () => {
 });
 
 describe('language-aware library and Rush data', () => {
+  it('omits badges for genuinely shared content, not for language-specific readings', () => {
+    for (const id of ['bn-k', 'bn-aa-sign', 'bn-num-0', 'bn-candrabindu']) {
+      expect(contrastLanguageLabel(course, itemMap[id]), id).toBe('');
+    }
+    for (const id of ['bn-r', 'bn-e', 'bn-e-sign', 'bn-o', 'bn-o-sign']) {
+      expect(contrastLanguageLabel(course, itemMap[id]), id).toBe('孟加拉语');
+    }
+    for (const id of ['as-r', 'as-e', 'as-e-sign', 'as-o', 'as-o-sign']) {
+      expect(contrastLanguageLabel(course, itemMap[id]), id).toBe('阿萨姆语');
+    }
+    expect(contrastLanguageLabel(courses.thai, itemMap['th-k'])).toBe('');
+    const extended = { ...course, languages: [...course.languages!, { ...course.languages![0], id: 'third', label: '第三语言' }] };
+    expect(contrastLanguageLabel(extended, itemMap['bn-k'])).toBe('孟加拉语 · 阿萨姆语');
+    expect(contrastLanguageLabel(extended, { ...itemMap['bn-k'], languageIds: ['as', 'third', 'bn'] })).toBe('');
+  });
+  it('keeps Assamese vowel values independent of the Bengali primary cards', () => {
+    for (const [main, branch, value] of [
+      ['bn-e', 'as-e', 'ɛ'], ['bn-e-sign', 'as-e-sign', 'ɛ'],
+      ['bn-o', 'as-o', 'ʊ'], ['bn-o-sign', 'as-o-sign', 'ʊ'],
+    ]) {
+      expect(itemLanguageIds(course, itemMap[main])).toEqual(['bn']);
+      expect(itemMap[branch].ipa).toBe(value);
+      expect(itemMap[branch].sources).toContain('as-lsp');
+      expect(matchesLanguages(course, itemMap[main], ['as'])).toBe(false);
+    }
+    expect(itemMap['as-word-tezpur'].requires).toContain('as-e-sign');
+    expect(itemMap['as-word-jorhat'].requires).toContain('as-o-sign');
+    expect(itemMap['bn-glide'].explanation).toContain('阿萨姆语 /j/ 多见于英语借词');
+  });
   for (const selection of [[], ['bn'], ['as'], ['as', 'bn']]) {
     it(`uses union semantics without duplicating shared entries for ${selection.join('+') || 'none'}`, () => {
       const state = { ...fresh(), earlyExtraUnlocks: { bengali: true }, languageSelections: { bengali: selection } };

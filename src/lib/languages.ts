@@ -15,6 +15,13 @@ export const itemLanguage = (course: Course, item: Knowledge) =>
 export const itemLocale = (course: Course, item: Knowledge) => itemLanguage(course, item)?.locale || course.locale;
 export const itemLanguageLabel = (course: Course, item: Knowledge) => course.languages
   ?.filter(language => itemLanguageIds(course, item).includes(language.id)).map(language => language.label).join(' · ');
+// Badges distinguish readings, not scripts. Shared knowledge needs no badge,
+// even when the current library or Rush selection includes only one language.
+export const contrastLanguageLabel = (course: Course, item: Knowledge): string => {
+  const languages = course.languages || [];
+  if (languages.length < 2 || languages.every(language => itemLanguageIds(course, item).includes(language.id))) return '';
+  return itemLanguageLabel(course, item) || '';
+};
 export const romanizationName = (course: Course, item: Knowledge) =>
   itemLanguage(course, item)?.romanizationName || course.romanizationName;
 

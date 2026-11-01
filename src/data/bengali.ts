@@ -98,7 +98,7 @@ const consonantRows: LetterRow[] = [
   ['j', 'জ', 'j', 'dʒ', '浊塞擦音；孟加拉国常更接近 [dʑ]，不是英语 yes 开头的 /j/。'],
   ['jh', 'ঝ', 'jh', 'dʒʱ', '带气声的浊塞擦音。不要把它与送气清音 ছ 混淆。'],
   ['y', 'য', 'j̱', 'dʒ', 'UNGEGN 用带下横线的 j̱，与 জ 的 j 区分拼写；独立使用时常与 জ 同音，通常不是 IPA /j/。য-ফলা 在合字中转写 y，另有条件读法。'],
-  ['ny', 'ঞ', 'ñ', 'n', 'UNGEGN ñ 保留历史字母区别。现代标准语中多见于合字，常并入鼻音；如 ঞ্জ 可读 /ndʒ/，不能据字母转写要求所有词都读 /ɲ/。'],
+  ['ny', 'ঞ', 'ñ', 'n', 'UNGEGN ñ 保留历史字母区别；本卡取现代语中并入 /n/ 的宽式值，不要求所有词都读 /ɲ/。合字必须分语言核对：例如 ঞ্জ 的孟加拉语读法不能自动套用到阿萨姆语。'],
   ['retro-t', 'ট', 'ṭ', 'ʈ', 'UNGEGN ṭ 区分齿音 ত 的 t。传统宽式称卷舌系列；孟加拉国常偏齿龈后、未必强卷舌。地图英语常省略下点。'],
   ['retro-th', 'ঠ', 'ṭh', 'ʈʰ', 'ট 系列的送气清音；舌位比 থ 靠后，送气仍是另一个维度。'],
   ['retro-d', 'ড', 'ḍ', 'ɖ', 'ট 系列的浊音；不是齿音 দ。在借词与地名中也常见。'],
@@ -106,7 +106,7 @@ const consonantRows: LetterRow[] = [
   ['retro-n', 'ণ', 'ṇ', 'n', 'UNGEGN ṇ 保留梵语来源拼写；现代孟加拉语通常与 ন 合流，不要求另背一个卷舌 /ɳ/。'],
   ['flap', 'ড়', 'ṙ', 'ɽ', 'UNGEGN ṙ 使用上点，与 র 的 r 区分。ড 加下点形成的字母，传统宽式记 /ɽ/，如 পাড়া；孟加拉国常与 /ɹ/ 合流。', ['retro-d']],
   ['flap-h', 'ঢ়', 'ṙh', 'ɽʱ', 'UNGEGN ṙh；ঢ 加下点形成的历史气声闪音字母，现代读法有合流与弱化。不能把它看成普通 ঢ。', ['retro-dh']],
-  ['glide', 'য়', 'y', 'j', 'UNGEGN y，与 য 的 j̱ 不同；常连接元音或参与滑音，实际可表现为 /j/、[e̯] 等，依词核对。不能自动插入完整的 /dʒɔ/ 音节。', ['y']],
+  ['glide', 'য়', 'y', 'j', 'UNGEGN y，与 য 的 j̱ 不同；本卡限定练两语言都出现的 /j/，不是所有词的默认替换值。孟加拉语中也可参与 [e̯] 等滑音；阿萨姆语 /j/ 多见于英语借词，母语词中的 য় 还可对应 /i/、/e/，如 তিনিচুকীয়া 的整词音值另给出，不能机械插入 /j/。也不能读成完整的 /dʒɔ/ 音节。', ['y']],
   ['s', 'স', 's', 'ʃ', 'UNGEGN 固定写 s；IPA 本卡记常见 /ʃ/，不是唯一读法。在 রাস্তা、স্কুল、部分地名与借词中还可读 /s/。'],
   ['sh', 'শ', 'sh', 'ʃ', '常见的清龈后擦音，近似英语 sh。与 স、ষ 的拼写不同，现代读音常合流。'],
   ['ss', 'ষ', 'ṣh', 'ʃ', 'UNGEGN ṣh 区分 শ 的 sh；现代语中二者通常同为 /ʃ/。合字 ক্ষ、ষ্ট 等的读音不能逐字相加。'],
@@ -325,7 +325,10 @@ export const bengaliCourse: Course = {
   geography: { ...geography, projection: { ...geography.projection, translate: geography.projection.translate as [number, number] } },
   geographies: { india: { ...indiaGeography, projection: { ...indiaGeography.projection, translate: indiaGeography.projection.translate as [number, number] } } },
   items: [...rules, ...consonants, ...vowels, ...clusters, ...numbers, ...words, ...cityItems, ...bengaliExtensionItems, ...bengaliNewPlaces]
-    .map<Knowledge>(item => ({ ...item, languageIds: sharedBengaliIds.has(item.id) ? ['bn', 'as'] : ['bn'] }))
+    .map<Knowledge>(item => ({
+      ...item, languageIds: sharedBengaliIds.has(item.id) ? ['bn', 'as'] : ['bn'],
+      sources: sharedBengaliIds.has(item.id) ? [...new Set([...item.sources, 'as-ungegn', 'as-lsp'])] : item.sources,
+    }))
     .concat(assameseItems),
   units: [...units.slice(0, 15), ...bengaliExtensionUnits, ...units.slice(15)],
   extraUnits: bengaliExtraUnits,

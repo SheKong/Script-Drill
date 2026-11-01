@@ -7,7 +7,7 @@ import { useScriptStyle } from './ScriptVariants';
 import { PlaceMap } from './PlaceMap';
 import { Modal } from './Modal';
 import { chooseMatch, type MatchSelection, type MatchSide } from '../lib/matching';
-import { itemLanguageLabel, itemLocale, rushScoreKey, selectedLanguages } from '../lib/languages';
+import { contrastLanguageLabel, itemLocale, rushScoreKey, selectedLanguages } from '../lib/languages';
 
 export type StartRush = (mode: RushMode) => void;
 export function RushEntryPoints({ state, course, startRush: start }: { state: AppState; course: Course; startRush: StartRush }) {
@@ -94,9 +94,9 @@ export function Rush({ state, course, mode, onExit, onFinish, onRestart }: {
       </div>}
       <div className="matching-grid rush-grid">
         <div>{board.left.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button script-match ${scriptClass} ${entry.glyph.length > 8 ? 'dense-glyph' : ''} ${selected?.side === 'left' && selected.id === entry.id ? 'selected' : ''} ${wrong?.left === entry.id ? 'wrong' : ''}`}
-          dir={course.direction} lang={entry.item ? itemLocale(course, entry.item) : course.locale} aria-pressed={selected?.side === 'left' && selected.id === entry.id} onClick={() => match('left', entry.id)}>{course.languages?.length && entry.item && <small className="entry-language">{itemLanguageLabel(course, entry.item)}</small>}<span>{entry.glyph}</span><PlaceMap item={entry.item} compact anonymous /></button>)}</div>
+          dir={course.direction} lang={entry.item ? itemLocale(course, entry.item) : course.locale} aria-pressed={selected?.side === 'left' && selected.id === entry.id} onClick={() => match('left', entry.id)}>{entry.item && contrastLanguageLabel(course, entry.item) && <small className="entry-language" dir="ltr" lang="zh-CN">{contrastLanguageLabel(course, entry.item)}</small>}<span>{entry.glyph}</span><PlaceMap item={entry.item} compact anonymous /></button>)}</div>
         <div>{board.right.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button phonetic ${entry.reading.length > 35 ? 'dense-reading' : ''} ${selected?.side === 'right' && selected.id === entry.id ? 'selected' : ''} ${wrong?.right === entry.id ? 'wrong' : ''}`}
-          aria-pressed={selected?.side === 'right' && selected.id === entry.id} onClick={() => match('right', entry.id)}><span>{entry.reading}</span></button>)}</div>
+          dir="ltr" aria-pressed={selected?.side === 'right' && selected.id === entry.id} onClick={() => match('right', entry.id)}><span>{entry.reading}</span></button>)}</div>
       </div>
       <div className="rush-status"><RotateCcw size={13} />配对 +1 · 错配 −1</div>
     </main>

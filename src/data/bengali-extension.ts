@@ -124,6 +124,6 @@ export const bengaliExtraUnits: Unit[] = groups.map(([title, names, phase], inde
 export const sharedBengaliIds = new Set(pre([
   'k', 'kh', 'g', 'gh', 'ng', 'n', 'm', 'p', 'ph', 'b', 'bh', 'l', 'ny', 'retro-n', 'h',
   'a', 'aa', 'i', 'ii', 'u', 'uu', 'aa-sign', 'i-sign', 'ii-sign', 'u-sign', 'uu-sign',
-  'e', 'o', 'e-sign', 'o-sign', 'ai', 'au', 'ai-sign', 'au-sign', 'anusvara', 'candrabindu', 'glide',
+  'ai', 'au', 'ai-sign', 'au-sign', 'anusvara', 'candrabindu', 'glide',
   ...Array.from({ length: 10 }, (_, index) => `num-${index}`),
 ]));

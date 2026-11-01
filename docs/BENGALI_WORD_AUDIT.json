@@ -11,7 +11,7 @@
   "independentNativeReview": false,
   "counts": {
     "units": 21,
-    "knowledge": 136,
+    "knowledge": 140,
     "mainWords": 29,
     "extraCities": 40,
     "listedIPA": 45,
@@ -19,6 +19,13 @@
     "manualBroadPendingReview": 24
   },
   "sources": [
+    {
+      "id": "as-lsp",
+      "title": "Assamese as Spoken in Assam · Language Specific Peculiarities",
+      "organization": "Appen Butler Hill · Linguistic Data Consortium",
+      "url": "https://catalog.ldc.upenn.edu/docs/LDC2016S06/LSP_102_final.pdf",
+      "description": "语料采集者的一手语音说明，页 6–9 核对字母、条件音值、এ /ɛ~e/、ও /ʊ/ 与共用元音。其内部可逆罗马化不是本站 UNGEGN 方案；两者不得混用。"
+    },
     {
       "id": "bn-script",
       "title": "The Bangla Script",
@@ -4059,7 +4066,7 @@
       "requires": [
         "as-overview",
         "as-y",
-        "bn-o-sign",
+        "as-o-sign",
         "as-r",
         "bn-h",
         "bn-aa-sign",
@@ -4116,7 +4123,7 @@
       "requires": [
         "as-overview",
         "as-t",
-        "bn-e-sign",
+        "as-e-sign",
         "as-j",
         "bn-p",
         "bn-u-sign",
@@ -4176,7 +4183,7 @@
         "bn-g",
         "bn-aa-sign",
         "bn-candrabindu",
-        "bn-o",
+        "as-o",
         "as-nasal"
       ],
       "segments": [
@@ -4465,7 +4472,7 @@
         "bn-i",
         "bn-g",
         "bn-candrabindu",
-        "bn-o",
+        "as-o",
         "as-nasal"
       ],
       "segments": [

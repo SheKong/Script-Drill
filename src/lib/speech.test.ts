@@ -19,6 +19,12 @@ describe('speech language selection', () => {
     const underscored = voice('TH_th', true);
     expect(selectVoice([remote, underscored], 'th-TH')).toBe(underscored);
   });
+  it('recognizes the legacy Hebrew iw locale without accepting another language', () => {
+    const hebrew = voice('iw-IL', true);
+    expect(languageMatches('iw-IL', 'he')).toBe(true);
+    expect(selectVoice([voice('en-US'), hebrew], 'he-IL')).toBe(hebrew);
+    expect(selectVoice([voice('ar-IL'), voice('yi')], 'he')).toBeUndefined();
+  });
   it('uses explicit text and a configured language for online listening', () => {
     for (const [language, code] of [['TH_th', 'th'], ['ar', 'ar'], ['bn-BD', 'bn']]) {
       const text = 'กอ ไก่ & #?';

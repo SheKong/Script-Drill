@@ -32,6 +32,15 @@ const letters: Knowledge[] = [
   ] as string[][]).map(([id, glyph, roman, ipa, explanation, prerequisite]) => knowledge(id, glyph, roman, ipa, explanation, [prerequisite])),
   { ...knowledge('ri', 'ঋ', 'ṛ', 'ɹi', '梵语来源元音字母，现代阿萨姆语通常读 /ɹi/，不要求音节性 r。', ['bn-ri']), kind: 'vowel' },
   { ...knowledge('ri-sign', '◌ৃ', 'ṛ', 'ɹi', 'ঋ 的附标；字体上与 u 附标不同，实际 r 的实现按阿萨姆语处理。', ['bn-ri-sign']), kind: 'vowel' },
+  ...([
+    ['e', 'এ', 'e', 'ɛ', 'এ 可对应 /ɛ/ 或受元音和谐影响的 /e/；本卡记 /ɛ/，不把孟加拉语卡片的常见 /e/ 当作唯一值。整词读法另核对。', 'bn-e'],
+    ['e-sign', '◌ে', 'e', 'ɛ', 'এ 的元音附标，也有 /ɛ~e/ 的条件变化；তেজপুৰ 中采用 /ɛ/。显示在基字左侧，仍在辅音后读。', 'bn-e-sign'],
+    ['o', 'ও', 'o', 'ʊ', 'UNGEGN o 保留拼写；阿萨姆语的常见单元音值为 /ʊ/，不是孟加拉语卡片的 /o/。元音相邻时可参与双元音，不能机械替换地名。', 'bn-o'],
+    ['o-sign', '◌ো', 'o', 'ʊ', 'ও 的两侧附标，常见单元音为 /ʊ/；不与孟加拉语 /o/ 卡共用。词中音值与变体要单独核查。', 'bn-o-sign'],
+  ] as string[][]).map(([id, glyph, roman, ipa, explanation, prerequisite]) => ({
+    ...knowledge(id, glyph, roman, ipa, explanation, [prerequisite]),
+    kind: 'vowel' as const, sources: [...refs, 'as-lsp'],
+  })),
   knowledge('br', 'ব্ৰ', 'br', 'bɹ', 'ব্ + ৰ；ডিব্ৰুগড় 的 ব্ৰু 要作为完整字块认读。阿萨姆语用 ৰ，不要把形状强行换回孟加拉语 র。', ['bn-hasanta', 'bn-b', 'as-r']),
   knowledge('pr', 'প্ৰ', 'pr', 'pɹ', 'প্ + ৰ；অসমীয়া 的 ৰ-ফলা 与孟加拉语 প্র 对照。辅音之间不插固有元音。', ['bn-hasanta', 'bn-p', 'as-r']),
   knowledge('ndr', 'ন্দ্ৰ', 'ndr', 'ndɹ', 'ন্ + দ্ + ৰ；同一个组合在两种语言里字形与实际齿音位置可以不同，不能复用孟加拉语条目的整段 IPA。', ['bn-hasanta', 'bn-n', 'as-d', 'as-r']),
@@ -72,7 +81,8 @@ const cities: CityRow[] = [
 const places: Knowledge[] = cities.map(([id, glyph, name, ipa, names, coordinates, requires, segments]) => ({
   id: `as-word-${id}`, courseId: 'bengali', branchId, languageIds: ['as'], kind: 'word', glyph,
   roman: segments.map(segment => segment[1]).join(''), ipa, title: name, meaning: name,
-  conventionalNames: names, requires: ['as-overview', ...requires], sources: [...refs, 'as-places'],
+  conventionalNames: names, requires: ['as-overview', ...requires.map(id =>
+    ['bn-e-sign', 'bn-o', 'bn-o-sign'].includes(id) ? id.replace('bn-', 'as-') : id)], sources: [...refs, 'as-places'],
   group: '阿萨姆语 · 地名', place: { type: 'city', coordinates, mapId: 'india' },
   explanation: `${id === 'guwahati' ? '本词采用词典列出的 ৱ 弱化变体 /ɡuɑɦɑti/，不是按字母卡机械拼成 /w/。' : ''}印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。`,
   context: '印度 · 阿萨姆邦城市；阿萨姆语词条，不使用孟加拉语设备语音。',
@@ -93,7 +103,7 @@ export const assameseBranch: CourseBranch = {
     unit(1, '先认出 ৰ、ৱ 与 /x/', ['overview', 'r', 'w', 's', 'sh', 'ss']),
     unit(2, 'চ、জ 系列的阿萨姆语读法', ['ch', 'chh', 'j', 'jh', 'y']),
     unit(3, '齿音、卷舌拼写与现代合流', ['t', 'th', 'd', 'dh', 'retro-t', 'retro-th', 'retro-d', 'retro-dh', 'flap', 'flap-h']),
-    unit(4, '共用附标与阿萨姆语合字', ['ri', 'ri-sign', 'br', 'pr', 'ndr', 'nasal']),
+    unit(4, '元音差异与阿萨姆语合字', ['ri', 'ri-sign', 'e', 'e-sign', 'o', 'o-sign', 'br', 'pr', 'ndr', 'nasal']),
     {
       ...unit(5, '阿萨姆邦 · 10 个重要城市', cities.map(row => `word-${row[0]}`)),
       subtitle: '古瓦哈提、迪布鲁格尔、焦尔哈特等', placeLesson: true, supplementary: true,

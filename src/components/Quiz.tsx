@@ -10,7 +10,7 @@ import { NotationText } from './NotationText';
 import { PlaceMap } from './PlaceMap';
 import { AcceptedAnswers } from './AcceptedAnswers';
 import { chooseMatch, type MatchSelection, type MatchSide } from '../lib/matching';
-import { itemLanguageLabel, itemLocale } from '../lib/languages';
+import { contrastLanguageLabel, itemLanguageLabel, itemLocale } from '../lib/languages';
 
 interface Feedback { correct: boolean; pairs?: Record<string, boolean> }
 export function Quiz({ state, onIntro, onAnswer, onPause }: {
@@ -121,10 +121,10 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
           <div>{exercise.pairs!.map(p => <button key={p.id} data-entry-id={p.id} disabled={matched.includes(p.id) || !!feedback}
             className={`match-button script-match ${scriptClass} ${p.left.length > 8 ? 'dense-glyph' : ''} ${pairSelection?.side === 'left' && pairSelection.id === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair?.left === p.id ? 'wrong' : ''}`}
             dir={course.direction} lang={itemLocale(course, itemMap[p.id])}
-            aria-pressed={pairSelection?.side === 'left' && pairSelection.id === p.id} onClick={() => match('left', p.id)}>{course.languages?.length && <small className="entry-language">{itemLanguageLabel(course, itemMap[p.id])}</small>}<span>{p.left}</span><PlaceMap item={itemMap[p.id]} compact anonymous />{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+            aria-pressed={pairSelection?.side === 'left' && pairSelection.id === p.id} onClick={() => match('left', p.id)}>{contrastLanguageLabel(course, itemMap[p.id]) && <small className="entry-language" dir="ltr" lang="zh-CN">{contrastLanguageLabel(course, itemMap[p.id])}</small>}<span>{p.left}</span><PlaceMap item={itemMap[p.id]} compact anonymous />{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
           <div>{rightPairs.map(p => <button key={p.id} data-entry-id={p.id} disabled={matched.includes(p.id) || !!feedback}
             className={`match-button phonetic ${p.right.length > 35 ? 'dense-reading' : ''} ${pairSelection?.side === 'right' && pairSelection.id === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair?.right === p.id ? 'wrong' : ''}`}
-            aria-pressed={pairSelection?.side === 'right' && pairSelection.id === p.id} onClick={() => match('right', p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+            dir="ltr" aria-pressed={pairSelection?.side === 'right' && pairSelection.id === p.id} onClick={() => match('right', p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
           <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} aria-describedby="transcription-format" autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
@@ -155,7 +155,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
       <div className="quiz-footer-inner">
         {feedback ? <div className="feedback-copy" role="status">
           <div className="feedback-title">{feedback.correct ? <Check size={22} /> : <RotateCcw size={22} />}<h2>{isMatch ? feedback.correct ? '配对完成，继续' : '配对完成，易混项会再出现' : feedback.correct ? item.kind === 'word' ? item.meaning : '记住了，继续' : '差一点，再记一次'}</h2></div>
-          {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={course.locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.kind === 'mark' ? `◌${exercise.answer} · 声调符号` : exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
+          {!isMatch && <><p><strong className={scriptClass} dir={course.direction} lang={locale}>{exercise.combination?.glyph || item.glyph}</strong><span> → </span><NotationText text={exercise.kind === 'mark' ? `◌${exercise.answer} · 声调符号` : exercise.combination ? `${exercise.combination.roman} /${exercise.combination.ipa}/` : item.kind === 'rule' ? item.ruleAnswer || '' : reading(item)} /></p>
             {item.kind === 'word' && <p>{item.context} {!!item.conventionalNames?.length && <span>地图常见拼法：{item.conventionalNames.join(' / ')}</span>}</p>}
             {!feedback.correct && <p><NotationText text={item.explanation} /></p>}
             {exercise.kind === 'type' && <AcceptedAnswers item={item} />}
