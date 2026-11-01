@@ -7,17 +7,21 @@ import { ScriptComparison } from './ScriptVariants';
 import { NotationText } from './NotationText';
 import { PlaceMap } from './PlaceMap';
 import { AcceptedAnswers } from './AcceptedAnswers';
+import { itemLanguage, itemLocale, romanizationName } from '../lib/languages';
 
 export function KnowledgeDetail({ item, state, compact = false, hideMeaning = false, scriptClass }: {
   item: Knowledge; state: AppState; compact?: boolean; hideMeaning?: boolean; scriptClass?: string;
 }) {
   const course = courses[item.courseId];
   const glyphClass = scriptClass || course.scriptClass;
-  const audioReference = course.sources.find(source => source.id === course.pronunciationReference);
+  const language = itemLanguage(course, item);
+  const locale = itemLocale(course, item);
+  const audioReference = course.sources.find(source => source.id === (language?.pronunciationReference
+    || (!item.branchId ? course.pronunciationReference : undefined)));
   const alternativeAudio = course.sources.find(source => source.id === 'seeing-speech');
   return <div className={`knowledge-detail ${compact ? 'compact' : ''}`}>
     {!compact && <div className="detail-symbol">
-      <span className={glyphClass} dir={course.direction} lang={course.locale}>{item.glyph}</span>
+      <span className={glyphClass} dir={course.direction} lang={locale}>{item.glyph}</span>
     </div>}
     {!compact && item.kind !== 'rule' && <ScriptComparison course={course} text={item.glyph} />}
     {!compact && <PronunciationButton item={item} />}
@@ -27,13 +31,13 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
       {!(hideMeaning && item.kind === 'word') && <h3>{item.title}</h3>}
     </div>
     {item.kind !== 'rule' && <div className="reading-grid">
-      {course.type === 'script' && <div><span>{item.kind === 'number' ? '数值' : course.romanizationName || '转写'}</span><strong>{item.roman || '不写'}</strong></div>}
+      {course.type === 'script' && <div><span>{item.kind === 'number' ? '数值' : romanizationName(course, item) || '转写'}</span><strong>{item.roman || '不写'}</strong></div>}
       {item.ipa && <div><span>{course.type === 'phonetics' ? 'IPA' : item.kind === 'word' ? '宽式 IPA' : 'IPA'}</span><strong className="phonetic">/{item.ipa}/</strong></div>}
       {course.type === 'phonetics' && <div><span>发音特征</span><strong>{item.title}</strong></div>}
     </div>}
     {!!item.conventionalNames?.length && <p className="conventional-names">地图常见拼法：<strong>{item.conventionalNames.join(' / ')}</strong></p>}
     {course.type === 'script' && item.kind !== 'rule' && item.roman && <AcceptedAnswers item={item} />}
-    {item.ipa && course.ipaNote && <p className="reading-note">{course.ipaNote}</p>}
+    {item.ipa && (language?.ipaNote || course.ipaNote) && <p className="reading-note">{language?.ipaNote || course.ipaNote}</p>}
     {course.type === 'phonetics' && item.kind === 'symbol' && audioReference && <a className="ipa-audio-link" href={audioReference.url} target="_blank" rel="noreferrer"><Headphones size={14} />真人发音资料<ExternalLink size={11} /></a>}
     {course.type === 'phonetics' && item.kind === 'symbol' && !item.pronunciation?.recording && alternativeAudio && <a className="ipa-audio-link" href={alternativeAudio.url} target="_blank" rel="noreferrer"><Headphones size={14} />Seeing Speech 发音示范<ExternalLink size={11} /></a>}
     <p className="explanation"><NotationText text={item.explanation} /></p>
@@ -45,15 +49,16 @@ export function KnowledgeDetail({ item, state, compact = false, hideMeaning = fa
     {item.segments && <div className="segment-section">
       <span className="eyebrow">拆开看看</span>
       <div className="segments">{item.segments.map((s, i) => <div key={i}>
-        <strong className={glyphClass} dir={course.direction} lang={course.locale}>{s.text}</strong><span><NotationText text={s.reading} /></span>{s.note && <small>{s.note}</small>}
+        <strong className={glyphClass} dir={course.direction} lang={locale}>{s.text}</strong><span><NotationText text={s.reading} /></span>{s.note && <small>{s.note}</small>}
       </div>)}</div>
     </div>}
     {item.extra && <p className="reading-note">{extrasOpen(course, state) ? '地名额外课已解锁' : '主线结课后开放，也可在学习路径提前解锁'}</p>}
+    {item.branchId && <p className="reading-note">课程分支：{course.branches?.find(branch => branch.id === item.branchId)?.title} · 与主线独立；默认已掌握主线知识。</p>}
     {!compact && !item.extra && item.requires.length > 0 && <div className="prerequisites">
       <span className="eyebrow">前置知识</span>
       <div>{item.requires.map(id => <span key={id} title={itemMap[id]?.title} className={trained(id, state.progress) ? 'is-trained' : ''}>
         {trained(id, state.progress) ? <Check size={12} /> : <LockKeyhole size={12} />}
-        {itemMap[id]?.kind === 'rule' ? itemMap[id].title : <span className={glyphClass} dir={course.direction} lang={course.locale}>{itemMap[id]?.glyph}</span>}
+        {itemMap[id]?.kind === 'rule' ? itemMap[id].title : <span className={glyphClass} dir={course.direction} lang={itemMap[id] ? itemLocale(course, itemMap[id]) : locale}>{itemMap[id]?.glyph}</span>}
       </span>)}</div>
     </div>}
     <div className="detail-sources"><BookOpen size={13} />

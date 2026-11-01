@@ -52,8 +52,9 @@ export const stateSchema = z.object({
   completedUnitReviews: z.record(z.string().max(100), z.boolean()).optional(),
   earlyExtraUnlocks: z.record(courseId, z.boolean()).optional(),
   rushBest: z.record(z.string().max(100), count).optional(),
+  languageSelections: z.record(courseId, z.array(z.string().max(40)).max(20)).optional(),
   session: z.object({
-    id: text, courseId, mode: z.enum(['learn', 'review', 'mistakes', 'custom', 'extra']),
+    id: text, courseId, mode: z.enum(['learn', 'review', 'mistakes', 'custom', 'extra', 'branch']),
     stage: z.literal('unit-review').optional(),
     unitId: text.optional(), queue: z.array(exercise).min(1).max(500),
     index: count, answers: count, correct: count, startedAt: date, activeSeconds: count.default(0),
@@ -66,7 +67,10 @@ export const stateSchema = z.object({
     itemMap[q.itemId].courseId === s.courseId && (q.pairs || []).every(p => itemMap[p.id].courseId === s.courseId)
       && (q.combination?.parts || []).every(id => itemMap[id].courseId === s.courseId),
   ), '课程会话不一致').optional(),
-});
+}).refine(state => Object.entries(state.languageSelections || {}).every(([id, selection]) =>
+  new Set(selection).size === selection.length
+  && selection.every(language => courses[id].languages?.some(entry => entry.id === language)),
+), '未知或重复的语言筛选');
 export const initialState = (): AppState => ({
   version: 1, courseId: 'thai', progress: {}, history: [],
   settings: { dailyGoal: 20, newPerLesson: 3, typing: true },

@@ -1,6 +1,7 @@
 import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
 import { courses, itemMap } from '../data';
 import { learningPolicy } from '../data/template';
+import { itemLanguageIds, matchesLanguages, romanizationName } from './languages';
 import type {
   AppState, Course, Exercise, ExerciseKind, ItemProgress, Knowledge,
   Option, Outcome, Session, StoredCard, Unit,
@@ -28,7 +29,7 @@ export const trained = (id: string, progress: AppState['progress']) => {
   return itemMap[id]?.kind === 'rule' ? p.modes.includes('read') : (p.modes.includes('read') && p.modes.includes('reverse'));
 };
 export const eligibleWords = (course: Course, progress: AppState['progress']) =>
-  course.items.filter(i => i.kind === 'word' && !i.extra && i.requires.every(id => trained(id, progress)));
+  course.items.filter(i => i.kind === 'word' && !i.extra && !i.branchId && i.requires.every(id => trained(id, progress)));
 export const unitLearned = (unit: Unit, progress: AppState['progress']) => unit.items.every(id => trained(id, progress));
 export const unitDone = (unit: Unit, progress: AppState['progress'], reviews: AppState['completedUnitReviews'] = {}) =>
   unitLearned(unit, progress) && !!reviews[unit.id];
@@ -40,6 +41,13 @@ export const mainComplete = (course: Course, state: AppState) =>
   !nextUnit(course, state.progress, state.completedUnitReviews);
 export const extrasOpen = (course: Course, state: AppState) =>
   mainComplete(course, state) || !!state.earlyExtraUnlocks?.[course.id];
+export const branchOfUnit = (course: Course, unitId?: string) =>
+  course.branches?.find(branch => branch.units.some(unit => unit.id === unitId));
+export const branchUnitOpen = (course: Course, unitId: string, state: AppState) => {
+  const branch = branchOfUnit(course, unitId);
+  const index = branch?.units.findIndex(unit => unit.id === unitId) ?? -1;
+  return !!branch && index >= 0 && branch.units.slice(0, index).every(unit => unitDone(unit, state.progress, state.completedUnitReviews));
+};
 const ruleReviewReady = (item: Knowledge, progress: AppState['progress'], now: Date) =>
   item.kind !== 'rule' || !trained(item.id, progress)
   || now.getTime() - Date.parse(progress[item.id].lastSeen) >= learningPolicy.ruleReviewGapDays * 86400000;
@@ -63,7 +71,9 @@ function equivalence(item: Knowledge): string {
   return item.ipa || item.roman;
 }
 function poolFor(item: Knowledge, course: Course, progress: AppState['progress']): Knowledge[] {
-  const peers = course.items.filter(i => i.kind === item.kind && i.id !== item.id && !i.obsolete
+  const peers = course.items.filter(i => (i.kind === item.kind || item.kind === 'symbol' && course.type === 'script' && ['consonant', 'vowel'].includes(i.kind))
+    && i.id !== item.id && !i.obsolete
+    && matchesLanguages(course, i, itemLanguageIds(course, item))
     && (!i.extra || item.extra || introduced(i.id, progress)));
   return [...shuffle(peers.filter(i => introduced(i.id, progress))), ...shuffle(peers.filter(i => !introduced(i.id, progress)))];
 }
@@ -90,16 +100,18 @@ export function makeExercise(
     };
   }
   if (kind === 'type') {
-    return { ...base, prompt: `写出${course.romanizationName || '转写'}`, answer: item.roman };
+    return { ...base, prompt: `写出${romanizationName(course, item) || '转写'}`, answer: item.roman };
   }
   const peers = poolFor(item, course, progress);
   const key = (i: Knowledge) => kind === 'meaning' ? i.meaning || i.title
     : kind === 'reverse' ? equivalence(i) : reading(i);
   const seen = new Set([key(item)]);
+  const glyphs = new Set([item.glyph]);
   const distractors: Knowledge[] = [];
   for (const candidate of peers) {
-    if (seen.has(key(candidate))) continue;
+    if (seen.has(key(candidate)) || kind !== 'read' && glyphs.has(candidate.glyph)) continue;
     seen.add(key(candidate));
+    glyphs.add(candidate.glyph);
     distractors.push(candidate);
     if (distractors.length === 3) break;
   }
@@ -120,7 +132,7 @@ export function makeExercise(
     };
   }
   return {
-    ...base, prompt: course.type === 'phonetics' ? '这个音标描述什么声音？' : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${course.romanizationName || '转写'}与 IPA`,
+    ...base, prompt: course.type === 'phonetics' ? '这个音标描述什么声音？' : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${romanizationName(course, item) || '转写'}与 IPA`,
     options: shuffle([item, ...distractors]).map(option),
   };
 }
@@ -227,15 +239,20 @@ export function makeUnitReview(unit: Unit, course: Course, state: AppState, now:
 export function createSession(
   state: AppState, mode: Session['mode'], unitId?: string, customIds?: string[], now = new Date(),
 ): Session | undefined {
-  const course = courses[state.courseId];
-  const units = mode === 'extra' ? course.extraUnits || [] : course.units;
+  const registered = courses[state.courseId];
+  const branch = mode === 'branch' ? branchOfUnit(registered, unitId) : undefined;
+  const course = { ...registered, items: registered.items.filter(item =>
+    mode === 'branch' ? !!branch && matchesLanguages(registered, item, [branch.languageId])
+      : mode === 'learn' || mode === 'extra' ? !item.branchId : true) };
+  const units = mode === 'branch' ? branch?.units || [] : mode === 'extra' ? course.extraUnits || [] : course.units;
   const unit = units.find(u => u.id === unitId) || (mode === 'extra'
     ? units.find(u => !unitDone(u, state.progress, state.completedUnitReviews))
     : nextUnit(course, state.progress, state.completedUnitReviews));
   const unitIndex = unit ? course.units.indexOf(unit) : -1;
   if (mode === 'learn' && (!unit || !unitOpen(course, unitIndex, state.progress, state.completedUnitReviews))) return undefined;
   if (mode === 'extra' && (!unit || !extrasOpen(course, state))) return undefined;
-  const learning = mode === 'learn' || mode === 'extra';
+  if (mode === 'branch' && (!unit || !branchUnitOpen(course, unit.id, state))) return undefined;
+  const learning = mode === 'learn' || mode === 'extra' || mode === 'branch';
   const unitReview = learning && unit && unitLearned(unit, state.progress);
   let targets: Knowledge[];
   if (mode === 'custom') targets = (customIds || []).map(id => itemMap[id]).filter(i => i?.courseId === course.id && introduced(i.id, state.progress));
@@ -248,14 +265,14 @@ export function createSession(
     const selected: Knowledge[] = [];
     const availableKnowledge = new Set(Object.keys(state.progress).filter(id => trained(id, state.progress)));
     for (const item of available) {
-      if (mode !== 'extra' && !item.requires.every(id => availableKnowledge.has(id))) continue;
+      if (mode !== 'extra' && !item.requires.every(id => mode === 'branch' && !itemMap[id].branchId || availableKnowledge.has(id))) continue;
       selected.push(item);
       // Earlier units may have prerequisites within the same unit. Those are deliberately
       // deferred until the next lesson, when their prerequisite has actually been practiced.
       if (selected.length >= (unit?.supplementary || mode === 'extra' ? Math.max(6, state.settings.newPerLesson) : state.settings.newPerLesson)) break;
     }
     targets = selected;
-    const readyWord = !unit?.supplementary && mode !== 'extra'
+    const readyWord = !unit?.supplementary && mode === 'learn'
       ? eligibleWords(course, state.progress).find(i => !introduced(i.id, state.progress) && !targets.includes(i)) : undefined;
     if (readyWord) targets = [...targets, readyWord];
   }
@@ -340,14 +357,14 @@ export function refreshSessionNotation(session: Session): Session {
     }
     if (exercise.kind === 'read' && item.kind !== 'rule') {
       const prompt = course.type === 'phonetics' ? '这个音标描述什么声音？'
-        : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${course.romanizationName || '转写'}与 IPA`;
+        : item.kind === 'number' ? '这个数字是多少？' : `选择正确的${romanizationName(course, item) || '转写'}与 IPA`;
       return { ...exercise, prompt, options: exercise.options.map(option => ({
         ...option, label: Object.hasOwn(itemMap, option.id) ? reading(itemMap[option.id]) : option.label,
       })) };
     }
     if (exercise.kind === 'reverse') return { ...exercise, display: reading(item) };
     if (exercise.kind === 'type') return {
-      ...exercise, prompt: `写出${course.romanizationName || '转写'}`, answer: item.roman,
+      ...exercise, prompt: `写出${romanizationName(course, item) || '转写'}`, answer: item.roman,
     };
     if (exercise.kind === 'match') return {
       ...exercise, pairs: exercise.pairs?.map(pair => ({ ...pair, right: reading(itemMap[pair.id]) })),

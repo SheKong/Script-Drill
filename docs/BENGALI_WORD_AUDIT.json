@@ -1,5 +1,5 @@
 {
-  "checked": "2026-10-22",
+  "checked": "2026-11-01",
   "courseId": "bengali",
   "romanization": {
     "name": "UNGEGN",
@@ -10,12 +10,13 @@
   "normalization": "For comparison only: remove delimiters, stress, syllable separators, tie bars and half-length; write source r as course ɾ. Parenthesized ho in Mymensingh selects the explicitly listed full variant. Consonant length and vowel quality are preserved.",
   "independentNativeReview": false,
   "counts": {
-    "units": 19,
-    "knowledge": 95,
+    "units": 21,
+    "knowledge": 136,
     "mainWords": 29,
-    "extraCities": 12,
-    "listedIPA": 36,
-    "lexicalTranscriptionOnly": 5
+    "extraCities": 40,
+    "listedIPA": 45,
+    "lexicalTranscriptionOnly": 10,
+    "manualBroadPendingReview": 24
   },
   "sources": [
     {
@@ -37,7 +38,14 @@
       "title": "Pronouncing the Bangla Alphabet",
       "organization": "University of Texas at Austin · Bangla OER",
       "url": "https://bangla.la.utexas.edu/resources/pronunciation/",
-      "description": "原站真人发音与发音部位教学。本课只链接原站，未将其录音包装成本地已收录音频；孤立字母名不等于词内辅音读法。"
+      "description": "原站真人发音与发音部位教学；只链接原站，不转载其录音。孤立字母名不等于词内辅音读法。"
+    },
+    {
+      "id": "bn-recordings",
+      "title": "Bengali pronunciation recordings",
+      "organization": "Wikimedia Commons · Lingua Libre",
+      "url": "https://commons.wikimedia.org/wiki/Category:Lingua_Libre_pronunciation-ben",
+      "description": "词条本地示范音频。每个录音都链接到对应原文件页，署名、说话人及许可按素材分别标注。"
     },
     {
       "id": "bn-unicode",
@@ -82,6 +90,48 @@
       "description": "官方行政区目录，用于核对地名拼写、Division / District 层级与英语惯用名；不以此目录冒充地名 IPA 的来源。"
     },
     {
+      "id": "bn-india-places",
+      "title": "Bengali geographical names in India",
+      "organization": "Government of West Bengal · district portals",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "description": "西孟加拉邦及其市、县官方门户的原文地名；同时参考 Agartala Municipal Corporation 与 Cachar District 官方门户。不以行政目录冒充 IPA 依据；逐词来源与待审状态见扩展研究文档。"
+    },
+    {
+      "id": "bn-india-boundaries",
+      "title": "Natural Earth · India outline · v5.1.2",
+      "organization": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "description": "公有领域 1:50m 国家轮廓，印度城市使用独立地图配置；保留派生 GeoJSON 与来源。仅学习位置示意，不代表法定边界主张。"
+    },
+    {
+      "id": "as-ungegn",
+      "title": "Romanization of Assamese · version 4.0 (2016)",
+      "organization": "UNGEGN · Working Group on Romanization Systems",
+      "url": "https://arhiiv.eki.ee/wgrs/rom1_as.pdf",
+      "description": "联合国 1972 年 II/11 决议推荐的阿萨姆语转写表；ৰ r、ৱ v、য j̱ 与附标的规范依据。推荐方案不等于当地统一地图拼名；与孟加拉语分别配置。"
+    },
+    {
+      "id": "as-unicode",
+      "title": "Unicode Core Specification · Bengali / Assamese",
+      "organization": "Unicode Consortium",
+      "url": "https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/",
+      "description": "核对共用编码区块、Assamese ৰ/ৱ、合字和 reph。区块名 Bengali 不是语言归属标签；相同编码可有不同语言读音。"
+    },
+    {
+      "id": "as-phonology",
+      "title": "The Written Languages of the World · Assamese",
+      "organization": "Census of India · language survey",
+      "url": "https://censusindia.gov.in/nada/index.php/catalog/32379/download/35560/29283_1981_SUR.pdf",
+      "description": "阿萨姆语音系中的齿龈塞音、/x/、/s/、/z/ 和鼻化背景。资料将 rhotic 宽记 r，本分支选择近音 /ɹ/ 变体；不声称本调查逐词提供地名 IPA 或课程已获母语审定。"
+    },
+    {
+      "id": "as-places",
+      "title": "Assam districts and Assamese place spellings",
+      "organization": "Government of Assam · district portals",
+      "url": "https://assam.gov.in/districts",
+      "description": "核对阿萨姆邦城市、地区与阿萨姆语拼写，参考 Nalbari、Dibrugarh、Bongaigaon 等地方政府原文。地图惯用名与人工宽式读音分别记录。"
+    },
+    {
       "id": "bn-boundaries",
       "title": "Natural Earth · Bangladesh outline · v5.1.2",
       "organization": "Natural Earth",
@@ -113,6 +163,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%BE%E0%A6%AE?oldid=92712491",
       "revision": 92712491,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "nam"
       ],
@@ -122,6 +173,8 @@
         "[ˈnam]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "招牌、名称栏里的常见词。নাম 只有一个音节；UNGEGN 保留字母固有 a，IPA 显示末尾 ম 不带元音。",
       "requires": [
@@ -152,6 +205,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%97%E0%A6%B0?oldid=88458470",
       "revision": 88458470,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "nogor"
       ],
@@ -162,6 +216,8 @@
         "[ˈnɔɡoɹ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "地图常见 Nagar / Nogor。字母转写的 a 不能替代 IPA：两个隐含元音实际为 /ɔ/、/o/，词尾无元音。",
       "requires": [
@@ -199,6 +255,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE?oldid=72608948",
       "revision": 72608948,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "gram"
       ],
@@ -209,6 +266,8 @@
         "[ɡɹam]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "村名、地址成分中常见 Gram。গ্র 是 /ɡɾ/，辅音群内不插元音；末尾 ম 不再加元音。",
       "requires": [
@@ -241,6 +300,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%BE%E0%A6%A1%E0%A6%BC%E0%A6%BE?oldid=92196776",
       "revision": 92196776,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "paṛa"
       ],
@@ -254,6 +314,8 @@
         "-ara"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "地名后缀常见 Para；这里只取“居民区”义。UNGEGN ṙ 区分 ড়，ā 不代表现代长音。",
       "requires": [
@@ -285,6 +347,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%B0?oldid=88458579",
       "revision": 88458579,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "bajar"
       ],
@@ -301,6 +364,8 @@
         "[ˈbad̪zaɾ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "店招和地名中极常见，地图常写 Bazar / Bazaar。这里采用塞擦音读法，部分说话人接近 /z/。",
       "requires": [
@@ -338,6 +403,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%BE%E0%A6%B8%E0%A7%8D%E0%A6%A4%E0%A6%BE?oldid=88458434",
       "revision": 88458434,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "rasta"
       ],
@@ -348,6 +414,8 @@
         "[ɹast̪aˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "স্ত 是完整辅音群 /st̪/，স 在这里读 /s/；不是三个各带元音的音节。",
       "requires": [
@@ -377,6 +445,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A6%A1%E0%A6%BC%E0%A6%95?oldid=89461355",
       "revision": 89461355,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "śoṛok"
       ],
@@ -389,6 +458,8 @@
         "[ˈʃɔɹok]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "道路名和公路标识常见。UNGEGN s 在本词读 /ʃ/，ড় 后的固有元音为 /o/，ক 是无元音词尾。",
       "requires": [
@@ -423,6 +494,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%A5?oldid=88458764",
       "revision": 88458764,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "poth"
       ],
@@ -431,6 +503,8 @@
         "[ˈpɔt̪]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "常见道路成分。থ 为齿音；宽式保留送气类别，实际词尾送气可弱化，不再加元音。",
       "requires": [
@@ -459,11 +533,14 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A7%87%E0%A6%A4%E0%A7%81?oldid=72300235",
       "revision": 72300235,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "śetu"
       ],
       "sourceIPA": [],
       "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "桥名常见 Setu。UNGEGN 的 s 保留 স 拼写，IPA 采用 /ʃ/；不能按英语 s 发音。",
       "requires": [
@@ -496,6 +573,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A8%E0%A6%A6%E0%A7%80?oldid=92751447",
       "revision": 92751447,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "nodi"
       ],
@@ -506,6 +584,8 @@
         "[ˈnɔd̪iˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "河名和说明牌常见 Nadi / Nodi。采用 /nod̪i/，另有 /nɔd̪i/ 变体；UNGEGN ī 区分历史拼写，不强制现代长音。",
       "requires": [
@@ -538,6 +618,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A7%8D%E0%A6%95%E0%A7%81%E0%A6%B2?oldid=92491456",
       "revision": 92491456,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "skul"
       ],
@@ -551,6 +632,8 @@
         "[ˈiʃkul]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "স্ক 是 /sk/，最后 ল 不加元音。口语还可有前加 i 的变体，本课不把所有读法混成一道唯一解。",
       "requires": [
@@ -580,6 +663,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A6%B2%E0%A7%87%E0%A6%9C?oldid=87695074",
       "revision": 87695074,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "kolej"
       ],
@@ -590,6 +674,8 @@
         "[ˈkɔledʑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "教育机构招牌常见；末尾 জ 只读辅音，不再加固有元音。",
       "requires": [
@@ -624,6 +710,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%AA%E0%A6%BE%E0%A6%A4%E0%A6%BE%E0%A6%B2?oldid=85011920",
       "revision": 85011920,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "haśpatal"
       ],
@@ -632,6 +719,8 @@
         "[haʃpat̪al]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "道路和机构招牌常见。字母转写保留 স 的固有 a，但实际此处不插元音；整词读音以 IPA 为准。",
       "requires": [
@@ -678,6 +767,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A5%E0%A6%BE%E0%A6%A8%E0%A6%BE?oldid=88458672",
       "revision": 88458672,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "thana"
       ],
@@ -687,6 +777,8 @@
         "-ana"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "警署招牌和地址成分。th 是送气齿塞音，不是英语的 th。",
       "requires": [
@@ -715,6 +807,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%9C%E0%A7%87%E0%A6%B2%E0%A6%BE?oldid=88458389",
       "revision": 88458389,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "jela"
       ],
@@ -725,6 +818,8 @@
         "[ˈdʑelaˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "孟加拉国行政区名称常带 জেলা；中文常译“县”，注意它与下一级 Upazila 不同。",
       "requires": [
@@ -754,6 +849,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BF%E0%A6%AD%E0%A6%BE%E0%A6%97?oldid=88458388",
       "revision": 88458388,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "bibhag"
       ],
@@ -763,6 +859,8 @@
         "[ˈbivaɡ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "在行政地址中是 Division；在机构里也可指部门。ভ 采用传统气声读法，也有接近 /v/ 的实现。",
       "requires": [
@@ -798,6 +896,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%89%E0%A6%A4%E0%A7%8D%E0%A6%A4%E0%A6%B0?oldid=89327556",
       "revision": 89327556,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "uttor"
       ],
@@ -808,6 +907,8 @@
         "[ˈut̪ːɔɹ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "方位词；这里只练地址中的北方义。ত্ত 是齿塞音延长，元音不因此加长。转写 a 与实际 /ɔ/ 区分。",
       "requires": [
@@ -841,6 +942,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BF%E0%A6%A3?oldid=88279563",
       "revision": 88279563,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "dokkhin"
       ],
@@ -849,6 +951,8 @@
         "[ˈd̪ɔkʰːin]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "地图常写 Dakshin / Dakkhin。UNGEGN kṣh、ṇ 保留拼写，实际 ক্ষ 为 /kʰː/、ণ 为 /n/，不能逐字猜读。",
       "requires": [
@@ -886,6 +990,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A7%82%E0%A6%B0%E0%A7%8D%E0%A6%AC?oldid=88458397",
       "revision": 88458397,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "purbo"
       ],
@@ -896,6 +1001,8 @@
         "[ˈpuɹboˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "地图常写 Purba / Purbo。র 先于 ব；词尾保留 /o/，“所有词尾删元音”会出错。UNGEGN ū 只区分拼写。",
       "requires": [
@@ -929,6 +1036,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AA%E0%A6%B6%E0%A7%8D%E0%A6%9A%E0%A6%BF%E0%A6%AE?oldid=90739661",
       "revision": 90739661,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "pôścim"
       ],
@@ -941,6 +1049,8 @@
         "[ˈpɔstɕim]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "Paschim / Pashchim 常见于地图名。শ্চ 作为整体读 /ʃtʃ/，辅音群内不插元音。",
       "requires": [
@@ -978,6 +1088,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%9A%E0%A6%BE?oldid=93626211",
       "revision": 93626211,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "ca"
       ],
@@ -990,6 +1101,8 @@
         "-a"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "茶店招牌常见的单音节词。চ 是不送气清塞擦音，不是英语 j；ā 不代表现代长音。",
       "requires": [
@@ -1013,6 +1126,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A7%8B%E0%A6%95%E0%A6%BE%E0%A6%A8?oldid=88458509",
       "revision": 88458509,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "dōkan"
       ],
@@ -1022,6 +1136,8 @@
         "-oka"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "店铺招牌常见；দো 的 o 附标围在 দ 两侧，是一个元音，不是两个。",
       "requires": [
@@ -1057,6 +1173,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B9%E0%A7%8B%E0%A6%9F%E0%A7%87%E0%A6%B2?oldid=80978867",
       "revision": 80978867,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "hōṭel"
       ],
@@ -1067,6 +1184,8 @@
         "[hotel]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "既可指旅馆，也常指餐馆，不能只凭招牌判断有住宿。UNGEGN ṭ 保留 ট 与齿音 ত 的拼写区别。",
       "requires": [
@@ -1103,6 +1222,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%B8?oldid=85368994",
       "revision": 85368994,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "baś"
       ],
@@ -1115,6 +1235,8 @@
         "[ˈbas]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "交通语境中的英语借词“bus”，采用 /bas/。同形词“居住、气味”常读 /baʃ/，本条不混用该读音。",
       "requires": [
@@ -1147,6 +1269,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A7%87%E0%A6%B2?oldid=88459495",
       "revision": 88459495,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "rel"
       ],
@@ -1158,6 +1281,8 @@
         "[ɹel]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "铁路相关标识常见的借词；র 的地区实现可以是闪音或近音，不是英语拼写的强制发音。",
       "requires": [
@@ -1187,6 +1312,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE?oldid=88261679",
       "revision": 88261679,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "baṅla"
       ],
@@ -1195,6 +1321,8 @@
         "[ˈbaŋlaˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "UNGEGN ṁ 对应 ং，此处读 /ŋ/，不是只让 /a/ 鼻化。文字也用于印度，不能当成唯一国家线索。",
       "requires": [
@@ -1226,6 +1354,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6?oldid=91387522",
       "revision": 91387522,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "baṅladeś"
       ],
@@ -1234,6 +1363,8 @@
         "[ˈbaŋlad̪eʃ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "地图惯用名 Bangladesh；দেশ 是“国家、土地”成分。本词标整国，不把国家当城市。字母转写不代替地图惯用名。",
       "requires": [
@@ -1270,6 +1401,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%B8%E0%A6%9C%E0%A6%BF%E0%A6%A6?oldid=89334943",
       "revision": 89334943,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "mosjid"
       ],
@@ -1284,6 +1416,8 @@
         "[ˈmos.dʑid̪]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "宗教建筑招牌常见。采用 /moʃdʒid̪/，另有 /mosdʒid̪/ 变体；স 与 জ 之间不插元音，不能照字母转写逐音读。",
       "requires": [
@@ -1324,6 +1458,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%B0?oldid=88459511",
       "revision": 88459511,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "mondir"
       ],
@@ -1334,6 +1469,8 @@
         "[ˈmɔnd̪iɹ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "印度教寺庙和相关地址常见。ন্দ 的 ন 与 দ 组成辅音群；最后 র 不带固有元音。",
       "requires": [
@@ -1368,6 +1505,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%A2%E0%A6%BE%E0%A6%95%E0%A6%BE?oldid=92194756",
       "revision": 92194756,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "ḍhaka"
       ],
@@ -1379,6 +1517,8 @@
         "-aka"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "首都；红点表示城市。UNGEGN ḍh 保留 ঢ 拼写；实际舌位常比传统卷舌记音靠前。",
       "requires": [
@@ -1417,6 +1557,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%9A%E0%A6%9F%E0%A7%8D%E0%A6%9F%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE?oldid=89799273",
       "revision": 89799273,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "coṭṭogram"
       ],
@@ -1427,6 +1568,8 @@
         "[ˈtɕɔtːoɡɹam]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "东南部港口城市；新旧英语名称可能同时出现。ট্ট 不是齿音 ত্ত，字母转写中的 a 不等于实际 /a/。",
       "requires": [
@@ -1476,11 +1619,14 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%96%E0%A7%81%E0%A6%B2%E0%A6%A8%E0%A6%BE?oldid=87900384",
       "revision": 87900384,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "khulna"
       ],
       "sourceIPA": [],
       "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "西南部城市，与同名专区、县区分。ল 不带元音；音值依据词条转写与标准音值，仍待母语独立审读。",
       "requires": [
@@ -1526,11 +1672,14 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%BE%E0%A6%9C%E0%A6%B6%E0%A6%BE%E0%A6%B9%E0%A7%80?oldid=91292327",
       "revision": 91292327,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "rajśahi"
       ],
       "sourceIPA": [],
       "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "西北部城市；জ 在 শ 前不另加元音。音值依据词条转写和标准音值，不冒充词典独立 IPA 或母语审定。",
       "requires": [
@@ -1581,11 +1730,14 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%B0%E0%A6%BF%E0%A6%B6%E0%A6%BE%E0%A6%B2?oldid=91052502",
       "revision": 91052502,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "boriśal"
       ],
       "sourceIPA": [],
       "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "南部河港城市；地图存在 Barisal / Barishal 拼法。音值依据词条转写与标准音值，待独立审读。",
       "requires": [
@@ -1636,6 +1788,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B8%E0%A6%BF%E0%A6%B2%E0%A7%87%E0%A6%9F?oldid=89782845",
       "revision": 89782845,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "sileṭ"
       ],
@@ -1650,6 +1803,8 @@
         "[ˈʃilet]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "东北部城市；采用字典列出的 /s/ 变体，也有 /ʃ/。地图 Sylhet 的 y、h 不逐字对应原文。",
       "requires": [
@@ -1696,6 +1851,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%B0%E0%A6%82%E0%A6%AA%E0%A7%81%E0%A6%B0?oldid=93381633",
       "revision": 93381633,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "roṅpur"
       ],
@@ -1706,6 +1862,8 @@
         "[ɹɔŋpuɹ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "北部城市；ং 转写 ṁ、实际为 /ŋ/，后面接 প，不凭英语 ng 添一个 /ɡ/。",
       "requires": [
@@ -1750,6 +1908,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%AF%E0%A6%BC%E0%A6%AE%E0%A6%A8%E0%A6%B8%E0%A6%BF%E0%A6%82%E0%A6%B9?oldid=91216539",
       "revision": 91216539,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "moẏmonśiṅho"
       ],
@@ -1758,6 +1917,8 @@
         "[ˈmɔe̯monʃiŋ(ho)]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "北中部城市；采用字典所列保留末尾 /ho/ 的变体。য 与 য় 不要混淆，读音不能从地图名逐字猜。",
       "requires": [
@@ -1817,11 +1978,14 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE?oldid=87741105",
       "revision": 87741105,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "kumilla"
       ],
       "sourceIPA": [],
       "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "东部城市；ল্ল 是辅音延长，ā 不意味着元音延长。音值依据词条转写与标准音值，待独立审读。",
       "requires": [
@@ -1867,6 +2031,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A6%95%E0%A7%8D%E0%A6%B8%E0%A6%AC%E0%A6%BE%E0%A6%9C%E0%A6%BE%E0%A6%B0?oldid=87687129",
       "revision": 87687129,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "koksbajar"
       ],
@@ -1881,6 +2046,8 @@
         "[ˈkɔksezbazaɾ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "东南海岸城市。ক্স 为 /ks/，不冒充 ক্ষ 的 /kʰː/；采用字典列出的 /kɔksbadʒaɾ/，地图名另列。",
       "requires": [
@@ -1892,7 +2059,8 @@
         "bn-aa-sign",
         "bn-hasanta",
         "bn-s-reading",
-        "bn-final-vowel"
+        "bn-final-vowel",
+        "bn-ks"
       ],
       "segments": [
         {
@@ -1938,6 +2106,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AF%E0%A6%B6%E0%A7%8B%E0%A6%B0?oldid=88417523",
       "revision": 88417523,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "jośōr"
       ],
@@ -1948,6 +2117,8 @@
         "[ˈdʑɔʃoɾ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "西南部城市。词首 য 转写 j̱、实际读 /dʒ/；Jessore 是常见旧拼名。",
       "requires": [
@@ -1992,6 +2163,7 @@
       "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%97%E0%A7%81%E0%A6%A1%E0%A6%BC%E0%A6%BE?oldid=88222873",
       "revision": 88222873,
       "checked": "2026-10-22",
+      "language": "bn",
       "sourceTranscription": [
         "boguṛa"
       ],
@@ -2000,6 +2172,8 @@
         "[ˈboɡuɾaˑ]"
       ],
       "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
       "independentNativeReview": false,
       "readingNote": "西北内陆城市。UNGEGN ṙ 保留 ড় 拼写，采用词条的 /ɾ/ 读法，体现孟加拉国常见的 rhotic 合流。",
       "requires": [
@@ -2034,6 +2208,2298 @@
           89.37,
           24.85
         ]
+      }
+    },
+    {
+      "id": "bn-word-chandpur",
+      "glyph": "চাঁদপুর",
+      "meaning": "坚德布尔",
+      "roman": "chām̐dapura",
+      "ipa": "tʃãd̪puɾ",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "河港城市；ঁ 表示元音鼻化，不是 ং 的 /ŋ/。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-ch",
+        "bn-aa-sign",
+        "bn-candrabindu",
+        "bn-d",
+        "bn-p",
+        "bn-u-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "চাঁ",
+          "reading": "chām̐"
+        },
+        {
+          "text": "দ",
+          "reading": "da"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Chandpur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.65,
+          23.23
+        ]
+      }
+    },
+    {
+      "id": "bn-word-brahmanbaria",
+      "glyph": "ব্রাহ্মণবাড়িয়া",
+      "meaning": "布拉曼巴里亚",
+      "roman": "brāhmaṇabāṙiyā",
+      "ipa": "bɾamːonbaɽi̯a",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%B9%E0%A7%8D%E0%A6%AE%E0%A6%A3%E0%A6%AC%E0%A6%BE%E0%A6%A1%E0%A6%BC%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE?oldid=93555161",
+      "revision": 93555161,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "brahmonbaṛiẏa"
+      ],
+      "sourceIPA": [
+        "/bɾamːonbaɽi̯a/",
+        "[ˈbɾamːonbaɽi̯aˑ]",
+        "/bɾamːonbaɾi̯a/",
+        "[ˈbɾamːonbaɾi̯aˑ]",
+        "/bɾamɦonbaɽi̯a/",
+        "[ˈbɾamɦonbaɽi̯aˑ]",
+        "/bɾamɦonbaɾi̯a/",
+        "[ˈbɾamɦonbaɾi̯aˑ]",
+        "/bɾamːonbaɹi̯a/",
+        "[ˈbɾamːonbaɹi̯aˑ]",
+        "/bɾamɦonbaɹi̯a/",
+        "[ˈbɾamɦonbaɹi̯aˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "ব্র、হ্ম 和 ড় 同时出现；采用保留闪音的宽式变体，হ্ম 此处不逐字读 hm。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-br",
+        "bn-aa-sign",
+        "bn-hm",
+        "bn-retro-n",
+        "bn-b",
+        "bn-flap",
+        "bn-i-sign",
+        "bn-glide",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ব্রা",
+          "reading": "brā"
+        },
+        {
+          "text": "হ্ম",
+          "reading": "hma"
+        },
+        {
+          "text": "ণ",
+          "reading": "ṇa"
+        },
+        {
+          "text": "বা",
+          "reading": "bā"
+        },
+        {
+          "text": "ড়ি",
+          "reading": "ṙi"
+        },
+        {
+          "text": "য়া",
+          "reading": "yā"
+        }
+      ],
+      "conventionalNames": [
+        "Brahmanbaria"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.111,
+          23.957
+        ]
+      }
+    },
+    {
+      "id": "bn-word-lakshmipur",
+      "glyph": "লক্ষ্মীপুর",
+      "meaning": "拉克什米普尔",
+      "roman": "lakṣhmīpura",
+      "ipa": "lokʰːipuɾ",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "ক্ষ্মী 中的 ম 不独立读出；ī 保留拼写区别，不要求拉长元音。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-l",
+        "bn-kshm",
+        "bn-ii-sign",
+        "bn-p",
+        "bn-u-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "ক্ষ্মী",
+          "reading": "kṣhmī"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Lakshmipur",
+        "Laxmipur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.838,
+          22.943
+        ]
+      }
+    },
+    {
+      "id": "bn-word-narsingdi",
+      "glyph": "নরসিংদী",
+      "meaning": "诺尔辛迪",
+      "roman": "narasiṁdī",
+      "ipa": "nɔɾʃiŋd̪i",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "首都东北方向城市；ং 读 /ŋ/，转写 ṁ 不表示额外的 m。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-n",
+        "bn-r",
+        "bn-s",
+        "bn-i-sign",
+        "bn-anusvara",
+        "bn-d",
+        "bn-ii-sign",
+        "bn-s-reading",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        },
+        {
+          "text": "সিং",
+          "reading": "siṁ"
+        },
+        {
+          "text": "দী",
+          "reading": "dī"
+        }
+      ],
+      "conventionalNames": [
+        "Narsingdi"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.715,
+          23.922
+        ]
+      }
+    },
+    {
+      "id": "bn-word-faridpur",
+      "glyph": "ফরিদপুর",
+      "meaning": "法里德布尔",
+      "roman": "pharidapura",
+      "ipa": "foɾid̪puɾ",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "本词采用现代 ফ 的 /f/ 变体；地图 F 与转写 ph 分开记。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-ph",
+        "bn-r",
+        "bn-i-sign",
+        "bn-d",
+        "bn-p",
+        "bn-u-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ফ",
+          "reading": "pha"
+        },
+        {
+          "text": "রি",
+          "reading": "ri"
+        },
+        {
+          "text": "দ",
+          "reading": "da"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Faridpur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.842,
+          23.607
+        ]
+      }
+    },
+    {
+      "id": "bn-word-kushtia",
+      "glyph": "কুষ্টিয়া",
+      "meaning": "库什蒂亚",
+      "roman": "kuṣhṭiyā",
+      "ipa": "kuʃʈi̯a",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A7%81%E0%A6%B7%E0%A7%8D%E0%A6%9F%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%BE?oldid=93567297",
+      "revision": 93567297,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "kuśṭiẏa"
+      ],
+      "sourceIPA": [
+        "/kuʃʈi̯a/",
+        "[ˈkuʂʈi̯aˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "西部城市；重点是 ষ্ট，不能看成 স্ট 或 স্ত。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-k",
+        "bn-u-sign",
+        "bn-ss-t",
+        "bn-i-sign",
+        "bn-glide",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "কু",
+          "reading": "ku"
+        },
+        {
+          "text": "ষ্টি",
+          "reading": "ṣhṭi"
+        },
+        {
+          "text": "য়া",
+          "reading": "yā"
+        }
+      ],
+      "conventionalNames": [
+        "Kushtia",
+        "Kustia"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.122,
+          23.902
+        ]
+      }
+    },
+    {
+      "id": "bn-word-tangail",
+      "glyph": "টাঙ্গাইল",
+      "meaning": "坦盖尔",
+      "roman": "ṭāṅgāila",
+      "ipa": "ʈaŋɡail",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "ঙ্গ 是鼻音加 /ɡ/；后面的 ই 是独立元音，不是前置 ি。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-retro-t",
+        "bn-aa-sign",
+        "bn-ngg",
+        "bn-i",
+        "bn-l",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "টা",
+          "reading": "ṭā"
+        },
+        {
+          "text": "ঙ্গা",
+          "reading": "ṅgā"
+        },
+        {
+          "text": "ই",
+          "reading": "i"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        }
+      ],
+      "conventionalNames": [
+        "Tangail"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.917,
+          24.251
+        ]
+      }
+    },
+    {
+      "id": "bn-word-narayanganj",
+      "glyph": "নারায়ণগঞ্জ",
+      "meaning": "纳拉扬甘杰",
+      "roman": "nārāyaṇagañja",
+      "ipa": "naɾaionɡɔndʒ",
+      "url": "https://bangladesh.gov.bd/site/view/division-list",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://bangladesh.gov.bd/site/view/division-list",
+      "independentNativeReview": false,
+      "readingNote": "达卡附近河港城市；য় 与 য 不同，গঞ্জ 以 ঞ্জ 结束。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-n",
+        "bn-aa-sign",
+        "bn-r",
+        "bn-glide",
+        "bn-retro-n",
+        "bn-g",
+        "bn-nj",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "না",
+          "reading": "nā"
+        },
+        {
+          "text": "রা",
+          "reading": "rā"
+        },
+        {
+          "text": "য়",
+          "reading": "ya"
+        },
+        {
+          "text": "ণ",
+          "reading": "ṇa"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "ঞ্জ",
+          "reading": "ñja"
+        }
+      ],
+      "conventionalNames": [
+        "Narayanganj"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.5,
+          23.623
+        ]
+      }
+    },
+    {
+      "id": "bn-word-kolkata",
+      "glyph": "কলকাতা",
+      "meaning": "加尔各答",
+      "roman": "kalakātā",
+      "ipa": "kolkat̪a",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A6%B2%E0%A6%95%E0%A6%BE%E0%A6%A4%E0%A6%BE?oldid=92159354",
+      "revision": 92159354,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "kolkata"
+      ],
+      "sourceIPA": [
+        "/kolkat̪a/",
+        "[ˈkolkat̪aˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "西孟加拉邦首府；地图 Calcutta 是旧英语名。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-k",
+        "bn-l",
+        "bn-aa-sign",
+        "bn-t",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ক",
+          "reading": "ka"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "কা",
+          "reading": "kā"
+        },
+        {
+          "text": "তা",
+          "reading": "tā"
+        }
+      ],
+      "conventionalNames": [
+        "Kolkata",
+        "Calcutta"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.3639,
+          22.5726
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-howrah",
+      "glyph": "হাওড়া",
+      "meaning": "豪拉",
+      "roman": "hāoṙā",
+      "ipa": "haoɽa",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B9%E0%A6%BE%E0%A6%93%E0%A6%A1%E0%A6%BC%E0%A6%BE?oldid=87701619",
+      "revision": 87701619,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "haōṛa"
+      ],
+      "sourceIPA": [
+        "/haoˈɽa/"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "加尔各答对岸城市；ও 是独立元音，ড় 不是 ড。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-h",
+        "bn-aa-sign",
+        "bn-o",
+        "bn-flap"
+      ],
+      "segments": [
+        {
+          "text": "হা",
+          "reading": "hā"
+        },
+        {
+          "text": "ও",
+          "reading": "o"
+        },
+        {
+          "text": "ড়া",
+          "reading": "ṙā"
+        }
+      ],
+      "conventionalNames": [
+        "Howrah",
+        "Haora"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.329,
+          22.595
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-durgapur",
+      "glyph": "দুর্গাপুর",
+      "meaning": "杜尔加布尔",
+      "roman": "durgāpura",
+      "ipa": "d̪uɾɡapuɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A7%81%E0%A6%B0%E0%A7%8D%E0%A6%97%E0%A6%BE%E0%A6%AA%E0%A7%81%E0%A6%B0?oldid=87725642",
+      "revision": 87725642,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "durgapur"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "工业城市；র্গ 上方是前置 র্，不是延音号。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-d",
+        "bn-u-sign",
+        "bn-r",
+        "bn-g",
+        "bn-reph",
+        "bn-aa-sign",
+        "bn-p",
+        "bn-hasanta",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "দু",
+          "reading": "du"
+        },
+        {
+          "text": "র্গা",
+          "reading": "rgā"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Durgapur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          87.311,
+          23.521
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-asansol",
+      "glyph": "আসানসোল",
+      "meaning": "阿散索尔",
+      "roman": "āsānasola",
+      "ipa": "aʃanʃol",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "西孟加拉邦西部工业城市；两个 স 的拼写相同，按整词读音学习。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-aa",
+        "bn-s",
+        "bn-aa-sign",
+        "bn-n",
+        "bn-o-sign",
+        "bn-l",
+        "bn-s-reading",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "আ",
+          "reading": "ā"
+        },
+        {
+          "text": "সা",
+          "reading": "sā"
+        },
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "সো",
+          "reading": "so"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        }
+      ],
+      "conventionalNames": [
+        "Asansol"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          86.966,
+          23.674
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-bardhaman",
+      "glyph": "বর্ধমান",
+      "meaning": "巴尔达曼",
+      "roman": "bardhamāna",
+      "ipa": "bɔɾd̪ʱoman",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%AE%E0%A6%BE%E0%A6%A8?oldid=87702056",
+      "revision": 87702056,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "bôrdhôman"
+      ],
+      "sourceIPA": [
+        "/bɔɾd̪ʱoman/",
+        "[ˈbɔɾd̪ʱoman]",
+        "/bɔɹd̪ʱoman/",
+        "[ˈbɔɹd̪ʱoman]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "র্ধ 来自 র্ + ধ；Burdwan 是常见英语旧拼名。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-b",
+        "bn-r",
+        "bn-dh",
+        "bn-reph",
+        "bn-m",
+        "bn-aa-sign",
+        "bn-n",
+        "bn-hasanta",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ব",
+          "reading": "ba"
+        },
+        {
+          "text": "র্ধ",
+          "reading": "rdha"
+        },
+        {
+          "text": "মা",
+          "reading": "mā"
+        },
+        {
+          "text": "ন",
+          "reading": "na"
+        }
+      ],
+      "conventionalNames": [
+        "Bardhaman",
+        "Burdwan"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          87.855,
+          23.232
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-krishnanagar",
+      "glyph": "কৃষ্ণনগর",
+      "meaning": "克里希纳讷格尔",
+      "roman": "kṛṣhṇanagara",
+      "ipa": "kɾiʃnonɔɡoɾ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "ৃ 是 ri 附标，不是 u；ষ্ণ 为 ষ্ + ণ，现代音值不要求卷舌鼻音。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-k",
+        "bn-ri-sign",
+        "bn-ss",
+        "bn-retro-n",
+        "bn-n",
+        "bn-g",
+        "bn-r",
+        "bn-hasanta",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "কৃ",
+          "reading": "kṛ"
+        },
+        {
+          "text": "ষ্ণ",
+          "reading": "ṣhṇa"
+        },
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Krishnanagar"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.501,
+          23.401
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-kharagpur",
+      "glyph": "খড়গপুর",
+      "meaning": "克勒格布尔",
+      "roman": "khaṙagapura",
+      "ipa": "kʰɔɽoɡpuɾ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "铁路枢纽城市；地图 r 与原文 ড় 的对应不按英语猜。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-kh",
+        "bn-flap",
+        "bn-g",
+        "bn-p",
+        "bn-u-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "খ",
+          "reading": "kha"
+        },
+        {
+          "text": "ড়",
+          "reading": "ṙa"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Kharagpur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          87.323,
+          22.346
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-medinipur",
+      "glyph": "মেদিনীপুর",
+      "meaning": "梅迪尼普尔",
+      "roman": "medinīpura",
+      "ipa": "med̪inipuɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A7%87%E0%A6%A6%E0%A6%BF%E0%A6%A8%E0%A7%80%E0%A6%AA%E0%A7%81%E0%A6%B0?oldid=92244878",
+      "revision": 92244878,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "medinīpur"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "城市名；Midnapore 是常见旧拼名。ী 与 ি 在现代语中通常同音。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-m",
+        "bn-e-sign",
+        "bn-d",
+        "bn-i-sign",
+        "bn-n",
+        "bn-ii-sign",
+        "bn-p",
+        "bn-u-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "মে",
+          "reading": "me"
+        },
+        {
+          "text": "দি",
+          "reading": "di"
+        },
+        {
+          "text": "নী",
+          "reading": "nī"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Medinipur",
+        "Midnapore"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          87.321,
+          22.425
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-chandannagar",
+      "glyph": "চন্দননগর",
+      "meaning": "金德讷格尔",
+      "roman": "chandananagara",
+      "ipa": "tʃɔnd̪ɔnnɔɡoɾ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "胡格利河畔城市；此词是 ন্দ，不是三辅音的 ন্দ্র，连续两个 ন 也要保留拼写。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-ch",
+        "bn-nd",
+        "bn-n",
+        "bn-g",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "চ",
+          "reading": "cha"
+        },
+        {
+          "text": "ন্দ",
+          "reading": "nda"
+        },
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Chandannagar",
+        "Chandernagore"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.367,
+          22.865
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-shrirampur",
+      "glyph": "শ্রীরামপুর",
+      "meaning": "塞兰坡尔",
+      "roman": "shrīrāmapura",
+      "ipa": "ʃɾiɾampuɾ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "胡格利河畔城市；শ্র 与 ঈ 的附标结合；Serampore 是地图常见名。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-shr",
+        "bn-ii-sign",
+        "bn-r",
+        "bn-aa-sign",
+        "bn-m",
+        "bn-p",
+        "bn-u-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "শ্রী",
+          "reading": "shrī"
+        },
+        {
+          "text": "রা",
+          "reading": "rā"
+        },
+        {
+          "text": "ম",
+          "reading": "ma"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Shrirampur",
+        "Serampore",
+        "Srirampur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.342,
+          22.75
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-siliguri",
+      "glyph": "শিলিগুড়ি",
+      "meaning": "西里古里",
+      "roman": "shiliguṙi",
+      "ipa": "ʃiliɡuɽi",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A6%BF%E0%A6%97%E0%A7%81%E0%A6%A1%E0%A6%BC%E0%A6%BF?oldid=71049521",
+      "revision": 71049521,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "śiliguṛi"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "北孟加拉交通枢纽；地图 S 不改变原文 শ 的拼写。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-sh",
+        "bn-i-sign",
+        "bn-l",
+        "bn-g",
+        "bn-u-sign",
+        "bn-flap"
+      ],
+      "segments": [
+        {
+          "text": "শি",
+          "reading": "shi"
+        },
+        {
+          "text": "লি",
+          "reading": "li"
+        },
+        {
+          "text": "গু",
+          "reading": "gu"
+        },
+        {
+          "text": "ড়ি",
+          "reading": "ṙi"
+        }
+      ],
+      "conventionalNames": [
+        "Siliguri",
+        "Shiliguri"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.427,
+          26.727
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-darjeeling",
+      "glyph": "দার্জিলিং",
+      "meaning": "大吉岭",
+      "roman": "dārjiliṁ",
+      "ipa": "d̪aɾdʒiliŋ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%A6%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%9C%E0%A6%BF%E0%A6%B2%E0%A6%BF%E0%A6%82?oldid=87701583",
+      "revision": 87701583,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "darjiliṅ"
+      ],
+      "sourceIPA": [
+        "/d̪aɾd͡ʒiliŋ/",
+        "[ˈd̪aɾd͡ʒiliŋ]",
+        "/d̪aɹdʑiliŋ/",
+        "[ˈd̪aɹdʑiliŋ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "这是孟加拉语书写名，不代表当地只使用孟加拉语。র্জি 同时包含 reph 和前置 i 附标。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-d",
+        "bn-aa-sign",
+        "bn-r",
+        "bn-j",
+        "bn-reph",
+        "bn-i-sign",
+        "bn-l",
+        "bn-anusvara",
+        "bn-hasanta"
+      ],
+      "segments": [
+        {
+          "text": "দা",
+          "reading": "dā"
+        },
+        {
+          "text": "র্জি",
+          "reading": "rji"
+        },
+        {
+          "text": "লিং",
+          "reading": "liṁ"
+        }
+      ],
+      "conventionalNames": [
+        "Darjeeling"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.263,
+          27.041
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-jalpaiguri",
+      "glyph": "জলপাইগুড়ি",
+      "meaning": "杰尔拜古里",
+      "roman": "jalapāiguṙi",
+      "ipa": "dʒɔlpaiɡuɽi",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "北孟加拉城市；পাই 由 া 和独立 ই 构成，不等于单个 ঐ 附标。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-j",
+        "bn-l",
+        "bn-p",
+        "bn-aa-sign",
+        "bn-i",
+        "bn-g",
+        "bn-u-sign",
+        "bn-flap",
+        "bn-i-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "জ",
+          "reading": "ja"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "পা",
+          "reading": "pā"
+        },
+        {
+          "text": "ই",
+          "reading": "i"
+        },
+        {
+          "text": "গু",
+          "reading": "gu"
+        },
+        {
+          "text": "ড়ি",
+          "reading": "ṙi"
+        }
+      ],
+      "conventionalNames": [
+        "Jalpaiguri"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.727,
+          26.544
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-cooch-behar",
+      "glyph": "কোচবিহার",
+      "meaning": "科奇比哈尔",
+      "roman": "kochabihāra",
+      "ipa": "kotʃbihaɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%95%E0%A7%8B%E0%A6%9A%E0%A6%AC%E0%A6%BF%E0%A6%B9%E0%A6%BE%E0%A6%B0?oldid=87702066",
+      "revision": 87702066,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "kocbihar"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "西孟加拉邦东北部城市；Cooch Behar 与 Koch Bihar 是惯用名变体。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-k",
+        "bn-o-sign",
+        "bn-ch",
+        "bn-b",
+        "bn-i-sign",
+        "bn-h",
+        "bn-aa-sign",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "কো",
+          "reading": "ko"
+        },
+        {
+          "text": "চ",
+          "reading": "cha"
+        },
+        {
+          "text": "বি",
+          "reading": "bi"
+        },
+        {
+          "text": "হা",
+          "reading": "hā"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Cooch Behar",
+        "Koch Bihar"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.449,
+          26.324
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-malda",
+      "glyph": "মালদা",
+      "meaning": "马尔达",
+      "roman": "māladā",
+      "ipa": "mald̪a",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A6%A6%E0%A6%BE?oldid=87729795",
+      "revision": 87729795,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "malda"
+      ],
+      "sourceIPA": [
+        "/mald̪a/",
+        "[ˈmal̪d̪aˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "本条标市区近似位置，不把同名县当作城市边界。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-m",
+        "bn-aa-sign",
+        "bn-l",
+        "bn-d",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "মা",
+          "reading": "mā"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "দা",
+          "reading": "dā"
+        }
+      ],
+      "conventionalNames": [
+        "Malda",
+        "Maldah"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.143,
+          25.01
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-balurghat",
+      "glyph": "বালুরঘাট",
+      "meaning": "巴卢尔加特",
+      "roman": "bāluraghāṭa",
+      "ipa": "baluɾɡʱaʈ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "北孟加拉城市；ঘ 是带气声的 g，ট 是后移舌位塞音。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-b",
+        "bn-aa-sign",
+        "bn-l",
+        "bn-u-sign",
+        "bn-r",
+        "bn-gh",
+        "bn-retro-t",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "বা",
+          "reading": "bā"
+        },
+        {
+          "text": "লু",
+          "reading": "lu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        },
+        {
+          "text": "ঘা",
+          "reading": "ghā"
+        },
+        {
+          "text": "ট",
+          "reading": "ṭa"
+        }
+      ],
+      "conventionalNames": [
+        "Balurghat"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.765,
+          25.22
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-raiganj",
+      "glyph": "রায়গঞ্জ",
+      "meaning": "赖根杰",
+      "roman": "rāyagañja",
+      "ipa": "ɾai̯ɡɔndʒ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "গঞ্জ 是常见地名结尾；ঞ্জ 作一个合字辨认。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-r",
+        "bn-aa-sign",
+        "bn-glide",
+        "bn-g",
+        "bn-nj",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "রা",
+          "reading": "rā"
+        },
+        {
+          "text": "য়",
+          "reading": "ya"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "ঞ্জ",
+          "reading": "ñja"
+        }
+      ],
+      "conventionalNames": [
+        "Raiganj"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.125,
+          25.62
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-berhampore",
+      "glyph": "বহরমপুর",
+      "meaning": "贝尔哈姆普尔",
+      "roman": "baharamapura",
+      "ipa": "bɔhoɾɔmpuɾ",
+      "url": "https://wb.gov.in/our-districts.aspx",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "穆尔希达巴德县的重要城市；地图惯用拼名与按字母转写分别展示。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-b",
+        "bn-h",
+        "bn-r",
+        "bn-m",
+        "bn-p",
+        "bn-u-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ব",
+          "reading": "ba"
+        },
+        {
+          "text": "হ",
+          "reading": "ha"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        },
+        {
+          "text": "ম",
+          "reading": "ma"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Berhampore",
+        "Baharampur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          88.275,
+          24.104
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-agartala",
+      "glyph": "আগরতলা",
+      "meaning": "阿加尔塔拉",
+      "roman": "āgaratalā",
+      "ipa": "aɡɔɾt̪ɔla",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%86%E0%A6%97%E0%A6%B0%E0%A6%A4%E0%A6%B2%E0%A6%BE?oldid=88303597",
+      "revision": 88303597,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "agortola"
+      ],
+      "sourceIPA": [
+        "/aɡɔɾt̪ɔla/",
+        "[ˈaɡɔɾt̪ɔlaˑ]",
+        "/aɡɔɹt̪ɔla/",
+        "[ˈaɡɔɹt̪ɔlaˑ]"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "特里普拉邦首府，孟加拉语街景的重要地区；不是孟加拉国城市。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-aa",
+        "bn-g",
+        "bn-r",
+        "bn-t",
+        "bn-l",
+        "bn-aa-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "আ",
+          "reading": "ā"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        },
+        {
+          "text": "ত",
+          "reading": "ta"
+        },
+        {
+          "text": "লা",
+          "reading": "lā"
+        }
+      ],
+      "conventionalNames": [
+        "Agartala"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.286,
+          23.831
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "bn-word-silchar",
+      "glyph": "শিলচর",
+      "meaning": "锡尔杰尔",
+      "roman": "shilachara",
+      "ipa": "ʃilɔtʃɔɾ",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%B6%E0%A6%BF%E0%A6%B2%E0%A6%9A%E0%A6%B0?oldid=70699807",
+      "revision": 70699807,
+      "checked": "2026-11-01",
+      "language": "bn",
+      "sourceTranscription": [
+        "śilocor"
+      ],
+      "sourceIPA": [],
+      "evidence": "lexical-transcription-plus-standard-segment-values",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://wb.gov.in/our-districts.aspx",
+      "independentNativeReview": false,
+      "readingNote": "阿萨姆邦巴拉克河谷的孟加拉语城市名；在阿萨姆邦不意味着招牌一定是阿萨姆语。 新增地名采用人工宽式记音，尚待母语者独立审读；不把地图惯用名当成 IPA 来源。",
+      "requires": [
+        "bn-sh",
+        "bn-i-sign",
+        "bn-l",
+        "bn-ch",
+        "bn-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "শি",
+          "reading": "shi"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "চ",
+          "reading": "cha"
+        },
+        {
+          "text": "র",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Silchar"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          92.778,
+          24.833
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-guwahati",
+      "glyph": "গুৱাহাটী",
+      "meaning": "古瓦哈提",
+      "roman": "guvāhāṭī",
+      "ipa": "ɡuɑɦɑti",
+      "url": "https://en.wiktionary.org/wiki/%E0%A6%97%E0%A7%81%E0%A7%B1%E0%A6%BE%E0%A6%B9%E0%A6%BE%E0%A6%9F%E0%A7%80?oldid=87824069",
+      "revision": 87824069,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [
+        "guahati"
+      ],
+      "sourceIPA": [
+        "/ɡuɑ.ɦɑ.ti/"
+      ],
+      "evidence": "listed-IPA-with-documented-notation-normalization",
+      "pronunciationReview": "dictionary-IPA-cross-check",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "本词采用词典列出的 ৱ 弱化变体 /ɡuɑɦɑti/，不是按字母卡机械拼成 /w/。印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "bn-g",
+        "bn-u-sign",
+        "as-w",
+        "bn-aa-sign",
+        "bn-h",
+        "as-retro-t",
+        "bn-ii-sign"
+      ],
+      "segments": [
+        {
+          "text": "গু",
+          "reading": "gu"
+        },
+        {
+          "text": "ৱা",
+          "reading": "vā"
+        },
+        {
+          "text": "হা",
+          "reading": "hā"
+        },
+        {
+          "text": "টী",
+          "reading": "ṭī"
+        }
+      ],
+      "conventionalNames": [
+        "Guwahati",
+        "Gauhati"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.736,
+          26.144
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-dibrugarh",
+      "glyph": "ডিব্ৰুগড়",
+      "meaning": "迪布鲁格尔",
+      "roman": "ḍibrugaṙa",
+      "ipa": "dibɹuɡɔɹ",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-retro-d",
+        "bn-i-sign",
+        "as-br",
+        "bn-u-sign",
+        "bn-g",
+        "as-flap",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ডি",
+          "reading": "ḍi"
+        },
+        {
+          "text": "ব্ৰু",
+          "reading": "bru"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "ড়",
+          "reading": "ṙa"
+        }
+      ],
+      "conventionalNames": [
+        "Dibrugarh"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          94.912,
+          27.472
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-jorhat",
+      "glyph": "যোৰহাট",
+      "meaning": "焦尔哈特",
+      "roman": "j̱orahāṭa",
+      "ipa": "zoɹhat",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-y",
+        "bn-o-sign",
+        "as-r",
+        "bn-h",
+        "bn-aa-sign",
+        "as-retro-t",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "যো",
+          "reading": "j̱o"
+        },
+        {
+          "text": "ৰ",
+          "reading": "ra"
+        },
+        {
+          "text": "হা",
+          "reading": "hā"
+        },
+        {
+          "text": "ট",
+          "reading": "ṭa"
+        }
+      ],
+      "conventionalNames": [
+        "Jorhat"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          94.203,
+          26.75
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-tezpur",
+      "glyph": "তেজপুৰ",
+      "meaning": "提斯普尔",
+      "roman": "tejapura",
+      "ipa": "tɛzpuɹ",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-t",
+        "bn-e-sign",
+        "as-j",
+        "bn-p",
+        "bn-u-sign",
+        "as-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "তে",
+          "reading": "te"
+        },
+        {
+          "text": "জ",
+          "reading": "ja"
+        },
+        {
+          "text": "পু",
+          "reading": "pu"
+        },
+        {
+          "text": "ৰ",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Tezpur"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          92.784,
+          26.652
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-nagaon",
+      "glyph": "নগাঁও",
+      "meaning": "瑙冈",
+      "roman": "nagām̐o",
+      "ipa": "nɔɡãʊ̯",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "bn-n",
+        "bn-g",
+        "bn-aa-sign",
+        "bn-candrabindu",
+        "bn-o",
+        "as-nasal"
+      ],
+      "segments": [
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "গাঁ",
+          "reading": "gām̐"
+        },
+        {
+          "text": "ও",
+          "reading": "o"
+        }
+      ],
+      "conventionalNames": [
+        "Nagaon",
+        "Nowgong"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          92.685,
+          26.35
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-tinsukia",
+      "glyph": "তিনিচুকীয়া",
+      "meaning": "廷苏基亚",
+      "roman": "tinichukīyā",
+      "ipa": "tinisukia",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-t",
+        "bn-i-sign",
+        "bn-n",
+        "as-ch",
+        "bn-u-sign",
+        "bn-k",
+        "bn-ii-sign",
+        "bn-glide",
+        "bn-aa-sign"
+      ],
+      "segments": [
+        {
+          "text": "তি",
+          "reading": "ti"
+        },
+        {
+          "text": "নি",
+          "reading": "ni"
+        },
+        {
+          "text": "চু",
+          "reading": "chu"
+        },
+        {
+          "text": "কী",
+          "reading": "kī"
+        },
+        {
+          "text": "য়া",
+          "reading": "yā"
+        }
+      ],
+      "conventionalNames": [
+        "Tinsukia"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          95.36,
+          27.49
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-sivasagar",
+      "glyph": "শিৱসাগৰ",
+      "meaning": "锡布萨格尔",
+      "roman": "shivasāgara",
+      "ipa": "xiwɔxaɡɔɹ",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-sh",
+        "bn-i-sign",
+        "as-w",
+        "as-s",
+        "bn-aa-sign",
+        "bn-g",
+        "as-r",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "শি",
+          "reading": "shi"
+        },
+        {
+          "text": "ৱ",
+          "reading": "va"
+        },
+        {
+          "text": "সা",
+          "reading": "sā"
+        },
+        {
+          "text": "গ",
+          "reading": "ga"
+        },
+        {
+          "text": "ৰ",
+          "reading": "ra"
+        }
+      ],
+      "conventionalNames": [
+        "Sivasagar",
+        "Sibsagar"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          94.64,
+          26.985
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-nalbari",
+      "glyph": "নলবাৰী",
+      "meaning": "纳尔巴里",
+      "roman": "nalabārī",
+      "ipa": "nɔlbaɹi",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "bn-n",
+        "bn-l",
+        "bn-b",
+        "bn-aa-sign",
+        "as-r",
+        "bn-ii-sign",
+        "bn-final-vowel"
+      ],
+      "segments": [
+        {
+          "text": "ন",
+          "reading": "na"
+        },
+        {
+          "text": "ল",
+          "reading": "la"
+        },
+        {
+          "text": "বা",
+          "reading": "bā"
+        },
+        {
+          "text": "ৰী",
+          "reading": "rī"
+        }
+      ],
+      "conventionalNames": [
+        "Nalbari"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          91.441,
+          26.445
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-dhubri",
+      "glyph": "ধুবুৰী",
+      "meaning": "杜布里",
+      "roman": "dhuburī",
+      "ipa": "dʱubuɹi",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "as-dh",
+        "bn-u-sign",
+        "bn-b",
+        "as-r",
+        "bn-ii-sign"
+      ],
+      "segments": [
+        {
+          "text": "ধু",
+          "reading": "dhu"
+        },
+        {
+          "text": "বু",
+          "reading": "bu"
+        },
+        {
+          "text": "ৰী",
+          "reading": "rī"
+        }
+      ],
+      "conventionalNames": [
+        "Dhubri"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          89.985,
+          26.019
+        ],
+        "mapId": "india"
+      }
+    },
+    {
+      "id": "as-word-bongaigaon",
+      "glyph": "বঙাইগাঁও",
+      "meaning": "邦盖冈",
+      "roman": "baṅāigām̐o",
+      "ipa": "bɔŋai̯ɡãʊ̯",
+      "url": "https://assam.gov.in/districts",
+      "revision": null,
+      "checked": "2026-11-01",
+      "language": "as",
+      "sourceTranscription": [],
+      "sourceIPA": [],
+      "evidence": "primary-place-spelling-plus-manual-broad-IPA-pending-review",
+      "pronunciationReview": "pending-independent-pronunciation-review",
+      "spellingSource": "https://assam.gov.in/districts",
+      "independentNativeReview": false,
+      "readingNote": "印度阿萨姆邦城市的阿萨姆语书写名。规范转写保留字母拼写，地图惯用名另列；IPA 为宽式记音，口音可有差异，尚待母语者独立审读。红点仅表示市区近似位置。",
+      "requires": [
+        "as-overview",
+        "bn-b",
+        "bn-ng",
+        "bn-aa-sign",
+        "bn-i",
+        "bn-g",
+        "bn-candrabindu",
+        "bn-o",
+        "as-nasal"
+      ],
+      "segments": [
+        {
+          "text": "ব",
+          "reading": "ba"
+        },
+        {
+          "text": "ঙা",
+          "reading": "ṅā"
+        },
+        {
+          "text": "ই",
+          "reading": "i"
+        },
+        {
+          "text": "গাঁ",
+          "reading": "gām̐"
+        },
+        {
+          "text": "ও",
+          "reading": "o"
+        }
+      ],
+      "conventionalNames": [
+        "Bongaigaon"
+      ],
+      "place": {
+        "type": "city",
+        "coordinates": [
+          90.558,
+          26.477
+        ],
+        "mapId": "india"
       }
     }
   ]

@@ -6,6 +6,8 @@ import { mainComplete } from '../lib/engine';
 import { useScriptStyle } from './ScriptVariants';
 import { PlaceMap } from './PlaceMap';
 import { Modal } from './Modal';
+import { chooseMatch, type MatchSelection, type MatchSide } from '../lib/matching';
+import { itemLanguageLabel, itemLocale, rushScoreKey, selectedLanguages } from '../lib/languages';
 
 export type StartRush = (mode: RushMode) => void;
 export function RushEntryPoints({ state, course, startRush: start }: { state: AppState; course: Course; startRush: StartRush }) {
@@ -17,7 +19,7 @@ export function RushEntryPoints({ state, course, startRush: start }: { state: Ap
       if (!count) return null;
       return <button className="rush-mode" key={mode} disabled={count < 6} onClick={() => start(mode)}>
         <span><strong>{mode === 'simple' ? '简单 Rush' : '词汇 Rush'}</strong><small>{mode === 'simple' ? '字母与基础组合' : `${count} 个词汇`}</small></span>
-        <span className="rush-best"><Trophy size={14} />{state.rushBest?.[`${course.id}:${mode}`] || 0}</span><ArrowRight size={17} />
+        <span className="rush-best"><Trophy size={14} />{state.rushBest?.[rushScoreKey(course, mode, selectedLanguages(course, state))] || 0}</span><ArrowRight size={17} />
       </button>;
     })}</div>
   </section>;
@@ -28,9 +30,9 @@ export function Rush({ state, course, mode, onExit, onFinish, onRestart }: {
 }) {
   const [pool] = useState(() => rushPool(course, mode, state));
   const [board, setBoard] = useState(() => startRush(pool));
-  const [selected, setSelected] = useState<number>();
+  const [selected, setSelected] = useState<MatchSelection>();
   const [score, setScore] = useState(0);
-  const [wrong, setWrong] = useState<number>();
+  const [wrong, setWrong] = useState<{ left: string; right: string }>();
   const [meaning, setMeaning] = useState<(typeof pool)[number]>();
   const [remaining, setRemaining] = useState(120);
   const [done, setDone] = useState(false);
@@ -40,7 +42,7 @@ export function Rush({ state, course, mode, onExit, onFinish, onRestart }: {
   const wrongTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const busyUntil = useRef(0);
   const { scriptClass, control } = useScriptStyle(course);
-  const best = state.rushBest?.[`${course.id}:${mode}`] || 0;
+  const best = state.rushBest?.[rushScoreKey(course, mode, selectedLanguages(course, state))] || 0;
   useEffect(() => {
     const tick = () => {
       const seconds = Math.max(0, Math.ceil((deadline.current - Date.now()) / 1000));
@@ -53,19 +55,24 @@ export function Rush({ state, course, mode, onExit, onFinish, onRestart }: {
   useEffect(() => {
     if (done && !recorded.current) { recorded.current = true; onFinish(score); }
   }, [done, onFinish, score]);
-  function match(index: number) {
+  function match(side: MatchSide, id: string) {
     if (Date.now() >= deadline.current) { setDone(true); return; }
-    if (selected === undefined || done || Date.now() < busyUntil.current) return;
-    if (board.left[selected].id !== board.right[index].id) {
-      setWrong(index); setScore(value => Math.max(0, value - 1)); setSelected(undefined);
+    if (done || Date.now() < busyUntil.current) return;
+    const choice = chooseMatch(selected, side, id);
+    setSelected(choice.selection);
+    if (!choice.pair) return;
+    if (choice.pair.left !== choice.pair.right) {
+      setWrong(choice.pair); setScore(value => Math.max(0, value - 1));
       busyUntil.current = Date.now() + 450;
       clearTimeout(wrongTimer.current);
       wrongTimer.current = setTimeout(() => setWrong(undefined), 450);
       return;
     }
+    const leftIndex = board.left.findIndex(entry => entry.id === choice.pair!.left);
+    const rightIndex = board.right.findIndex(entry => entry.id === choice.pair!.right);
     setScore(value => value + 1);
-    setMeaning(board.left[selected]);
-    setBoard(refillRush(board, pool, selected, index));
+    setMeaning(board.left[leftIndex]);
+    setBoard(refillRush(board, pool, leftIndex, rightIndex));
     setSelected(undefined); setWrong(undefined);
     busyUntil.current = Date.now() + 250;
   }
@@ -86,10 +93,10 @@ export function Rush({ state, course, mode, onExit, onFinish, onRestart }: {
         {meaning ? <><div><strong className={scriptClass}>{meaning.glyph}</strong><span>{meaning.item?.meaning}</span></div><PlaceMap item={meaning.item} compact /></> : <span>词汇 Rush</span>}
       </div>}
       <div className="matching-grid rush-grid">
-        <div>{board.left.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button script-match ${scriptClass} ${entry.glyph.length > 8 ? 'dense-glyph' : ''} ${selected === index ? 'selected' : ''}`}
-          dir={course.direction} lang={course.locale} aria-pressed={selected === index} onClick={() => setSelected(index)}><span>{entry.glyph}</span><PlaceMap item={entry.item} compact anonymous /></button>)}</div>
-        <div>{board.right.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button phonetic ${entry.reading.length > 35 ? 'dense-reading' : ''} ${wrong === index ? 'wrong' : ''}`}
-          disabled={selected === undefined} onClick={() => match(index)}><span>{entry.reading}</span></button>)}</div>
+        <div>{board.left.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button script-match ${scriptClass} ${entry.glyph.length > 8 ? 'dense-glyph' : ''} ${selected?.side === 'left' && selected.id === entry.id ? 'selected' : ''} ${wrong?.left === entry.id ? 'wrong' : ''}`}
+          dir={course.direction} lang={entry.item ? itemLocale(course, entry.item) : course.locale} aria-pressed={selected?.side === 'left' && selected.id === entry.id} onClick={() => match('left', entry.id)}>{course.languages?.length && entry.item && <small className="entry-language">{itemLanguageLabel(course, entry.item)}</small>}<span>{entry.glyph}</span><PlaceMap item={entry.item} compact anonymous /></button>)}</div>
+        <div>{board.right.map((entry, index) => <button key={`${index}:${entry.id}`} data-entry-id={entry.id} className={`match-button phonetic ${entry.reading.length > 35 ? 'dense-reading' : ''} ${selected?.side === 'right' && selected.id === entry.id ? 'selected' : ''} ${wrong?.right === entry.id ? 'wrong' : ''}`}
+          aria-pressed={selected?.side === 'right' && selected.id === entry.id} onClick={() => match('right', entry.id)}><span>{entry.reading}</span></button>)}</div>
       </div>
       <div className="rush-status"><RotateCcw size={13} />配对 +1 · 错配 −1</div>
     </main>

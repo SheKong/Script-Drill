@@ -1,5 +1,6 @@
 import type { AppState, Course, Knowledge } from '../types';
 import { extrasOpen, reading, shuffle } from './engine';
+import { matchesLanguages, selectedLanguages } from './languages';
 
 export type RushMode = 'simple' | 'vocabulary';
 export interface RushEntry { id: string; glyph: string; reading: string; item?: Knowledge }
@@ -9,7 +10,8 @@ export function rushPool(course: Course, mode: RushMode, state: AppState): RushE
   const complete = extrasOpen(course, state);
   const items = course.items.filter(item => mode === 'vocabulary'
     ? item.kind === 'word' && (!item.extra || complete)
-    : ['consonant', 'vowel', 'symbol'].includes(item.kind) && !item.obsolete);
+    : ['consonant', 'vowel', 'symbol'].includes(item.kind) && !item.obsolete)
+    .filter(item => matchesLanguages(course, item, selectedLanguages(course, state)));
   const entries: RushEntry[] = items.map(item => ({ id: item.id, glyph: item.glyph, reading: reading(item), item }));
   if (mode === 'simple' && course.composition) {
     const consonants = items.filter(item => item.kind === 'consonant' && !course.composition!.excludedConsonantIds.includes(item.id));

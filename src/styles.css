@@ -664,6 +664,24 @@ button svg, a svg { vertical-align: middle; }
 .extra-lesson-row > span:nth-child(2) { flex: 1; }
 .extra-lesson-row:disabled { color: var(--muted); opacity: .6; }
 .extra-lesson-row:hover:not(:disabled) { color: var(--green); }
+.course-branch { margin-top: 32px; border-top: 1px solid var(--line); padding-top: 8px; }
+.course-branch h2 { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.branch-description { font-size: 12px; color: var(--muted); line-height: 1.8; }
+.branch-notice { display: flex; align-items: flex-start; gap: 8px; border-left: 2px solid #bd943f; padding: 8px 12px; margin: 14px 0; font-size: 11px; line-height: 1.9; color: #725820; }
+.branch-notice > svg { flex-shrink: 0; margin-top: 3px; }
+.branch-lesson-row { width: 100%; display: flex; align-items: center; gap: 14px; text-align: left; padding: 17px 0; border-bottom: 1px solid var(--line); }
+.branch-lesson-row > span:nth-child(2) { flex: 1; min-width: 0; }
+.branch-lesson-row strong { display: block; font-size: 13px; font-weight: 500; }
+.branch-lesson-row small { display: block; font-size: 10px; line-height: 1.8; color: var(--muted); margin-top: 3px; }
+.branch-lesson-row:disabled { opacity: .6; }
+.branch-lesson-row:hover:not(:disabled) { color: var(--green); }
+.language-filters { border: 0; border-bottom: 1px solid var(--line); padding: 14px 0; display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0 0; }
+.language-filters legend { padding: 0; font-size: 11px; color: var(--muted); }
+.language-filters label { display: flex; align-items: center; gap: 7px; font-size: 13px; cursor: pointer; }
+.language-filters input { width: 16px; height: 16px; accent-color: var(--green); }
+.tile-language { color: var(--muted); font-size: 9px; line-height: 1.6; margin-top: 3px; }
+.matching-grid .script-match:has(.entry-language) { position: relative; padding-top: 19px; }
+.entry-language { position: absolute; top: 3px; left: 7px; right: 7px; color: var(--muted); font-family: var(--font-sans, sans-serif); font-size: 8px; line-height: 1.5; text-align: left; white-space: nowrap; }
 .completion-actions { display: grid; gap: 12px; width: 300px; max-width: 100%; margin: 32px 0 12px; }
 .completion-actions .button { min-height: 48px; }
 .place-map { width: 110px; max-width: 100%; margin: 12px auto; }

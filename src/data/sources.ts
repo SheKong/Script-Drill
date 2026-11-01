@@ -52,6 +52,36 @@ export const sources: Source[] = [
     description: '官方行政区目录，用于核对地名拼写、Division / District 层级与英语惯用名；不以此目录冒充地名 IPA 的来源。',
   },
   {
+    id: 'bn-india-places', title: 'Bengali geographical names in India', organization: 'Government of West Bengal · district portals',
+    url: 'https://wb.gov.in/our-districts.aspx',
+    description: '西孟加拉邦及其市、县官方门户的原文地名；同时参考 Agartala Municipal Corporation 与 Cachar District 官方门户。不以行政目录冒充 IPA 依据；逐词来源与待审状态见扩展研究文档。',
+  },
+  {
+    id: 'bn-india-boundaries', title: 'Natural Earth · India outline · v5.1.2', organization: 'Natural Earth',
+    url: 'https://www.naturalearthdata.com/about/terms-of-use/',
+    description: '公有领域 1:50m 国家轮廓，印度城市使用独立地图配置；保留派生 GeoJSON 与来源。仅学习位置示意，不代表法定边界主张。',
+  },
+  {
+    id: 'as-ungegn', title: 'Romanization of Assamese · version 4.0 (2016)', organization: 'UNGEGN · Working Group on Romanization Systems',
+    url: 'https://arhiiv.eki.ee/wgrs/rom1_as.pdf',
+    description: '联合国 1972 年 II/11 决议推荐的阿萨姆语转写表；ৰ r、ৱ v、য j̱ 与附标的规范依据。推荐方案不等于当地统一地图拼名；与孟加拉语分别配置。',
+  },
+  {
+    id: 'as-unicode', title: 'Unicode Core Specification · Bengali / Assamese', organization: 'Unicode Consortium',
+    url: 'https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/',
+    description: '核对共用编码区块、Assamese ৰ/ৱ、合字和 reph。区块名 Bengali 不是语言归属标签；相同编码可有不同语言读音。',
+  },
+  {
+    id: 'as-phonology', title: 'The Written Languages of the World · Assamese', organization: 'Census of India · language survey',
+    url: 'https://censusindia.gov.in/nada/index.php/catalog/32379/download/35560/29283_1981_SUR.pdf',
+    description: '阿萨姆语音系中的齿龈塞音、/x/、/s/、/z/ 和鼻化背景。资料将 rhotic 宽记 r，本分支选择近音 /ɹ/ 变体；不声称本调查逐词提供地名 IPA 或课程已获母语审定。',
+  },
+  {
+    id: 'as-places', title: 'Assam districts and Assamese place spellings', organization: 'Government of Assam · district portals',
+    url: 'https://assam.gov.in/districts',
+    description: '核对阿萨姆邦城市、地区与阿萨姆语拼写，参考 Nalbari、Dibrugarh、Bongaigaon 等地方政府原文。地图惯用名与人工宽式读音分别记录。',
+  },
+  {
     id: 'bn-boundaries', title: 'Natural Earth · Bangladesh outline · v5.1.2', organization: 'Natural Earth',
     url: 'https://www.naturalearthdata.com/about/terms-of-use/',
     description: '公有领域的 1:50m 国家轮廓。随站点提供派生 GeoJSON 和来源说明；城市为近似参考点，不能当作法定边界或精确导航。',

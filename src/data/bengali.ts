@@ -2,6 +2,9 @@ import type { Course, Knowledge, Recording, Unit } from '../types';
 import { sources } from './sources';
 import geography from './bengali-map.json' with { type: 'json' };
 import recordings from './recordings.json' with { type: 'json' };
+import indiaGeography from './india-map.json' with { type: 'json' };
+import { bengaliExtensionItems, bengaliExtensionUnits, bengaliExtraUnits, bengaliNewPlaces, sharedBengaliIds } from './bengali-extension';
+import { assameseBranch, assameseItems } from './assamese';
 
 const refs = ['bn-script', 'bn-orthography', 'bn-ungegn'];
 const recordingMap: Record<string, Recording> = recordings;
@@ -253,6 +256,7 @@ const cityItems = cities.map(([id, glyph, roman, ipa, name, names, coordinates, 
   sources: ['bn-lexicon', 'bn-government', 'bn-phonetics', 'bn-ungegn'],
   place: { type: 'city' as const, coordinates },
 }));
+cityItems.find(item => item.id === 'bn-word-coxs-bazar')!.requires.push('bn-ks');
 
 for (const item of [...words, ...cityItems]) {
   const recording = recordingMap[item.id] || Object.values(recordingMap)
@@ -286,13 +290,6 @@ const units = [
   unit(17, '距离与门牌：五到九', '৫ · ৬ · ৭ · ৮ · ৯', ['num-5', 'num-6', 'num-7', 'num-8', 'num-9'], '05 · 街景与地图', '比较最易认错的数字，保持十进制位值。'),
   unit(18, '把读音对应到地图', '国家线索与地图惯用名', ['maps'], '05 · 街景与地图', '孟加拉文不是孟加拉国的独占线索；城市与同名行政区不能混为一个位置。补充词汇后即完成主线。'),
 ];
-const extraGroups = [
-  ['首都与东部港口', ['dhaka', 'chattogram', 'cumilla']],
-  ['西南河港与海岸', ['khulna', 'barishal', 'coxs-bazar']],
-  ['北部与西部城市', ['rajshahi', 'rangpur', 'bogura']],
-  ['东北与内陆城市', ['sylhet', 'mymensingh', 'jashore']],
-] as const;
-
 export const bengaliCourse: Course = {
   id: 'bengali', type: 'script', title: '孟加拉语文字', nativeTitle: 'বাংলা',
   scriptName: '孟加拉文', scriptClass: 'bengali', direction: 'ltr', locale: 'bn',
@@ -303,8 +300,17 @@ export const bengaliCourse: Course = {
   officialRomanizationName: 'UNGEGN',
   notationNote: 'UNGEGN 字母转写 + IPA；地图惯用拼名另列。联合国推荐方案不等于当地统一地图拼法。',
   ipaNote: '传统宽式 IPA；不标常规重音，不虚构元音长短。孟加拉国的舌位、r 与鼻化可不同。',
+  mainLanguageId: 'bn',
+  languages: [
+    { id: 'bn', label: '孟加拉语', locale: 'bn', romanizationName: 'UNGEGN', romanizationSource: 'bn-ungegn',
+      onlineListening: { label: '在线听孟加拉语', language: 'bn' } },
+    { id: 'as', label: '阿萨姆语', locale: 'as', romanizationName: 'UNGEGN', romanizationSource: 'as-ungegn',
+      ipaNote: '阿萨姆语宽式 IPA；保留拼写区别，不虚构齿音/卷舌或历史送气对立；地名待母语者独立审读。',
+      onlineListening: { label: '在线听阿萨姆语', language: 'as' } },
+  ],
+  branches: [assameseBranch],
   referenceNotes: [
-    '本课针对通行书面孟加拉语的街景认读，覆盖现代常用辅音、独立元音及附标、17 个高频合字、十个数字、常用路牌词与孟加拉国城市。不是孟加拉国所有方言或印度所有地区的口语发音课，也不穷举梵语专用字母与全部合字。',
+    '主线针对通行书面孟加拉语的街景认读，覆盖常用辅音、独立元音及附标、高频合字、reph、鼻化符号、十个数字与常用路牌词。额外地名课覆盖孟加拉国和印度孟加拉语地区，每组 10 城；并有与主线平行的阿萨姆语分支。不穷举所有方言、梵语专用字母或全部合字。',
     '每个字母同时学 UNGEGN 与 IPA，不另设读音转写。采用联合国 1972 年 II/11 决议推荐的方案及 2016 年状态表：আ ā /a/、ঈ ī /i/、ট ṭ /ʈ/、ড় ṙ /ɽ/、ঋ ṛ /ɾi/、য j̱ /dʒ/、শ sh /ʃ/、ষ ṣh /ʃ/。拉丁附标表示拼写区别，不自动表示现代长短或舌位对立。',
     '辅音卡与合字卡展示去掉固有元音的辅音部分；完整字母转写如 ক ka。整词按表保留固有 a，hasanta 取消前一字母的 a；实际 /ɔ~o/、元音脱落与例外看 IPA，不从转写机械推音。拆解栏也使用同一 UNGEGN 方案。',
     '联合国报告未发现该方案在当地或国际地图中的实际使用证据，不把它冒充孟加拉国统一官方地图拼法。Chattogram / Chittagong、Dhaka 等具体地图惯用名另列并接受输入；旧课程输入仅兼容，不再作为教学栏。',
@@ -312,16 +318,16 @@ export const bengaliCourse: Course = {
     '辅音卡只标辅音部分，不朗读字母名称；固有元音 /ɔ~o/、元音脱落、合字和 ফলা 在实际词条中人工核对。不启用泰语式占位替换组合器。规则低频核验，主要通过单词练习。',
     '本地已收录 8 个与课程词条逐字匹配的 Wikimedia Commons · Lingua Libre 真人录音；其余词仍只提供匹配 bn 的可选设备语音或在线收听，不朗读占位模板，也不用英语声音替代。UT Austin 提供原站真人发音课程；词典没有独立 IPA 的四个城市与 সেতু，采用词条转写结合标准音值，审校状态在随项目研究表中明确记录。',
     '内容已做来源与程序结构核查，尚未获得母语者对全量 IPA 的独立审读，不宣称达到母语审定。地图只作位置示意；城市红点不表示整个同名行政区，国名则标整国。',
+    '阿萨姆语分支只教相对于主线的差异，不重复整套共用字母与数字；同形异音条目分开记录。阿萨姆语使用独立的 UNGEGN 表、as 语音和在线入口，不能借用 bn 声音。新增地名的人工宽式记音与原有词典证据在审校表中分开标记，仍待独立审读。',
   ],
   pronunciationReference: 'bn-pronunciation',
   onlineListening: { label: '在线听孟加拉语', language: 'bn' },
   geography: { ...geography, projection: { ...geography.projection, translate: geography.projection.translate as [number, number] } },
-  items: [...rules, ...consonants, ...vowels, ...clusters, ...numbers, ...words, ...cityItems],
-  units,
-  extraUnits: extraGroups.map(([title, names], index) => ({
-    id: `bengali-extra-${index + 1}`, title, subtitle: '城市读音、地图惯用名与位置',
-    phase: '额外 · 孟加拉国地名', items: names.map(name => `bn-word-${name}`),
-    note: '主线完成后自动开放，也可确认风险后提前解锁。位置标城市，不标整个同名行政区；提前练习不会代替主线知识学习。',
-  })),
-  sources: sources.filter(source => source.id.startsWith('bn-') || ['fsrs', 'duo-writing'].includes(source.id)),
+  geographies: { india: { ...indiaGeography, projection: { ...indiaGeography.projection, translate: indiaGeography.projection.translate as [number, number] } } },
+  items: [...rules, ...consonants, ...vowels, ...clusters, ...numbers, ...words, ...cityItems, ...bengaliExtensionItems, ...bengaliNewPlaces]
+    .map<Knowledge>(item => ({ ...item, languageIds: sharedBengaliIds.has(item.id) ? ['bn', 'as'] : ['bn'] }))
+    .concat(assameseItems),
+  units: [...units.slice(0, 15), ...bengaliExtensionUnits, ...units.slice(15)],
+  extraUnits: bengaliExtraUnits,
+  sources: sources.filter(source => source.id.startsWith('bn-') || source.id.startsWith('as-') || ['fsrs', 'duo-writing'].includes(source.id)),
 };

@@ -11,5 +11,5 @@ export const courses: Record<CourseId, Course> = {
 export const allItems = Object.values(courses).flatMap(course => course.items);
 export const itemMap = Object.fromEntries(allItems.map(item => [item.id, item]));
 export const kindNames: Record<string, string> = {
-  consonant: '辅音', vowel: '元音', symbol: '音标', rule: '规则', word: '词汇', number: '数字',
+  consonant: '辅音', vowel: '元音', symbol: '符号', rule: '规则', word: '词汇', number: '数字',
 };

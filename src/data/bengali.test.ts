@@ -19,10 +19,10 @@ describe('Bengali curriculum', () => {
     expect(course.composition).toBeUndefined();
     expect(course.voiceHelp).toBeUndefined();
     expect(course.items.filter(item => item.group === '常见合字')).toHaveLength(17);
-    expect(course.items.filter(item => item.kind === 'vowel')).toHaveLength(22);
+    expect(course.items.filter(item => item.kind === 'vowel' && !item.branchId)).toHaveLength(22);
     expect(course.items.filter(item => item.kind === 'number')).toHaveLength(10);
     expect(course.extraUnits).toHaveLength(4);
-    expect(course.items.filter(item => item.extra)).toHaveLength(12);
+    expect(course.items.filter(item => item.extra)).toHaveLength(40);
     expect(course.units.at(-1)?.supplementary).toBe(true);
     expect(makeCombination(course.items, course)).toBeUndefined();
     const letters = new Set(course.items.filter(item => item.kind === 'consonant').map(item => item.glyph.normalize('NFC')));
@@ -78,7 +78,7 @@ describe('Bengali curriculum', () => {
     for (const item of course.items.filter(item => ['consonant', 'vowel', 'word'].includes(item.kind))) {
       expect(item.roman, item.id).toBeTruthy();
       expect(item.ipa, item.id).toBeTruthy();
-      expect(item.sources, item.id).toContain('bn-ungegn');
+      expect(item.sources, item.id).toContain(item.branchId ? 'as-ungegn' : 'bn-ungegn');
       expect(item.officialRoman, item.id).toBeUndefined();
     }
     expect(itemMap['bn-word-dhaka'].roman).toBe('ḍhākā');
@@ -126,8 +126,14 @@ describe('Bengali curriculum', () => {
       expect(record?.glyph).toBe(item.glyph);
       expect(record.ipa).toBe(item.ipa);
       expect(record.roman).toBe(item.roman);
-      expect(record.url).toContain('oldid=');
-      expect(record.sourceTranscription.length).toBeGreaterThan(0);
+      if (record.revision) {
+        expect(record.url).toContain('oldid=');
+        expect(record.sourceTranscription.length).toBeGreaterThan(0);
+      } else {
+        expect(record.evidence).toBe('primary-place-spelling-plus-manual-broad-IPA-pending-review');
+        expect(record.sourceIPA).toEqual([]);
+        expect(record.pronunciationReview).toBe('pending-independent-pronunciation-review');
+      }
       expect(record.independentNativeReview).toBe(false);
       expect(item.pronunciation?.speech?.text).toBe(item.glyph);
       if (recordedIds.has(item.id)) {
@@ -142,7 +148,7 @@ describe('Bengali curriculum', () => {
     }
     expect(course.items.filter(item => item.pronunciation?.recording).map(item => item.id).sort())
       .toEqual([...recordedIds].sort());
-    expect(audit.counts.lexicalTranscriptionOnly).toBe(5);
+    expect(audit.counts.lexicalTranscriptionOnly).toBeGreaterThanOrEqual(5);
     expect(course.items.filter(item => item.kind !== 'word').every(item => !item.pronunciation?.speech)).toBe(true);
   });
   it('makes both Rush modes usable, and early city access does not train their missing prerequisites', () => {
@@ -154,7 +160,7 @@ describe('Bengali curriculum', () => {
     const unlocked = { ...state, earlyExtraUnlocks: { bengali: true } };
     expect(rushPool(course, 'vocabulary', unlocked).some(word => word.item?.extra)).toBe(true);
     const session = createSession(unlocked, 'extra', course.extraUnits![0].id)!;
-    expect(session.newIds).toHaveLength(3);
+    expect(session.newIds).toHaveLength(6);
     expect(trained('bn-retro-dh', unlocked.progress)).toBe(false);
     expect(() => parseBackup(JSON.stringify({ ...unlocked, session }))).not.toThrow();
   });

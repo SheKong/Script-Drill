@@ -4,7 +4,8 @@ import {
   Flame, Globe2, GraduationCap, Library, MapPin, RotateCcw, Settings2, ShieldCheck, X,
 } from 'lucide-react';
 import { courses } from './data';
-import { advanceIntro, answerExercise, createSession, finishSession, mainComplete, streak } from './lib/engine';
+import { advanceIntro, answerExercise, branchOfUnit, createSession, finishSession, mainComplete, streak, unitDone } from './lib/engine';
+import { rushScoreKey, selectedLanguages } from './lib/languages';
 import { initialState, loadState, saveState } from './lib/storage';
 import type { AppState, CourseId, Knowledge, Session } from './types';
 import { KnowledgeDetail } from './components/KnowledgeDetail';
@@ -105,18 +106,23 @@ export default function App() {
     courseButton.current?.querySelector<HTMLButtonElement>('.course-current')?.focus();
   };
   const completeContinue = () => {
-    const mode = summary?.mode === 'extra' ? 'extra' : mainComplete(course, state) ? 'review' : 'learn';
+    const branch = summary?.mode === 'branch' ? branchOfUnit(course, summary.unitId) : undefined;
+    const nextBranchUnit = branch?.units.find(unit => !unitDone(unit, state.progress, state.completedUnitReviews));
+    const mode = branch ? 'branch' : summary?.mode === 'extra' ? 'extra' : mainComplete(course, state) ? 'review' : 'learn';
     setSummary(undefined);
-    const next = createSession(state, mode);
+    const next = branch && !nextBranchUnit ? undefined : createSession(state, mode, nextBranchUnit?.id);
     if (next) { setState({ ...state, session: next }); setInQuiz(true); }
     else { setPage('learn'); setToast('本轮练习已完成，可在学习路径选择其他内容。'); }
     window.scrollTo(0, 0);
   };
-  const props = { state, course, start, inspect: setDetail, startRush: (mode: RushMode) => { setRush(mode); window.scrollTo(0, 0); } };
+  const props = { state, course, start, inspect: setDetail,
+    selectLanguages: (ids: string[]) => setState(previous => ({ ...previous, languageSelections: { ...previous.languageSelections, [course.id]: ids } })),
+    startRush: (mode: RushMode) => { setRush(mode); window.scrollTo(0, 0); } };
+  const scoreKey = rush ? rushScoreKey(course, rush, selectedLanguages(course, state)) : '';
   return <>
     {rush ? <Rush key={`${course.id}:${rush}:${rushRun}`} state={state} course={course} mode={rush} onRestart={() => setRushRun(value => value + 1)}
       onExit={() => setRush(undefined)} onFinish={score => setState(previous => ({
-        ...previous, rushBest: { ...previous.rushBest, [`${course.id}:${rush}`]: Math.max(previous.rushBest?.[`${course.id}:${rush}`] || 0, score) },
+        ...previous, rushBest: { ...previous.rushBest, [scoreKey]: Math.max(previous.rushBest?.[scoreKey] || 0, score) },
       }))} /> : inQuiz && state.session ? <Quiz state={state}
       onIntro={() => applyStep(advanceIntro(state))}
       onAnswer={(correct, hinted, pairs) => applyStep(answerExercise(state, correct, hinted, pairs))}
@@ -173,7 +179,7 @@ export default function App() {
           {page === 'learn' && <LearnPage key={course.id} {...props}
             unlockExtras={() => setState(previous => ({ ...previous, earlyExtraUnlocks: { ...previous.earlyExtraUnlocks, [course.id]: true } }))}
             resume={() => { setInQuiz(true); window.scrollTo(0, 0); }} />}
-          {page === 'library' && <LibraryPage {...props} />}
+          {page === 'library' && <LibraryPage key={course.id} {...props} />}
           {page === 'review' && <ReviewPage {...props} />}
           {page === 'stats' && <StatsPage state={state} course={course} />}
           {page === 'sources' && <SourcesPage course={course} />}

@@ -1,12 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import {
   ArrowDownToLine, ArrowRight, ArrowUpFromLine, BookOpen, CalendarDays, Check, ChevronDown,
-  ChevronRight, CircleCheck, Clock3, ExternalLink, Flame, GraduationCap, Layers3, LockKeyhole,
+  ChevronRight, CircleCheck, Clock3, ExternalLink, Flame, GitBranch, GraduationCap, Layers3, LockKeyhole,
   MapPin, Play, RotateCcw, Search, ShieldCheck, SlidersHorizontal, Target, Trash2, UnlockKeyhole, X,
 } from 'lucide-react';
 import { itemMap, kindNames } from '../data';
 import { sources } from '../data/sources';
-import { cardStatus, dueItems, extrasOpen, localDay, mainComplete, nextUnit, reviewDueAt, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
+import { branchUnitOpen, cardStatus, dueItems, extrasOpen, localDay, mainComplete, nextUnit, reviewDueAt, streak, trained, unitDone, unitLearned, unitOpen, weakItems } from '../lib/engine';
+import { itemLanguageLabel, itemLocale, matchesLanguages, selectedLanguages } from '../lib/languages';
 import { exportBackup, parseBackup } from '../lib/storage';
 import type { AppState, Course, Knowledge, Session } from '../types';
 import { Modal } from './Modal';
@@ -17,7 +18,7 @@ import { RushEntryPoints, type StartRush } from './Rush';
 import { PlaceMap } from './PlaceMap';
 
 export type Start = (mode: Session['mode'], unitId?: string, ids?: string[]) => void;
-type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void; startRush: StartRush };
+type PageProps = { state: AppState; course: Course; start: Start; inspect: (item: Knowledge) => void; startRush: StartRush; selectLanguages?: (ids: string[]) => void };
 
 export function LearnPage({ state, course, start, inspect, resume, startRush, unlockExtras }: PageProps & { resume: () => void; unlockExtras: () => void }) {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +28,7 @@ export function LearnPage({ state, course, start, inspect, resume, startRush, un
   const extraOpen = extrasOpen(course, state);
   const reviewReady = current && unitLearned(current, state.progress);
   const currentIndex = current ? course.units.indexOf(current) : course.units.length;
-  const symbols = course.items.filter(i => i.kind !== 'word');
+  const symbols = course.items.filter(i => i.kind !== 'word' && !i.branchId);
   const trainedCount = symbols.filter(i => trained(i.id, state.progress)).length;
   const due = dueItems(course, state.progress);
   const today = state.history.filter(h => localDay(h.date) === localDay()).reduce((n, h) => n + h.answers, 0);
@@ -109,6 +110,18 @@ export function LearnPage({ state, course, start, inspect, resume, startRush, un
           <span><strong>{unit.title}</strong><small>{unit.items.filter(id => trained(id, state.progress)).length} / {unit.items.length} 个地名 · 含综合复习</small></span><ChevronRight size={17} />
         </button>)}
       </section>}
+      {course.branches?.map(branch => <section className="course-branch" key={branch.id}>
+        <div className="section-heading"><h2><GitBranch size={17} />课程分支：{branch.title}</h2><span>独立进度</span></div>
+        <p className="branch-description">{branch.description}</p>
+        {!complete && <p className="branch-notice" role="note"><BookOpen size={16} /><span>本分支默认已掌握主线的字母、附标与合字。你尚未完成主线，仍可直接开始；缺少的主线知识不会自动标记为已学。</span></p>}
+        {branch.units.map(unit => {
+          const open = branchUnitOpen(course, unit.id, state);
+          return <button className="branch-lesson-row" key={unit.id} disabled={!open} onClick={() => start('branch', unit.id)}>
+            <span>{unitDone(unit, state.progress, state.completedUnitReviews) ? <CircleCheck size={18} /> : open ? <GitBranch size={18} /> : <LockKeyhole size={18} />}</span>
+            <span><strong>{unit.title}</strong><small>{unit.subtitle} · {unit.items.filter(id => trained(id, state.progress)).length} / {unit.items.length}</small></span><ChevronRight size={17} />
+          </button>;
+        })}
+      </section>)}
       {confirmUnlock && <Modal title="提前解锁地名额外课？" onClose={() => setConfirmUnlock(false)}>
         <p className="dialog-copy">推荐先学完{course.title}主线，再练习地名。地名会用到尚未学习的字母和拼读规则，提前练习可能更难。</p>
         <p className="dialog-copy">仍然解锁后，可以直接学习本课程的全部地名额外课；不会替你完成主线，也不会更改已有进度。</p>
@@ -153,43 +166,50 @@ export function LearnPage({ state, course, start, inspect, resume, startRush, un
   </div>;
 }
 
-export function LibraryPage({ state, course, start, inspect, startRush }: PageProps) {
+export function LibraryPage({ state, course, start, inspect, startRush, selectLanguages }: PageProps) {
   const { scriptClass, control } = useScriptStyle(course);
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState('all');
   const [status, setStatus] = useState('all');
-  const kinds = [...new Set(course.items.map(i => i.kind))];
+  const selection = selectedLanguages(course, state);
+  const languageItems = course.items.filter(item => matchesLanguages(course, item, selection));
+  const kinds = [...new Set(languageItems.map(i => i.kind))];
   const items = useMemo(() => course.items.filter(i => {
     const q = query.toLowerCase().trim();
-    return (kind === 'all' || i.kind === kind) && (
+    return matchesLanguages(course, i, selection) && (kind === 'all' || i.kind === kind) && (
       !q || [i.glyph, i.roman, i.ipa, i.officialRoman, i.title, i.explanation, i.meaning, ...(i.conventionalNames || [])].some(s => s?.toLowerCase().includes(q))
     ) && (status === 'all' || status === 'known' && state.progress[i.id]?.introduced || status === 'new' && !state.progress[i.id]?.introduced);
-  }), [course, query, kind, status, state.progress]);
+  }), [course, query, kind, status, state.progress, selection]);
   const known = items.filter(i => state.progress[i.id]?.introduced);
   return <div className="wide-page">
     <div className="page-heading"><div><div className="eyebrow">{course.title} / REFERENCE</div><h1>{course.type === 'script' ? '文字图鉴' : '音标图鉴'}</h1></div>
       <button className="button secondary" disabled={!known.length} onClick={() => start('custom', undefined, known.slice(0, 8).map(i => i.id))}><Play size={15} />练习已学内容</button></div>
+    {!!course.languages?.length && <fieldset className="language-filters"><legend>语言</legend>
+      {course.languages.map(language => <label key={language.id}><input type="checkbox" checked={selection.includes(language.id)} onChange={event =>
+        selectLanguages?.(event.target.checked ? [...selection, language.id] : selection.filter(id => id !== language.id))} />{language.label}</label>)}
+    </fieldset>}
     <RushEntryPoints state={state} course={course} startRush={startRush} />
     <div className="library-tools">
       <div className="search-box"><Search size={17} /><input aria-label="搜索知识" placeholder="搜索文字、转写、IPA 或名称" value={query} onChange={e => setQuery(e.target.value)} />{query && <button className="icon-button" onClick={() => setQuery('')} title="清空搜索" aria-label="清空搜索"><X size={15} /></button>}</div>
       <label className="status-select"><SlidersHorizontal size={15} /><select aria-label="学习状态" value={status} onChange={e => setStatus(e.target.value)}><option value="all">全部状态</option><option value="known">已经初见</option><option value="new">尚未学习</option></select></label>
     </div>
-    <div className="filter-tabs" role="tablist" aria-label="知识类别">{['all', ...kinds].map(k => <button key={k} role="tab" aria-selected={kind === k} className={kind === k ? 'active' : ''} onClick={() => setKind(k)}>{k === 'all' ? '全部' : kindNames[k]}<span>{k === 'all' ? course.items.length : course.items.filter(i => i.kind === k).length}</span></button>)}</div>
+    <div className="filter-tabs" role="tablist" aria-label="知识类别">{['all', ...kinds].map(k => <button key={k} role="tab" aria-selected={kind === k} className={kind === k ? 'active' : ''} onClick={() => setKind(k)}>{k === 'all' ? '全部' : k === 'symbol' && course.type === 'phonetics' ? '音标' : kindNames[k]}<span>{k === 'all' ? languageItems.length : languageItems.filter(i => i.kind === k).length}</span></button>)}</div>
     {control}
     <div className="results-count">{items.length} 个条目<span>{course.type === 'phonetics' ? '符号与发音特征一一对应；没有“通用英文转写”' : '词汇解锁同时检查字母与拼读规则'}</span></div>
     {!items.length ? <Empty title="没有找到匹配的知识" copy="试试另一种文字、名称或转写。" icon={<Search size={27} />} /> :
       <div className={`knowledge-grid ${kind === 'word' || kind === 'rule' ? 'wide-items' : ''}`}>
         {items.map(item => {
           const p = state.progress[item.id], s = cardStatus(p);
-          const ready = item.extra ? extrasOpen(course, state) : item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
-          return <button className={`knowledge-tile ${p?.introduced ? 'known' : ''} ${item.kind === 'word' || item.kind === 'rule' ? 'text-tile' : ''}`} key={item.id} onClick={() => inspect(item)}>
+          const ready = item.branchId ? true : item.extra ? extrasOpen(course, state) : item.kind !== 'word' || item.requires.every(id => trained(id, state.progress));
+          return <button className={`knowledge-tile ${p?.introduced ? 'known' : ''} ${item.kind === 'word' || item.kind === 'rule' ? 'text-tile' : ''}`} key={item.id} data-knowledge-id={item.id} onClick={() => inspect(item)}>
             <span className={`tile-state ${s}`} title={s === 'new' ? '尚未学习' : s === 'learning' ? '学习中' : '间隔复习中'}>{p?.introduced ? <Check size={10} /> : null}</span>
-            <strong className={`${scriptClass} tile-glyph`} dir={course.direction} lang={course.locale}>{item.glyph}</strong>
+            <strong className={`${scriptClass} tile-glyph`} dir={course.direction} lang={itemLocale(course, item)}>{item.glyph}</strong>
             <span className="tile-roman">{item.kind === 'word' || item.kind === 'rule' || course.type === 'phonetics' ? item.title : item.roman || '不写'}</span>
             <PlaceMap item={item} compact />
             {item.ipa && course.type === 'script' && <span className="tile-ipa phonetic">/{item.ipa}/</span>}
+            {course.languages?.length && <small className="tile-language">{itemLanguageLabel(course, item)}</small>}
             {item.class && <small>{item.class}类{item.obsolete ? ' · 历史' : ''}</small>}
-            {item.kind === 'word' && <small>{ready ? item.extra ? '地名课已解锁' : '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
+            {item.kind === 'word' && <small>{ready ? item.branchId ? '课程分支' : item.extra ? '地名课已解锁' : '前置知识已具备' : <><LockKeyhole size={10} />尚未解锁</>}</small>}
           </button>;
         })}
       </div>}
@@ -243,7 +263,7 @@ export function SourcesPage({ course }: { course: Course }) {
   const recordings = [...new Map(course.items.flatMap(item => item.pronunciation?.recording
     ? [[item.pronunciation.recording.src, item.pronunciation.recording] as const] : [])).values()];
   return <div className="wide-page sources-page">
-    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">资料核对 · 2026.10.22</span></div>
+    <div className="page-heading"><div><div className="eyebrow">CURRICULUM NOTES</div><h1>知识应当有出处</h1></div><span className="tag">课程参考资料</span></div>
     <div className="source-principles"><h2>课程边界与记号约定</h2>
       {(course.referenceNotes || [course.notationNote]).map((note, index) => <p key={index}><NotationText text={note} /></p>)}
       <p>词汇同时检查字母、元音和拼读规则。被消音的字母、隐含元音和例外读法必须显式记录；不使用“按字符替换”的自动转写来生成正确答案。初见词先练转写，意义反向题只在复习中出现。</p>

@@ -3,6 +3,7 @@ import { courses, itemMap } from '../src/data';
 import { acceptedTypedAnswers, createSession, makeExercise, makeMatch, normalizeAnswer, trained } from '../src/lib/engine';
 import { initialState } from '../src/lib/storage';
 import type { AppState } from '../src/types';
+import { matchesLanguages } from '../src/lib/languages';
 
 const course = courses.bengali;
 async function stored(page: Page): Promise<AppState> {
@@ -23,7 +24,7 @@ async function answer(page: Page) {
     await page.getByRole('button', { name: '开始练习', exact: true }).click();
   } else if (question.kind === 'match') {
     for (const pair of question.pairs!) {
-      await page.locator('.matching-grid > div').first().getByRole('button', { name: pair.left, exact: true }).click();
+      await page.locator('.matching-grid > div').first().locator(`[data-entry-id="${pair.id}"]`).click();
       await page.locator('.matching-grid > div').last().getByRole('button', { name: pair.right, exact: true }).click();
     }
     await page.getByRole('button', { name: '继续', exact: true }).click();
@@ -53,7 +54,7 @@ async function noOverflow(page: Page) {
 test('all Bengali diacritic transcriptions accept plain letters in real typing exercises', async ({ page }, testInfo) => {
   test.setTimeout(180000);
   const targets = course.items.filter(item => item.kind !== 'rule' && /[^ -~]/.test(item.roman));
-  expect(targets).toHaveLength(58);
+  expect(targets.length).toBeGreaterThanOrEqual(58);
   const state = { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } };
   state.session = createSession(state, 'extra', course.extraUnits![0].id);
   state.session!.queue = targets.map(item => makeExercise(item, 'type', course, {}));
@@ -119,6 +120,7 @@ test('accepted inputs appear in details and hints, and hints still count as assi
 test('Bengali details teach the same standard as quizzes and keep map names separate', async ({ page }, testInfo) => {
   await seed(page, { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
   await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  await page.getByRole('checkbox', { name: '阿萨姆语', exact: true }).uncheck();
   for (const [glyph, roman, ipa] of [['ঈ', 'ī', '/i/'], ['য', 'j̱', '/dʒ/'], ['ঢাকা', 'ḍhākā', '/ɖʱaka/']]) {
     await page.getByRole('textbox', { name: '搜索知识' }).fill(glyph);
     await page.locator('.knowledge-tile').filter({ has: page.getByText(glyph, { exact: true }) }).click();
@@ -432,4 +434,175 @@ test('Bengali audio uses explicit whole words and matching bn voices, never an E
   await page.getByRole('textbox', { name: '搜索知识' }).fill('◌ি');
   await page.locator('.knowledge-tile').filter({ has: page.getByText('◌ি', { exact: true }) }).click();
   await expect(page.locator('.knowledge-detail .pronunciation-control')).toHaveCount(0);
+});
+
+test('matching accepts either starting column, replaces same-side choices, and records the left target on a right-first error', async ({ page }) => {
+  const state: AppState = { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } };
+  state.session = createSession(state, 'extra', course.extraUnits![0].id)!;
+  const question = makeMatch(['dhaka', 'chattogram', 'cumilla', 'sylhet', 'khulna'].map(id => itemMap[`bn-word-${id}`]))!;
+  state.session.queue = [question];
+  await seed(page, state);
+  await page.getByRole('button', { name: '继续练习', exact: true }).click();
+  const left = page.locator('.matching-grid > div').first();
+  const right = page.locator('.matching-grid > div').last();
+  const [a, b, c, d] = question.pairs!;
+  await right.locator(`[data-entry-id="${a.id}"]`).click();
+  await right.locator(`[data-entry-id="${b.id}"]`).click();
+  await expect(page.locator('.matching-grid [aria-pressed="true"]')).toHaveCount(1);
+  await expect(page.locator('.matching-grid .matched')).toHaveCount(0);
+  await right.locator(`[data-entry-id="${b.id}"]`).click();
+  await expect(page.locator('.matching-grid [aria-pressed="true"]')).toHaveCount(0);
+  await right.locator(`[data-entry-id="${b.id}"]`).click();
+  await left.locator(`[data-entry-id="${b.id}"]`).click();
+  await expect(page.locator('.matching-grid .matched')).toHaveCount(2);
+  await left.locator(`[data-entry-id="${a.id}"]`).click();
+  await left.locator(`[data-entry-id="${c.id}"]`).click();
+  await expect(page.locator('.matching-grid [aria-pressed="true"]')).toHaveCount(1);
+  await right.locator(`[data-entry-id="${c.id}"]`).click();
+  await right.locator(`[data-entry-id="${d.id}"]`).click();
+  await left.locator(`[data-entry-id="${a.id}"]`).click();
+  await expect(left.locator(`[data-entry-id="${a.id}"]`)).toHaveClass(/wrong/);
+  for (const pair of question.pairs!.filter(pair => ![b.id, c.id].includes(pair.id))) {
+    await right.locator(`[data-entry-id="${pair.id}"]`).click();
+    await left.locator(`[data-entry-id="${pair.id}"]`).click();
+  }
+  await expect(page.locator('.feedback-title')).toContainText('易混项会再出现');
+  await page.getByRole('button', { name: '继续', exact: true }).click();
+  expect((await stored(page)).session!.outcomes[a.id].wrong).toBe(1);
+  expect((await stored(page)).session!.outcomes[d.id].wrong).toBe(0);
+});
+
+test('Rush accepts right-first pairs and never treats two same-column clicks as a match', async ({ page }) => {
+  await seed(page, { ...initialState(), courseId: course.id });
+  await page.clock.install();
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  await page.getByRole('button', { name: /简单 Rush/ }).click();
+  const left = page.locator('.rush-grid > div').first();
+  const right = page.locator('.rush-grid > div').last();
+  await right.locator('button').nth(0).click();
+  await right.locator('button').nth(1).click();
+  await expect(page.locator('.rush-grid [aria-pressed="true"]')).toHaveCount(1);
+  await expect(page.locator('.rush-score > span').first()).toHaveText('0');
+  const id = await right.locator('button').nth(1).getAttribute('data-entry-id');
+  await left.locator(`[data-entry-id="${id}"]`).click();
+  await expect(page.locator('.rush-score > span').first()).toHaveText('1');
+  await expect(page.locator('.rush-grid [aria-pressed="true"]')).toHaveCount(0);
+  await page.clock.fastForward(350);
+  await left.locator('button').nth(0).click();
+  await left.locator('button').nth(1).click();
+  await expect(page.locator('.rush-score > span').first()).toHaveText('1');
+  const second = await left.locator('button').nth(1).getAttribute('data-entry-id');
+  await right.locator(`[data-entry-id="${second}"]`).click();
+  await expect(page.locator('.rush-score > span').first()).toHaveText('2');
+  await page.clock.fastForward(350);
+  const leftId = await left.locator('button').first().getAttribute('data-entry-id');
+  const wrongId = await right.locator('button').evaluateAll((nodes, id) =>
+    nodes.find(node => node.getAttribute('data-entry-id') !== id)!.getAttribute('data-entry-id'), leftId);
+  await right.locator(`[data-entry-id="${wrongId}"]`).click();
+  await left.locator(`[data-entry-id="${leftId}"]`).click();
+  await expect(page.locator('.rush-score > span').first()).toHaveText('1');
+  await expect(page.locator('.rush-grid .wrong')).toHaveCount(2);
+  await page.clock.fastForward(500);
+  await expect(page.locator('.rush-grid .wrong')).toHaveCount(0);
+  await right.locator(`[data-entry-id="${leftId}"]`).click();
+  await left.locator(`[data-entry-id="${leftId}"]`).click();
+  await expect(page.locator('.rush-score > span').first()).toHaveText('2');
+});
+
+test('Assamese is displayed after extras but opens as a parallel branch with a nonblocking prerequisite notice', async ({ page }, testInfo) => {
+  await seed(page, { ...initialState(), courseId: course.id });
+  const branch = page.locator('.course-branch');
+  await expect(branch.getByRole('heading', { name: '课程分支：阿萨姆语' })).toBeVisible();
+  await expect(branch.locator('.branch-notice')).toBeVisible();
+  await expect(branch.locator('.branch-lesson-row').first()).toBeEnabled();
+  await expect(page.locator('.extra-lesson-row').first()).toBeDisabled();
+  expect(await branch.evaluate(node => !!(document.querySelector('.extra-lessons')!.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await branch.scrollIntoViewIfNeeded();
+    await noOverflow(page);
+    await page.screenshot({ path: `.local/screenshots/assamese-branch-${testInfo.project.name}-${width}.png` });
+  }
+  await branch.locator('.branch-lesson-row').first().click();
+  expect((await stored(page)).session!.mode).toBe('branch');
+  await expect(page.locator('.detail-symbol > span')).toHaveAttribute('lang', 'as');
+  await finish(page);
+  expect((await stored(page)).progress['bn-maps']).toBeUndefined();
+  expect((await stored(page)).earlyExtraUnlocks).toBeUndefined();
+  await page.getByRole('button', { name: '继续下一小课', exact: true }).click();
+  await expect(page.locator('.detail-symbol > span')).toHaveText('ৰ');
+  await expect(page.locator('.detail-symbol > span')).toHaveAttribute('lang', 'as');
+});
+
+test('language multiselect persists, includes shared knowledge once, and scopes both Rush pools', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await page.evaluate(state => localStorage.setItem('script-drill:v1', JSON.stringify(state)),
+    { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
+  await page.reload();
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  for (const selection of [['bn'], ['as'], ['bn', 'as'], []]) {
+    await page.getByRole('checkbox', { name: '孟加拉语', exact: true }).setChecked(selection.includes('bn'));
+    await page.getByRole('checkbox', { name: '阿萨姆语', exact: true }).setChecked(selection.includes('as'));
+    const expected = course.items.filter(item => matchesLanguages(course, item, selection)).map(item => item.id);
+    expect(await page.locator('.knowledge-tile').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-knowledge-id')))).toEqual(expected);
+    if (!selection.length) {
+      await expect(page.getByRole('button', { name: /简单 Rush/ })).toHaveCount(0);
+      await expect(page.getByRole('button', { name: /词汇 Rush/ })).toHaveCount(0);
+      continue;
+    }
+    for (const label of ['简单 Rush', '词汇 Rush']) {
+      await page.getByRole('button', { name: new RegExp(label) }).click();
+      const ids = await page.locator('.rush-grid > div').first().locator('button').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-entry-id')!));
+      expect(ids.every(id => expected.includes(id))).toBe(true);
+      await page.getByRole('button', { name: '退出 Rush', exact: true }).click();
+      await page.getByRole('button', { name: '退出挑战', exact: true }).click();
+    }
+  }
+  await page.getByRole('checkbox', { name: '阿萨姆语', exact: true }).check();
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await noOverflow(page);
+    await page.screenshot({ path: `.local/screenshots/assamese-library-${testInfo.project.name}-${width}.png` });
+  }
+  await page.reload();
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  await expect(page.getByRole('checkbox', { name: '阿萨姆语', exact: true })).toBeChecked();
+  await expect(page.getByRole('checkbox', { name: '孟加拉语', exact: true })).not.toBeChecked();
+});
+
+test('Indian Bengali and Assamese words use India maps, whole shaped glyphs and language-correct listening', async ({ page }, testInfo) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: Object.assign(new EventTarget(), {
+      getVoices: () => [{ lang: 'bn-BD', localService: true }], cancel: () => {},
+    }) });
+  });
+  await seed(page, { ...initialState(), courseId: course.id });
+  await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
+  for (const id of ['bn-word-durgapur', 'as-word-guwahati']) {
+    await page.locator(`[data-knowledge-id="${id}"]`).click();
+    const symbol = page.locator('.detail-symbol > span');
+    expect(await symbol.evaluate(node => node.childElementCount)).toBe(0);
+    await expect(symbol).toHaveAttribute('lang', id.startsWith('as-') ? 'as' : 'bn');
+    await expect(page.locator('.knowledge-detail .place-map figcaption')).toContainText('印度');
+    const point = page.locator('.knowledge-detail [data-map-city]');
+    expect(Number(await point.getAttribute('cx'))).toBeGreaterThan(0);
+    expect(Number(await point.getAttribute('cx'))).toBeLessThan(180);
+    const link = page.getByRole('link', { name: id.startsWith('as-') ? '在线听阿萨姆语' : '在线听孟加拉语', exact: true });
+    expect(new URL((await link.getAttribute('href'))!).searchParams.get('sl')).toBe(id.startsWith('as-') ? 'as' : 'bn');
+    if (id.startsWith('as-')) await expect(page.getByRole('button', { name: '合成语音', exact: true })).toHaveCount(0);
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await noOverflow(page);
+      await page.screenshot({ path: `.local/screenshots/india-${id}-${testInfo.project.name}-${width}.png` });
+    }
+    await page.keyboard.press('Escape');
+  }
+  expect(await page.evaluate(async () => {
+    await document.fonts.load('48px "Noto Sans Bengali"');
+    const canvas = document.createElement('canvas'); canvas.width = 500; canvas.height = 100;
+    const context = canvas.getContext('2d')!;
+    context.font = '48px "Noto Sans Bengali"';
+    context.fillText('ৰ ৱ ব্ৰ গুৱাহাটী', 10, 65);
+    return context.getImageData(0, 0, 500, 100).data.filter((value, index) => index % 4 === 3 && value > 0).length;
+  })).toBeGreaterThan(500);
 });

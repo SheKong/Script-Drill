@@ -138,15 +138,21 @@ export function addThaiPlaces(course: Course): Course {
   const bangkok = items.find(item => item.id === 'th-word-bangkok')!;
   bangkok.place = { type: 'city', coordinates: [100.502, 13.756] };
   const extraUnits: Unit[] = [];
-  for (let offset = 0; offset < regionIds.length; offset += 13) {
+  const placeIds = [...regionIds, ...cityIds];
+  const groupCount = Math.ceil(placeIds.length / 10);
+  const groupSize = Math.floor(placeIds.length / groupCount);
+  let offset = 0;
+  for (let index = 0; index < groupCount; index++) {
+    const size = groupSize + Number(index < placeIds.length % groupCount);
     extraUnits.push({
-      id: `thai-places-${offset / 13 + 1}`, title: `一级行政区 · 第 ${offset / 13 + 1} 组`,
-      subtitle: '府名与地图位置', phase: '地名额外课', items: regionIds.slice(offset, offset + 13),
-      note: '泰国 76 个府与曼谷特别行政区。已经练过的词不再重复初见，最后有综合复习。',
+      id: index === groupCount - 1 ? 'thai-cities' : `thai-places-${index + 1}`,
+      title: index === groupCount - 1 ? '更多城市' : `行政区与城市 · 第 ${index + 1} 组`,
+      subtitle: '府名、城市与地图位置', phase: '地名额外课', items: placeIds.slice(offset, offset + size),
+      placeLesson: true,
+      note: '每组约 10 个地名。泰国 76 个府、曼谷特别行政区与补充城市；已经练过的词不重复初见，最后有综合复习。',
     });
+    offset += size;
   }
-  extraUnits.push({ id: 'thai-cities', title: '更多城市', subtitle: '沿海、边境与都市圈',
-    phase: '地名额外课', items: cityIds, note: '辨认大城市及重要街景目的地的完整拼写；红点表示市区位置。' });
   return { ...course, items, extraUnits, geography: {
     ...geometry, projection: { ...geometry.projection, translate: geometry.projection.translate as [number, number] },
   } };

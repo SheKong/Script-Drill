@@ -50,7 +50,9 @@ export interface Knowledge {
   ruleChoices?: string[];
   obsolete?: boolean;
   extra?: boolean;
-  place?: { type: 'region'; regionId: string } | { type: 'city'; coordinates: [number, number] };
+  languageIds?: string[];
+  branchId?: string;
+  place?: ({ type: 'region'; regionId: string } | { type: 'city'; coordinates: [number, number] }) & { mapId?: string };
 }
 
 export interface Unit {
@@ -61,6 +63,32 @@ export interface Unit {
   items: string[];
   note: string;
   supplementary?: boolean;
+  placeLesson?: boolean;
+}
+
+export interface CourseLanguage {
+  id: string;
+  label: string;
+  locale: string;
+  romanizationName: string;
+  romanizationSource: string;
+  ipaNote?: string;
+  pronunciationReference?: string;
+  onlineListening?: { label: string; language: string };
+}
+export interface CourseBranch {
+  id: string;
+  title: string;
+  languageId: string;
+  description: string;
+  units: Unit[];
+}
+export interface Geography {
+  country: string;
+  outline: string;
+  regions: Record<string, string>;
+  projection: { scale: number; translate: [number, number] };
+  source: string;
 }
 
 export interface Course {
@@ -85,13 +113,11 @@ export interface Course {
   scriptVariants?: { id: string; label: string; className: string }[];
   composition?: { vowelIds: string[]; excludedConsonantIds: string[] };
   recognition?: { marks: string[]; distractors: string[]; prompt: string };
-  geography?: {
-    country: string;
-    outline: string;
-    regions: Record<string, string>;
-    projection: { scale: number; translate: [number, number] };
-    source: string;
-  };
+  geography?: Geography;
+  geographies?: Record<string, Geography>;
+  mainLanguageId?: string;
+  languages?: CourseLanguage[];
+  branches?: CourseBranch[];
   extraUnits?: Unit[];
   nativeTitle: string;
   label: string;
@@ -140,7 +166,7 @@ export interface Outcome { correct: number; wrong: number; hinted: boolean; mode
 export interface Session {
   id: string;
   courseId: CourseId;
-  mode: 'learn' | 'review' | 'mistakes' | 'custom' | 'extra';
+  mode: 'learn' | 'review' | 'mistakes' | 'custom' | 'extra' | 'branch';
   stage?: 'unit-review';
   unitId?: string;
   queue: Exercise[];
@@ -172,5 +198,6 @@ export interface AppState {
   completedUnitReviews?: Record<string, boolean>;
   earlyExtraUnlocks?: Record<CourseId, boolean>;
   rushBest?: Record<string, number>;
+  languageSelections?: Record<CourseId, string[]>;
   session?: Session;
 }

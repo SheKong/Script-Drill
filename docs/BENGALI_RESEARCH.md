@@ -138,8 +138,11 @@ npm run test:e2e
 重新获取逐词参考（需要已安装 Playwright Chromium；脚本在 Windows 使用现有 PowerShell 下载助手，缓存位于忽略目录 `.local/bengali-research/`）：
 
 ```powershell
-$words = (Get-Content docs/BENGALI_WORD_AUDIT.json -Raw | ConvertFrom-Json).words.glyph
-node scripts/audit-bengali-words.mjs @words
+$audit = Get-Content docs/BENGALI_WORD_AUDIT.json -Raw | ConvertFrom-Json
+$bengali = @($audit.words | Where-Object { $_.language -ne 'as' } | ForEach-Object { $_.glyph })
+$assamese = @($audit.words | Where-Object { $_.language -eq 'as' } | ForEach-Object { $_.glyph })
+node scripts/audit-bengali-words.mjs @bengali
+node scripts/audit-bengali-words.mjs --language=Assamese @assamese
 node scripts/build-bengali-audit.mjs
 ```
 
@@ -155,3 +158,7 @@ node scripts/fetch-bengali-map.mjs .local/natural-earth-countries.geojson
 第一条下载固定版本，第二条可用已下载缓存离线重建。不要把 `.local`、浏览器缓存或测试截图提交进项目。
 
 浏览器验收覆盖真实课程切换与答题、提前解锁取消/确认/刷新/课程隔离、词题与输入、字体像素、完整字形、国家与城市地图、320/390/1440px 的排版、五对匹配和 Rush。母语独立审读与授权录音仍是后续人工质量门槛。
+
+## 2026-11-01 扩展
+
+新增 reph、鼻化符号和地名合字，地名课扩充至孟加拉国与印度共 40 城，每组 10 个；新增与主线平行的阿萨姆语分支。上文初版范围的数量不代表扩展后的总数。详细来源、音值待审边界、分支先修、多语言图鉴/Rush 与印度地图见 `BENGALI_ASSAMESE_EXTENSION.md`；逐词审校表已覆盖两语言共 79 个词。重新获取词典时须按语言分开，不能把阿萨姆语词条的 Bengali 空节当作发音依据。

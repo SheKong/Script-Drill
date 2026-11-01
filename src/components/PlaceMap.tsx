@@ -3,7 +3,8 @@ import type { Knowledge } from '../types';
 
 export function PlaceMap({ item, compact = false, anonymous = false }: { item?: Knowledge; compact?: boolean; anonymous?: boolean }) {
   if (!item?.place) return null;
-  const map = courses[item.courseId].geography;
+  const course = courses[item.courseId];
+  const map = item.place.mapId ? course.geographies?.[item.place.mapId] : course.geography;
   if (!map) return null;
   const place = item.place;
   let point: [number, number] | undefined;

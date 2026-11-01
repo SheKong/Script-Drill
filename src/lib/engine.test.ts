@@ -72,7 +72,7 @@ describe('course content invariants', () => {
       }
       const order = course.units.flatMap(u => u.items);
       expect(new Set(order).size).toBe(order.length);
-      expect(order.length).toBe(course.items.filter(i => !i.extra).length);
+      expect(order.length).toBe(course.items.filter(i => !i.extra && !i.branchId).length);
       for (const id of order) {
         for (const pre of itemMap[id].requires) {
           expect(order.indexOf(pre), `${id} depends on future ${pre}`).toBeLessThan(order.indexOf(id));

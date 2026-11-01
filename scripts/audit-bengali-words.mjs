@@ -2,7 +2,9 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { chromium } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 
-const words = process.argv.slice(2);
+const languageArg = process.argv.slice(2).find(value => value.startsWith('--language='));
+const language = languageArg?.slice('--language='.length) || 'Bengali';
+const words = process.argv.slice(2).filter(value => !value.startsWith('--language='));
 if (!words.length) throw new Error('Pass the Bengali headwords to audit.');
 await mkdir('.local/bengali-research', { recursive: true });
 const browser = await chromium.launch();
@@ -34,9 +36,9 @@ try {
         continue;
       }
     }
-    const extracted = await page.evaluate(html => {
+    const extracted = await page.evaluate(({ html, language }) => {
       const doc = new DOMParser().parseFromString(html, 'text/html');
-      const heading = doc.getElementById('Bengali')?.closest('.mw-heading');
+      const heading = doc.getElementById(language)?.closest('.mw-heading');
       const container = doc.createElement('div');
       for (let node = heading?.nextElementSibling; node && !node.matches('.mw-heading2'); node = node.nextElementSibling) {
         container.append(node.cloneNode(true));
@@ -47,9 +49,9 @@ try {
         senses: [...container.querySelectorAll('ol > li')].filter(node => !node.closest('table'))
           .slice(0, 3).map(node => node.textContent.trim().slice(0, 200)),
       };
-    }, html);
+    }, { html, language });
     const revision = Number(html.match(/"wgRevisionId":(\d+)/)?.[1]);
-    const result = { word, url, revision, checked: '2026-10-22', ...extracted };
+    const result = { word, url, revision, checked: '2026-11-01', language, ...extracted };
     results.set(word, result);
     console.log(JSON.stringify(result));
   }

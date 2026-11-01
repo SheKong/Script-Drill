@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Check, CircleHelp, Flag, Lightbulb, MapPin, RotateCcw, Sparkles, Trophy, X, Zap } from 'lucide-react';
 import { courses, itemMap } from '../data';
-import { checkTyped, reading, shuffle } from '../lib/engine';
+import { branchOfUnit, checkTyped, reading, shuffle } from '../lib/engine';
 import type { AppState, Exercise, Session } from '../types';
 import { KnowledgeDetail } from './KnowledgeDetail';
 import { PronunciationButton } from './PronunciationButton';
@@ -9,6 +9,8 @@ import { useScriptStyle } from './ScriptVariants';
 import { NotationText } from './NotationText';
 import { PlaceMap } from './PlaceMap';
 import { AcceptedAnswers } from './AcceptedAnswers';
+import { chooseMatch, type MatchSelection, type MatchSide } from '../lib/matching';
+import { itemLanguageLabel, itemLocale } from '../lib/languages';
 
 interface Feedback { correct: boolean; pairs?: Record<string, boolean> }
 export function Quiz({ state, onIntro, onAnswer, onPause }: {
@@ -31,15 +33,16 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
   const course = courses[session.courseId];
   const { scriptClass, control } = scriptStyle;
   const item = itemMap[exercise.itemId];
+  const locale = itemLocale(course, item);
   const [selected, setSelected] = useState('');
   const [typed, setTyped] = useState('');
   const [hinted, setHinted] = useState(false);
   const [hintUsed, setHintUsed] = useState(false);
   const [feedback, setFeedback] = useState<Feedback>();
-  const [left, setLeft] = useState('');
+  const [pairSelection, setPairSelection] = useState<MatchSelection>();
   const [matched, setMatched] = useState<string[]>([]);
   const [pairErrors, setPairErrors] = useState<Record<string, boolean>>({});
-  const [wrongPair, setWrongPair] = useState('');
+  const [wrongPair, setWrongPair] = useState<{ left: string; right: string }>();
   const wrongTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const rightPairs = useMemo(() => shuffle(exercise.pairs || []), [exercise.pairs]);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -73,19 +76,24 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
     return () => window.removeEventListener('keydown', handle);
   }, [confirm, onPause, feedback, isIntro, isMatch, exercise.options]);
 
-  function matchRight(id: string) {
-    if (!left || matched.includes(id) || feedback) return;
-    if (id === left) {
-      const next = [...matched, id]; setMatched(next); setLeft('');
+  function match(side: MatchSide, id: string) {
+    if (matched.includes(id) || feedback) return;
+    clearTimeout(wrongTimer.current);
+    setWrongPair(undefined);
+    const choice = chooseMatch(pairSelection, side, id);
+    setPairSelection(choice.selection);
+    if (!choice.pair) return;
+    if (choice.pair.left === choice.pair.right) {
+      const next = [...matched, id]; setMatched(next);
       if (next.length === exercise.pairs!.length) {
         const results = Object.fromEntries(exercise.pairs!.map(p => [p.id, !pairErrors[p.id]]));
         setFeedback({ correct: Object.values(results).every(Boolean), pairs: results });
       }
     } else {
-      setPairErrors(p => ({ ...p, [left]: true }));
-      setWrongPair(id);
+      setPairErrors(p => ({ ...p, [choice.pair!.left]: true }));
+      setWrongPair(choice.pair);
       if (wrongTimer.current) clearTimeout(wrongTimer.current);
-      wrongTimer.current = setTimeout(() => setWrongPair(''), 650);
+      wrongTimer.current = setTimeout(() => setWrongPair(undefined), 650);
     }
   }
   return <div className="quiz-shell">
@@ -98,25 +106,25 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
       <div className="quiz-eyebrow">
         {isIntro ? <Sparkles size={15} /> : exercise.repair ? <RotateCcw size={15} /> : <Flag size={15} />}
         {isIntro ? '初次见面' : exercise.repair ? '再试一次' : isMatch ? '连接记忆' : exercise.kind === 'combine' ? '拼读组合' : '提取练习'}
-        <span>{courses[session.courseId].title}</span>
+        <span>{!isMatch && itemLanguageLabel(course, item) || course.title}</span>
       </div>
       <h1 ref={heading} tabIndex={-1}><NotationText text={exercise.prompt} /></h1>
       {control}
       {isIntro ? <KnowledgeDetail item={item} state={state} scriptClass={scriptClass} /> : <>
-        {!isMatch && <div className={`question-display ${['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? `${scriptClass} large-glyph` : 'phonetic'}`} dir={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? course.direction : 'ltr'} lang={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? course.locale : undefined}>
+        {!isMatch && <div className={`question-display ${['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? `${scriptClass} large-glyph` : 'phonetic'}`} dir={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? course.direction : 'ltr'} lang={['read', 'combine', 'type', 'mark'].includes(exercise.kind) ? locale : undefined}>
           <span className={Array.from(exercise.display).length > 12 ? 'long-script' : ''}>{exercise.display}</span>
           {['read', 'type'].includes(exercise.kind) && <PronunciationButton item={item} />}
         </div>}
         {!isMatch && <PlaceMap item={item} compact anonymous={!feedback} />}
         {exercise.combination && <div className="combination-parts">{exercise.combination.parts.map(id => <span key={id} className={scriptClass} dir={course.direction} lang={course.locale}>{itemMap[id].glyph}</span>)}<small>拼读练习 · 不考词义{course.ipaNote && ` · ${course.ipaNote}`}</small></div>}
         {isMatch ? <div className="matching-grid">
-          <div>{exercise.pairs!.map(p => <button key={p.id} disabled={matched.includes(p.id)}
-            className={`match-button script-match ${scriptClass} ${p.left.length > 8 ? 'dense-glyph' : ''} ${left === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''}`}
-            dir={course.direction} lang={course.locale}
-            aria-pressed={left === p.id} onClick={() => setLeft(p.id)}><span>{p.left}</span><PlaceMap item={itemMap[p.id]} compact anonymous />{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
-          <div>{rightPairs.map(p => <button key={p.id} disabled={matched.includes(p.id) || !left}
-            className={`match-button phonetic ${p.right.length > 35 ? 'dense-reading' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair === p.id ? 'wrong' : ''}`}
-            onClick={() => matchRight(p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+          <div>{exercise.pairs!.map(p => <button key={p.id} data-entry-id={p.id} disabled={matched.includes(p.id) || !!feedback}
+            className={`match-button script-match ${scriptClass} ${p.left.length > 8 ? 'dense-glyph' : ''} ${pairSelection?.side === 'left' && pairSelection.id === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair?.left === p.id ? 'wrong' : ''}`}
+            dir={course.direction} lang={itemLocale(course, itemMap[p.id])}
+            aria-pressed={pairSelection?.side === 'left' && pairSelection.id === p.id} onClick={() => match('left', p.id)}>{course.languages?.length && <small className="entry-language">{itemLanguageLabel(course, itemMap[p.id])}</small>}<span>{p.left}</span><PlaceMap item={itemMap[p.id]} compact anonymous />{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
+          <div>{rightPairs.map(p => <button key={p.id} data-entry-id={p.id} disabled={matched.includes(p.id) || !!feedback}
+            className={`match-button phonetic ${p.right.length > 35 ? 'dense-reading' : ''} ${pairSelection?.side === 'right' && pairSelection.id === p.id ? 'selected' : ''} ${matched.includes(p.id) ? 'matched' : ''} ${wrongPair?.right === p.id ? 'wrong' : ''}`}
+            aria-pressed={pairSelection?.side === 'right' && pairSelection.id === p.id} onClick={() => match('right', p.id)}><span>{p.right}</span>{matched.includes(p.id) && <Check size={15} />}</button>)}</div>
         </div> : exercise.kind === 'type' ? <div className="typed-answer">
           <label htmlFor="transcription">转写</label>
           <input id="transcription" value={typed} onChange={e => setTyped(e.target.value)} aria-describedby="transcription-format" autoCapitalize="off" autoComplete="off" spellCheck={false} disabled={!!feedback} autoFocus />
@@ -130,7 +138,7 @@ function QuizStep({ state, exercise, scriptStyle, onIntro, onAnswer, onPause }: 
               className={`answer-option ${selected === o.id ? 'selected' : ''} ${correct ? 'correct' : ''} ${wrong ? 'wrong' : ''}`}
               onClick={() => setSelected(o.id)} disabled={!!feedback} aria-pressed={selected === o.id}>
               <span className="option-index">{correct ? <Check size={15} /> : wrong ? <X size={15} /> : index + 1}</span>
-              <span className={glyph ? `${scriptClass} option-glyph` : 'phonetic'} dir={glyph ? course.direction : 'ltr'} lang={glyph ? course.locale : undefined}>{o.label}</span>
+              <span className={glyph ? `${scriptClass} option-glyph` : 'phonetic'} dir={glyph ? course.direction : 'ltr'} lang={glyph ? itemLocale(course, itemMap[o.id] || item) : undefined}>{o.label}</span>
             </button>;
           })}
         </div>}
@@ -170,7 +178,7 @@ export function SessionComplete({ session, onClose, onContinue }: {
     <div className="complete-icon"><Check size={40} /></div>
     <span className="eyebrow">LESSON COMPLETE</span>
     <h1>又多认出了世界的一小部分</h1>
-    <p>{courses[session.courseId].title} · {session.stage === 'unit-review' ? '单元综合复习完成' : ['learn', 'extra'].includes(session.mode) ? '学习完成' : '复习完成'}</p>
+    <p>{session.mode === 'branch' ? `${branchOfUnit(courses[session.courseId], session.unitId)?.title}分支` : courses[session.courseId].title} · {session.stage === 'unit-review' ? '单元综合复习完成' : ['learn', 'extra', 'branch'].includes(session.mode) ? '学习完成' : '复习完成'}</p>
     <div className="complete-stats">
       <div><strong>{session.newIds.filter(id => session.outcomes[id]).length}</strong><span>新知识</span></div>
       <div><strong>{session.answers}</strong><span>次提取练习</span></div>

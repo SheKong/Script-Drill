@@ -4,6 +4,7 @@ import { courses } from '../data';
 import { onlinePronunciation } from '../lib/speech';
 import type { Knowledge } from '../types';
 import { useCourseVoice } from './VoiceEnvironment';
+import { itemLanguage, itemLocale } from '../lib/languages';
 
 let stopCurrent: (() => void) | undefined;
 
@@ -11,7 +12,8 @@ export function PronunciationButton({ item }: { item: Knowledge }) {
   const course = courses[item.courseId];
   const recording = item.pronunciation?.recording;
   const speech = item.pronunciation?.speech;
-  const language = speech?.lang || course.locale;
+  const language = speech?.lang || itemLocale(course, item);
+  const onlineListening = itemLanguage(course, item)?.onlineListening || (!item.branchId ? course.onlineListening : undefined);
   const voice = useCourseVoice(language);
   const [status, setStatus] = useState<'idle' | 'loading' | 'playing'>('idle');
   const [error, setError] = useState('');
@@ -54,14 +56,15 @@ export function PronunciationButton({ item }: { item: Knowledge }) {
   if (!recording && !speech) return null;
   const canSpeak = !!(speech && voice && language && typeof SpeechSynthesisUtterance === 'function');
   const unavailable = !recording && !canSpeak;
-  const onlineUrl = speech && course.onlineListening ? onlinePronunciation(speech.text, course.onlineListening.language) : undefined;
+  const onlineUrl = speech && onlineListening ? onlinePronunciation(speech.text, onlineListening.language) : undefined;
   const label = recording && !usingSpeech ? '真人发音' : '合成语音';
   const spokenText = recording && !usingSpeech ? recording.spokenText : speech?.text;
   const sampleLabel = course.type === 'script' && item.kind !== 'word' && spokenText
     ? speech?.text === spokenText ? speech.label : `示范：${spokenText}`
     : undefined;
   const message = error;
-  const source = course.sources.find(s => s.id === course.pronunciationReference);
+  const source = course.sources.find(s => s.id === (itemLanguage(course, item)?.pronunciationReference
+    || (!item.branchId ? course.pronunciationReference : undefined)));
 
   function play() {
     if (status !== 'idle') { halt(); return; }
@@ -140,7 +143,7 @@ export function PronunciationButton({ item }: { item: Knowledge }) {
     {sampleLabel && <span className="pronunciation-label">{sampleLabel}<span>（非单音）</span></span>}
     {onlineUrl && <a className="online-pronunciation" href={onlineUrl}
       target="_blank" rel="noreferrer" onClick={halt} title="在 Google 翻译中收听原文；需联网，会打开新页面">
-      {course.onlineListening!.label}<ExternalLink size={13} />
+      {onlineListening!.label}<ExternalLink size={13} />
     </a>}
     {message && <span className="audio-message" role="status">{message}
       {(recording || source) && <a href={recording?.sourceUrl || source?.url} target="_blank" rel="noreferrer">
