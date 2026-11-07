@@ -1,0 +1,2487 @@
+{
+  "checked": "2026-11-07",
+  "courseId": "devanagari",
+  "independentNativeReview": false,
+  "normalization": "NFD, omit IPA delimiters, syllable boundaries, spaces, tie bars and stress (course intentionally omits stress); Latin g -> IPA ɡ. Never change vowel quality, length or consonants to manufacture a match.",
+  "scope": "The evidence status checks lexical documentation, not native review or correctness of the course romanization. UNGEGN Hindi/Nepali and ALA-LC Marathi are checked separately against their own tables.",
+  "words": [
+    {
+      "id": "dv-word-road",
+      "language": "hi",
+      "glyph": "सड़क",
+      "roman": "saṙak",
+      "ipa": "səɽək",
+      "meaning": "路；道路",
+      "requires": [
+        "dv-schwa",
+        "dv-flap",
+        "dv-s",
+        "dv-k"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%A1%E0%A4%BC%E0%A4%95?oldid=91604352",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91604352,
+      "sourceIPA": [
+        "/sə.ɽək/",
+        "[sɐ.ɽɐk]"
+      ],
+      "sourceTranscription": [
+        "saṛak"
+      ],
+      "headwords": [
+        "सड़क"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-marg",
+      "language": "hi",
+      "glyph": "मार्ग",
+      "roman": "mārg",
+      "ipa": "maːɾɡ",
+      "meaning": "道路；大道",
+      "requires": [
+        "dv-schwa",
+        "dv-m",
+        "dv-aa-sign",
+        "dv-r",
+        "dv-halant",
+        "dv-g",
+        "dv-ra-forms"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97?oldid=93636238",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93636238,
+      "sourceIPA": [
+        "/mɑːɾɡ/",
+        "[mäːɾɡ]"
+      ],
+      "sourceTranscription": [
+        "mārg"
+      ],
+      "headwords": [
+        "मार्ग"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-nagar",
+      "language": "hi",
+      "glyph": "नगर",
+      "roman": "nagar",
+      "ipa": "nəɡəɾ",
+      "meaning": "城镇；城市成分",
+      "requires": [
+        "dv-schwa",
+        "dv-n",
+        "dv-g",
+        "dv-r"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A4%97%E0%A4%B0?oldid=93640529",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93640529,
+      "sourceIPA": [
+        "/nə.ɡəɾ/",
+        "[nɐ.ɡɐɾ]"
+      ],
+      "sourceTranscription": [
+        "nagar"
+      ],
+      "headwords": [
+        "नगर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-village",
+      "language": "hi",
+      "glyph": "गाँव",
+      "roman": "gām̐v",
+      "ipa": "ɡãːʋ",
+      "meaning": "村庄",
+      "requires": [
+        "dv-schwa",
+        "dv-g",
+        "dv-aa-sign",
+        "dv-candrabindu",
+        "dv-v"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%97%E0%A4%BE%E0%A4%81%E0%A4%B5?oldid=91039714",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91039714,
+      "sourceIPA": [
+        "/ɡɑ̃ːʋ/",
+        "[ɡä̃ːʋ]",
+        "/ɡɑ̃ː.oː/",
+        "[ɡä̃ː.oː]"
+      ],
+      "sourceTranscription": [
+        "gā̃v"
+      ],
+      "headwords": [
+        "गाँव"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-market",
+      "language": "hi",
+      "glyph": "बाज़ार",
+      "roman": "bāzār",
+      "ipa": "baːzaːɾ",
+      "meaning": "市场",
+      "requires": [
+        "dv-schwa",
+        "dv-z",
+        "dv-b",
+        "dv-aa-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AC%E0%A4%BE%E0%A4%9C%E0%A4%BC%E0%A4%BE%E0%A4%B0?oldid=87509779",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87509779,
+      "sourceIPA": [
+        "/bɑː.zɑːɾ/",
+        "[bäː.zäːɾ]",
+        "/bɑː.d͡ʒɑːɾ/",
+        "[bäː.d͡ʒäːɾ]",
+        "/bə.zɑːɾ/",
+        "[bɐ.d͡ʒäːɾ]"
+      ],
+      "sourceTranscription": [
+        "bāzār"
+      ],
+      "headwords": [
+        "बाज़ार"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-shop",
+      "language": "hi",
+      "glyph": "दुकान",
+      "roman": "dukān",
+      "ipa": "d̪ʊkaːn",
+      "meaning": "商店",
+      "requires": [
+        "dv-schwa",
+        "dv-d",
+        "dv-u-sign",
+        "dv-k",
+        "dv-aa-sign",
+        "dv-n"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A6%E0%A5%81%E0%A4%95%E0%A4%BE%E0%A4%A8?oldid=93593407",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93593407,
+      "sourceIPA": [
+        "/d̪ʊ.kɑːn/",
+        "[d̪ʊ.kä̃ːn]"
+      ],
+      "sourceTranscription": [
+        "dukān"
+      ],
+      "headwords": [
+        "दुकान"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-hotel",
+      "language": "hi",
+      "glyph": "होटल",
+      "roman": "hoṭal",
+      "ipa": "ɦoːʈəl",
+      "meaning": "旅馆；饭店",
+      "requires": [
+        "dv-schwa",
+        "dv-h",
+        "dv-o-sign",
+        "dv-tt",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B9%E0%A5%8B%E0%A4%9F%E0%A4%B2?oldid=90110224",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90110224,
+      "sourceIPA": [
+        "/ɦoː.ʈəl/",
+        "[ɦoː.ʈɐl]"
+      ],
+      "sourceTranscription": [
+        "hoṭal"
+      ],
+      "headwords": [
+        "होटल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-hospital",
+      "language": "hi",
+      "glyph": "अस्पताल",
+      "roman": "aspatāl",
+      "ipa": "əspət̪aːl",
+      "meaning": "医院",
+      "requires": [
+        "dv-schwa",
+        "dv-a",
+        "dv-s",
+        "dv-halant",
+        "dv-p",
+        "dv-t",
+        "dv-aa-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%85%E0%A4%B8%E0%A5%8D%E0%A4%AA%E0%A4%A4%E0%A4%BE%E0%A4%B2?oldid=91969766",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91969766,
+      "sourceIPA": [
+        "/əs.pə.t̪ɑːl/",
+        "[ɐs.pɐ.t̪äːl]"
+      ],
+      "sourceTranscription": [
+        "aspatāl"
+      ],
+      "headwords": [
+        "अस्पताल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-school",
+      "language": "hi",
+      "glyph": "विद्यालय",
+      "roman": "vidyālay",
+      "ipa": "ʋɪd̪jaːləj",
+      "meaning": "学校",
+      "requires": [
+        "dv-schwa",
+        "dv-v",
+        "dv-i-sign",
+        "dv-d",
+        "dv-halant",
+        "dv-y",
+        "dv-aa-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B2%E0%A4%AF?oldid=93636924",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93636924,
+      "sourceIPA": [
+        "/ʋɪd̪.jɑː.ləj/",
+        "[ʋɪd̪.jäː.lɐj]"
+      ],
+      "sourceTranscription": [
+        "vidyālay"
+      ],
+      "headwords": [
+        "विद्यालय"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-bridge",
+      "language": "hi",
+      "glyph": "पुल",
+      "roman": "pul",
+      "ipa": "pʊl",
+      "meaning": "桥",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-u-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%81%E0%A4%B2?oldid=93635685",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93635685,
+      "sourceIPA": [
+        "/pʊl/"
+      ],
+      "sourceTranscription": [
+        "pul"
+      ],
+      "headwords": [
+        "पुल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-river",
+      "language": "hi",
+      "glyph": "नदी",
+      "roman": "nadī",
+      "ipa": "nəd̪iː",
+      "meaning": "河流",
+      "requires": [
+        "dv-schwa",
+        "dv-n",
+        "dv-d",
+        "dv-ii-sign"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A4%A6%E0%A5%80?oldid=93646214",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93646214,
+      "sourceIPA": [
+        "/nə.d̪iː/",
+        "[nɐ.d̪iː]"
+      ],
+      "sourceTranscription": [
+        "nadī"
+      ],
+      "headwords": [
+        "नदी"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-rail",
+      "language": "hi",
+      "glyph": "रेल",
+      "roman": "rel",
+      "ipa": "ɾeːl",
+      "meaning": "铁路；火车",
+      "requires": [
+        "dv-schwa",
+        "dv-r",
+        "dv-e-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B0%E0%A5%87%E0%A4%B2?oldid=89884500",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 89884500,
+      "sourceIPA": [
+        "/ɾeːl/",
+        "-eːl"
+      ],
+      "sourceTranscription": [
+        "rel"
+      ],
+      "headwords": [
+        "रेल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-station",
+      "language": "hi",
+      "glyph": "स्टेशन",
+      "roman": "sṭeshan",
+      "ipa": "sʈeːʃən",
+      "meaning": "车站",
+      "requires": [
+        "dv-schwa",
+        "dv-s",
+        "dv-halant",
+        "dv-tt",
+        "dv-e-sign",
+        "dv-sh",
+        "dv-n"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%9F%E0%A5%87%E0%A4%B6%E0%A4%A8?oldid=87510999",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87510999,
+      "sourceIPA": [
+        "/sʈeː.ʃən/",
+        "[sʈeː.ʃɐ̃n]",
+        "/sɪ.ʈeː.ʃən/",
+        "[sɪ.ʈeː.ʃɐ̃n]",
+        "/ɪs.ʈeː.ʃən/",
+        "[ɪs.ʈeː.ʃɐ̃n]",
+        "-ən"
+      ],
+      "sourceTranscription": [
+        "sṭeśan"
+      ],
+      "headwords": [
+        "स्टेशन"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-airport",
+      "language": "hi",
+      "glyph": "हवाई अड्डा",
+      "roman": "havāī aḍḍā",
+      "ipa": "ɦəʋaːiː əɖːaː",
+      "meaning": "机场",
+      "requires": [
+        "dv-schwa",
+        "dv-h",
+        "dv-v",
+        "dv-aa-sign",
+        "dv-ii",
+        "dv-a",
+        "dv-dd",
+        "dv-halant"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B9%E0%A4%B5%E0%A4%BE%E0%A4%88_%E0%A4%85%E0%A4%A1%E0%A5%8D%E0%A4%A1%E0%A4%BE?oldid=92708049",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 92708049,
+      "sourceIPA": [
+        "/ɦə.ʋɑː.iː əɖ.ɖɑː/",
+        "[ɦɐ.ʋäː.iː‿ɐɖ̚.ɖäː]"
+      ],
+      "sourceTranscription": [
+        "havāī aḍḍā"
+      ],
+      "headwords": [
+        "हवाई अड्डा"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-entrance",
+      "language": "hi",
+      "glyph": "प्रवेश",
+      "roman": "pravesh",
+      "ipa": "pɾəʋeːʃ",
+      "meaning": "入口；进入",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-halant",
+        "dv-r",
+        "dv-v",
+        "dv-e-sign",
+        "dv-sh",
+        "dv-ra-forms",
+        "dv-pr"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%87%E0%A4%B6?oldid=93637053",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93637053,
+      "sourceIPA": [
+        "/pɾə.ʋeːʃ/",
+        "[pɾɐ.ʋeːʃ]"
+      ],
+      "sourceTranscription": [
+        "praveś"
+      ],
+      "headwords": [
+        "प्रवेश"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-exit",
+      "language": "hi",
+      "glyph": "निकास",
+      "roman": "nikās",
+      "ipa": "nɪkaːs",
+      "meaning": "出口；排出",
+      "requires": [
+        "dv-schwa",
+        "dv-n",
+        "dv-i-sign",
+        "dv-k",
+        "dv-aa-sign",
+        "dv-s"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B8?oldid=87515274",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87515274,
+      "sourceIPA": [
+        "/nɪ.kɑːs/",
+        "[nɪ.käːs]",
+        "-ɑːs"
+      ],
+      "sourceTranscription": [
+        "nikās"
+      ],
+      "headwords": [
+        "निकास"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-north",
+      "language": "hi",
+      "glyph": "उत्तर",
+      "roman": "uttar",
+      "ipa": "ʊt̪ːəɾ",
+      "meaning": "北",
+      "requires": [
+        "dv-schwa",
+        "dv-u",
+        "dv-t",
+        "dv-halant",
+        "dv-r"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A4%B0?oldid=95186017",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 95186017,
+      "sourceIPA": [
+        "/ʊt̪.t̪əɾ/",
+        "[ʊt̪̚.t̪ɐɾ]",
+        "/uːt̪.t̪əɾ/",
+        "[uːt̪̚.t̪ɐɾ]"
+      ],
+      "sourceTranscription": [
+        "uttar"
+      ],
+      "headwords": [
+        "उत्तर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-south",
+      "language": "hi",
+      "glyph": "दक्षिण",
+      "roman": "dakṣhiṇ",
+      "ipa": "d̪əkʃɪɳ",
+      "meaning": "南",
+      "requires": [
+        "dv-schwa",
+        "dv-d",
+        "dv-k",
+        "dv-halant",
+        "dv-ss",
+        "dv-i-sign",
+        "dv-nn",
+        "dv-ksh"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A6%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BF%E0%A4%A3?oldid=93635824",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93635824,
+      "sourceIPA": [
+        "/d̪ək.ʂɪɳ/",
+        "[d̪ɐk.ʃɪ̃ɳ]"
+      ],
+      "sourceTranscription": [
+        "dakṣiṇ"
+      ],
+      "headwords": [
+        "दक्षिण"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-east",
+      "language": "hi",
+      "glyph": "पूर्व",
+      "roman": "pūrv",
+      "ipa": "puːɾʋ",
+      "meaning": "东",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-uu-sign",
+        "dv-r",
+        "dv-halant",
+        "dv-v",
+        "dv-ra-forms"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%B5?oldid=93636464",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93636464,
+      "sourceIPA": [
+        "/puːɾʋ/"
+      ],
+      "sourceTranscription": [
+        "pūrv"
+      ],
+      "headwords": [
+        "पूर्व"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-west",
+      "language": "hi",
+      "glyph": "पश्चिम",
+      "roman": "pashchim",
+      "ipa": "pəʃtʃɪm",
+      "meaning": "西",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-sh",
+        "dv-halant",
+        "dv-ch",
+        "dv-i-sign",
+        "dv-m"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A4%B6%E0%A5%8D%E0%A4%9A%E0%A4%BF%E0%A4%AE?oldid=93636865",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93636865,
+      "sourceIPA": [
+        "/pəʃ.t͡ʃɪm/",
+        "[pɐʃ.t͡ʃɪ̃m]"
+      ],
+      "sourceTranscription": [
+        "paścim"
+      ],
+      "headwords": [
+        "पश्चिम"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-district",
+      "language": "hi",
+      "glyph": "जिला",
+      "roman": "jilā",
+      "ipa": "dʒɪlaː",
+      "meaning": "县；地区",
+      "requires": [
+        "dv-schwa",
+        "dv-j",
+        "dv-i-sign",
+        "dv-l",
+        "dv-aa-sign"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%9C%E0%A4%BF%E0%A4%B2%E0%A4%BE?oldid=87521916",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87521916,
+      "sourceIPA": [
+        "/d͡ʒɪ.lɑː/",
+        "[d͡ʒɪ.läː]"
+      ],
+      "sourceTranscription": [
+        "jilā"
+      ],
+      "headwords": [
+        "जिला"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-state",
+      "language": "hi",
+      "glyph": "राज्य",
+      "roman": "rājy",
+      "ipa": "ɾaːdʒj",
+      "meaning": "邦；国家政体",
+      "requires": [
+        "dv-schwa",
+        "dv-r",
+        "dv-aa-sign",
+        "dv-j",
+        "dv-halant",
+        "dv-y"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF?oldid=93636076",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93636076,
+      "sourceIPA": [
+        "/ɾɑːd͡ʒ.jᵊ/",
+        "[ɾäːd͡ʒ.jᵊ]"
+      ],
+      "sourceTranscription": [
+        "rājya"
+      ],
+      "headwords": [
+        "राज्य"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-india",
+      "language": "hi",
+      "glyph": "भारत",
+      "roman": "bhārat",
+      "ipa": "bʱaːɾət̪",
+      "meaning": "印度",
+      "requires": [
+        "dv-schwa",
+        "dv-bh",
+        "dv-aa-sign",
+        "dv-r",
+        "dv-t"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4?oldid=93750323",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93750323,
+      "sourceIPA": [
+        "/bʱɑː.ɾət̪/",
+        "[bʱäː.ɾɐt̪]"
+      ],
+      "sourceTranscription": [
+        "bhārat"
+      ],
+      "headwords": [
+        "भारत"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-police",
+      "language": "hi",
+      "glyph": "पुलिस",
+      "roman": "pulis",
+      "ipa": "pʊlɪs",
+      "meaning": "警察",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-u-sign",
+        "dv-l",
+        "dv-i-sign",
+        "dv-s"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%81%E0%A4%B2%E0%A4%BF%E0%A4%B8?oldid=94622160",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 94622160,
+      "sourceIPA": [
+        "/pʊ.lɪs/"
+      ],
+      "sourceTranscription": [
+        "pulis"
+      ],
+      "headwords": [
+        "पुलिस"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-delhi",
+      "language": "hi",
+      "glyph": "दिल्ली",
+      "roman": "dillī",
+      "ipa": "d̪ɪlːiː",
+      "meaning": "德里",
+      "requires": [
+        "dv-schwa",
+        "dv-d",
+        "dv-i-sign",
+        "dv-l",
+        "dv-halant",
+        "dv-ii-sign"
+      ],
+      "conventionalNames": [
+        "Delhi",
+        "Dilli"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A6%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80?oldid=91290113",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91290113,
+      "sourceIPA": [
+        "/d̪ɪl.liː/"
+      ],
+      "sourceTranscription": [
+        "dillī"
+      ],
+      "headwords": [
+        "दिल्ली"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-jaipur",
+      "language": "hi",
+      "glyph": "जयपुर",
+      "roman": "jayapur",
+      "ipa": "dʒəjpʊɾ",
+      "meaning": "斋浦尔",
+      "requires": [
+        "dv-schwa",
+        "dv-j",
+        "dv-y",
+        "dv-p",
+        "dv-u-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Jaipur"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%9C%E0%A4%AF%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=87977620",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87977620,
+      "sourceIPA": [
+        "/d͡ʒəj.pʊɾ/",
+        "[d͡ʒɐj.pʊɾ]"
+      ],
+      "sourceTranscription": [
+        "jaypur"
+      ],
+      "headwords": [
+        "जयपुर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-agra",
+      "language": "hi",
+      "glyph": "आगरा",
+      "roman": "āgarā",
+      "ipa": "aːɡɾaː",
+      "meaning": "阿格拉",
+      "requires": [
+        "dv-schwa",
+        "dv-aa",
+        "dv-g",
+        "dv-r",
+        "dv-aa-sign"
+      ],
+      "conventionalNames": [
+        "Agra"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%86%E0%A4%97%E0%A4%B0%E0%A4%BE?oldid=89787415",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 89787415,
+      "sourceIPA": [
+        "/ɑːɡ.ɾɑː/",
+        "[äːɡ.ɾäː]"
+      ],
+      "sourceTranscription": [
+        "āgrā"
+      ],
+      "headwords": [
+        "आगरा"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-lucknow",
+      "language": "hi",
+      "glyph": "लखनऊ",
+      "roman": "lakhanaū",
+      "ipa": "ləkʰnəuː",
+      "meaning": "勒克瑙",
+      "requires": [
+        "dv-schwa",
+        "dv-l",
+        "dv-kh",
+        "dv-n",
+        "dv-uu"
+      ],
+      "conventionalNames": [
+        "Lucknow",
+        "Lakhnau"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B2%E0%A4%96%E0%A4%A8%E0%A4%8A?oldid=91548291",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91548291,
+      "sourceIPA": [
+        "/ləkʰ.nə.uː/",
+        "[lɐkʰ.nɐ.uː]"
+      ],
+      "sourceTranscription": [
+        "lakhnaū"
+      ],
+      "headwords": [
+        "लखनऊ"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-kanpur",
+      "language": "hi",
+      "glyph": "कानपुर",
+      "roman": "kānapur",
+      "ipa": "kaːnpʊɾ",
+      "meaning": "坎普尔",
+      "requires": [
+        "dv-schwa",
+        "dv-k",
+        "dv-aa-sign",
+        "dv-n",
+        "dv-p",
+        "dv-u-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Kanpur",
+        "Cawnpore"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%95%E0%A4%BE%E0%A4%A8%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=90012891",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90012891,
+      "sourceIPA": [
+        "/kɑːn.pʊɾ/",
+        "[kä̃ːn.pʊɾ]"
+      ],
+      "sourceTranscription": [
+        "kānpur"
+      ],
+      "headwords": [
+        "कानपुर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-varanasi",
+      "language": "hi",
+      "glyph": "वाराणसी",
+      "roman": "vārāṇasī",
+      "ipa": "ʋaːɾaːɳsiː",
+      "meaning": "瓦拉纳西",
+      "requires": [
+        "dv-schwa",
+        "dv-v",
+        "dv-aa-sign",
+        "dv-r",
+        "dv-nn",
+        "dv-s",
+        "dv-ii-sign"
+      ],
+      "conventionalNames": [
+        "Varanasi",
+        "Banaras",
+        "Benares"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B5%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%A3%E0%A4%B8%E0%A5%80?oldid=93641690",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93641690,
+      "sourceIPA": [
+        "/ʋɑː.ɾɑːɳ.siː/",
+        "[ʋäː.ɾä̃ːɳ.siː]"
+      ],
+      "sourceTranscription": [
+        "vārāṇsī"
+      ],
+      "headwords": [
+        "वाराणसी"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-patna",
+      "language": "hi",
+      "glyph": "पटना",
+      "roman": "paṭanā",
+      "ipa": "pəʈnaː",
+      "meaning": "巴特那",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-tt",
+        "dv-n",
+        "dv-aa-sign"
+      ],
+      "conventionalNames": [
+        "Patna"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A4%9F%E0%A4%A8%E0%A4%BE?oldid=90757019",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90757019,
+      "sourceIPA": [
+        "/pəʈ.nɑː/",
+        "[pɐʈ.näː]"
+      ],
+      "sourceTranscription": [
+        "paṭnā"
+      ],
+      "headwords": [
+        "पटना"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-bhopal",
+      "language": "hi",
+      "glyph": "भोपाल",
+      "roman": "bhopāl",
+      "ipa": "bʱoːpaːl",
+      "meaning": "博帕尔",
+      "requires": [
+        "dv-schwa",
+        "dv-bh",
+        "dv-o-sign",
+        "dv-p",
+        "dv-aa-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [
+        "Bhopal"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AD%E0%A5%8B%E0%A4%AA%E0%A4%BE%E0%A4%B2?oldid=87977642",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87977642,
+      "sourceIPA": [
+        "/bʱoː.pɑːl/",
+        "[bʱoː.päːl]"
+      ],
+      "sourceTranscription": [
+        "bhopāl"
+      ],
+      "headwords": [
+        "भोपाल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-indore",
+      "language": "hi",
+      "glyph": "इंदौर",
+      "roman": "iṁdaur",
+      "ipa": "ɪnd̪ɔːɾ",
+      "meaning": "印多尔",
+      "requires": [
+        "dv-schwa",
+        "dv-i",
+        "dv-anusvara",
+        "dv-d",
+        "dv-au-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Indore"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%87%E0%A4%82%E0%A4%A6%E0%A5%8C%E0%A4%B0?oldid=87919808",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87919808,
+      "sourceIPA": [
+        "/ɪn.d̪ɔːɾ/",
+        "[ɪ̃n̪.d̪ɔːɾ]",
+        "-ɔːɾ"
+      ],
+      "sourceTranscription": [
+        "indaur"
+      ],
+      "headwords": [
+        "इंदौर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-word-prayagraj",
+      "language": "hi",
+      "glyph": "प्रयागराज",
+      "roman": "prayāgarāj",
+      "ipa": "pɾəjaːɡɾaːdʒ",
+      "meaning": "普拉亚格拉杰",
+      "requires": [
+        "dv-schwa",
+        "dv-p",
+        "dv-halant",
+        "dv-r",
+        "dv-y",
+        "dv-aa-sign",
+        "dv-g",
+        "dv-j",
+        "dv-ra-forms",
+        "dv-pr"
+      ],
+      "conventionalNames": [
+        "Prayagraj",
+        "Allahabad"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AF%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A4%BE%E0%A4%9C?oldid=87728059",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87728059,
+      "sourceIPA": [
+        "/pɾə.jɑːɡ.ɾɑːd͡ʒ/",
+        "[pɾɐ.jäːɡ.ɾäːd͡ʒ]"
+      ],
+      "sourceTranscription": [
+        "prayāgrāj"
+      ],
+      "headwords": [
+        "प्रयागराज"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-nepal",
+      "language": "ne",
+      "glyph": "नेपाल",
+      "roman": "nepāla",
+      "ipa": "nepal",
+      "meaning": "尼泊尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-n",
+        "dv-ne-e-sign",
+        "dv-p",
+        "dv-ne-aa-sign",
+        "dv-l"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A5%87%E0%A4%AA%E0%A4%BE%E0%A4%B2?oldid=94405173",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 94405173,
+      "sourceIPA": [
+        "[nepäl]"
+      ],
+      "sourceTranscription": [
+        "nepāl"
+      ],
+      "headwords": [
+        "नेपाल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-road",
+      "language": "ne",
+      "glyph": "सडक",
+      "roman": "saḍaka",
+      "ipa": "sʌɽʌk",
+      "meaning": "道路",
+      "requires": [
+        "dv-ne-context",
+        "dv-s",
+        "dv-dd",
+        "dv-k"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%A1%E0%A4%95?oldid=80706955",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 80706955,
+      "sourceIPA": [
+        "[sʌɽʌk]",
+        "[sʌɾʌk]"
+      ],
+      "sourceTranscription": [
+        "saḍak"
+      ],
+      "headwords": [
+        "सडक"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-path",
+      "language": "ne",
+      "glyph": "बाटो",
+      "roman": "bāṭo",
+      "ipa": "baʈo",
+      "meaning": "路；道路",
+      "requires": [
+        "dv-ne-context",
+        "dv-b",
+        "dv-ne-aa-sign",
+        "dv-tt",
+        "dv-ne-o-sign"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AC%E0%A4%BE%E0%A4%9F%E0%A5%8B?oldid=61950887",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 61950887,
+      "sourceIPA": [
+        "[bäʈo]"
+      ],
+      "sourceTranscription": [
+        "bāṭo"
+      ],
+      "headwords": [
+        "बाटो"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-river",
+      "language": "ne",
+      "glyph": "खोला",
+      "roman": "kholā",
+      "ipa": "kʰola",
+      "meaning": "河流",
+      "requires": [
+        "dv-ne-context",
+        "dv-kh",
+        "dv-ne-o-sign",
+        "dv-l",
+        "dv-ne-aa-sign"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%96%E0%A5%8B%E0%A4%B2%E0%A4%BE?oldid=87513241",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87513241,
+      "sourceIPA": [
+        "[kʰolä]"
+      ],
+      "sourceTranscription": [
+        "kholā"
+      ],
+      "headwords": [
+        "खोला"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-village",
+      "language": "ne",
+      "glyph": "गाउँ",
+      "roman": "gāum̐",
+      "ipa": "ɡãũ",
+      "meaning": "村庄",
+      "requires": [
+        "dv-ne-context",
+        "dv-g",
+        "dv-ne-aa-sign",
+        "dv-ne-u",
+        "dv-ne-candrabindu"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%97%E0%A4%BE%E0%A4%89%E0%A4%81?oldid=85068217",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 85068217,
+      "sourceIPA": [
+        "[ɡä̃ũ̯]"
+      ],
+      "sourceTranscription": [
+        "gāũ"
+      ],
+      "headwords": [
+        "गाउँ"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-house",
+      "language": "ne",
+      "glyph": "घर",
+      "roman": "ghara",
+      "ipa": "ɡʱʌɾ",
+      "meaning": "房屋；家",
+      "requires": [
+        "dv-ne-context",
+        "dv-gh",
+        "dv-r"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%98%E0%A4%B0?oldid=90910492",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90910492,
+      "sourceIPA": [
+        "[ɡʱʌ̤r]"
+      ],
+      "sourceTranscription": [
+        "ghar"
+      ],
+      "headwords": [
+        "घर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-police",
+      "language": "ne",
+      "glyph": "प्रहरी",
+      "roman": "praharī",
+      "ipa": "prʌʔʌɾi",
+      "meaning": "警察",
+      "requires": [
+        "dv-ne-context",
+        "dv-p",
+        "dv-halant",
+        "dv-r",
+        "dv-h",
+        "dv-ne-ii-sign",
+        "dv-ra-forms",
+        "dv-pr"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B9%E0%A4%B0%E0%A5%80?oldid=90819990",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90819990,
+      "sourceIPA": [
+        "[prʌ̤ːri]",
+        "[prʌʔʌɾi]"
+      ],
+      "sourceTranscription": [
+        "praharī"
+      ],
+      "headwords": [
+        "प्रहरी"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-bus",
+      "language": "ne",
+      "glyph": "बस",
+      "roman": "basa",
+      "ipa": "bʌs",
+      "meaning": "公共汽车",
+      "requires": [
+        "dv-ne-context",
+        "dv-b",
+        "dv-s"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AC%E0%A4%B8?oldid=88531482",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 88531482,
+      "sourceIPA": [
+        "[bʌs]",
+        "[bʌsʌ]"
+      ],
+      "sourceTranscription": [
+        "bas",
+        "basa"
+      ],
+      "headwords": [
+        "बस"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-kathmandu",
+      "language": "ne",
+      "glyph": "काठमाडौँ",
+      "roman": "kāṭhamāḍaum̐",
+      "ipa": "kaʈʰmaɽʌ̃ũ",
+      "meaning": "加德满都",
+      "requires": [
+        "dv-ne-context",
+        "dv-k",
+        "dv-ne-aa-sign",
+        "dv-tth",
+        "dv-m",
+        "dv-dd",
+        "dv-ne-au-sign",
+        "dv-ne-candrabindu"
+      ],
+      "conventionalNames": [
+        "Kathmandu",
+        "Katmandu"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%95%E0%A4%BE%E0%A4%A0%E0%A4%AE%E0%A4%BE%E0%A4%A1%E0%A5%8C%E0%A4%81?oldid=85001124",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 85001124,
+      "sourceIPA": [
+        "[käʈʰmäɳɖu]",
+        "[käʈʰmäɽʌ̃ũ̯]"
+      ],
+      "sourceTranscription": [
+        "kāṭhmāḍa͠u"
+      ],
+      "headwords": [
+        "काठमाडौँ"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-pokhara",
+      "language": "ne",
+      "glyph": "पोखरा",
+      "roman": "pokharā",
+      "ipa": "pokʰʌɾa",
+      "meaning": "博卡拉",
+      "requires": [
+        "dv-ne-context",
+        "dv-p",
+        "dv-ne-o-sign",
+        "dv-kh",
+        "dv-r",
+        "dv-ne-aa-sign"
+      ],
+      "conventionalNames": [
+        "Pokhara"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%8B%E0%A4%96%E0%A4%B0%E0%A4%BE?oldid=91716851",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91716851,
+      "sourceIPA": [
+        "[pok̞ʰʌɾä]"
+      ],
+      "sourceTranscription": [
+        "pokharā"
+      ],
+      "headwords": [
+        "पोखरा"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-lalitpur",
+      "language": "ne",
+      "glyph": "ललितपुर",
+      "roman": "lalitapura",
+      "ipa": "lʌlit̪puɾ",
+      "meaning": "拉利特普尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-l",
+        "dv-ne-i-sign",
+        "dv-t",
+        "dv-p",
+        "dv-ne-u-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Lalitpur",
+        "Patan"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B2%E0%A4%B2%E0%A4%BF%E0%A4%A4%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=89936019",
+      "checked": "2026-11-07",
+      "languageSection": false,
+      "revision": 89936019,
+      "sourceIPA": [],
+      "sourceTranscription": [],
+      "headwords": [],
+      "spellingEvidence": [
+        {
+          "sourceId": "ne-lalitpur-official",
+          "url": "https://lmc.gov.np/en/",
+          "checked": "2026-11-07",
+          "title": "ललितपुर महानगरपालिका - ललितपुर महानगरपालिका",
+          "matchedGlyph": true,
+          "sha256": "857f5c54a89cd8ad0a15efa00cb7f66b85f60acb7109b031fc30725b4616a4f2",
+          "scope": "Official spelling and geographic context only; no IPA verification."
+        }
+      ],
+      "evidence": "government-orthography-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-bharatpur",
+      "language": "ne",
+      "glyph": "भरतपुर",
+      "roman": "bharatapura",
+      "ipa": "bʱʌɾʌt̪puɾ",
+      "meaning": "婆罗多布尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-bh",
+        "dv-r",
+        "dv-t",
+        "dv-p",
+        "dv-ne-u-sign"
+      ],
+      "conventionalNames": [
+        "Bharatpur"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AD%E0%A4%B0%E0%A4%A4%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=90321169",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 90321169,
+      "sourceIPA": [
+        "[bʱʌ̤ɾʌt̪̚pur]"
+      ],
+      "sourceTranscription": [
+        "bharatpur"
+      ],
+      "headwords": [
+        "भरतपुर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-biratnagar",
+      "language": "ne",
+      "glyph": "विराटनगर",
+      "roman": "virāṭanagara",
+      "ipa": "biɾaʈnʌɡʌɾ",
+      "meaning": "比拉特纳加尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-ne-v",
+        "dv-ne-i-sign",
+        "dv-r",
+        "dv-ne-aa-sign",
+        "dv-tt",
+        "dv-n",
+        "dv-g"
+      ],
+      "conventionalNames": [
+        "Biratnagar"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B5%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%9F%E0%A4%A8%E0%A4%97%E0%A4%B0?oldid=87835975",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87835975,
+      "sourceIPA": [
+        "[biɾäʈɳʌɡ̞ʌr]"
+      ],
+      "sourceTranscription": [
+        "virāṭnagar"
+      ],
+      "headwords": [
+        "विराटनगर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-janakpur",
+      "language": "ne",
+      "glyph": "जनकपुर",
+      "roman": "janakapura",
+      "ipa": "dzʌnʌkpuɾ",
+      "meaning": "贾纳克布尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-ne-j",
+        "dv-n",
+        "dv-k",
+        "dv-p",
+        "dv-ne-u-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Janakpur",
+        "Janakpurdham"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%9C%E0%A4%A8%E0%A4%95%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=87835238",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87835238,
+      "sourceIPA": [
+        "[d͡zʌnʌk̚pur]"
+      ],
+      "sourceTranscription": [
+        "janakpur"
+      ],
+      "headwords": [
+        "जनकपुर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-dharan",
+      "language": "ne",
+      "glyph": "धरान",
+      "roman": "dharāna",
+      "ipa": "d̪ʱʌɾan",
+      "meaning": "达兰",
+      "requires": [
+        "dv-ne-context",
+        "dv-dh",
+        "dv-r",
+        "dv-ne-aa-sign",
+        "dv-n"
+      ],
+      "conventionalNames": [
+        "Dharan"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A7%E0%A4%B0%E0%A4%BE%E0%A4%A8?oldid=87836023",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87836023,
+      "sourceIPA": [
+        "[d̪ʱʌ̤ɾän]"
+      ],
+      "sourceTranscription": [
+        "dharān"
+      ],
+      "headwords": [
+        "धरान"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-butwal",
+      "language": "ne",
+      "glyph": "बुटवल",
+      "roman": "buṭavala",
+      "ipa": "buʈʌwʌl",
+      "meaning": "布德沃尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-b",
+        "dv-ne-u-sign",
+        "dv-tt",
+        "dv-ne-v",
+        "dv-l"
+      ],
+      "conventionalNames": [
+        "Butwal"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AC%E0%A5%81%E0%A4%9F%E0%A4%B5%E0%A4%B2?oldid=87836056",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87836056,
+      "sourceIPA": [
+        "[buʈʌwʌl]",
+        "[buʈol]"
+      ],
+      "sourceTranscription": [
+        "buṭawal"
+      ],
+      "headwords": [
+        "बुटवल"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-nepalgunj",
+      "language": "ne",
+      "glyph": "नेपालगञ्ज",
+      "roman": "nepālagañja",
+      "ipa": "nepalɡʌndz",
+      "meaning": "尼泊尔根杰",
+      "requires": [
+        "dv-ne-context",
+        "dv-n",
+        "dv-ne-e-sign",
+        "dv-p",
+        "dv-ne-aa-sign",
+        "dv-l",
+        "dv-g",
+        "dv-ne-ny",
+        "dv-halant",
+        "dv-ne-j"
+      ],
+      "conventionalNames": [
+        "Nepalgunj",
+        "Nepalganj"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A5%87%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%97%E0%A4%9E%E0%A5%8D%E0%A4%9C?oldid=85001105",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 85001105,
+      "sourceIPA": [
+        "[nepälɡʌn̻d͡z]"
+      ],
+      "sourceTranscription": [
+        "nepālgañj"
+      ],
+      "headwords": [
+        "नेपालगञ्ज"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-ne-word-bhaktapur",
+      "language": "ne",
+      "glyph": "भक्तपुर",
+      "roman": "bhaktapura",
+      "ipa": "bʱʌkt̪ʌpuɾʌ",
+      "meaning": "巴克塔普尔",
+      "requires": [
+        "dv-ne-context",
+        "dv-bh",
+        "dv-k",
+        "dv-halant",
+        "dv-t",
+        "dv-p",
+        "dv-ne-u-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Bhaktapur",
+        "Bhadgaon"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AD%E0%A4%95%E0%A5%8D%E0%A4%A4%E0%A4%AA%E0%A5%81%E0%A4%B0?oldid=87836002",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87836002,
+      "sourceIPA": [
+        "[bʱʌ̤k̚t̪ʌpuɾʌ]"
+      ],
+      "sourceTranscription": [
+        "bhaktapura"
+      ],
+      "headwords": [
+        "भक्तपुर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-road",
+      "language": "mr",
+      "glyph": "रस्ता",
+      "roman": "rastā",
+      "ipa": "ɾəst̪a",
+      "meaning": "道路",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-r",
+        "dv-s",
+        "dv-halant",
+        "dv-t",
+        "dv-mr-aa-sign",
+        "dv-st"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE?oldid=95440774",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 95440774,
+      "sourceIPA": [
+        "/ɾəs.t̪a/"
+      ],
+      "sourceTranscription": [
+        "rastā"
+      ],
+      "headwords": [
+        "रस्ता"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-village",
+      "language": "mr",
+      "glyph": "गाव",
+      "roman": "gāva",
+      "ipa": "ɡaʋ",
+      "meaning": "村庄",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-g",
+        "dv-mr-aa-sign",
+        "dv-v"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%97%E0%A4%BE%E0%A4%B5?oldid=92463486",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 92463486,
+      "sourceIPA": [],
+      "sourceTranscription": [
+        "gāv"
+      ],
+      "headwords": [
+        "गाव"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-police",
+      "language": "mr",
+      "glyph": "पोलीस",
+      "roman": "polīsa",
+      "ipa": "polis",
+      "meaning": "警察",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-p",
+        "dv-mr-o-sign",
+        "dv-l",
+        "dv-mr-ii-sign",
+        "dv-s"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%B8?oldid=92952968",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 92952968,
+      "sourceIPA": [
+        "/po.lis/",
+        "[po.liːs]"
+      ],
+      "sourceTranscription": [
+        "polīs"
+      ],
+      "headwords": [
+        "पोलीस"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-school",
+      "language": "mr",
+      "glyph": "शाळा",
+      "roman": "śāḷā",
+      "ipa": "ɕaɭa",
+      "meaning": "学校",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-mr-sh",
+        "dv-mr-aa-sign",
+        "dv-mr-lla"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B6%E0%A4%BE%E0%A4%B3%E0%A4%BE?oldid=89616451",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 89616451,
+      "sourceIPA": [
+        "/ɕa.ɭ̆a/"
+      ],
+      "sourceTranscription": [
+        "śāḷā"
+      ],
+      "headwords": [
+        "शाळा"
+      ],
+      "spellingEvidence": [],
+      "evidence": "lexical-evidence-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-water",
+      "language": "mr",
+      "glyph": "पाणी",
+      "roman": "pāṇī",
+      "ipa": "paɳi",
+      "meaning": "水",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-p",
+        "dv-mr-aa-sign",
+        "dv-nn",
+        "dv-mr-ii-sign"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A4%BE%E0%A4%A3%E0%A5%80?oldid=91713105",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91713105,
+      "sourceIPA": [
+        "/pa.ɳi/",
+        "[pa.ɳiː]"
+      ],
+      "sourceTranscription": [
+        "pāṇī"
+      ],
+      "headwords": [
+        "पाणी"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-highway",
+      "language": "mr",
+      "glyph": "महामार्ग",
+      "roman": "mahāmārga",
+      "ipa": "məɦamaɾɡ",
+      "meaning": "公路；干道",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-m",
+        "dv-h",
+        "dv-mr-aa-sign",
+        "dv-r",
+        "dv-halant",
+        "dv-g",
+        "dv-ra-forms"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97",
+      "checked": "2026-11-07",
+      "languageSection": false,
+      "revision": null,
+      "sourceIPA": [],
+      "sourceTranscription": [],
+      "headwords": [],
+      "error": "Error: Command failed: pwsh -NoProfile -File scripts/fetch-reference.ps1 -Uri https://en.wiktionary.org/wiki/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97 -OutputFile .local/devanagari-research/dv-mr-word-highway.html\nInvok",
+      "spellingEvidence": [
+        {
+          "sourceId": "mr-pwd-official",
+          "url": "https://pwd.maharashtra.gov.in/",
+          "checked": "2026-11-07",
+          "title": "मुख्यपृष्ठ | सार्वजनिक बांधकाम विभाग | महाराष्ट्र शासन | भारत",
+          "matchedGlyph": true,
+          "sha256": "5f9fb210507c5daa6e0407204ff53f16c0b5877376e88141c8ea3c377b03e9b3",
+          "scope": "Official spelling and geographic context only; no IPA verification."
+        }
+      ],
+      "evidence": "government-orthography-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-shop",
+      "language": "mr",
+      "glyph": "दुकान",
+      "roman": "dukāna",
+      "ipa": "d̪ukan",
+      "meaning": "商店",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-d",
+        "dv-mr-u-sign",
+        "dv-k",
+        "dv-mr-aa-sign",
+        "dv-n"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A6%E0%A5%81%E0%A4%95%E0%A4%BE%E0%A4%A8?oldid=93593407",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 93593407,
+      "sourceIPA": [
+        "/d̪u.kan/"
+      ],
+      "sourceTranscription": [
+        "dukān"
+      ],
+      "headwords": [
+        "दुकान"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-maharashtra",
+      "language": "mr",
+      "glyph": "महाराष्ट्र",
+      "roman": "mahārāshṭra",
+      "ipa": "məɦaɾaʂʈɾə",
+      "meaning": "马哈拉施特拉邦",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-m",
+        "dv-h",
+        "dv-mr-aa-sign",
+        "dv-r",
+        "dv-mr-ss",
+        "dv-halant",
+        "dv-tt",
+        "dv-ra-forms"
+      ],
+      "conventionalNames": [],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0?oldid=91924052",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 91924052,
+      "sourceIPA": [
+        "/mə.ɦa.ɾaʂ.ʈɾə/",
+        "[mʱa.ɾaʂ.ʈɾə]",
+        "-ʈɾə"
+      ],
+      "sourceTranscription": [
+        "mahārāṣṭra"
+      ],
+      "headwords": [
+        "महाराष्ट्र"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-mumbai",
+      "language": "mr",
+      "glyph": "मुंबई",
+      "roman": "mumbaī",
+      "ipa": "mumbəi",
+      "meaning": "孟买",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-m",
+        "dv-mr-u-sign",
+        "dv-b",
+        "dv-mr-ii"
+      ],
+      "conventionalNames": [
+        "Mumbai",
+        "Bombay"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AE%E0%A5%81%E0%A4%82%E0%A4%AC%E0%A4%88?oldid=89998860",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 89998860,
+      "sourceIPA": [
+        "/mum.bəi/",
+        "[mum.bəiː]"
+      ],
+      "sourceTranscription": [
+        "mumbaī"
+      ],
+      "headwords": [
+        "मुंबई"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-pune",
+      "language": "mr",
+      "glyph": "पुणे",
+      "roman": "puṇe",
+      "ipa": "puɳe",
+      "meaning": "浦那",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-p",
+        "dv-mr-u-sign",
+        "dv-nn",
+        "dv-mr-e-sign"
+      ],
+      "conventionalNames": [
+        "Pune",
+        "Poona"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%AA%E0%A5%81%E0%A4%A3%E0%A5%87?oldid=88609990",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 88609990,
+      "sourceIPA": [
+        "/pu.ɳe/"
+      ],
+      "sourceTranscription": [
+        "puṇe"
+      ],
+      "headwords": [
+        "पुणे"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-nagpur",
+      "language": "mr",
+      "glyph": "नागपूर",
+      "roman": "nāgapūra",
+      "ipa": "naɡpuːɾ",
+      "meaning": "那格浦尔",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-n",
+        "dv-mr-aa-sign",
+        "dv-g",
+        "dv-p",
+        "dv-mr-uu-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Nagpur"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%AA%E0%A5%82%E0%A4%B0?oldid=87830876",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87830876,
+      "sourceIPA": [
+        "/naɡ.puːɾ/",
+        "[nak.puːɾ]"
+      ],
+      "sourceTranscription": [
+        "nāgpūr"
+      ],
+      "headwords": [
+        "नागपूर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-nashik",
+      "language": "mr",
+      "glyph": "नाशिक",
+      "roman": "nāśika",
+      "ipa": "naɕik",
+      "meaning": "纳西克",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-n",
+        "dv-mr-aa-sign",
+        "dv-mr-sh",
+        "dv-mr-i-sign",
+        "dv-k"
+      ],
+      "conventionalNames": [
+        "Nashik",
+        "Nasik"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A8%E0%A4%BE%E0%A4%B6%E0%A4%BF%E0%A4%95?oldid=87834991",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87834991,
+      "sourceIPA": [
+        "/na.ɕik/",
+        "[na.ɕiːk]"
+      ],
+      "sourceTranscription": [
+        "nāśik"
+      ],
+      "headwords": [
+        "नाशिक"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-thane",
+      "language": "mr",
+      "glyph": "ठाणे",
+      "roman": "ṭhāṇe",
+      "ipa": "ʈʰaɳe",
+      "meaning": "塔那",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-tth",
+        "dv-mr-aa-sign",
+        "dv-nn",
+        "dv-mr-e-sign"
+      ],
+      "conventionalNames": [
+        "Thane"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%A0%E0%A4%BE%E0%A4%A3%E0%A5%87?oldid=89552393",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 89552393,
+      "sourceIPA": [
+        "/ʈʰa.ɳe/"
+      ],
+      "sourceTranscription": [
+        "ṭhāṇe"
+      ],
+      "headwords": [
+        "ठाणे"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-kolhapur",
+      "language": "mr",
+      "glyph": "कोल्हापूर",
+      "roman": "kolhāpūra",
+      "ipa": "kolʱapuɾ",
+      "meaning": "科尔哈布尔",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-k",
+        "dv-mr-o-sign",
+        "dv-l",
+        "dv-halant",
+        "dv-h",
+        "dv-mr-aa-sign",
+        "dv-p",
+        "dv-mr-uu-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Kolhapur"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%95%E0%A5%8B%E0%A4%B2%E0%A5%8D%E0%A4%B9%E0%A4%BE%E0%A4%AA%E0%A5%82%E0%A4%B0?oldid=87840824",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87840824,
+      "sourceIPA": [
+        "/ko.lʱa.puɾ/",
+        "[ko.lʱa.puːɾ]"
+      ],
+      "sourceTranscription": [
+        "kolhāpūr"
+      ],
+      "headwords": [
+        "कोल्हापूर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-solapur",
+      "language": "mr",
+      "glyph": "सोलापूर",
+      "roman": "solāpūra",
+      "ipa": "solapuɾ",
+      "meaning": "索拉普尔",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-s",
+        "dv-mr-o-sign",
+        "dv-l",
+        "dv-mr-aa-sign",
+        "dv-p",
+        "dv-mr-uu-sign",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Solapur",
+        "Sholapur"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A5%8B%E0%A4%B2%E0%A4%BE%E0%A4%AA%E0%A5%82%E0%A4%B0?oldid=87840842",
+      "checked": "2026-11-07",
+      "languageSection": true,
+      "revision": 87840842,
+      "sourceIPA": [
+        "/so.la.puɾ/",
+        "[so.la.puːɾ]"
+      ],
+      "sourceTranscription": [
+        "solāpūr"
+      ],
+      "headwords": [
+        "सोलापूर"
+      ],
+      "spellingEvidence": [],
+      "evidence": "listed-IPA-with-notation-normalization",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-satara",
+      "language": "mr",
+      "glyph": "सातारा",
+      "roman": "sātārā",
+      "ipa": "sat̪aɾa",
+      "meaning": "萨塔拉",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-s",
+        "dv-mr-aa-sign",
+        "dv-t",
+        "dv-r"
+      ],
+      "conventionalNames": [
+        "Satara"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%A4%E0%A4%BE%E0%A4%B0%E0%A4%BE",
+      "checked": "2026-11-07",
+      "languageSection": false,
+      "revision": null,
+      "sourceIPA": [],
+      "sourceTranscription": [],
+      "headwords": [],
+      "error": "Error: Command failed: pwsh -NoProfile -File scripts/fetch-reference.ps1 -Uri https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%A4%E0%A4%BE%E0%A4%B0%E0%A4%BE -OutputFile .local/devanagari-research/dv-mr-word-satara.html\nInvoke-WebRequest: D:\\Sh",
+      "spellingEvidence": [
+        {
+          "sourceId": "mr-satara-official",
+          "url": "https://www.satara.gov.in/",
+          "checked": "2026-11-07",
+          "title": "सातारा जिल्हा, महाराष्ट्र शासन, भारत | कास पठार, थंड हवेची ठिकाणे जसे की महाबळेश्वर-पाचगणी आणि सातारी कंदी पेढ्यासाठी जगप्रसिद्ध | India",
+          "matchedGlyph": true,
+          "sha256": "5a05a412fd98ce332a3623a6da438edd9ccce00b6a6c09d91ef54fea99604e76",
+          "scope": "Official spelling and geographic context only; no IPA verification."
+        }
+      ],
+      "evidence": "government-orthography-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-sangli",
+      "language": "mr",
+      "glyph": "सांगली",
+      "roman": "sāṅgalī",
+      "ipa": "saŋɡli",
+      "meaning": "桑格利",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-s",
+        "dv-mr-aa-sign",
+        "dv-g",
+        "dv-l",
+        "dv-mr-ii-sign"
+      ],
+      "conventionalNames": [
+        "Sangli"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A4%B2%E0%A5%80",
+      "checked": "2026-11-07",
+      "languageSection": false,
+      "revision": null,
+      "sourceIPA": [],
+      "sourceTranscription": [],
+      "headwords": [],
+      "error": "Error: Command failed: pwsh -NoProfile -File scripts/fetch-reference.ps1 -Uri https://en.wiktionary.org/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A4%B2%E0%A5%80 -OutputFile .local/devanagari-research/dv-mr-word-sangli.html\nInvoke-WebRequest: D:\\Sh",
+      "spellingEvidence": [
+        {
+          "sourceId": "mr-sangli-official",
+          "url": "https://sangli.nic.in/mr/",
+          "checked": "2026-11-07",
+          "title": "निवडणूक शाखा | District Sangli, Government of Maharashtra | India",
+          "matchedGlyph": true,
+          "sha256": "faa996a135342407efe0fc8a63d01826f2e3312b7414042028f85fb7c4f1a527",
+          "scope": "Official spelling and geographic context only; no IPA verification."
+        }
+      ],
+      "evidence": "government-orthography-manual-broad-IPA",
+      "independentNativeReview": false
+    },
+    {
+      "id": "dv-mr-word-ratnagiri",
+      "language": "mr",
+      "glyph": "रत्नागिरी",
+      "roman": "ratnāgirī",
+      "ipa": "ɾət̪naɡiɾi",
+      "meaning": "勒德纳吉里",
+      "requires": [
+        "dv-mr-nasal",
+        "dv-r",
+        "dv-t",
+        "dv-halant",
+        "dv-n",
+        "dv-mr-aa-sign",
+        "dv-g",
+        "dv-mr-i-sign",
+        "dv-mr-ii-sign"
+      ],
+      "conventionalNames": [
+        "Ratnagiri"
+      ],
+      "url": "https://en.wiktionary.org/wiki/%E0%A4%B0%E0%A4%A4%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%BF%E0%A4%B0%E0%A5%80",
+      "checked": "2026-11-07",
+      "languageSection": false,
+      "revision": null,
+      "sourceIPA": [],
+      "sourceTranscription": [],
+      "headwords": [],
+      "error": "Error: Command failed: pwsh -NoProfile -File scripts/fetch-reference.ps1 -Uri https://en.wiktionary.org/wiki/%E0%A4%B0%E0%A4%A4%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%97%E0%A4%BF%E0%A4%B0%E0%A5%80 -OutputFile .local/devanagari-research/dv-mr-word-ratnagiri",
+      "spellingEvidence": [
+        {
+          "sourceId": "mr-ratnagiri-official",
+          "url": "https://ratnagiri.gov.in/",
+          "checked": "2026-11-07",
+          "title": "रत्नागिरी जिल्हा, महाराष्ट्र शासन | हापूस आंब्यासाठी प्रसिद्ध | India",
+          "matchedGlyph": true,
+          "sha256": "4c7dc195299c9ab62a69e8b6deafb32991d4a0c507a7856f7afd6a7d1f100687",
+          "scope": "Official spelling and geographic context only; no IPA verification."
+        }
+      ],
+      "evidence": "government-orthography-manual-broad-IPA",
+      "independentNativeReview": false
+    }
+  ]
+}

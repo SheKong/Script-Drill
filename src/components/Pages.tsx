@@ -35,6 +35,7 @@ export function LearnPage({ state, course, start, inspect, resume, startRush, un
   const visibleUnits = expanded ? course.units : course.units.slice(Math.max(0, currentIndex - 1), Math.min(course.units.length, currentIndex + 4));
   const hasSession = state.session?.courseId === course.id;
   const phases = [...new Set(visibleUnits.map(u => u.phase))];
+  const showMapDisclaimer = [course.geography, ...Object.values(course.geographies || {})].some(map => map?.requiresDisclaimer);
   return <div className="workspace-grid">
     <div className="primary-column">
       <div className="page-heading">
@@ -42,6 +43,12 @@ export function LearnPage({ state, course, start, inspect, resume, startRush, un
         <span className="course-edition">基础课程 · 01</span>
       </div>
       <p className="course-description">{course.description}</p>
+      {showMapDisclaimer && <section className="map-disclaimer" aria-label="地图与和平声明">
+        <ShieldCheck size={16} />
+        <div><strong>地图与和平声明</strong>
+          <p>本课程所有地图均仅作语言学习与位置展示，不用于导航或判定领土归属。课程只教学语言文字与地理知识，不包含任何政治立场。边界与地名存在不同表述，图示不代表对任何争议主张的认可。愿世界和平，愿每一种语言都成为理解彼此的桥梁。</p>
+        </div>
+      </section>}
       <div className="course-meta">
         <span><Layers3 size={15} />{course.units.length} 个单元</span>
         <span><BookOpen size={15} />{symbols.length} 个知识点</span>
@@ -284,6 +291,7 @@ export function SourcesPage({ course }: { course: Course }) {
       <a href="/licenses/NotoSansThaiLooped-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Thai Looped</a>、
       <a href="/licenses/NotoSansBengali-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Bengali</a>、
       <a href="/licenses/NotoSansHebrew-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Hebrew</a>、
+      <a href="/licenses/NotoSansDevanagari-OFL.txt" target="_blank" rel="noreferrer">Noto Sans Devanagari</a>、
       <a href="/licenses/NotoSans-OFL.txt" target="_blank" rel="noreferrer">Noto Sans</a>、
       <a href="/licenses/CharisSIL-OFL.txt" target="_blank" rel="noreferrer">Charis SIL（完整 IPA）</a>。
       均保留 OFL 许可。本站不隶属于 GeoGuessr 或 Duolingo。</p>

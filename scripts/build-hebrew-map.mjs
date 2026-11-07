@@ -25,6 +25,7 @@ await writeFile('src/data/hebrew-map.json', JSON.stringify({
   country: '以色列及周边位置示意', outline, regions: { IL: outline },
   projection: { scale: projection.scale(), translate: projection.translate() },
   source: 'he-boundaries',
+  requiresDisclaimer: true,
 }));
 await writeFile('public/maps/ISRAEL.txt', [
   'Outline: Natural Earth v5.1.2, 1:50m Admin 0 Countries, ISR feature. Public domain.',
@@ -33,5 +34,7 @@ await writeFile('public/maps/ISRAEL.txt', [
   'Adaptation: feature selection, winding normalization, Mercator fit to 180 x 260, SVG path rounding.',
   'Adapted data: israel.geojson. City dots are approximate locations, not administrative boundaries.',
   'Learning illustration only. Dataset lines do not express a position on disputed boundaries or sovereignty.',
+  'All course maps are for display only. Courses teach language/geography, not political positions. May the world be at peace.',
+  'The course homepage carries the shared declaration. See docs/MAP_POLICY.md for future maintenance.',
 ].join('\n'));
 console.log(`Hebrew course map: ${outline.length} path characters`);

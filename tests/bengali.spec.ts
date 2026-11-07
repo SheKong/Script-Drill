@@ -280,23 +280,29 @@ test('local Bengali fonts shape whole words and offline maps show the country an
     expect(pixels.bounds.right).toBeLessThan(180);
     expect(pixels.bounds.bottom).toBeLessThan(260);
     if (selector.includes('city')) {
+      await expect.poll(() => page.locator('.knowledge-tile [data-map-city]').evaluate(node =>
+        node.getBoundingClientRect().width * devicePixelRatio * (visualViewport?.scale || 1))).toBeCloseTo(5, 1);
       const redPixels = await page.locator('.knowledge-tile .place-map svg').evaluate(async svg => {
         const image = new Image();
         const clone = svg.cloneNode(true) as SVGElement;
-        clone.setAttribute('width', '30'); clone.setAttribute('height', '46');
+        const bounds = svg.getBoundingClientRect();
+        clone.setAttribute('width', String(bounds.width)); clone.setAttribute('height', String(bounds.height));
         image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(clone))}`;
         await image.decode();
-        const canvas = document.createElement('canvas'); canvas.width = 30; canvas.height = 46;
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(bounds.width * devicePixelRatio);
+        canvas.height = Math.round(bounds.height * devicePixelRatio);
         const context = canvas.getContext('2d')!;
-        context.drawImage(image, 0, 0, 30, 46);
-        const data = context.getImageData(0, 0, 30, 46).data;
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
         let red = 0;
         for (let i = 0; i < data.length; i += 4) {
           if (data[i] > 150 && data[i + 1] < 120 && data[i + 2] < 120 && data[i + 3] > 100) red++;
         }
         return red;
       });
-      expect(redPixels).toBeGreaterThan(8);
+      // A 5-screen-pixel dot has a small red core inside its white stroke.
+      expect(redPixels).toBeGreaterThan(4);
     }
     for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -535,10 +541,12 @@ test('Assamese is displayed after extras but opens as a parallel branch with a n
 });
 
 test('language multiselect persists, includes shared knowledge once, and scopes both Rush pools', async ({ page }, testInfo) => {
+  await page.addInitScript(state => {
+    if (localStorage.getItem('script-drill:v1') === null) {
+      localStorage.setItem('script-drill:v1', JSON.stringify(state));
+    }
+  }, { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
   await page.goto('/');
-  await page.evaluate(state => localStorage.setItem('script-drill:v1', JSON.stringify(state)),
-    { ...initialState(), courseId: course.id, earlyExtraUnlocks: { bengali: true } });
-  await page.reload();
   await page.getByRole('button', { name: '文字图鉴', exact: true }).click();
   for (const selection of [['bn'], ['as'], ['bn', 'as'], []]) {
     await page.getByRole('checkbox', { name: '孟加拉语', exact: true }).setChecked(selection.includes('bn'));

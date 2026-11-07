@@ -173,8 +173,8 @@ describe('course content invariants', () => {
   });
 });
 describe('generative exercises', () => {
-  it('generates four unambiguous options, with a single answer, in both directions', () => {
-    for (const course of Object.values(courses)) {
+  for (const course of Object.values(courses)) {
+    it(`${course.id} generates four unambiguous options, with a single answer, in both directions`, () => {
       for (const item of course.items) {
         for (const kind of ['read', 'reverse'] as const) {
           for (let run = 0; run < 8; run++) {
@@ -188,8 +188,8 @@ describe('generative exercises', () => {
           }
         }
       }
-    }
-  });
+    });
+  }
   it('fills five pairs without homophones or duplicates, including word readings', () => {
     const cons = courses.thai.items.filter(i => i.kind === 'consonant');
     for (let run = 0; run < 100; run++) {

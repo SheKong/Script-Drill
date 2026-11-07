@@ -42,6 +42,11 @@ button svg, a svg { vertical-align: middle; }
 .bengali { font-family: "Noto Sans Bengali", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 2; letter-spacing: 0; }
 .hebrew { font-family: "Noto Sans Hebrew", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 1.9; unicode-bidi: isolate; }
 .hebrew[dir=rtl] { text-align: center; }
+.devanagari { font-family: "Noto Sans Devanagari", "Script Drill IPA", "Noto Sans", sans-serif; line-height: 2; }
+.map-disclaimer { display: flex; align-items: flex-start; gap: 9px; padding-block: 12px; margin-top: 14px; border-block: 1px solid var(--line); color: #69776e; font-size: 11px; line-height: 1.9; }
+.map-disclaimer > svg { margin-top: 3px; color: var(--green); }
+.map-disclaimer strong { font-size: 11px; font-weight: 500; }
+.map-disclaimer p + p { margin-top: 6px; }
 .phonetic { font-family: "Script Drill IPA", "Noto Sans", "Noto Sans SC", sans-serif; line-height: 1.9; }
 .script-style-control { display: inline-flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); gap: 16px; margin-block: 10px; }
 .script-style-control button { min-height: 40px; border-bottom: 2px solid transparent; font-size: 11px; padding: 7px 0; color: var(--muted); }

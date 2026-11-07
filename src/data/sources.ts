@@ -1,6 +1,8 @@
 import type { Source } from '../types';
+import { devanagariSources } from './devanagari-sources';
 
 export const sources: Source[] = [
+  ...devanagariSources,
   {
     id: 'he-ungegn', title: 'Romanization of Hebrew · UN 2007 system · 2013 report',
     organization: 'UNGEGN · Working Group on Romanization Systems',
@@ -105,9 +107,9 @@ export const sources: Source[] = [
     description: '西孟加拉邦及其市、县官方门户的原文地名；同时参考 Agartala Municipal Corporation 与 Cachar District 官方门户。不以行政目录冒充 IPA 依据；逐词来源与待审状态见扩展研究文档。',
   },
   {
-    id: 'bn-india-boundaries', title: 'Natural Earth · India outline · v5.1.2', organization: 'Natural Earth',
+    id: 'bn-india-boundaries', title: 'Natural Earth · India · China POV · v5.1.2', organization: 'Natural Earth',
     url: 'https://www.naturalearthdata.com/about/terms-of-use/',
-    description: '公有领域 1:50m 国家轮廓，印度城市使用独立地图配置；保留派生 GeoJSON 与来源。仅学习位置示意，不代表法定边界主张。',
+    description: '公有领域 1:10m 中国视角轮廓，不使用默认实际控制层；保留版本、来源校验和与派生 GeoJSON。仅学习位置示意，不是官方审定地图，不判定争议地区主权。',
   },
   {
     id: 'as-ungegn', title: 'Romanization of Assamese · version 4.0 (2016)', organization: 'UNGEGN · Working Group on Romanization Systems',

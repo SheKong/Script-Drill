@@ -89,6 +89,7 @@ export interface Geography {
   regions: Record<string, string>;
   projection: { scale: number; translate: [number, number] };
   source: string;
+  requiresDisclaimer?: boolean;
 }
 
 export interface Course {

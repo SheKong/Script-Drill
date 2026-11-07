@@ -4,3 +4,5 @@ Terms: https://www.naturalearthdata.com/about/terms-of-use/
 Adaptation: feature selection, winding normalization, Mercator fit to 180 x 260, SVG path rounding.
 Adapted data: israel.geojson. City dots are approximate locations, not administrative boundaries.
 Learning illustration only. Dataset lines do not express a position on disputed boundaries or sovereignty.
+All course maps are for display only. Courses teach language/geography, not political positions. May the world be at peace.
+The course homepage carries the shared declaration. See docs/MAP_POLICY.md for future maintenance.

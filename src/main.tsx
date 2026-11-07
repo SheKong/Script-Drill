@@ -17,6 +17,9 @@ import '@fontsource/noto-sans-bengali/bengali-600.css';
 import '@fontsource/noto-sans-hebrew/hebrew-400.css';
 import '@fontsource/noto-sans-hebrew/hebrew-500.css';
 import '@fontsource/noto-sans-hebrew/hebrew-600.css';
+import '@fontsource/noto-sans-devanagari/devanagari-400.css';
+import '@fontsource/noto-sans-devanagari/devanagari-500.css';
+import '@fontsource/noto-sans-devanagari/devanagari-600.css';
 import App from './App';
 import './styles.css';
 
